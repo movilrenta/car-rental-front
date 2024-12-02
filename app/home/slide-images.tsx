@@ -17,6 +17,7 @@ export const SlideImages = ({ images, className }: Props) => {
   return (
     <div className={className}>
       <Swiper
+        loop={true}
         autoplay={{
           delay: 3500,
         }}
