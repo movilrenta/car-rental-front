@@ -8,8 +8,7 @@ export async function POST(req: any, res: any) {
   const API_URL = process.env.NODE_ENV === "production" 
     ? process.env.NEXT_PUBLIC_URL
     : process.env.NEXT_PUBLIC_URL_DEV
-  console.log(PUBLIC_API_KEY, "apikey");
-  console.log(API_URL, "url");
+
   try {
     const body = await req.json();
 
