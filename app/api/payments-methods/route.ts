@@ -8,7 +8,7 @@ export async function GET(req: any) {
   const API_URL = process.env.NODE_ENV === "production" 
     ? process.env.NEXT_PUBLIC_URL
     : process.env.NEXT_PUBLIC_URL_DEV
-
+  console.log(API_URL, PRIVATE_API_KEY);
   try {
     const response = await axios.get(
       `${API_URL}payment-methods/1` || "",
