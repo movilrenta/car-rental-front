@@ -101,7 +101,7 @@ export default function HomeItinerario() {
   };
 
   return (
-    <div className="col-span-12 lg:col-span-6 flex flex-col items-center justify-center px-4 py-6 md:py-4">
+    <div className="col-span-12 lg:col-span-5 flex flex-col items-center justify-center px-4 py-6 md:py-4">
       <h2 className="text-3xl text-gray-800 dark:text-gray-100 font-bold mb-6 capitalize">
         Hace tu reserva
       </h2>
