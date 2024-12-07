@@ -10,7 +10,7 @@ import BurgerMenu from "./navbar-burger";
 export default function Navbar() {
   return (
     <>
-    <div className="flex sm:flex-row justify-between mb-5 dark:bg-zinc-700 max-w-full z-0">
+    <div className="flex sm:flex-row justify-between  dark:bg-zinc-700 max-w-full z-0">
     {/* Left: Title */}
     <Link href={"/"} className="my-4 sm:mb-0 sm:my-1 mx-4 sm:mx-14 z-0">
       <Image

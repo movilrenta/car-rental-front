@@ -1,10 +1,10 @@
 "use client";
-
 import { Cars } from "@/constant/cars";
 import { useEffect, useState } from "react";
 import CardCar from "./reserva-pick-car-card";
 import { useReservaAutoStore } from "@/stores/reserva-auto/reserva-auto.store";
 import { BiCheck } from "react-icons/bi";
+import { Loader2Icon } from "lucide-react";
 
 export default function PickCar() {
   const reservaAuto = useReservaAutoStore((state) => state.getReservaAuto());
@@ -16,8 +16,8 @@ export default function PickCar() {
 
   if (!isClient) {
     return (
-      <div className="flex flex-col justify-start items-center h-screen">
-        <div className="animate-spin rounded-full h-28 w-28 border-b-2 border-gray-900 mt-52 my-4"></div>
+      <div className="flex flex-col justify-start items-center">
+        <Loader2Icon className="w-12 h-12 animate-spin" />
         <div>Obteniendo datos de los vehiculos...</div>
       </div>
     );

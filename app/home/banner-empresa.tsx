@@ -6,7 +6,7 @@ import bannerEmpresa from "@/public/images2/banner-empresa.jpg";
 
 export const BannerEmpresa = () => {
   return (
-    <div className="relative grid grid-cols-1 lg:grid-cols-12 md:gap-4 bg-white dark:bg-gray-800 shadow-sm my-6 py-8 px-4 sm:px-14 overflow-clip">
+    <div className="relative grid grid-cols-1 lg:grid-cols-12 md:gap-4 dark:bg-gray-800 shadow-sm my-6 py-8 px-2 sm:px-14 overflow-clip">
       <Image
           src={bannerEmpresa}
           width={400}
@@ -14,9 +14,9 @@ export const BannerEmpresa = () => {
           alt="banner empresa"
           className="absolute w-auto right-0 h-full hidden lg:block"
         />
-      <div className="h-full col-span-6 p-6">
-        <h2 className="font-semibold text-4xl text-red-700 mb-6">Soluciones para empresas</h2>
-        <h3 className="text-lg font-semibold mb-4">
+      <div className="h-full col-span-6 p-3 md:p-6 lg:mb-12 z-10">
+        <h2 className="font-semibold text-2xl md:text-4xl text-red-700 mb-6">Soluciones para empresas</h2>
+        <h3 className="text-lg font-semibold mb-4 ">
           Aproveche las ventajas de nuestro leasing operativo o renting de
           vehículos a largo plazo.
         </h3>
@@ -34,7 +34,7 @@ export const BannerEmpresa = () => {
         </Link>
       </div>
       <div className="h-full col-span-6 relative">
-        <div className="w-full lg:h-full flex items-center p-6">
+        <div className="w-full lg:h-full flex items-center p-3 md:p-6">
           <div className="bg-red-800 bg-opacity-80 w-full py-6 px-10" >
             <ul className="h-full flex flex-col gap-6 text-sm sm:text-lg lg:text-xl justify-evenly">
               <li className="flex items-center gap-2 text-slate-50">
