@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export default function NavbarLinks() {
+export default function NavbarLinks({burger = false} : {burger?: boolean}) {
   const path = usePathname();
   const pathNoSlash = path.replace("/", "");
 
@@ -15,8 +15,8 @@ export default function NavbarLinks() {
   ];
 
   return (
-    <div className="my-6 mx-4 sm:mx-14">
-      <ul className="flex flex-wrap -m-1">
+    <div className={`${burger ? "sm:hidden" : "hidden sm:block"} my-6 mx-4 sm:mx-14`}>
+      <ul className={`flex ${burger ? "flex-col" : ""} flex-wrap -m-1`}>
         {LinksNavbar.map((item, index) => (
           <li key={index} className="m-1">
             <Link
