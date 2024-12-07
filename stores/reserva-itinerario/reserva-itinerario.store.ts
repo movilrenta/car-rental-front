@@ -12,6 +12,15 @@ export type ItinerarioType = {
   endTime: string | undefined
 };
 
+const initialState: ItinerarioType = {
+  startLocation: "",
+  endLocation: "",
+  startDay: null,
+  endDay: null,
+  startTime: undefined,
+  endTime: undefined
+};
+
 interface StoreState {
   itinerario: ItinerarioType | null;
   getItinerario: () => ItinerarioType | null;
@@ -20,7 +29,7 @@ interface StoreState {
 }
 
 const storeApi: StateCreator<StoreState> = (set, get) => ({
-  itinerario: null,
+  itinerario: initialState,
   getItinerario: () => get().itinerario,
   addItinerario: (item: ItinerarioType) => set(() => ({itinerario: item})  ),
   removeItinerario: () => set(() => ({ itinerario: null }))

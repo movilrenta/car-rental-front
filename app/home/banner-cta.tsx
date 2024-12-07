@@ -13,7 +13,7 @@ export const BannerCta = () => {
       h4: "movete con libertad"
     }]
   return (
-    <div className="h-full grid grid-cols-12 bg-white dark:bg-gray-800 shadow-sm">
+    <div className="h-full grid grid-cols-12  dark:bg-gray-800">
        <SlideImages
         images={images}
         className="relative col-span-12 lg:col-span-7"
