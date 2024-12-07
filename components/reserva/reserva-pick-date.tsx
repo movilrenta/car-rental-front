@@ -7,13 +7,40 @@ import { useItinerarioStore } from "@/stores/reserva-itinerario/reserva-itinerar
 import { cities } from "@/constant/cities";
 import { hours } from "@/constant/hours";
 import { calcularDiasEntreFechas2 } from "@/components/utils/utils";
+import * as React from "react";
+import {
+  addDays,
+  addYears,
+  endOfDay,
+  format,
+  isAfter,
+  isBefore,
+  startOfDay,
+} from "date-fns";
+import { es } from "date-fns/locale";
+import { CalendarIcon } from "lucide-react";
+import { DateRange } from "react-day-picker";
+
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 export default function PickDate() {
+  const today = startOfDay(new Date());
+  const oneYearFromNow = endOfDay(addYears(today, 1));
   const itinerario = useItinerarioStore((state) => state.getItinerario());
   const nuevoItinerario = useItinerarioStore((state) => state.addItinerario);
   const [dias, setDias] = useState<number>(0);
   const [isClient, setIsClient] = useState(false)
-
+  const [date, setDate] = React.useState<DateRange | undefined>({
+    from: itinerario?.startDay ? new Date(itinerario?.startDay) : new Date(),
+    to: itinerario?.endDay ? new Date(itinerario?.endDay) : addDays(new Date(), 7),
+  });
   useEffect(() => {
     setIsClient(true);
   }, []);
@@ -24,6 +51,17 @@ export default function PickDate() {
       setDias(dias);
     }
   }, [itinerario]);
+
+  useEffect(() => {
+    nuevoItinerario({
+      startLocation: itinerario?.startLocation || "",
+      endLocation: itinerario?.endLocation || "",
+      startDay: date?.from || null,
+      endDay: date?.to || null,
+      startTime: itinerario?.startTime || undefined,
+      endTime: itinerario?.endTime || undefined,
+    });
+  }, [date]);
 
   if (!isClient) {
     return (
@@ -79,26 +117,6 @@ export default function PickDate() {
     });
   };
 
-  const handleDatesStart = (dates: Date[]) => {
-    nuevoItinerario({
-      startLocation: itinerario?.startLocation || "",
-      endLocation: itinerario?.endLocation || "",
-      startDay: dates[0],
-      endDay: itinerario?.endDay || null,
-      startTime: itinerario?.startTime || undefined,
-      endTime: itinerario?.endTime || undefined,
-    });
-  };
-  const handleDatesEnd = (dates: Date[]) => {
-    nuevoItinerario({
-      startLocation: itinerario?.startLocation || "",
-      endLocation: itinerario?.endLocation || "",
-      startDay: itinerario?.startDay || null,
-      endDay: dates[0],
-      startTime: itinerario?.startTime || undefined,
-      endTime: itinerario?.endTime || undefined,
-    });
-  };
 
   return (
     <div className=" w-full max-w-full min-w-0">
@@ -106,10 +124,11 @@ export default function PickDate() {
       01. Su <strong>itinerario</strong>
     </h2>
     
-    <form className="grid grid-cols-12  w-full max-w-full gap-x-6 gap-y-6 min-w-0">
-    <div className="flex col-span-12 sm:col-span-3 md:col-span-4 lg:col-span-12 flex-col gap-3 w-full max-w-full min-w-0">
-        {dias !== 0 ? (
-          <div className="flex flex-col items-center justify-center h-full gap-0 text-center rounded-md px-6 py-3 w-full bg-red-50 text-red-800">
+    <form className="grid grid-cols-12 w-full max-w-full gap-x-6 gap-y-6 min-w-0">
+   
+    <div className="flex col-span-12 flex-col sm:flex-row gap-3 w-full max-w-full min-w-0">
+    {dias !== 0 ? (
+          <div className="flex flex-col items-center justify-center h-full gap-0 text-center rounded-md px-6 py-3 w-full sm:w-fit bg-red-50 text-red-800">
             <div className="text-4xl font-extrabold flex items-center justify-center h-fit">
               {dias}
             </div>
@@ -118,12 +137,56 @@ export default function PickDate() {
             </div>
           </div>
         ) : null}
+    <div className="flex flex-col gap-3 justify-center w-full">
+        <h2 className="text-nowrap text-xl text-white">Elegí la fecha</h2>
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button
+              id="date"
+              variant={"outline"}
+              className={cn(
+                "min-w-[180px] w-full max-w-[300px] text-center font-normal",
+                !date && "text-muted-foreground"
+              )}
+            >
+              <CalendarIcon />
+              {date?.from ? (
+                date.to ? (
+                  <>
+                    {format(date.from, "dd MMM yyyy", { locale: es })} -{" "}
+                    {format(date.to, "dd MMM yyyy", { locale: es })}
+                  </>
+                ) : (
+                  format(date.from, "dd MMM yyyy", { locale: es })
+                )
+              ) : (
+                <span>Selecciona una fecha</span>
+              )}
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-auto p-0" align="start">
+            <Calendar
+              initialFocus
+              mode="range"
+              defaultMonth={date?.from}
+              selected={date}
+              onSelect={setDate}
+              numberOfMonths={1}
+              disabled={(date) =>
+                isBefore(date, today) || isAfter(date, oneYearFromNow)
+              }
+              className="bg-white dark:bg-black !rounded-lg"
+            />
+          </PopoverContent>
+        </Popover>
+      </div>
+        
     </div>
 
-      <div className="col-span-12 sm:col-span-9 md:col-span-8 lg:col-span-12 flex flex-col gap-x-6 lg:flex-row w-full">
+      <div className="col-span-12 flex flex-col gap-x-6 sm:flex-row w-full">
         <div className="flex flex-col xs:flex-row items-start xs:items-center w-full max-w-full">
           <label
-            className="block text-sm sm:text-lg lg:text-xl font-bold mb-1 w-20 lg:w-28 min-w-0"
+            className="block text-sm sm:text-lg lg:text-xl font-bold mb-1 w-28 lg:w-28 min-w-0"
             htmlFor="city-start"
           >
             <GoArrowUpRight className="text-red-600 stroke-2 text-4xl sm:text-6xl" />
@@ -151,13 +214,6 @@ export default function PickDate() {
                 ))}
               </select>
               <div className="flex flex-wrap xxs:flex-nowrap">
-                <Datepicker
-                  mode="single"
-                  onDatesChange={handleDatesStart}
-                  defaultStart={itinerario?.startDay! || new Date()}
-                  minDate={itinerario?.startDay! || new Date()}
-                  maxDate={new Date(new Date().getFullYear() + 1, new Date().getMonth(), new Date().getDate())}
-                />
                 <select
                   id="hour-start"
                   required
@@ -183,7 +239,7 @@ export default function PickDate() {
         </div>
         <div className="flex flex-col xs:flex-row items-start xs:items-center w-full max-w-full">
           <label
-            className="block text-sm sm:text-lg lg:text-xl font-bold mb-1 w-20 lg:w-28 min-w-0"
+            className="block text-sm sm:text-lg lg:text-xl font-bold mb-1 w-28 lg:w-28 min-w-0"
             htmlFor="city-back"
           >
             <GoArrowDownLeft className="text-red-600 stroke-2 text-4xl sm:text-6xl" />
@@ -211,13 +267,6 @@ export default function PickDate() {
                 ))}
               </select>
               <div className="flex flex-wrap xxs:flex-nowrap">
-                <Datepicker
-                  mode="single"
-                  onDatesChange={handleDatesEnd}
-                  defaultStart={itinerario?.endDay!}
-                  minDate={new Date(itinerario?.startDay! || new Date())}
-                  maxDate={new Date(new Date().getFullYear() + 1, new Date().getMonth(), new Date().getDate())}
-                />
                 <select
                   id="hour-back"
                   required
