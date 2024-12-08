@@ -64,11 +64,11 @@ export const ListItems = () => {
           <div className="text-xs md:text-base text-gray-900 dark:text-slate-100">
             <div>
               <h3 className="flex gap-x-1">
-                Desde: {formatDate(reservas!.startDay)},{reservas!.startTime},{" "}
+                Desde: {formatDate(reservas!.startDay)}, {reservas!.startTime} Hs,{" "}
                 {selectedCity(reservas!.startLocation)}
               </h3>
               <h3 className="flex gap-2">
-                Hasta: {formatDate(reservas!.endDay)}, {reservas!.endTime},{" "}
+                Hasta: {formatDate(reservas!.endDay)}, {reservas!.endTime} Hs,{" "}
                 {selectedCity(reservas!.endLocation)}
               </h3>
             </div>

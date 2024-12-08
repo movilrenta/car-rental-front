@@ -65,5 +65,5 @@ export const formatDate = (isoDate:Date) => {
   const date = new Date(isoDate);
 
   // Obtener el formato en español:
-  return new Intl.DateTimeFormat('es-ES', {weekday:'long', day:'numeric',month:'long',year:'numeric'} ).format(date) + " Hs.";
+  return new Intl.DateTimeFormat('es-ES', {weekday:'long', day:'numeric',month:'long',year:'numeric'} ).format(date);
 };
