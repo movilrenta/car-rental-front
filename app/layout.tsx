@@ -5,6 +5,7 @@ import Theme from './theme-provider'
 import AppProvider from './app-provider'
 import Navbar from './navbar'
 import Footer from './footer'
+import { Toaster } from '@/components/ui/toaster'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -30,6 +31,7 @@ export default function RootLayout({
             <Navbar />
             {children}
             <Footer />
+            <Toaster/>
           </AppProvider>
         </Theme>
       </body>

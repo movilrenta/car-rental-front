@@ -11,6 +11,7 @@ export async function POST(req: any, res: any) {
 
   try {
     const body = await req.json();
+    console.log(body, "token")
 
     const response = await axios.post(
       `${API_URL}tokens` || "",
