@@ -61,21 +61,21 @@ export default function PickDate() {
     
     <form className="grid grid-cols-12 w-full max-w-full gap-x-6 gap-y-6 min-w-0">
    
-    <div className="flex col-span-12 flex-col xs:flex-row gap-x-3 w-full max-w-full min-w-0">
+    <div className="flex col-span-12 md:col-span-6 flex-col xs:flex-row gap-x-3 w-full max-w-full min-w-0">
       {dias !== 0 
-        ? <div className="flex gap-0 text-center text-lg text-nowrap items-center justify-center font-extrabold h-12 rounded-md px-3 w-full xs:w-24 bg-red-50 dark:bg-red-800 text-red-800 dark:text-red-50">
+        ? <div className="flex gap-0 text-center text-lg text-nowrap items-center justify-center font-extrabold h-12 rounded-md px-3  min-w-24 w-full xs:w-24 bg-red-50 dark:bg-red-800 text-red-800 dark:text-red-50">
             {dias === 1 ? `${dias} Día` : `${dias} Días`}
           </div>
-        : <div className="flex items-center justify-center text-lg font-extrabold  gap-0 text-center rounded-md px-3 w-full xs:w-24 h-12 bg-red-50 dark:bg-red-800 text-red-800 dark:text-red-50">
+        : <div className="flex items-center justify-center text-lg font-extrabold  gap-0 text-center rounded-md px-3  min-w-24 w-full xs:w-24 h-12 bg-red-50 dark:bg-red-800 text-red-800 dark:text-red-50">
             Elija
           </div>
-      }
+      } 
       <ItinerarioPickDate />
     </div>
       <div className="col-span-12 flex flex-col gap-x-6 sm:flex-row w-full">
         <div className="flex flex-col xs:flex-row items-start xs:items-center w-full max-w-full gap-x-3">
           <label
-            className="block text-sm sm:text-lg lg:text-xl font-bold mb-1 min-w-24 w-24 lg:w-24"
+            className="block text-sm sm:text-lg md:text-xl font-bold mb-1 min-w-24 w-24 md:w-24"
             htmlFor="city-start"
           >
             <GoArrowUpRight className="text-red-600 stroke-2 text-4xl sm:text-6xl" />
@@ -128,7 +128,7 @@ export default function PickDate() {
         </div>
         <div className="flex flex-col xs:flex-row items-start xs:items-center w-full max-w-full gap-x-3">
           <label
-            className="block text-sm sm:text-lg lg:text-xl font-bold mb-1 min-w-24 w-24 lg:w-24"
+            className="block text-sm sm:text-lg md:text-xl font-bold mb-1 min-w-24 w-24 md:w-24"
             htmlFor="city-back"
           >
             <GoArrowDownLeft className="text-red-600 stroke-2 text-4xl sm:text-6xl" />
@@ -185,6 +185,15 @@ export default function PickDate() {
     <p className="text-blue-600 italic text-sm mt-8">
       Las tarifas pueden tener variantes segun la fecha seleccionada.
     </p>
+    {Number(itinerario?.startTime?.slice(0,2)) < 7 || Number(itinerario?.startTime?.slice(0,2)) > 18 
+      ? <p className="text-blue-600 italic text-sm">- El horario de salida tiene un cargo extra ya que está fuera de nuestros horarios de atención en oficina.</p> 
+      : null
+    }
+    {Number(itinerario?.endTime?.slice(0,2)) < 7 || Number(itinerario?.endTime?.slice(0,2)) > 18 
+      ? <p className="text-blue-600 italic text-sm">- El horario de regreso tiene un cargo extra ya que está fuera de nuestros horarios de atención en oficina.</p> 
+      : null
+    }
+    
   </div>
   )
 }

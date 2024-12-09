@@ -67,22 +67,29 @@ export default function HomeItinerario() {
         Hace tu reserva
       </h2>
       <div className="flex items-start pb-2 w-full max-w-[420px] ">
-        <label className="block text-lg font-bold mb-1 min-w-20 w-20 pt-2"
+        <label className="block text-lg font-bold mb-1 min-w-20 w-20 pe-4"
         htmlFor="asd">
-          <Calendar className="text-red-600 stroke-2 text-5xl w-11 h-11" />
-          Fechas
-        </label>
-        <div className="flex flex-col w-full">
-          <ItinerarioPickDate />
           {dias !== 0 
-            ? <div className="flex gap-0 text-center text-lg text-nowrap items-center justify-center font-extrabold h-12 rounded-md px-3 w-full bg-red-50 dark:bg-red-800 text-red-800 dark:text-red-50">
+            ? <div className="flex gap-0 text-center text-2xl text-nowrap items-center justify-center font-extrabold h-12 rounded-md px-3 w-full bg-red-50 dark:bg-red-800 text-red-800 dark:text-red-50">
+                {dias}
+              </div>
+            : <div className="flex items-center justify-center text-xl font-extrabold  gap-0 text-center rounded-md px-3 w-full h-12 bg-red-50 dark:bg-red-800 text-red-800 dark:text-red-50">
+                {"Elija"}
+              </div>
+          }
+          
+        </label>
+
+          <ItinerarioPickDate />
+          {/* {dias !== 0 
+            ? <div className="flex gap-0 text-start text-lg text-nowrap items-center justify-start font-extrabold h-12 rounded-md px-3 w-full bg-red-50 dark:bg-red-800 text-red-800 dark:text-red-50">
                 {dias === 1 ? `${dias} Día` : `${dias} Días`}
               </div>
             : <div className="flex items-center justify-center text-lg font-extrabold  gap-0 text-center rounded-md px-3 w-full h-12 bg-red-50 dark:bg-red-800 text-red-800 dark:text-red-50">
                 Elija
               </div>
-          }
-        </div>
+          } */}
+
       </div>
       <form onSubmit={goReserva} className="max-w-full">
         <div className="space-y-0">
