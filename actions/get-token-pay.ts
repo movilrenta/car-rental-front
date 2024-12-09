@@ -3,6 +3,7 @@
 import { formSchema } from "@/types/payway-form.schema";
 import axios from "axios";
 import { z } from "zod";
+const URL = "http://localhost:3000/"
 
 export const getTokenPay = async (values: z.infer<typeof formSchema>) => {
   try {
@@ -20,7 +21,7 @@ export const getTokenPay = async (values: z.infer<typeof formSchema>) => {
     const {card_holder_birthday, ...rest} = resultParse.data;
     const dateTransform = card_holder_birthday.replace(/\//g, "")
 
-    const {data} = await axios.post("http://localhost:3000/api/token",{card_holder_birthday:dateTransform, ...rest});
+    const {data} = await axios.post(`${URL}api/token`,{card_holder_birthday:dateTransform, ...rest});
     if(!data){
       return {
         ok:false,

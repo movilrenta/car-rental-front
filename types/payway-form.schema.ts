@@ -24,7 +24,7 @@ export const formSchema = z.object({
   security_code: z
     .string()
     .min(3, "El codigo de seguridad no puede ser menor a 3 digitos")
-    .max(3, "El códgo de seguridad no puede ser mayor a 3 digitos")
+    .max(4, "El códgo de seguridad no puede ser mayor a 4 digitos")
     .regex(
       regexSecCode,
       "El código de seguridad debe ser un número de 3 digitos"
@@ -53,6 +53,7 @@ export const formSchema = z.object({
     .int({ message: "Solo pueden ser números enteros" }),
   card_holder_identification: z.object({
     type: z.enum(["DNI", "LE", "LC"]).default("DNI"),
-    number: z.string(),
+    number: z.string().min(7, "El nombre debe contener al menos 7 caracteres")
+    .max(10, "El DNI es demasiado extenso"),
   }),
 });

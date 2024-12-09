@@ -49,6 +49,7 @@ export default function PayForm() {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const resp = await getTokenPay(values);
+
     if (!resp.ok) {
       toast({
         variant: "default",
@@ -118,12 +119,14 @@ export default function PayForm() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="block text-sm font-medium mb-1">
-                      Card Number <span className="text-red-500">*</span>
+                      Número de la tarjeta{" "}
+                      <span className="text-red-500"> *</span>
                     </FormLabel>
                     <FormControl>
                       <Input
                         className="form-input w-full"
                         type="text"
+                        maxLength={16}
                         placeholder="1234 1234 1234 1234"
                         {...field}
                       />
@@ -140,15 +143,22 @@ export default function PayForm() {
                   render={({ field }) => (
                     <FormItem className="flex-1">
                       <FormLabel className="block text-sm font-medium mb-1">
-                        Mes expiración
-                        <span className="text-red-500">*</span>
+                        Mes
+                        <span className="text-red-500"> *</span>
                       </FormLabel>
                       <FormControl>
                         <Input
                           className="form-input w-full"
                           type="text"
                           placeholder="MM"
-                          {...field}
+                          maxLength={2}
+                          inputMode="numeric"
+                          pattern="[0-9]*"
+                          value={field.value}
+                          onChange={(e) => {
+                            const input = e.target.value.replace(/\D/g, ""); // Remueve cualquier carácter no numérico
+                            field.onChange(input); // Actualiza el estado del campo
+                          }}
                         />
                       </FormControl>
                       <FormMessage />
@@ -162,15 +172,22 @@ export default function PayForm() {
                   render={({ field }) => (
                     <FormItem className="flex-1">
                       <FormLabel className="block text-sm font-medium mb-1">
-                        Año expiración
-                        <span className="text-red-500">*</span>
+                        Año
+                        <span className="text-red-500"> *</span>
                       </FormLabel>
                       <FormControl>
                         <Input
                           className="form-input w-full"
                           type="text"
-                          placeholder="YY"
-                          {...field}
+                          placeholder="AA"
+                          maxLength={2}
+                          inputMode="numeric"
+                          pattern="[0-9]*"
+                          value={field.value}
+                          onChange={(e) => {
+                            const input = e.target.value.replace(/\D/g, ""); // Remueve cualquier carácter no numérico
+                            field.onChange(input); // Actualiza el estado del campo
+                          }}
                         />
                       </FormControl>
                       <FormMessage />
@@ -184,14 +201,21 @@ export default function PayForm() {
                     <FormItem className="flex-1">
                       <FormLabel className="block text-sm font-medium mb-1">
                         CVC
-                        <span className="text-red-500">*</span>
+                        <span className="text-red-500"> *</span>
                       </FormLabel>
                       <FormControl>
                         <Input
                           className="form-input w-full"
                           type="text"
                           placeholder="123"
-                          {...field}
+                          maxLength={4}
+                          inputMode="numeric"
+                          pattern="[0-9]*"
+                          value={field.value}
+                          onChange={(e) => {
+                            const input = e.target.value.replace(/\D/g, ""); // Remueve cualquier carácter no numérico
+                            field.onChange(input); // Actualiza el estado del campo
+                          }}
                         />
                       </FormControl>
                       <FormMessage />
@@ -207,15 +231,23 @@ export default function PayForm() {
                   <FormItem>
                     <FormLabel className="block text-sm font-medium mb-1">
                       Fecha de nacimiento
-                      <span className="text-red-500">*</span>
+                      <span className="text-red-500"> *</span>
                     </FormLabel>
                     <FormControl>
                       <Input
                         className="form-input w-full"
                         type="text"
+                        maxLength={10}
                         placeholder="DD/MM/YYYY"
                         pattern="\d{2}/\d{2}/\d{4}"
-                        {...field}
+                        value={field.value}
+                        onChange={(e) => {
+                          const input = e.target.value.replace(/\D/g, ""); // Remueve cualquier carácter no numérico
+                          const formatted = input
+                            .replace(/^(\d{2})(\d{2})/, "$1/$2") // Añade la primera barra
+                            .replace(/(\d{2}\/\d{2})(\d+)/, "$1/$2"); // Añade la segunda barra
+                          field.onChange(formatted); // Actualiza el estado del campo
+                        }}
                       />
                     </FormControl>
                     <FormMessage />
@@ -230,7 +262,7 @@ export default function PayForm() {
                   <FormItem>
                     <FormLabel className="block text-sm font-medium mb-1">
                       Nombre y Apellido
-                      <span className="text-red-500">*</span>
+                      <span className="text-red-500"> *</span>
                     </FormLabel>
                     <FormControl>
                       <Input
@@ -251,7 +283,7 @@ export default function PayForm() {
                   <FormItem>
                     <FormLabel className="block text-sm font-medium mb-1">
                       Dirección
-                      <span className="text-red-500">*</span>
+                      <span className="text-red-500"> *</span>
                     </FormLabel>
                     <FormControl>
                       <Input
@@ -298,15 +330,22 @@ export default function PayForm() {
                   render={({ field }) => (
                     <FormItem className="flex-2">
                       <FormLabel className="block text-sm font-medium mb-1">
-                        Núm. documento
-                        <span className="text-red-500">*</span>
+                        N°
+                        <span className="text-red-500"> *</span>
                       </FormLabel>
                       <FormControl>
                         <Input
                           className="form-input w-full"
                           type="text"
-                          placeholder="12123123"
-                          {...field}
+                          placeholder="MM"
+                          maxLength={10}
+                          inputMode="numeric"
+                          pattern="[0-9]*"
+                          value={field.value}
+                          onChange={(e) => {
+                            const input = e.target.value.replace(/\D/g, ""); // Remueve cualquier carácter no numérico
+                            field.onChange(input); // Actualiza el estado del campo
+                          }}
                         />
                       </FormControl>
                       <FormMessage />
