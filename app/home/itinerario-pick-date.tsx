@@ -30,10 +30,11 @@ export default function ItinerarioPickDate() {
   const nuevoItinerario = useItinerarioStore((state) => state.addItinerario);
   const [isClient, setIsClient] = useState(false);
   const [date, setDate] = React.useState<DateRange | undefined>({
-    from: itinerario?.startDay ? new Date(itinerario?.startDay) : new Date(),
+    from: itinerario?.startDay ? new Date(itinerario?.startDay) : undefined,
     to: itinerario?.endDay
       ? new Date(itinerario?.endDay)
-      : addDays(new Date(), 7),
+      : undefined,
+      //: addDays(new Date(), 7),
   });
   useEffect(() => {
     setIsClient(true);
@@ -57,7 +58,7 @@ export default function ItinerarioPickDate() {
           id="date"
           variant={"outline"}
           className={cn(
-            "w-full !text-start border justify-start h-12 px-3 bg-white dark:border-zinc-700 dark:bg-[rgb(17_24_39_/_0.3)] text-zinc-700 dark:text-white max-w-[340px]",
+            "w-full min-w-0 text-ellipsis overflow-clip !text-start border justify-start h-12 px-3 bg-white dark:border-zinc-700 dark:bg-[rgb(17_24_39_/_0.3)] text-zinc-700 dark:text-white max-w-full",
             !date && "text-muted-foreground"
           )}
         >
@@ -65,15 +66,14 @@ export default function ItinerarioPickDate() {
           {date?.from ? (
             date.to ? (
               <>
-                {format(date.from, "dd MMM yyyy", { locale: es })} {"  <"}-
-                {">  "}
+                {format(date.from, "dd MMM yyyy", { locale: es })} {" hasta "}
                 {format(date.to, "dd MMM yyyy", { locale: es })}
               </>
             ) : (
               format(date.from, "dd MMM yyyy", { locale: es })
             )
           ) : (
-            <span>Selecciona una fecha</span>
+            <span>Selecciona un rango de fechas</span>
           )}
         </Button>
       </PopoverTrigger>

@@ -51,9 +51,9 @@ export default function PickAditional () {
           </div>
           <div className="flex flex-wrap justify-between items-center">
             <div className="inline-flex text-sm font-medium bg-green-500/20 text-green-700 rounded-full text-center px-2 py-0.5">
-              $5.000,00
+              $10.000,00
             </div>
-            <div className="text-xs w-full">Tarifa base: 1 día</div>
+            <div className="text-xs w-full">Tarifa por día</div>
           </div>
         </div>
         <input
@@ -86,9 +86,9 @@ export default function PickAditional () {
           </div>
           <div className="flex flex-wrap justify-between items-center">
             <div className="inline-flex text-sm font-medium bg-green-500/20 text-green-700 rounded-full text-center px-2 py-0.5">
-              $5.000,00
+              $10.000,00
             </div>
-            <div className="text-xs w-full">Tarifa base: 1 día</div>
+            <div className="text-xs w-full">Tarifa por día</div>
           </div>
         </div>
         <input
