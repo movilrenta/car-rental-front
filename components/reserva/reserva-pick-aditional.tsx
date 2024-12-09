@@ -1,7 +1,7 @@
 'use client'
-
-import { useReservaAdicionalesStore } from "@/stores/reserva-adicionales/reserva-adicionales.store";
 import Image from "next/image"
+import { useReservaAdicionalesStore } from "@/stores/reserva-adicionales/reserva-adicionales.store";
+import { Loader2Icon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { BiCheck } from "react-icons/bi"
 
@@ -18,8 +18,8 @@ export default function PickAditional () {
   if (!isClient) {
     return (
       <div className="flex flex-col justify-start items-center h-screen">
-        <div className="animate-spin rounded-full h-28 w-28 border-b-2 border-gray-900 mt-52 my-4"></div>
-        <div>Obteniendo datos adicionales...</div>
+        <Loader2Icon className="w-12 h-12 animate-spin" />
+        <span>Obteniendo datos adicionales...</span>
       </div>
     );
   }
@@ -51,9 +51,9 @@ export default function PickAditional () {
           </div>
           <div className="flex flex-wrap justify-between items-center">
             <div className="inline-flex text-sm font-medium bg-green-500/20 text-green-700 rounded-full text-center px-2 py-0.5">
-              $5.000,00
+              $10.000,00
             </div>
-            <div className="text-xs w-full">Tarifa base: 1 día</div>
+            <div className="text-xs w-full">Tarifa por día</div>
           </div>
         </div>
         <input
@@ -86,9 +86,9 @@ export default function PickAditional () {
           </div>
           <div className="flex flex-wrap justify-between items-center">
             <div className="inline-flex text-sm font-medium bg-green-500/20 text-green-700 rounded-full text-center px-2 py-0.5">
-              $5.000,00
+              $10.000,00
             </div>
-            <div className="text-xs w-full">Tarifa base: 1 día</div>
+            <div className="text-xs w-full">Tarifa por día</div>
           </div>
         </div>
         <input

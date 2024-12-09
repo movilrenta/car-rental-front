@@ -5,11 +5,12 @@ import { FaLocationDot } from "react-icons/fa6";
 import { MdGTranslate } from "react-icons/md";
 import NavbarLinks from "./navbar-links";
 import ThemeToggle from "@/components/theme-toggle";
+import BurgerMenu from "./navbar-burger";
 
 export default function Navbar() {
   return (
     <>
-    <div className="flex sm:flex-row flex-col-reverse sm:justify-between mb-5 dark:bg-zinc-700 max-w-full z-0">
+    <div className="flex sm:flex-row justify-between  dark:bg-zinc-700 max-w-full z-0">
     {/* Left: Title */}
     <Link href={"/"} className="my-4 sm:mb-0 sm:my-1 mx-4 sm:mx-14 z-0">
       <Image
@@ -32,10 +33,9 @@ export default function Navbar() {
         <ThemeToggle />
       </div>
     </div>
+    <BurgerMenu />
   </div>
-  <ThemeToggle />
   <NavbarLinks />
-
   </>
   )
 }
