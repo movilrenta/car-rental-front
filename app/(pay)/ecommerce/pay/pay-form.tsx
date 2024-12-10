@@ -25,7 +25,7 @@ import {
   SelectValue,
 } from "@/components/select";
 import clsx from "clsx";
-import { getTokenPay } from "@/actions";
+import { getTokenPay, saveCard } from "@/actions";
 import { useToast } from "@/hooks/use-toast";
 
 export default function PayForm() {
@@ -44,23 +44,26 @@ export default function PayForm() {
         type: "DNI",
         number: "",
       },
+      payment_method_id:1
     },
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const resp = await getTokenPay(values);
-
-    if (!resp.ok) {
+    if (!resp?.ok) {
       toast({
         variant: "default",
-        title: `${resp.message}`,
+        title: `${resp?.message}`,
       });
     } else {
+      await saveCard(values)
+      
       toast({
         variant: "default",
         title: `${resp.message}`,
       });
       form.reset();
+
     }
   };
   return (
@@ -337,7 +340,7 @@ export default function PayForm() {
                         <Input
                           className="form-input w-full"
                           type="text"
-                          placeholder="MM"
+                          placeholder="12345678"
                           maxLength={10}
                           inputMode="numeric"
                           pattern="[0-9]*"
