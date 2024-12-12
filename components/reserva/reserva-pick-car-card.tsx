@@ -1,3 +1,4 @@
+import { VehicleType } from "@/constant/cars";
 import { useReservaAutoStore } from "@/stores/reserva-auto/reserva-auto.store";
 import Image from "next/image";
 import { BsLuggageFill } from "react-icons/bs";
@@ -5,7 +6,7 @@ import { FaUser } from "react-icons/fa";
 import { GiCarDoor, GiGasPump } from "react-icons/gi";
 import { TbManualGearbox } from "react-icons/tb";
 
-export default function CardCar({ car }: { car: any }) {
+export default function CardCar({ car }: { car: VehicleType }) {
   const addReservaCar = useReservaAutoStore((state) => state.addReservaAuto)
   return (
     <div className="col-span-full sm:col-span-6 group border border-transparent hover:border-zinc-300 hover:bg-black/10 duration-200 xl:col-span-3 bg-white dark:bg-gray-800 shadow-sm rounded-xl overflow-hidden">
@@ -13,10 +14,10 @@ export default function CardCar({ car }: { car: any }) {
         {/* Image */}
         <Image
           className="w-full duration-200"
-          src={car.image}
+          src={car?.image}
           width={286}
           height={160}
-          alt={car.name}
+          alt={car?.name}
         />
         {/* Card Content */}
         <div className="grow flex flex-col p-5">
@@ -25,10 +26,10 @@ export default function CardCar({ car }: { car: any }) {
             {/* Header */}
             <header className="mb-3">
               <h3 className="text-lg text-gray-800 dark:text-gray-100 font-semibold">
-                {car.name}
+                {car?.name}
               </h3>
               <h5 className="text-sm">
-                o similar <strong>Grupo {car.group}</strong>
+                o similar <strong>Grupo {car?.group?.name}</strong>
               </h5>
             </header>
             {/* Rating and price */}
@@ -101,32 +102,32 @@ export default function CardCar({ car }: { car: any }) {
               {/* Price */}
               <div>
                 <div className="inline-flex text-sm font-medium bg-green-500/20 text-green-700 rounded-full text-center px-2 py-0.5">
-                  $ {car.price}
+                  $ {car?.group?.rate}
                 </div>
               </div>
               <div className="text-xs text-end w-full">Tarifa base: 1 día</div>
             </div>
             {/* Features list */}
             <ul className="grid grid-cols-2 gap-y-3 text-nowrap mb-5 dark:text-gray-300">
-              <li className="flex gap-2 items-center">
-                <GiGasPump />
-                <div>{car.combustible}</div>
+              <li className="flex gap-2 items-center w-full overflow-clip text-ellipsis">
+                <GiGasPump className="w-4 h-4 min-h-4 min-w-4"/>
+                <span className="text-nowrap text-ellipsis overflow-clip">{car?.fuel_type}</span>
               </li>
-              <li className="flex gap-2 items-center">
-                <BsLuggageFill />
-                <div>{car.maletas} Maleta(s)</div>
+              <li className="flex gap-2 items-center w-full overflow-clip text-ellipsis">
+                <BsLuggageFill className="w-4 h-4 min-h-4 min-w-4"/>
+                <span className="text-nowrap text-ellipsis overflow-clip">{car?.luggage} Maleta(s)</span>
               </li>
-              <li className="flex gap-2 items-center">
-                <GiCarDoor />
-                <div>{car.puertas} Puertas</div>
+              <li className="flex gap-2 items-center w-full overflow-clip text-ellipsis">
+                <GiCarDoor className="w-4 h-4 min-h-4 min-w-4"/>
+                <span className="text-nowrap text-ellipsis overflow-clip">{car?.doors} Puertas</span>
               </li>
-              <li className="flex gap-2 items-center">
-                <TbManualGearbox />
-                <div>{car.caja}</div>
+              <li className="flex gap-2 items-center w-full overflow-clip text-ellipsis">
+                <TbManualGearbox className="w-4 h-4 min-h-4 min-w-4"/>
+                <span className="text-nowrap text-ellipsis overflow-clip">{car?.transmission}</span>
               </li>
-              <li className="flex gap-2 items-center">
-                <FaUser />
-                <div>{car.plazas} Plazas</div>
+              <li className="flex gap-2 items-center w-full overflow-clip text-ellipsis">
+                <FaUser className="w-4 h-4 min-h-4 min-w-4"/>
+                <span className="text-nowrap text-ellipsis overflow-clip">{car?.seats} Plazas</span>
               </li>
             </ul>
           </div>

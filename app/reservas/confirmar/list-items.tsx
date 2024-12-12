@@ -44,8 +44,8 @@ export const ListItems = () => {
     }
     return 0;
   };
-  const totalPrice = reservas?.car?.price
-    ? reservas.car.price * dias + showAccesorios()
+  const totalPrice = reservas?.car?.group?.rate
+    ? reservas.car.group?.rate * dias + showAccesorios()
     : 0;
 
   return (
@@ -84,13 +84,13 @@ export const ListItems = () => {
               Vehículo
             </h2>
             <span className="text-md md:text-lg font-semibold text-gray-900 dark:text-slate-100">
-              ARS {(reservas?.car?.price! * dias).toFixed(2) || "--"}
+              ARS {(reservas?.car?.group?.rate! * dias).toFixed(2) || "--"}
             </span>
           </div>
           <div className="text-xs md:text-base text-gray-900 dark:text-slate-100">
             <p>
               <span className="font-semibold">
-                Categoria: {reservas?.car?.group}
+                Categoria: {reservas?.car?.group?.name}
               </span>{" "}
               - {reservas?.car?.name}. Cobertura total por daños, en caso de
               robo/hurto con franquicia de: ARS 2.700.000,00. - Por vuelco: ARS

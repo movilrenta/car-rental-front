@@ -1,11 +1,11 @@
 'use client';
 
-import { CarType } from "@/constant/cars";
+import { VehicleType } from "@/constant/cars";
 import { StateCreator, create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
 export type ReservaType = {
-  car: CarType | null,
+  car: VehicleType | null,
   startLocation: string,
   endLocation: string,
   startDay: Date,
