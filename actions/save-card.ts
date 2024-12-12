@@ -17,8 +17,7 @@ export const saveCard = async (values:z.infer<typeof formSchema>) => {
     const client = await clientPromise;
     const db = client.db("MovilRenta")
     const collection = db.collection('card')
-    const data = await collection.insertOne(resultParsed.data)
-    console.log(data)
+    await collection.insertOne(resultParsed.data)
 
     return {
       ok: true

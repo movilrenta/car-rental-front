@@ -3,8 +3,9 @@
 import { formSchema, RequestExecutedPay, ResponseDataToken, ResponseExecutedPay } from "@/types/payway-form.schema";
 import axios, { AxiosError } from "axios";
 import { z } from "zod";
-//const URL = "http://localhost:3000/"
 const URL = process.env.NEXT_PUBLIC_URL_MOVILRENTA
+//const URL = "http://localhost:3000/"
+
 
 export const getTokenPay = async (values: z.infer<typeof formSchema>) => {
   try {
@@ -35,7 +36,7 @@ export const getTokenPay = async (values: z.infer<typeof formSchema>) => {
     const body = {
       site_transaction_id: uuid,
       token: response.id,
-      payment_method_id: values.payment_method_id,
+      payment_method_id: +(values.payment_method_id),
       bin: response.bin,
       amount: 2000,
       currency: "ARS",
