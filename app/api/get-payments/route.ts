@@ -24,6 +24,6 @@ export async function GET(req: any) {
     return NextResponse.json({ response: response.data }, { status: 200 });
   } catch (error: any) {
     const errorMessage = error.response?.data || error.message;
-    return NextResponse.json({ error: errorMessage }, { status: 500 });
+    return NextResponse.json({ error: errorMessage }, { status: 501 });
  }
 }

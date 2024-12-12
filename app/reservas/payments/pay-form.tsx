@@ -108,7 +108,7 @@ export default function PayForm() {
       </div>
 
       <div className="relative px-4 sm:px-6 lg:px-8 pb-8 max-w-lg mx-auto">
-        <div className="bg-white dark:bg-gray-800 px-8 pb-6 rounded-b-xl shadow-sm">
+        <div className="bg-white min-h-[755px] dark:bg-gray-800 px-8 pb-6 rounded-b-xl shadow-sm">
           {/* Card header */}
           <div className="text-center mb-6">
             {/* <div className="mb-2">
@@ -127,7 +127,7 @@ export default function PayForm() {
              Por favor complete los siguientes datos del formulario de pago para finalizar su reserva.
             </div>
           </div>
-          <Form {...form}>
+          {!loader && <Form {...form}>
             <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
               {/* Payments Methods */}
               {loader ? (
@@ -152,14 +152,14 @@ export default function PayForm() {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          {paymentsMethods?.map((item, index) => (
-                            <div
+                          {paymentsMethods?.sort((a, b) => a.descripcion.localeCompare(b.descripcion)).map((item, index) => (
+                            !item.tarjeta.includes("Test") && <div
                               key={index}
-                              className="flex items-center gap-4 p-2 cursor-pointer hover:bg-slate-100"
+                              className="flex items-center gap-4 p-2 pe-0 cursor-pointer hover:bg-slate-100"
                             >
                               <FaCreditCard size={20} className="text-slate-700"/>
                               <SelectItem value={item.idmediopago}>
-                                {item.tarjeta}
+                                {item.descripcion.length < 2 ? item.tarjeta : item.descripcion}
                               </SelectItem>
                             </div>
                           ))}
@@ -370,7 +370,12 @@ export default function PayForm() {
                         className="form-input w-full"
                         type="text"
                         placeholder="123"
-                        {...field}
+                        maxLength={6}
+                        value={field.value}
+                        onChange={(e) => {
+                          const input = e.target.value.replace(/\D/g, ""); // Remueve cualquier carácter no numérico
+                          field.onChange(input); // Actualiza el estado del campo
+                        }}
                       />
                     </FormControl>
                     <FormMessage />
@@ -451,7 +456,7 @@ export default function PayForm() {
                 </Button>
               </div>
             </form>
-          </Form>
+          </Form>}
         </div>
       </div>
     </main>
