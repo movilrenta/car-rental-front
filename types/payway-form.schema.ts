@@ -60,7 +60,8 @@ export const formSchema = z.object({
       .min(7, "El nombre debe contener al menos 7 caracteres")
       .max(10, "El DNI es demasiado extenso"),
   }),
-  payment_method_id: z.number().default(1),
+  payment_method_id: z.string(),
+  street_address:z.string().optional()
 });
 
 export interface ResponseDataToken {
@@ -137,4 +138,11 @@ export interface StatusDetails {
   card_authorization_code: string;
   address_validation_code: string;
   error: null;
+}
+
+export interface PaymentMethods {
+  idmediopago: string;
+  descripcion: string;
+  moneda: string,
+  tarjeta: string;
 }
