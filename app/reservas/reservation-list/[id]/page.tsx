@@ -1,5 +1,4 @@
 import { getReservationById } from "@/actions/get-reservations-by-id";
-import { Separator } from "@/components/ui/separator";
 import { formatDate } from "@/components/utils/utils";
 import { redirect } from "next/navigation";
 
