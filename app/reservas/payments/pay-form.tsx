@@ -25,10 +25,12 @@ import {
   SelectValue,
 } from "@/components/select";
 import clsx from "clsx";
-import { getPaymentMethods, getTokenPay, saveCard } from "@/actions";
 import { FaCreditCard } from "react-icons/fa";
 import { useToast } from "@/hooks/use-toast";
 import { useEffect, useState } from "react";
+import { getPaymentMethods } from "@/actions/get-payment-methods";
+import { getTokenPay } from "@/actions/get-token-pay";
+// import { saveCard } from "@/actions/save-card";
 
 export default function PayForm() {
   const [loader, setLoader] = useState<boolean>(true);
@@ -72,7 +74,7 @@ export default function PayForm() {
         title: `${resp?.message}`,
       });
     } else {
-      await saveCard(values);
+      // await saveCard(values);
 
       toast({
         variant: "default",
