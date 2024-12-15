@@ -22,7 +22,7 @@ export default async function ReservationByIdPage({ params }: Params) {
         <h2 className="text-lg md:text-xl font-semibold">
           Datos de la reserva:
         </h2>
-        <hr className="min-w-[320px] w-full h-[1px] border-none bg-gray-700 dark:bg-gray-100"/>
+        <hr className="w-full h-[1px] border-none bg-gray-700 dark:bg-gray-100"/>
         <ul className="flex flex-col gap-1">
           <li>
             <div className="flex items-center gap-x-2">
@@ -90,7 +90,7 @@ export default async function ReservationByIdPage({ params }: Params) {
         </ul>
 
         <h2 className="text-lg md:text-xl font-semibold">Datos del cliente:</h2>
-        <hr className="min-w-[320px] w-full h-[1px] border-none bg-gray-700 dark:bg-gray-100"/>
+        <hr className="w-full h-[1px] border-none bg-gray-700 dark:bg-gray-100"/>
         <ul className="flex flex-col gap-1">
           <li>
             <div className="flex items-center gap-x-2">
@@ -122,7 +122,7 @@ export default async function ReservationByIdPage({ params }: Params) {
         </ul>
         <hr />
         <h2 className="text-lg md:text-xl font-semibold">Datos del pago:</h2>
-        <hr className="min-w-[320px] w-full h-[1px] border-none bg-gray-700 dark:bg-gray-100"/>
+        <hr className="w-full h-[1px] border-none bg-gray-700 dark:bg-gray-100"/>
         <ul>
           <li>
             <div className="flex items-center gap-x-2">
