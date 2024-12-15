@@ -1,3 +1,5 @@
+import { CarResponse } from "./car.interface";
+
 export interface ReservationDetail {
   id:                 number;
   car_id:             number;

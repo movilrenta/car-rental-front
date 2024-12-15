@@ -19,7 +19,7 @@ export async function middleware(request: NextRequest) {
       // Verificar el token
       try {
         await jwtVerify(token, secretKey);
-        console.log("Token válido. Payload:");
+        console.log("Token válido");
 
       } catch (error) {
         console.error("Error al verificar el token:", error);
