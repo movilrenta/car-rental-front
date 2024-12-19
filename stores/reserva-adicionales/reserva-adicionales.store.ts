@@ -4,39 +4,32 @@ import { StateCreator, create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
 export type ReservaAdicionalesType = {
-  silla: boolean;
-  gps: boolean;
+  id: number
 };
 
 interface StoreState {
-  reserva_adicionales: ReservaAdicionalesType | null;
-  getReservaAdicionales: () => ReservaAdicionalesType | null;
-  addReservaAdicionalSilla: (value: boolean) => void;
-  addReservaAdicionalGPS: (value: boolean) => void;
+  reserva_adicionales: ReservaAdicionalesType[] | null;
+  getReservaAdicionales: () => ReservaAdicionalesType[] | null;
+  addReservaAdicional: (value: number) => void;
   removeReservaAuto: () => void;
 }
 
 const storeApi: StateCreator<StoreState> = (set, get) => ({
-  reserva_adicionales: { silla: false, gps: false },
+  reserva_adicionales: [],
   getReservaAdicionales: () => get().reserva_adicionales,
+  addReservaAdicional: (value: number) => {
+    const reserva_adicionales = get().reserva_adicionales ?? [];
+    const exists = reserva_adicionales.some((item) => item.id === value);
+  
+    const updatedReservaAdicionales = exists
+      ? reserva_adicionales.filter((item) => item.id !== value) // Eliminar si ya existe
+      : [...reserva_adicionales, { id: value }]; // Agregar si no existe
+  
+    set(() => ({ reserva_adicionales: updatedReservaAdicionales }));
+  },
+  
 
-  addReservaAdicionalSilla: (value: boolean) =>
-    set((state) => ({
-      reserva_adicionales: {
-        ...state.reserva_adicionales,
-        silla: value,
-        gps: state.reserva_adicionales?.gps ?? false, // Asegurando que gps siempre tenga un valor booleano
-      }
-    })),
-
-  addReservaAdicionalGPS: (value: boolean) =>
-    set((state) => ({
-      reserva_adicionales: {
-        ...state.reserva_adicionales,
-        gps: value,
-        silla: state.reserva_adicionales?.silla ?? false, // Asegurando que silla siempre tenga un valor booleano
-      }
-    })),
+ 
 
   removeReservaAuto: () => set(() => ({ reserva_adicionales: null })),
 });

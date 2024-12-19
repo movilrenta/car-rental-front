@@ -2,8 +2,8 @@
 
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import Image from "next/image";
-import PayBg from "@/public/images2/carBanner.webp";
+// import Image from "next/image";
+// import PayBg from "@/public/images2/carBanner.webp";
 // import User from "@/public/images/user-64-13.jpg";
 import {
   Form,
@@ -25,18 +25,21 @@ import {
   SelectValue,
 } from "@/components/select";
 import clsx from "clsx";
+import { getPaymentMethods, getTokenPay, saveCard } from "@/actions";
 import { FaCreditCard } from "react-icons/fa";
 import { useToast } from "@/hooks/use-toast";
 import { useEffect, useState } from "react";
-import { getPaymentMethods } from "@/actions/get-payment-methods";
-import { getTokenPay } from "@/actions/get-token-pay";
-// import { saveCard } from "@/actions/save-card";
+import BannerPage from "@/view/banner-page";
+import { useReservaStore } from "@/stores/reservas/reserva.store";
+import { calcularDiasEntreFechas2 } from "@/components/utils/utils";
 
-export default function PayForm() {
+export default function PayForm({aditionals} : {aditionals: any[]}) {
   const [loader, setLoader] = useState<boolean>(true);
   const [paymentsMethods, setPaymentsMethods] = useState<PaymentMethods[]>();
-  const { toast } = useToast();
+  const reserva = useReservaStore((state) => state.getReserva())
 
+  const { toast } = useToast();
+  
   const payMethods = async () => {
     const resp = await getPaymentMethods();
     setPaymentsMethods(resp.data);
@@ -54,20 +57,46 @@ export default function PayForm() {
       card_expiration_year: "",
       security_code: "",
       card_holder_birthday: "",
-      card_holder_door_number: 0,
+      card_holder_door_number: "",
       card_holder_name: "",
       card_holder_identification: {
         type: "DNI",
         number: "",
       },
       payment_method_id: "",
-      street_address:""
+      street_address:"",
+      installments: "1"
     },
   });
+  const days = calcularDiasEntreFechas2(reserva?.startDay!, reserva?.endDay!)
 
+  const showAccesorios = (): number => {
+    let amount_aditionals = 0;
+    reserva?.aditionals_array.map((aditional) => {
+      const adicional = aditionals.find((item: any) => item.id === aditional.id);
+      if (adicional) {
+        amount_aditionals = amount_aditionals + (Number(adicional.price) * days);
+      }
+    });
+    return amount_aditionals
+  }
+
+  
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    const code = sessionStorage.getItem("movil_renta_code");
+    const reserva_id = sessionStorage.getItem("movil_renta_reservation_id")
+    const number_reserva_id = Number(reserva_id)
+    const amount_aditionals = showAccesorios()
+    if (!code) {
+      toast({
+        variant: "destructive",
+        title: "No se encontro el codigo de la reserva",
+      });
+      return;
+    }
     const {street_address,...rest} = values
-    const resp = await getTokenPay(rest);
+    const resp = await getTokenPay(rest, code!, number_reserva_id, reserva?.car?.group_id!, days, amount_aditionals);
+    console.log(resp);
     if (!resp?.ok) {
       toast({
         variant: "default",
@@ -80,12 +109,13 @@ export default function PayForm() {
         variant: "default",
         title: `${resp.message}`,
       });
-      form.reset();
+      //form.reset();
     }
   };
   return (
     <main>
-      <div className="relative pt-8">
+      <BannerPage title="Realizar el pago" image="/images2/carBanner.webp"/>
+      {/* <div className="relative pt-8">
         <div
           className="absolute inset-0 bg-gray-800 overflow-hidden"
           aria-hidden="true"
@@ -107,7 +137,7 @@ export default function PayForm() {
             alt="Pay background"
           />
         </div>
-      </div>
+      </div> */}
 
       <div className="relative px-4 sm:px-6 lg:px-8 pb-8 max-w-lg mx-auto">
         <div className="bg-white min-h-[755px] dark:bg-gray-800 px-8 pb-6 rounded-b-xl shadow-sm">
@@ -167,7 +197,7 @@ export default function PayForm() {
                           ))}
                         </SelectContent>
                       </Select>
-                      <FormMessage />
+                      <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
                     </FormItem>
                   )}
                 />
@@ -191,7 +221,7 @@ export default function PayForm() {
                         {...field}
                       />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
                   </FormItem>
                 )}
               />
@@ -221,7 +251,7 @@ export default function PayForm() {
                           }}
                         />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
                     </FormItem>
                   )}
                 />
@@ -250,7 +280,7 @@ export default function PayForm() {
                           }}
                         />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
                     </FormItem>
                   )}
                 />
@@ -278,12 +308,38 @@ export default function PayForm() {
                           }}
                         />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
                     </FormItem>
                   )}
                 />
               </div>
               {/* Birthday*/}
+              <FormField
+                  control={form.control}
+                  name="installments"
+                  render={({ field }) => (
+                    <FormItem className="flex-1">
+                      <FormLabel className="block text-sm font-medium mb-1">
+                        Cantidad de cuotas
+                      </FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Cantidad de cuotas" defaultValue={"1"}/>
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent className="bg-zinc-200 text-zinc-700">
+                          <SelectItem className="hover:bg-zinc-700 hover:text-white" value="1">1 cuota s/int</SelectItem>
+                          <SelectItem className="hover:bg-zinc-700 hover:text-white" value="2">2 cuotas s/int</SelectItem>
+                          <SelectItem className="hover:bg-zinc-700 hover:text-white" value="3">3 cuotas s/int</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </FormItem>
+                  )}
+                />
               <FormField
                 control={form.control}
                 name="card_holder_birthday"
@@ -298,7 +354,7 @@ export default function PayForm() {
                         className="form-input w-full"
                         type="text"
                         maxLength={10}
-                        placeholder="DD/MM/YYYY"
+                        placeholder="DD/MM/AAAA"
                         pattern="\d{2}/\d{2}/\d{4}"
                         value={field.value}
                         onChange={(e) => {
@@ -310,7 +366,7 @@ export default function PayForm() {
                         }}
                       />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
                   </FormItem>
                 )}
               />
@@ -329,10 +385,11 @@ export default function PayForm() {
                         className="form-input w-full"
                         type="text"
                         placeholder="José Perez"
+                        maxLength={36}
                         {...field}
                       />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
                   </FormItem>
                 )}
               />
@@ -343,7 +400,7 @@ export default function PayForm() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="block text-sm font-medium mb-1">
-                     Dirección
+                      Dirección
                       <span className="text-red-500"> *</span>
                     </FormLabel>
                     <FormControl>
@@ -354,7 +411,7 @@ export default function PayForm() {
                         {...field}
                       />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
                   </FormItem>
                 )}
               />
@@ -364,7 +421,7 @@ export default function PayForm() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="block text-sm font-medium mb-1">
-                      Nº
+                      Altura
                       <span className="text-red-500"> *</span>
                     </FormLabel>
                     <FormControl>
@@ -380,7 +437,7 @@ export default function PayForm() {
                         }}
                       />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
                   </FormItem>
                 )}
               />
@@ -436,7 +493,7 @@ export default function PayForm() {
                           }}
                         />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
                     </FormItem>
                   )}
                 />

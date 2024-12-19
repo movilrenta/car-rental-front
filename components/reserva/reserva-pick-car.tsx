@@ -1,9 +1,9 @@
 "use client";
-import { Cars, VehicleType } from "@/constant/cars";
+import { VehicleType } from "@/constant/cars";
 import { useEffect, useState } from "react";
-import CardCar from "./reserva-pick-car-card";
+//import CardCar from "./reserva-pick-car-card";
 import { useReservaAutoStore } from "@/stores/reserva-auto/reserva-auto.store";
-import { BiCheck } from "react-icons/bi";
+//import { BiCheck } from "react-icons/bi";
 import { Loader2Icon } from "lucide-react";
 import { Button } from "../ui/button";
 import RenderCarsAvailability from "./reserva-cars-avalability";
@@ -51,16 +51,20 @@ export default function PickCar() {
   }
 
   return (
-    <div className="grid grid-cols-12 col-span-12 gap-6 mt-8 w-full">
-      <h2 className="text-2xl font-medium col-span-12 leading-snug text-gray-800 dark:text-gray-100 mb-3">
+    <div className="grid grid-cols-12 col-span-12 gap-6 mt-8 min-h-96 w-full place-content-start">
+      {showCars 
+        ? <>
+        <h2 className="text-2xl font-medium col-span-12 leading-snug text-gray-800 dark:text-gray-100 mb-3">
         02. Seleccione su <strong>vehículo</strong>
       </h2>
-      {showCars 
-        ? <RenderCarsAvailability Vehicles={data}/>
+      <RenderCarsAvailability Vehicles={data}/>
+        </>
         : <Button onClick={() => checkCars()} className="col-span-12 w-72 min-w-72 !py-5 border mx-auto bg-red-700 hover:bg-orange-800 text-white">
             {contentButton}
           </Button>
       }
+      
+      
     </div>
   );
 }

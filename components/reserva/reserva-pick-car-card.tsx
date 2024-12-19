@@ -8,8 +8,16 @@ import { TbManualGearbox } from "react-icons/tb";
 
 export default function CardCar({ car }: { car: VehicleType }) {
   const addReservaCar = useReservaAutoStore((state) => state.addReservaAuto)
+  const removeCar = useReservaAutoStore((state) => state.removeReservaAuto)
+  const pickedCar = useReservaAutoStore((state) => state.getReservaAuto())
+  function handleCar(car: VehicleType) {
+    pickedCar?.id === car.id 
+    ? removeCar()
+    : addReservaCar(car)
+  }
+
   return (
-    <div className="col-span-full sm:col-span-6 group border border-transparent hover:border-zinc-300 hover:bg-black/10 duration-200 xl:col-span-3 bg-white dark:bg-gray-800 shadow-sm rounded-xl overflow-hidden">
+    <div className="col-span-full sm:col-span-6 group border border-transparent hover:border-zinc-500 dark:hover:border-zinc-700 hover:bg-black/10 duration-200 xl:col-span-3 bg-white dark:bg-gray-800 shadow-sm rounded-xl overflow-hidden">
       <div className="flex flex-col h-full">
         {/* Image */}
         <Image
@@ -28,7 +36,7 @@ export default function CardCar({ car }: { car: VehicleType }) {
               <h3 className="text-lg text-gray-800 dark:text-gray-100 font-semibold">
                 {car?.name}
               </h3>
-              <h5 className="text-sm">
+              <h5 className="text-sm line-clamp-1">
                 o similar <strong>Grupo {car?.group?.name}</strong>
               </h5>
             </header>
@@ -111,7 +119,7 @@ export default function CardCar({ car }: { car: VehicleType }) {
             <ul className="grid grid-cols-2 gap-y-3 text-nowrap mb-5 dark:text-gray-300">
               <li className="flex gap-2 items-center w-full overflow-clip text-ellipsis">
                 <GiGasPump className="w-4 h-4 min-h-4 min-w-4"/>
-                <span className="text-nowrap text-ellipsis overflow-clip">{car?.fuel_type}</span>
+                <span className="text-nowrap text-ellipsis overflow-clip capitalize">{car?.fuel_type}</span>
               </li>
               <li className="flex gap-2 items-center w-full overflow-clip text-ellipsis">
                 <BsLuggageFill className="w-4 h-4 min-h-4 min-w-4"/>
@@ -123,7 +131,7 @@ export default function CardCar({ car }: { car: VehicleType }) {
               </li>
               <li className="flex gap-2 items-center w-full overflow-clip text-ellipsis">
                 <TbManualGearbox className="w-4 h-4 min-h-4 min-w-4"/>
-                <span className="text-nowrap text-ellipsis overflow-clip">{car?.transmission}</span>
+                <span className="text-nowrap text-ellipsis overflow-clip capitalize">{car?.transmission}</span>
               </li>
               <li className="flex gap-2 items-center w-full overflow-clip text-ellipsis">
                 <FaUser className="w-4 h-4 min-h-4 min-w-4"/>
@@ -134,11 +142,10 @@ export default function CardCar({ car }: { car: VehicleType }) {
           {/* Card footer */}
           <div>
             <div
-              onClick={() => addReservaCar(car)}
-              className="btn-sm w-full bg-gray-900 text-gray-100 hover:bg-gray-800 dark:bg-gray-100 dark:text-gray-800 dark:hover:bg-white cursor-pointer"
-              
+              onClick={() => handleCar(car)}
+              className="btn-sm w-full bg-red-700 hover:bg-red-900 text-gray-100 duration-200 cursor-pointer"
             >
-              Elegir Vehículo
+              {pickedCar?.id === car.id ? "Quitar" : "Elegir Vehículo"}
             </div>
           </div>
         </div>
