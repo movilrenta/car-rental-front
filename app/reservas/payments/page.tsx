@@ -3,10 +3,13 @@ export const metadata = {
   description: 'Formulario de reservas',
 }
 
+import axios from 'axios'
 import PayForm from './pay-form'
+const BACK = process.env.NEXT_PUBLIC_URL_BACK
 
-export default function Payments() {
+export default async function Payments() {
+  const {data} = await axios.get(`${BACK}aditionals`)
   return (
-    <PayForm />
+    <PayForm aditionals={data} />
   )
 }

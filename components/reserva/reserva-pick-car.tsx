@@ -1,9 +1,9 @@
 "use client";
-import { Cars, VehicleType } from "@/constant/cars";
+import { VehicleType } from "@/constant/cars";
 import { useEffect, useState } from "react";
-import CardCar from "./reserva-pick-car-card";
+//import CardCar from "./reserva-pick-car-card";
 import { useReservaAutoStore } from "@/stores/reserva-auto/reserva-auto.store";
-import { BiCheck } from "react-icons/bi";
+//import { BiCheck } from "react-icons/bi";
 import { Loader2Icon } from "lucide-react";
 import { Button } from "../ui/button";
 import RenderCarsAvailability from "./reserva-cars-avalability";

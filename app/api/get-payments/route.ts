@@ -11,7 +11,7 @@ export async function GET(req: any) {
 
   try {
     const response = await axios.get(
-      `${API_URL}payments` || "",
+      `${API_URL}payments?siteOperationId=2c4573b4-1d23-4f4e-ba71-0d4a8acd8c3d&dateFrom=2024-12-01&dateTo=2024-12-12` || "",
       {
         headers: {
           "Content-Type": "application/json",

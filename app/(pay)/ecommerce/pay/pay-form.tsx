@@ -25,7 +25,7 @@
 //   SelectValue,
 // } from "@/components/select";
 // import clsx from "clsx";
-// import { getPaymentMethods, getTokenPay, saveCard } from "@/actions";
+// import { getPaymentMethods, get-TokenPay, saveCard } from "@/actions";
 // import { FaCreditCard } from "react-icons/fa";
 // import { useToast } from "@/hooks/use-toast";
 // import { useEffect, useState } from "react";
@@ -65,7 +65,7 @@
 
 //   const onSubmit = async (values: z.infer<typeof formSchema>) => {
 //     const {street_address,...rest} = values
-//     const resp = await getTokenPay(rest);
+//     const resp = await get-TokenPay(rest);
 //     if (!resp?.ok) {
 //       toast({
 //         variant: "default",
