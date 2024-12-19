@@ -103,7 +103,7 @@ export default function PayForm({aditionals} : {aditionals: any[]}) {
         title: `${resp?.message}`,
       });
     } else {
-      await saveCard(values);
+      // await saveCard(values);
 
       toast({
         variant: "default",
