@@ -185,11 +185,15 @@ export default function PickDate() {
     <p className="text-blue-600 italic text-sm mt-8">
       Las tarifas pueden tener variantes segun la fecha seleccionada.
     </p>
-    {Number(itinerario?.startTime?.slice(0,2)) < 7 || Number(itinerario?.startTime?.slice(0,2)) > 18 
+    {!itinerario?.startLocation.includes("tuc") || !itinerario?.endLocation?.includes("tuc") 
+      ? <p className="text-blue-600 italic text-sm">- La ciudad seleccionada tiene un cargo extra (Drop Off).</p> 
+      : null
+    }
+    {Number(itinerario?.startTime?.slice(0,2)) <= 7 || Number(itinerario?.startTime?.slice(0,2)) > 19 
       ? <p className="text-blue-600 italic text-sm">- El horario de salida tiene un cargo extra ya que está fuera de nuestros horarios de atención en oficina.</p> 
       : null
     }
-    {Number(itinerario?.endTime?.slice(0,2)) < 7 || Number(itinerario?.endTime?.slice(0,2)) > 18 
+    {Number(itinerario?.endTime?.slice(0,2)) <= 7 || Number(itinerario?.endTime?.slice(0,2)) > 19 
       ? <p className="text-blue-600 italic text-sm">- El horario de regreso tiene un cargo extra ya que está fuera de nuestros horarios de atención en oficina.</p> 
       : null
     }

@@ -1,1 +1,3 @@
-export * from './get-token-pay';
+export { getUserReservation } from './get-user-reservation';
+export { getPaymentMethods } from './get-payment-methods';
+export { getTokenPay } from './get-token-pay';

@@ -10,7 +10,7 @@ import { GoArrowDownLeft, GoArrowUpRight } from "react-icons/go";
 import { cities } from "@/constant/cities";
 import { hours } from "@/constant/hours";
 import ItinerarioPickDate from "./itinerario-pick-date";
-import { Calendar } from "lucide-react";
+//import { Calendar } from "lucide-react";
 import { calcularDiasEntreFechas2 } from "@/components/utils/utils";
 
 export default function HomeItinerario() {

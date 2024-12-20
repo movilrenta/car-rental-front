@@ -11,7 +11,7 @@ import {
   IoNavigateOutline,
 } from "react-icons/io5";
 
-export const ListItems = () => {
+export const ListItems = ({ data }: { data: any }) => {
   const reservas = useReservaStore((state) => state.getReserva());
   const [isClient, setIsClient] = useState<boolean>(false);
   const dias = calcularDiasEntreFechas2(reservas?.startDay!, reservas?.endDay!);
@@ -37,15 +37,20 @@ export const ListItems = () => {
   };
 
   const showAccesorios = (): number => {
-    if (reservas?.silla && reservas?.gps) {
-      return 5000 * 2 * dias;
-    } else if (reservas?.silla || reservas?.gps) {
-      return 5000 * dias;
-    }
-    return 0;
+    let amount_aditionals = 0;
+    reservas?.aditionals_array.map((aditional) => {
+      const adicional = data.find((item: any) => item.id === aditional.id);
+      if (adicional) {
+        console.log(adicional);
+        amount_aditionals = amount_aditionals + Number(adicional.price) * dias;
+      }
+    });
+
+    console.log(amount_aditionals);
+    return amount_aditionals;
   };
-  const totalPrice = reservas?.car?.price
-    ? reservas.car.price * dias + showAccesorios()
+  const totalPrice = reservas?.car?.group?.rate
+    ? reservas.car.group?.rate * dias + showAccesorios()
     : 0;
 
   return (
@@ -64,8 +69,8 @@ export const ListItems = () => {
           <div className="text-xs md:text-base text-gray-900 dark:text-slate-100">
             <div>
               <h3 className="flex gap-x-1">
-                Desde: {formatDate(reservas!.startDay)}, {reservas!.startTime} Hs,{" "}
-                {selectedCity(reservas!.startLocation)}
+                Desde: {formatDate(reservas!.startDay)}, {reservas!.startTime}{" "}
+                Hs, {selectedCity(reservas!.startLocation)}
               </h3>
               <h3 className="flex gap-2">
                 Hasta: {formatDate(reservas!.endDay)}, {reservas!.endTime} Hs,{" "}
@@ -84,45 +89,49 @@ export const ListItems = () => {
               Vehículo
             </h2>
             <span className="text-md md:text-lg font-semibold text-gray-900 dark:text-slate-100">
-              ARS {(reservas?.car?.price! * dias).toFixed(2) || "--"}
+              ARS {(reservas?.car?.group?.rate! * dias).toFixed(2) || "--"}
             </span>
           </div>
           <div className="text-xs md:text-base text-gray-900 dark:text-slate-100">
             <p>
               <span className="font-semibold">
-                Categoria: {reservas?.car?.group}
+                Categoria: {reservas?.car?.group?.name}
               </span>{" "}
               - {reservas?.car?.name}. Cobertura total por daños, en caso de
               robo/hurto con franquicia de: ARS 2.700.000,00. - Por vuelco: ARS
-              8.500.000,00
+              8.500.000,00 {reservas?.car?.group?.insurances}
             </p>
           </div>
         </div>
       </div>
-      {(reservas?.silla || reservas?.gps) && (
-        <>
-          <hr className="w-full h-[2px] bg-gray-500 dark:bg-slate-100" />
-          <div className="w-full flex items-center gap-4">
-            <IoNavigateOutline size={50} className="text-red-700" />
-            <div className="w-full flex flex-col gap-y-2">
-              <div className="flex justify-between">
-                <h2 className="text-md md:text-lg font-semibold  text-red-700">
-                  Accesorios
-                </h2>
-                <span className="text-md md:text-lg font-semibold text-gray-900 dark:text-slate-100">
-                  ARS {showAccesorios().toFixed(2)}
-                </span>
-              </div>
-              <div className="text-xs md:text-base text-gray-900 dark:text-slate-100">
-                {reservas?.silla && (
-                  <p className="font-semibold">Silla para niños.</p>
-                )}
-                {reservas?.gps && <p className="font-semibold">Gps.</p>}
-              </div>
+
+      <>
+        <hr className="w-full h-[2px] bg-gray-500 dark:bg-slate-100" />
+        <div className="w-full flex items-center gap-4">
+          <IoNavigateOutline size={50} className="text-red-700" />
+          <div className="w-full flex flex-col gap-y-2">
+            <div className="flex justify-between">
+              <h2 className="text-md md:text-lg font-semibold  text-red-700">
+                Accesorios
+              </h2>
+              <span className="text-md md:text-lg font-semibold text-gray-900 dark:text-slate-100">
+                ARS {showAccesorios().toFixed(2)}
+              </span>
+            </div>
+            <div className="text-xs md:text-base text-gray-900 dark:text-slate-100">
+              {reservas?.aditionals_array.map((aditional) => {
+                const adicional = data.find(
+                  (item: any) => item.id === aditional.id
+                );
+                if (adicional) {
+                  return <p className="font-semibold">{adicional.name}</p>;
+                }
+              })}
             </div>
           </div>
-        </>
-      )}
+        </div>
+      </>
+
       <hr className="w-full h-[2px] bg-gray-500 dark:bg-slate-100" />
       <div className="w-full flex items-center gap-4">
         <IoCheckboxOutline size={50} className="text-red-700" />

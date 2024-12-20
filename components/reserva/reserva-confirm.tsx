@@ -6,6 +6,7 @@ import { useItinerarioStore } from "@/stores/reserva-itinerario/reserva-itinerar
 import { ReservaType, useReservaStore } from "@/stores/reservas/reserva.store";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { calcularDiasEntreFechas2 } from "../utils/utils";
 
 export default function ReservaConfirm() {
   const router = useRouter();
@@ -43,7 +44,7 @@ export default function ReservaConfirm() {
 
   const handleGoBook = () => {
     if(reservaAuto === null || reservaItinerario === null) return;
-  
+    const dias = calcularDiasEntreFechas2(reservaItinerario?.startDay!, reservaItinerario?.endDay!)
     const reservation: ReservaType = {
       car: reservaAuto,
       startLocation: reservaItinerario.startLocation,
@@ -52,8 +53,10 @@ export default function ReservaConfirm() {
       endDay: reservaItinerario.endDay!,
       startTime: reservaItinerario!.startTime,
       endTime: reservaItinerario!.endTime,
-      silla:reservaAditional?.silla ?? false,
-      gps:reservaAditional?.gps ?? false,
+      aditionals_array: reservaAditional?.map((item) => ({
+        ...item,
+        amount: dias,
+      })) || []
     };
     nuevaReserva(reservation);
     router.push('/reservas/confirmar')
