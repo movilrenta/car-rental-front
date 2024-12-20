@@ -5,15 +5,15 @@ import { FormMiReserva } from "@/types/mi-reserva.schema"
 import { Branches, UserReservation } from "@/types/user-reservation.inteface"
 import axios from "axios"
 
-const URL = process.env.DB_URL as string
+const URL = process.env.NEXT_PUBLIC_URL_BACK as string
 
 export const getUserReservation = async ({code}:FormMiReserva) => {
   try {
-
+    
     const resp = await axios.get(`${URL}branches`)
     const branches:Branches[] = resp.data
 
-    const {data} = await axios.get(`${URL}reservations/bytransaction/${code}`)
+    const {data} = await axios.get(`${URL}reservations/bytransaction/${code.toUpperCase()}`)
     console.log(data)
     if(!data){
       return {
@@ -31,8 +31,8 @@ export const getUserReservation = async ({code}:FormMiReserva) => {
     const brand = await axios.get(`${URL}brands/${carData.brand_id}`)
 
     const brandData:Brand = brand.data
-    const start_branch = branches.find((item) => item.id === reserva.start_branch_id)
-    const end_branch = branches.find((item) => item.id === reserva.end_branch_id)
+    const start_branch = branches.find((item) => item.id === reserva.start_branch_id)?.name
+    const end_branch = branches.find((item) => item.id === reserva.end_branch_id)?.name
 
     return {
       ok:true,
@@ -42,8 +42,8 @@ export const getUserReservation = async ({code}:FormMiReserva) => {
         image: carData.image,
         fuel_type: carData.fuel_type,
         brand_name: brandData.name,
-        start_branch: start_branch?.name ?? "",
-        end_branch: end_branch?.name ?? "",
+        start_branch: start_branch ?? "",
+        end_branch: end_branch ?? "",
         start_date: reserva.start_date,
         end_date: reserva.end_date,
         status: reserva.status

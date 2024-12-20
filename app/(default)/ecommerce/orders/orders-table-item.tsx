@@ -13,10 +13,10 @@ import { changeStatusPayment } from "@/actions/change-status-payment";
 
 interface OrdersTableItemProps {
   order: ReservationsDB;
+  branches?:any
 }
 
-export default function OrdersTableItem({ order }: OrdersTableItemProps) {
-
+export default function OrdersTableItem({ order, branches }: OrdersTableItemProps) {
   return (
     <tbody className="text-sm">
       {/* Row */}
@@ -33,11 +33,13 @@ export default function OrdersTableItem({ order }: OrdersTableItemProps) {
         </td>
         <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
           <div className="font-medium text-gray-800 dark:text-gray-100">
-            {order.start_branch_id}
+            {branches.find((branch:any) => branch.id === order.start_branch_id)?.name}
           </div>
         </td>
         <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-          <div className="text-left">{order.end_branch_id}</div>
+          <div className="text-left">
+          {branches.find((branch:any) => branch.id === order.end_branch_id)?.name}
+            </div>
         </td>
         <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
           <div className="text-left font-medium text-green-600">
