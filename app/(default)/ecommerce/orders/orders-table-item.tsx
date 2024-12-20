@@ -7,9 +7,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/select";
-import { changeStatusPayment } from "@/actions";
 import { ReservationsDB } from "@/types";
 import { formatDate } from "@/components/utils/utils";
+import { changeStatusPayment } from "@/actions/change-status-payment";
 
 interface OrdersTableItemProps {
   order: ReservationsDB;
