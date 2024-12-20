@@ -97,7 +97,8 @@ export default function PayForm({aditionals} : {aditionals: any[]}) {
       return;
     }
     const {street_address,...rest} = values
-    const resp = await getTokenPay(rest, code!, number_reserva_id, reserva?.car?.group_id!, days, amount_aditionals);
+    try {
+      const resp = await getTokenPay(rest, code!, number_reserva_id, reserva?.car?.group_id!, days, amount_aditionals);
     console.log(resp);
     if (!resp?.ok) {
       toast({
@@ -114,6 +115,10 @@ export default function PayForm({aditionals} : {aditionals: any[]}) {
       router.replace("/reservas/gracias");
       //form.reset();
     }
+    } catch (error) {
+      console.log(error, "ERROR---->");
+    }
+
   };
   return (
     <main>
