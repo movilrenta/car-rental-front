@@ -45,7 +45,7 @@ export default async function ReservationByIdPage({ params }: Params) {
               <p>Marca: {data?.car_details.brand.name ?? ""}</p>
             </div>
           </li>
-          <li>
+          {aditionals.length !== 0 && <li>
             <div className="flex items-center gap-x-2">
               <span className="w-[6px] h-[6px] rounded-full bg-red-500"></span>
               <p> Adicionales:{" "}
@@ -58,7 +58,7 @@ export default async function ReservationByIdPage({ params }: Params) {
                   ))}
               </p>
             </div>
-          </li>
+          </li>}
           <li>
             <div className="flex items-center gap-x-2">
               <span className="w-[6px] h-[6px] rounded-full bg-red-500"></span>

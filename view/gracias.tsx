@@ -22,7 +22,7 @@ export const Gracias = () => {
         con el cual podra consultar los detalles de la misma en el apartado{" "}
         <Link
           href={"/mi-reserva"}
-          className="font-semibold hover:text-blue-500 dark:text-slate-200 dark:hover:text-blue-500"
+          className="font-semibold underline underline-offset-4 hover:text-blue-500 dark:text-slate-200 dark:hover:text-blue-500"
         >
           Mi Reserva
         </Link>

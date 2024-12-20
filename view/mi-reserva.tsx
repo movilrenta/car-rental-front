@@ -50,14 +50,15 @@ export const MiReserva = () => {
   return (
     <section className="w-full min-h-screen animate-fade-in mb-14 dark:text-white">
       <BannerPage title="Mi reserva" image="/images2/carBanner.webp" />
-      <div className="container mx-auto mt-6 px-2 sm:px-0 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="container mx-auto mt-6 px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <div className="flex flex-col justify-start gap-4 lg:col-span-1">
           <h2 className="font-semibold text-lg">
-            Aqui podra revisar los datos de su reserva
+            Aquí podra revisar los datos de su reserva
           </h2>
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onsubmit)}
+              className="flex flex-col"
             >
               <FormField
                 control={form.control}
@@ -74,7 +75,7 @@ export const MiReserva = () => {
               />
               <Button
                 variant="outline"
-                className="mt-4 hover:bg-slate-200 dark:hover:bg-slate-800 dark:hover:text-white"
+                className="self-end mt-4 bg-red-700 hover:bg-red-800 hover:text-white duration-200 "
                 type="submit"
                 disabled={form.formState.isSubmitting}
               >

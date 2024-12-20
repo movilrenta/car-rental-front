@@ -4,7 +4,8 @@ import { formSchema, RequestExecutedPay, ResponseDataToken, ResponseExecutedPay 
 import axios, { AxiosError } from "axios";
 import { z } from "zod";
 //const URL = process.env.NEXT_PUBLIC_URL_MOVILRENTA
-const URL = "http://localhost:3000/"
+//const URL = "http://localhost:3000/";
+const URL = process.env.NEXT_PUBLIC_URL_MOVILRENTA;
 const BACK = process.env.NEXT_PUBLIC_URL_BACK
 
 export const getTokenPay = async (values: z.infer<typeof formSchema>, code: string, reserva_id: number, group_id: number, dias: number, amount_aditionals: number) => {

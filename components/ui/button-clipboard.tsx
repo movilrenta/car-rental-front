@@ -5,7 +5,14 @@ import { FaRegCopy, FaCheck } from "react-icons/fa6";
 
 export const ButtonClipboard = () => {
   const [copySuccess, setCopySuccess] = React.useState(false);
-  const code = sessionStorage.getItem("movil_renta_code") ?? "sin datos";
+  const [isClient, setIsClient] = React.useState(false);
+
+  React.useEffect(() => {
+    setIsClient(true); 
+  }, []);
+  if (!isClient) return null;
+
+  const code = sessionStorage?.getItem("movil_renta_code") || "";
 
   const handleCopy = async () => {
     try {
