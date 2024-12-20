@@ -1,8 +1,11 @@
 import { FormConfirm, ListItems } from "@/app/reservas/confirmar";
 import BannerPage from "./banner-page";
+import axios from "axios";
+const BACK = process.env.NEXT_PUBLIC_URL_BACK
 
-export const Confirm = () => {
-  
+export const Confirm = async () => {
+  const {data} = await axios.get(`${BACK}aditionals`);
+
   return (
     <div className="w-full flex flex-col items-center overflow-clip animate-fade-in mb-14">
       <BannerPage title="Su reserva" image="/images2/carBanner.webp"/>
@@ -11,7 +14,7 @@ export const Confirm = () => {
           <h2 className="text-xl md:text-2xl text-gray-900 dark:text-slate-100 mb-5">
             Revise y <span className="font-semibold">confirme su reserva</span>
           </h2>
-          <ListItems/>
+          <ListItems data={data}/>
         </div>
         <div className="w-full md:px-4">
           <h2 className="text-xl md:text-2xl text-gray-900 dark:text-slate-100 mb-5">

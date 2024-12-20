@@ -1,6 +1,7 @@
 import Image from "next/image";
 import imageConstruction from "@/public/images2/under-construction.webp";
 import Link from "next/link";
+
 export const PageUnderConstruction = () => {
   return (
     <div className="max-w-lg flex justify-center mx-auto mb-4 min-h-screen">

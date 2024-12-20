@@ -7,7 +7,7 @@ import { SelectedItemsProvider } from '@/app/selected-items-context'
 import DeleteButton from '@/components/delete-button'
 import DateSelect from '@/components/date-select'
 import FilterButton from '@/components/dropdown-filter'
-import OrdersTable from './orders-table'
+// import OrdersTable from './orders-table'
 import PaginationClassic from '@/components/pagination-classic'
 
 import Image01 from '@/public/images/icon-01.svg'
@@ -19,7 +19,7 @@ function OrdersContent() {
   // Some dummy orders data
   const orders = [
     {
-      id: 0,
+      id: "0",
       image: Image01,
       order: '#123567',
       date: '22/01/2024',
@@ -32,7 +32,7 @@ function OrdersContent() {
       description: 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
     },
     {
-      id: 1,
+      id: "1",
       image: Image01,
       order: '#779912',
       date: '22/01/2024',
@@ -45,7 +45,7 @@ function OrdersContent() {
       description: 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
     },
     {
-      id: 2,
+      id: "2",
       image: Image02,
       order: '#889924',
       date: '22/01/2024',
@@ -58,7 +58,7 @@ function OrdersContent() {
       description: 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
     },
     {
-      id: 3,
+      id: "3",
       image: Image01,
       order: '#897726',
       date: '22/01/2024',
@@ -71,7 +71,7 @@ function OrdersContent() {
       description: 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
     },
     {
-      id: 4,
+      id: "4",
       image: Image03,
       order: '#123567',
       date: '22/01/2024',
@@ -84,7 +84,7 @@ function OrdersContent() {
       description: 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
     },
     {
-      id: 5,
+      id: "5",
       image: Image01,
       order: '#896644',
       date: '21/01/2024',
@@ -97,7 +97,7 @@ function OrdersContent() {
       description: 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
     },
     {
-      id: 6,
+      id: "6",
       image: Image03,
       order: '#136988',
       date: '21/01/2024',
@@ -110,7 +110,7 @@ function OrdersContent() {
       description: 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
     },
     {
-      id: 7,
+      id: "7",
       image: Image03,
       order: '#442206',
       date: '21/01/2024',
@@ -123,7 +123,7 @@ function OrdersContent() {
       description: 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
     },
     {
-      id: 8,
+      id: "8",
       image: Image02,
       order: '#764321',
       date: '21/01/2024',
@@ -136,7 +136,7 @@ function OrdersContent() {
       description: 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
     },
     {
-      id: 9,
+      id: "9",
       image: Image01,
       order: '#908764',
       date: '21/01/2024',
@@ -185,7 +185,7 @@ function OrdersContent() {
       </div>
 
       {/* Table */}
-      <OrdersTable orders={orders} />
+      {/* <OrdersTable orders={orders} /> */}
 
       {/* Pagination */}
       <div className="mt-8">

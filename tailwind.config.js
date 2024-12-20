@@ -131,6 +131,7 @@ module.exports = {
   },
   plugins: [
     require('@tailwindcss/forms'),
+    require("tailwindcss-animate"),
     // add custom variant for expanding sidebar
     plugin(({ addVariant, e }) => {
       addVariant('sidebar-expanded', ({ modifySelectors, separator }) => {

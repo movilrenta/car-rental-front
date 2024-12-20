@@ -7,9 +7,9 @@ export const OrdersProperties = () => {
 
   const statusColor = (status: string): string => {
     switch (status) {
-      case 'Approved':
+      case 'approved':
         return 'bg-green-500/20 text-green-700'
-      case 'Refunded':
+      case 'rejected':
         return 'bg-yellow-500/20 text-yellow-700'
       default:
         return 'bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400'
