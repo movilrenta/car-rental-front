@@ -3,7 +3,7 @@ import { LuX } from "react-icons/lu";
 import NavbarLinks from "./navbar-links";
 import React from "react";
 import ThemeToggle from "@/components/theme-toggle";
-import { FaBurger } from "react-icons/fa6";
+// import { FaBurger } from "react-icons/fa6";
 import { Menu } from "lucide-react";
 
 export default function BurgerMenu() {

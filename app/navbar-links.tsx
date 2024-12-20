@@ -12,11 +12,12 @@ export default function NavbarLinks({burger = false} : {burger?: boolean}) {
     { label: "Empresas", link: "empresas" },
     { label: "Flota de vehículos", link: "flota" },
     { label: "Nosotros", link: "nosotros" },
+    { label: "Mi reserva", link: "mi-reserva" },
   ];
 
   return (
-    <div className={`${burger ? "sm:hidden" : "hidden sm:block"} my-6 mx-4 sm:mx-14`}>
-      <ul className={`flex ${burger ? "flex-col" : ""} flex-wrap -m-1`}>
+    <div className="hidden md:block my-6 mx-4">
+      <ul className="flex flex-wrap -m-1">
         {LinksNavbar.map((item, index) => (
           <li key={index} className="m-1">
             <Link
