@@ -5,14 +5,9 @@ import { FaLocationDot } from "react-icons/fa6";
 import { MdGTranslate } from "react-icons/md";
 import NavbarLinks from "./navbar-links";
 import ThemeToggle from "@/components/theme-toggle";
-// import BurgerMenu from "./navbar-burger";
 import { NavbarMobile } from "@/components/ui/navbar-mobile";
-import { cookies } from "next/headers";
 
 export default function Navbar() {
-
-  const cookiesStore = cookies()
-  const token = cookiesStore.has('authUser')
 
   return (
     <>
@@ -46,7 +41,6 @@ export default function Navbar() {
             <ThemeToggle />
           </div>
         </div>
-        {/* <BurgerMenu /> */}
         <div className="block md:hidden absolute top-4 right-4">
           <NavbarMobile/>
         </div>
