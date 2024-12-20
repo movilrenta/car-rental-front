@@ -7,8 +7,13 @@ import NavbarLinks from "./navbar-links";
 import ThemeToggle from "@/components/theme-toggle";
 // import BurgerMenu from "./navbar-burger";
 import { NavbarMobile } from "@/components/ui/navbar-mobile";
+import { cookies } from "next/headers";
 
 export default function Navbar() {
+
+  const cookiesStore = cookies()
+  const token = cookiesStore.has('authUser')
+
   return (
     <>
       <div className="flex sm:flex-row justify-between relative dark:bg-zinc-700 max-w-full z-0">
@@ -43,7 +48,7 @@ export default function Navbar() {
         </div>
         {/* <BurgerMenu /> */}
         <div className="block md:hidden absolute top-4 right-4">
-          <NavbarMobile />
+          <NavbarMobile/>
         </div>
       </div>
       <NavbarLinks />
