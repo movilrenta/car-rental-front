@@ -41,7 +41,7 @@ export default function Navbar() {
             <ThemeToggle />
           </div>
         </div>
-        <div className="block md:hidden absolute top-4 right-4">
+        <div className="flex md:hidden absolute inset-y-0 right-4">
           <NavbarMobile/>
         </div>
       </div>

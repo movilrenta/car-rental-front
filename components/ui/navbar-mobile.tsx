@@ -8,13 +8,14 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "../sheet";
+} from "@/components/sheet";
 import { FaBars } from "react-icons/fa6";
 import Link from "next/link";
 import Image from "next/image";
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
 import { useAuthstore } from "@/stores/auth-store/login.store";
+import ThemeToggle from "../theme-toggle";
 
 export const NavbarMobile = () => {
   const [toggle, setToggle] = React.useState<boolean>(false);
@@ -33,19 +34,20 @@ export const NavbarMobile = () => {
       <SheetTrigger>
         <FaBars size={25} />
       </SheetTrigger>
-      <SheetContent>
+      <SheetContent className="bg-red-600">
+      <div className="absolute left-4 top-4"><ThemeToggle /></div>
         <SheetHeader>
           <SheetTitle></SheetTitle>
           <SheetDescription></SheetDescription>
         </SheetHeader>
         <div className="h-screen">
-          <div className="h-1/3">
+          <div className="flex justify-center items-center my-12">
             <Image
               src={"/images2/brand.png"}
               alt="movil-renta"
               width={150}
               height={150}
-              className="h-auto"
+              className="h-auto w-full max-w-80 m-auto"
             />
           </div>
           <ul className="flex flex-col items-center gap-6 h-2/3">
@@ -54,9 +56,9 @@ export const NavbarMobile = () => {
                 <Link
                   onClick={() => setToggle(false)}
                   href={link.link}
-                  className={clsx("text-lg hover:border-b-2 border-red-400", {
-                    "text-red-500": pathname === link.link,
-                  })}
+                  className={clsx("text-lg text-white hover:border-b-2 border-red-400", {
+                    "text-red-500": pathname === link.link
+                  },`${link.label === "Mi reserva" ? "text-xl" : ""}`)}
                 >
                   {link.label}
                 </Link>
