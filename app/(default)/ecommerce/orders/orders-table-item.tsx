@@ -9,7 +9,8 @@ import {
 } from "@/components/select";
 import { ReservationsDB } from "@/types";
 import { formatDate } from "@/components/utils/utils";
-import { changeStatusPayment } from "@/actions/change-status-payment";
+//import { changeStatusPayment } from "@/actions/change-status-payment";
+import { EyeIcon } from "lucide-react";
 
 interface OrdersTableItemProps {
   order: ReservationsDB;
@@ -33,12 +34,12 @@ export default function OrdersTableItem({ order, branches }: OrdersTableItemProp
         </td>
         <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
           <div className="font-medium text-gray-800 dark:text-gray-100">
-            {branches.find((branch:any) => branch.id === order.start_branch_id)?.name}
+            {order.start_branch_id}
           </div>
         </td>
         <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
           <div className="text-left">
-          {branches.find((branch:any) => branch.id === order.end_branch_id)?.name}
+          {order.end_branch_id}
             </div>
         </td>
         <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -47,7 +48,7 @@ export default function OrdersTableItem({ order, branches }: OrdersTableItemProp
           </div>
         </td>
         <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-          <Select defaultValue={order.status} onValueChange={ () => changeStatusPayment(order.status)}>
+          {/* <Select defaultValue={order.status} onValueChange={ () => changeStatusPayment(order.status)}>
             <SelectTrigger className="w-[180px]">
               <SelectValue
               placeholder={
@@ -66,11 +67,26 @@ export default function OrdersTableItem({ order, branches }: OrdersTableItemProp
                 <SelectItem value="pending">Pendiente</SelectItem>
               </SelectGroup>
             </SelectContent>
-          </Select>
+          </Select> */}
+          <div className={`text-left font-medium ${
+            order.status === "approved"
+              ? "text-green-600"
+              : order.status === "rejected"
+              ? "text-red-600"
+              : "text-gray-400"
+          }`}>
+          {
+                  order.status === "approved"
+                    ? "Aprobada"
+                    : order.status === "rejected"
+                    ? "Rechazada"
+                    : "Pendiente"
+                }
+          </div>
         </td>
-        <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-          <Link href={`/reservas/reservation-list/${order.id}`} className="text-left">
-            ver orden
+        <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap ">
+          <Link href={`/reservas/reservation-list/${order.id}`} className="flex items-center justify-center">
+            <EyeIcon className="stroke-1" />
           </Link>
         </td>
       </tr>

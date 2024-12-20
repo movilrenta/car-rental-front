@@ -2,13 +2,29 @@
 
 import { ReservationsDB } from '@/types'
 import OrdersTableItem from './orders-table-item'
+//import { useState } from 'react';
 
 
-export default function OrdersTable({ orders, branches }: { orders: ReservationsDB[], branches:any}) {
+export default function OrdersTable({ orders, totalOrders  }: { orders: ReservationsDB[], totalOrders: number}) {
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const totalPages = Math.ceil(orders.length / itemsPerPage);
+
+  // const handlePageChange = (page: number) => {
+  //   if (page >= 1 && page <= totalPages) {
+  //     setCurrentPage(page);
+  //   }
+  // };
+
+  // const currentData = orders.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+
+
+
   return (
     <div className="bg-white dark:bg-gray-800 shadow-sm rounded-xl relative">
-      <header className="px-5 py-4">
-        <h2 className="font-semibold text-gray-800 dark:text-gray-100">Todas las reservas <span className="text-gray-400 dark:text-gray-500 font-medium">{orders.length}</span></h2>
+      <header className="px-5 py-4 flex gap-1 items-center">
+        <h2 className="font-semibold text-gray-800 dark:text-gray-100">Todas las reservas</h2>
+          <span className="text-gray-400 dark:text-gray-500 font-lg">{totalOrders}</span>
+          
       </header>
       <div>
 
@@ -37,7 +53,7 @@ export default function OrdersTable({ orders, branches }: { orders: Reservations
                   <div className="font-semibold text-left">Estado</div>
                 </th>
                 <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                  <div className="font-semibold text-left">Opciones</div>
+                  <div className="font-semibold text-center">Opciones</div>
                 </th>
               </tr>
             </thead>
@@ -46,7 +62,7 @@ export default function OrdersTable({ orders, branches }: { orders: Reservations
               <OrdersTableItem
                 key={index}
                 order={order}
-                branches={branches}
+                //branches={branches}
                 />
             ))}
           </table>
