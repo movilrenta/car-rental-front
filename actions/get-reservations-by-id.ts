@@ -2,6 +2,7 @@
 
 import { ReservationsDB } from "@/types";
 import { CarResponse } from "@/types/car.interface";
+import { Branches } from "@/types/user-reservation.inteface";
 //import { ReservationDetail } from "@/types/reservation.interface";
 import axios from "axios";
 
@@ -20,6 +21,7 @@ export const getReservationById = async (orderId: number) => {
 
     const reserva:ReservationsDB = response.data;
     const resp = await axios.get(`${URL}cars/${reserva.car_id}`)
+    const {data:branches} = await axios.get(`${URL}branches`)
     
     if(!resp){
       return {
@@ -36,7 +38,8 @@ export const getReservationById = async (orderId: number) => {
       data: {
         reservation: JSON.parse(JSON.stringify(reserva)),
         car_details: JSON.parse(JSON.stringify(car_details)) as CarResponse
-      }
+      },
+      branches: branches as Branches[]
     }
   } catch (error) {
     return {

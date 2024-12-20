@@ -32,6 +32,7 @@ import BannerPage from "@/view/banner-page";
 import { useReservaStore } from "@/stores/reservas/reserva.store";
 import { calcularDiasEntreFechas2 } from "@/components/utils/utils";
 import { getPaymentMethods, getTokenPay } from "@/actions";
+import { useRouter } from "next/navigation";
 
 export default function PayForm({aditionals} : {aditionals: any[]}) {
   const [loader, setLoader] = useState<boolean>(true);
@@ -83,6 +84,7 @@ export default function PayForm({aditionals} : {aditionals: any[]}) {
 
   
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    const router = useRouter();
     const code = sessionStorage.getItem("movil_renta_code");
     const reserva_id = sessionStorage.getItem("movil_renta_reservation_id")
     const number_reserva_id = Number(reserva_id)
@@ -109,35 +111,13 @@ export default function PayForm({aditionals} : {aditionals: any[]}) {
         variant: "default",
         title: `${resp.message}`,
       });
+      router.replace("/reservas/gracias");
       //form.reset();
     }
   };
   return (
     <main>
       <BannerPage title="Realizar el pago" image="/images2/carBanner.webp"/>
-      {/* <div className="relative pt-8">
-        <div
-          className="absolute inset-0 bg-gray-800 overflow-hidden"
-          aria-hidden="true"
-        >
-          <Image
-            className="object-cover h-full w-full filter blur opacity-10"
-            src={PayBg}
-            width={460}
-            height={180}
-            alt="Pay background"
-          />
-        </div>
-        <div className="relative px-4 sm:px-6 lg:px-8 max-w-lg mx-auto">
-          <Image
-            className="rounded-t-xl shadow-lg"
-            src={PayBg}
-            width={460}
-            height={180}
-            alt="Pay background"
-          />
-        </div>
-      </div> */}
 
       <div className="relative px-4 sm:px-6 lg:px-8 pb-8 max-w-lg mx-auto">
         <div className="bg-white min-h-[755px] dark:bg-gray-800 px-8 pb-6 rounded-b-xl shadow-sm">
