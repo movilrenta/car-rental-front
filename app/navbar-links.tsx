@@ -3,11 +3,17 @@
 import { useAuthstore } from "@/stores/auth-store/login.store";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import React from "react";
 
 export default function NavbarLinks({ burger = false }: { burger?: boolean }) {
-  const isLogged = useAuthstore((state) => state.isLogged);
+  const isLogged = useAuthstore((state) => state.getLog());
+  const [isClient, setIsClient] = React.useState(false);
   const path = usePathname();
   const pathNoSlash = path.replace("/", "");
+
+  React.useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const LinksNavbar = [
     { label: "Reservas", link: "reservas" },
@@ -34,7 +40,7 @@ export default function NavbarLinks({ burger = false }: { burger?: boolean }) {
             </Link>
           </li>
         ))}
-        {isLogged && (
+        {isClient && isLogged && (
           <li className="m-1">
             <Link
               href={`/reservas/reservation-list`}

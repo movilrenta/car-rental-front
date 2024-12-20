@@ -2,7 +2,7 @@
 
 import { ReservationsDB } from "@/types";
 import { CarResponse } from "@/types/car.interface";
-import { ReservationDetail } from "@/types/reservation.interface";
+//import { ReservationDetail } from "@/types/reservation.interface";
 import axios from "axios";
 
 export const getReservationById = async (orderId: number) => {

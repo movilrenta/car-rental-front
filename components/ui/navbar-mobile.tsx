@@ -19,7 +19,7 @@ import { useAuthstore } from "@/stores/auth-store/login.store";
 export const NavbarMobile = () => {
   const [toggle, setToggle] = React.useState<boolean>(false);
   const pathname = usePathname();
-  const isLogged = useAuthstore((state) => state.isLogged);
+  const isLogged = useAuthstore((state) => state.getLog());
   const LinksNavbar = [
     { label: "Reservas", link: "/reservas" },
     { label: "Empresas", link: "/empresas" },

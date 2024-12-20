@@ -27,9 +27,6 @@ const storeApi: StateCreator<StoreState> = (set, get) => ({
   
     set(() => ({ reserva_adicionales: updatedReservaAdicionales }));
   },
-  
-
- 
 
   removeReservaAuto: () => set(() => ({ reserva_adicionales: null })),
 });
