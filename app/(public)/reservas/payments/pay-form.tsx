@@ -2,9 +2,6 @@
 
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-// import Image from "next/image";
-// import PayBg from "@/public/images2/carBanner.webp";
-// import User from "@/public/images/user-64-13.jpg";
 import {
   Form,
   FormControl,
@@ -35,6 +32,7 @@ import { getPaymentMethods, getTokenPay } from "@/actions";
 import { useRouter } from "next/navigation";
 
 export default function PayForm({aditionals} : {aditionals: any[]}) {
+  const router = useRouter();
   const [loader, setLoader] = useState<boolean>(true);
   const [paymentsMethods, setPaymentsMethods] = useState<PaymentMethods[]>();
   const reserva = useReservaStore((state) => state.getReserva())
@@ -84,7 +82,6 @@ export default function PayForm({aditionals} : {aditionals: any[]}) {
 
   
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    const router = useRouter();
     const code = sessionStorage.getItem("movil_renta_code");
     const reserva_id = sessionStorage.getItem("movil_renta_reservation_id")
     const number_reserva_id = Number(reserva_id)
@@ -99,7 +96,7 @@ export default function PayForm({aditionals} : {aditionals: any[]}) {
     const {street_address,...rest} = values
     try {
       const resp = await getTokenPay(rest, code!, number_reserva_id, reserva?.car?.group_id!, days, amount_aditionals);
-    console.log(resp);
+      console.log(resp);
     if (!resp?.ok) {
       toast({
         variant: "default",

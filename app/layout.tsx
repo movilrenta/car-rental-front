@@ -28,10 +28,9 @@ export default function RootLayout({
       <body className="font-inter antialiased bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-400">
         <Theme>
           <AppProvider>
-            <Navbar />
+            
             {children}
-            <Footer />
-            <Toaster/>
+            
           </AppProvider>
         </Theme>
       </body>

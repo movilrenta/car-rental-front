@@ -15,6 +15,7 @@ export const getTokenPay = async (values: z.infer<typeof formSchema>, code: stri
       resultParse.error.issues.forEach((err) => {
         console.log(`Error en ${err.path} - ${err.message}`);
       });
+      console.log("_1");
       return {
         ok: false,
         message: "Hubo un problema al intentar realizar el pago",
@@ -34,6 +35,7 @@ export const getTokenPay = async (values: z.infer<typeof formSchema>, code: stri
       });
     const { response } = data;
     if (response.status !== "active") {
+      console.log("_2");
       return {
         ok: false,
         message: "Problemas al realizar el pago"
@@ -54,6 +56,8 @@ export const getTokenPay = async (values: z.infer<typeof formSchema>, code: stri
 
     const responseEx = await executedPayment(body, reserva_id);
     if (!responseEx?.ok) {
+      console.log("_3");
+      console.log(responseEx);
       return {
         ok: false,
         message: responseEx?.message
@@ -65,6 +69,7 @@ export const getTokenPay = async (values: z.infer<typeof formSchema>, code: stri
       data: responseEx?.data
     }
   } catch (error) {
+    console.log("_4");
     console.log(error)
     return {
       ok: false,
@@ -75,9 +80,13 @@ export const getTokenPay = async (values: z.infer<typeof formSchema>, code: stri
 
 const executedPayment = async (values: RequestExecutedPay, reserva_id: number) => {
   // console.log("soy la reserva_id", reserva_id);
-  // console.log(values);
+  console.log(values, "VALUES");
+  console.log(reserva_id, "RESERVA ID");
   try {
     const { data } = await axios.post<ResponseExecutedPay>(`${URL}api/payments`, values);
+    console.log(data);
+    console.log(data.response);
+    console.log(data.response.status);
     if (data.response.status === "approved") {
       const dataPago = data.response
       dataPago.reservation_id = reserva_id
@@ -88,7 +97,7 @@ const executedPayment = async (values: RequestExecutedPay, reserva_id: number) =
       //console.log(dataPago, "DATAPAGO");
       try {
         const { data } = await axios.post(`${BACK}payments`, dataPago);
-        console.log(data, "data")
+        //console.log(data, "data")
       } catch (error: any) {
         //console.log(error, "error")
         console.log(error.response.data.error, "VEAMOS");
@@ -106,10 +115,16 @@ const executedPayment = async (values: RequestExecutedPay, reserva_id: number) =
         data: dataPago
       }
     }
+    return {
+      ok: false,
+      message: "Hubo un problema al realizar el pago",
+      data: null
+    }
   } catch (error: any) {
     console.log(error.response.data.error, "executedPayment")
     console.log("ERRRRRRANDO");
     if (error instanceof AxiosError) {
+      console.log("_5");
       return {
         ok: false,
         message: error.message,
@@ -118,3 +133,41 @@ const executedPayment = async (values: RequestExecutedPay, reserva_id: number) =
     }
   }
 }
+
+/*
+ response: {
+    id: 14250759,
+    site_transaction_id: 'LBC009ZHY',
+    payment_method_id: 1,
+    card_brand: 'Visa',
+    amount: 715670,
+    currency: 'ars',
+    status: 'pre_approved',
+    status_details: {
+      ticket: '9215',
+      card_authorization_code: '180836',
+      address_validation_code: 'VTE0011',
+      error: null
+    },
+    date: '2024-12-20T18:08Z',
+    payment_mode: null,
+    customer: null,
+    bin: '450799',
+    installments: 1,
+    first_installment_expiration_date: null,
+    payment_type: 'single',
+    sub_payments: [],
+    site_id: '28464383',
+    fraud_detection: null,
+    aggregate_data: null,
+    establishment_name: null,
+    spv: null,
+    confirmed: null,
+    pan: null,
+    customer_token: null,
+    card_data: '/tokens/14250759',
+    token: 'f02b932c-eacc-4812-ac4d-8b68bd114afb',
+    authenticated_token: null
+  }
+}
+*/

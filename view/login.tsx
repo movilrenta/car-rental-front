@@ -67,7 +67,7 @@ export const Login = () => {
                     <FormItem>
                     <FormLabel className="block text-sm font-medium mb-1 text-gray-800 dark:text-gray-100">Usuario</FormLabel>
                     <FormControl>
-                      <Input placeholder="usuario@usuario" className="form-input w-full" maxLength={20} {...field} />
+                      <Input placeholder="usuario@usuario" className="form-input w-full" maxLength={36} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
