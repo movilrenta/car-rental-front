@@ -10,12 +10,13 @@ interface Params {
 export default async function ReservationByIdPage({ params }: Params) {
   const orderId = (await params).id;
   const { ok, data } = await getReservationById(+orderId);
+  console.log(data)
   if (!ok) {
     redirect("/reservas/reservation-list");
   }
   const countDays = calcularDiasEntreFechas2(data!.reservation.start_date, data!.reservation.end_date);
   const aditionals:Aditional[] = data?.reservation.aditionals ?? [];
-  const statusDetail = JSON.parse(data!.reservation.payment.status_details);
+  const statusDetail = JSON.parse(data?.reservation?.payment?.status_details || "{}");
   return (
     <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-[96rem] mx-auto text-gray-800 dark:text-gray-100">
       <h1 className="text-2xl md:text-3xl font-bold mb-2">
@@ -152,47 +153,49 @@ export default async function ReservationByIdPage({ params }: Params) {
         <hr />
         <h2 className="text-lg md:text-xl font-semibold">Datos del pago:</h2>
         <hr className="w-full h-[1px] border-none bg-gray-700 dark:bg-gray-100"/>
-        <ul>
+       {
+        data?.reservation.payment ? (
+          <ul>
           <li>
             <div className="flex items-center gap-x-2">
               <span className="w-[6px] h-[6px] rounded-full bg-red-500"></span>
-              <p>Código de la transacción: {data?.reservation.payment.site_transaction_id}</p>
+              <p>Código de la transacción: {data?.reservation?.payment?.site_transaction_id}</p>
             </div>
           </li>
           <li>
             <div className="flex items-center gap-x-2">
               <span className="w-[6px] h-[6px] rounded-full bg-red-500"></span>
-              <p>Tarjeta: {data?.reservation.payment.card_brand}</p>
+              <p>Tarjeta: {data?.reservation?.payment?.card_brand}</p>
             </div>
           </li>
           <li>
             <div className="flex items-center gap-x-2">
               <span className="w-[6px] h-[6px] rounded-full bg-red-500"></span>
-              <p>Tipo de moneda: {data?.reservation.payment.currency}</p>
+              <p>Tipo de moneda: {data?.reservation?.payment?.currency}</p>
             </div>
           </li>
           <li>
             <div className="flex items-center gap-x-2">
               <span className="w-[6px] h-[6px] rounded-full bg-red-500"></span>
-              <p>Monto total: $ {data?.reservation.payment.amount}</p>
+              <p>Monto total: $ {data?.reservation?.payment?.amount}</p>
             </div>
           </li>
           <li>
             <div className="flex items-center gap-x-2">
               <span className="w-[6px] h-[6px] rounded-full bg-red-500"></span>
-              <p>Cuotas: {data?.reservation.payment.installments}</p>
+              <p>Cuotas: {data?.reservation?.payment?.installments}</p>
             </div>
           </li>
           <li>
             <div className="flex items-center gap-x-2">
               <span className="w-[6px] h-[6px] rounded-full bg-red-500"></span>
-              <p>Fecha: {formatDate(data!.reservation.payment.date) ?? "S/D"}</p>
+              <p>Fecha: {data!.reservation?.payment?.date ? formatDate(data!.reservation?.payment?.date): "S/D"}</p>
             </div>
           </li>
           <li>
             <div className="flex items-center gap-x-2">
               <span className="w-[6px] h-[6px] rounded-full bg-red-500"></span>
-              <p>Estado del pago: {data?.reservation.payment.status}</p>
+              <p>Estado del pago: {data?.reservation?.payment?.status}</p>
             </div>
           </li>
           <li>
@@ -228,13 +231,14 @@ export default async function ReservationByIdPage({ params }: Params) {
               <span className="w-[6px] h-[6px] rounded-full bg-red-500"></span>
               <p>
                 Fraud detection:{" "}
-                {!data?.reservation.payment.fraud_detection
+                {!data?.reservation?.payment?.fraud_detection
                   ? "Sin datos"
-                  : data.reservation.payment.fraud_detection}
+                  : data.reservation?.payment?.fraud_detection}
               </p>
             </div>
           </li>
-        </ul>
+        </ul> ) : ( <p> No hay datos </p>)
+       }
       </div>
     </div>
   );

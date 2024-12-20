@@ -6,7 +6,7 @@ import { ReservationDetail } from "@/types/reservation.interface";
 import axios from "axios";
 
 export const getReservationById = async (orderId: number) => {
-  const URL = process.env.DB_URL
+  const URL = process.env.NEXT_PUBLIC_URL_BACK
   try {
     const response = await axios.get(`${URL}reservations/${orderId}`)
 

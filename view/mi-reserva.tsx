@@ -69,11 +69,6 @@ export const MiReserva = () => {
                       <Input placeholder="AAA321" maxLength={9} {...field} />
                     </FormControl>
                     <FormMessage className="text-red-500" />
-                    <FormDescription>
-                      <span className="text-xs">
-                        Por favor escriba el código respestando máyusculas.
-                      </span>
-                    </FormDescription>
                   </FormItem>
                 )}
               />

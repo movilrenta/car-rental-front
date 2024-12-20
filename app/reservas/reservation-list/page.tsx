@@ -12,41 +12,7 @@ import { getReservations } from "@/actions/get-reservations";
 
 async function OrdersContent() {
   // Some dummy orders data
-  const {data} = await getReservations()
-  // const orders = [
-  //   {
-  //     id: "123567",
-  //     date: "22/01/2024",
-  //     name: "Patricia Semklo",
-  //     total: "$129.00",
-  //     status: "rejected",
-  //     location: "🇨🇳 Shanghai, CN",
-  //   },
-  //   {
-  //     id: "779912",
-  //     date: "22/01/2024",
-  //     name: "Dominik Lamakani",
-  //     total: "$89.00",
-  //     status: "approved",
-  //     location: "🇲🇽 Mexico City, MX",
-  //   },
-  //   {
-  //     id: "889924",
-  //     date: "22/01/2024",
-  //     name: "Ivan Mesaros",
-  //     total: "$89.00",
-  //     status: "approved",
-  //     location: "🇮🇹 Milan, IT",
-  //   },
-  //   {
-  //     id: "897726",
-  //     date: "22/01/2024",
-  //     name: "Maria Martinez",
-  //     total: "$59.00",
-  //     status: "pending",
-  //     location: "🇮🇹 Bologna, IT",
-  //   },
-  // ];
+  const {data, branches} = await getReservations()
 
   return (
     <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-[96rem] mx-auto">
@@ -71,7 +37,7 @@ async function OrdersContent() {
           <p className="text-md lg:text-xl font-light">Aún no hay reservas.</p>
         </div>
       ) : (
-        <OrdersTable orders={data} />
+        <OrdersTable orders={data} branches={branches} />
       )}
 
       {/* Pagination Agregar server action */}

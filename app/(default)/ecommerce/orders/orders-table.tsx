@@ -4,7 +4,7 @@ import { ReservationsDB } from '@/types'
 import OrdersTableItem from './orders-table-item'
 
 
-export default function OrdersTable({ orders }: { orders: ReservationsDB[]}) {
+export default function OrdersTable({ orders, branches }: { orders: ReservationsDB[], branches:any}) {
   return (
     <div className="bg-white dark:bg-gray-800 shadow-sm rounded-xl relative">
       <header className="px-5 py-4">
@@ -46,6 +46,7 @@ export default function OrdersTable({ orders }: { orders: ReservationsDB[]}) {
               <OrdersTableItem
                 key={index}
                 order={order}
+                branches={branches}
                 />
             ))}
           </table>
