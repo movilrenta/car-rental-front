@@ -10,11 +10,13 @@ import AuthImage from '@/app/(auth)/auth-image'
 import { login } from '@/actions/auth/login'
 import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
+import { useAuthstore } from '@/stores/auth-store/login.store'
 
 
 export const Login = () => {
   const router = useRouter()
   const {toast} = useToast()
+  const isLogin = useAuthstore((state) => state.setIsLogin)
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -30,6 +32,7 @@ export const Login = () => {
         variant: "default",
         title:`${resp.message}`
       })
+      isLogin()
       form.reset()
       router.push("/")
     }else{

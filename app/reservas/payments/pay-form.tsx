@@ -25,13 +25,13 @@ import {
   SelectValue,
 } from "@/components/select";
 import clsx from "clsx";
-import { getPaymentMethods, getTokenPay, saveCard } from "@/actions";
 import { FaCreditCard } from "react-icons/fa";
 import { useToast } from "@/hooks/use-toast";
 import { useEffect, useState } from "react";
 import BannerPage from "@/view/banner-page";
 import { useReservaStore } from "@/stores/reservas/reserva.store";
 import { calcularDiasEntreFechas2 } from "@/components/utils/utils";
+import { getPaymentMethods, getTokenPay } from "@/actions";
 
 export default function PayForm({aditionals} : {aditionals: any[]}) {
   const [loader, setLoader] = useState<boolean>(true);

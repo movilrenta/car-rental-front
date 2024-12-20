@@ -14,10 +14,12 @@ import Link from "next/link";
 import Image from "next/image";
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
+import { useAuthstore } from "@/stores/auth-store/login.store";
 
 export const NavbarMobile = () => {
   const [toggle, setToggle] = React.useState<boolean>(false);
   const pathname = usePathname();
+  const isLogged = useAuthstore((state) => state.isLogged);
   const LinksNavbar = [
     { label: "Reservas", link: "/reservas" },
     { label: "Empresas", link: "/empresas" },
@@ -60,6 +62,19 @@ export const NavbarMobile = () => {
                 </Link>
               </li>
             ))}
+            {isLogged && (
+              <li>
+                <Link
+                  onClick={() => setToggle(false)}
+                  href="/admin"
+                  className={clsx("text-lg hover:border-b-2 border-red-400", {
+                    "text-red-500": pathname === "/reservas/reservation-list",
+                  })}
+                >
+                  Lista de reservas
+                </Link>
+              </li>
+            )}
           </ul>
         </div>
       </SheetContent>
