@@ -26,21 +26,26 @@ export const Login = () => {
   })
 
   async function onSubmit(values: z.infer<typeof loginSchema>) {
-    const resp = await login(values)
-    if(resp.ok){
-      toast({
-        variant: "default",
-        title:`${resp.message}`
-      })
-      isLogin()
-      form.reset()
-      router.push("/")
-    }else{
-      toast({
-        variant:"default",
-        title:`${resp.message}`
-      })
+    try {
+      const resp = await login(values)
+      if(resp.ok){
+        toast({
+          variant: "default",
+          title:`${resp.message}`
+        })
+        isLogin()
+        form.reset()
+        router.push("/")
+      }else{
+        toast({
+          variant:"default",
+          title:`${resp.message}`
+        })
+      }
+    } catch (error) {
+      console.log(error)
     }
+  
   }
   return (
     <main className="bg-white dark:bg-gray-900">
@@ -62,7 +67,7 @@ export const Login = () => {
                     <FormItem>
                     <FormLabel className="block text-sm font-medium mb-1 text-gray-800 dark:text-gray-100">Usuario</FormLabel>
                     <FormControl>
-                      <Input placeholder="usuario@usuario" className="form-input w-full" maxLength={15} {...field} />
+                      <Input placeholder="usuario@usuario" className="form-input w-full" maxLength={36} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

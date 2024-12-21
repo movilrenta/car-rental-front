@@ -2,10 +2,10 @@ import axios from "axios";
 import { NextResponse } from "next/server";
 
 export async function POST(req: any) {
-  const PRIVATE_API_KEY = process.env.NODE_ENV !== "production" 
+  const PRIVATE_API_KEY = process.env.NODE_ENV === "production" 
     ? process.env.NEXT_PRIVATE_API_KEY_PAYWAY
     : process.env.NEXT_PRIVATE_API_KEY_PAYWAY_DEV
-  const API_URL = process.env.NODE_ENV !== "production" 
+  const API_URL = process.env.NODE_ENV === "production" 
     ? process.env.NEXT_PUBLIC_URL
     : process.env.NEXT_PUBLIC_URL_DEV
 

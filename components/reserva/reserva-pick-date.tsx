@@ -6,7 +6,7 @@ import { ItinerarioType, useItinerarioStore } from "@/stores/reserva-itinerario/
 import { cities } from "@/constant/cities";
 import { hours } from "@/constant/hours";
 import { calcularDiasEntreFechas2 } from "@/components/utils/utils";
-import ItinerarioPickDate from "@/app/home/itinerario-pick-date";
+import ItinerarioPickDate from "@/components/home/itinerario-pick-date";
 import { Loader2Icon } from "lucide-react";
 
 export default function PickDate() {
