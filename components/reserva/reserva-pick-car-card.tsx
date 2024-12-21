@@ -34,7 +34,7 @@ export default function CardCar({ car }: { car: VehicleType }) {
             {/* Header */}
             <header className="mb-3">
               <h3 className="text-lg text-gray-800 dark:text-gray-100 font-semibold">
-                {car?.name}
+                {car?.brand?.name} {car?.name}
               </h3>
               <h5 className="text-sm line-clamp-1">
                 o similar <strong>Grupo {car?.group?.name}</strong>

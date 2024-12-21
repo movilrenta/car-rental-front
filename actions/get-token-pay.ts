@@ -87,7 +87,7 @@ const executedPayment = async (values: RequestExecutedPay, reserva_id: number) =
     console.log(data);
     console.log(data.response);
     console.log(data.response.status);
-    if (data.response.status === "approved") {
+    if (data.response.status === "approved" || data.response.status === "pre_approved") {
       const dataPago = data.response
       dataPago.reservation_id = reserva_id
       dataPago.status_details = JSON.stringify(dataPago.status_details)
@@ -111,7 +111,7 @@ const executedPayment = async (values: RequestExecutedPay, reserva_id: number) =
       }
       return {
         ok: true,
-        message: "Pago realizado con exito",
+        message: data.response.status === "approved" ? "Pago realizado con exito" : "Pago pendiente de pago",
         data: dataPago
       }
     }

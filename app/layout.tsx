@@ -3,8 +3,6 @@ import './css/style.css'
 import { Inter } from 'next/font/google'
 import Theme from './theme-provider'
 import AppProvider from './app-provider'
-import Navbar from './navbar'
-import Footer from './footer'
 import { Toaster } from '@/components/ui/toaster'
 
 const inter = Inter({
@@ -30,7 +28,7 @@ export default function RootLayout({
           <AppProvider>
             
             {children}
-            
+            <Toaster/>
           </AppProvider>
         </Theme>
       </body>

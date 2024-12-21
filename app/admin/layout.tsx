@@ -1,4 +1,6 @@
-import Sidebar from '@/components/ui/sidebar'
+import '../css/style.css'
+
+import Sidebar from './sidebar'
 import Header from '@/components/ui/header'
 
 export default function AlternativeLayout({

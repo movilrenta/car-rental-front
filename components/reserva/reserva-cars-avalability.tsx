@@ -1,4 +1,4 @@
-import { Cars, VehicleType } from "@/constant/cars";
+import { VehicleType } from "@/constant/cars";
 import CardCar from "./reserva-pick-car-card";
 import { BiCheck } from "react-icons/bi";
 import { useReservaAutoStore } from "@/stores/reserva-auto/reserva-auto.store";
