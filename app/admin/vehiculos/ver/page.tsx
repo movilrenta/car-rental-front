@@ -2,11 +2,12 @@ import { LuPlus } from "react-icons/lu";
 import CRUD_Vehycle from "./components/crud";
 import axios from "axios";
 import DeleteComponent from "./components/delete-component";
+import { GetCarsAction } from "@/actions/car";
 
 export default async function VehiculosPage() {
   const BACK = process.env.NEXT_PUBLIC_URL_BACK;
   const { data: groups } = await axios.get(`${BACK}groups`);
-  const { data: vehycle } = await axios.get(`${BACK}cars`);
+  const vehycle = await GetCarsAction()
   const { data: brands } = await axios.get(`${BACK}brands`);
   const { data: branch } = await axios.get(`${BACK}branches`);
 
@@ -20,7 +21,7 @@ export default async function VehiculosPage() {
         branches={branch}
       />
       <div className="flex flex-col">
-        {vehycle.map((car: any, index: number) => (
+        {vehycle?.map((car: any, index: number) => (
           <div key={index} className="flex gap-2">
             <div>{car.name} </div>
             <CRUD_Vehycle
