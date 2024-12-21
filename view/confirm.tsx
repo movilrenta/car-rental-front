@@ -1,4 +1,4 @@
-import { FormConfirm, ListItems } from "@/app/reservas/confirmar";
+import { FormConfirm, ListItems } from "@/app/(public)/reservas/confirmar";
 import BannerPage from "./banner-page";
 import axios from "axios";
 const BACK = process.env.NEXT_PUBLIC_URL_BACK

@@ -3,7 +3,7 @@ export const loginSchema = z.object({
   user: z
     .string()
     .min(1, "El campo es obligatorio")
-    .max(15, "Demasiados caracteres, el máximo es 15"),
+    .max(20, "Demasiados caracteres, el máximo es 15"),
   password: z
     .string()
     .min(8, {

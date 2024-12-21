@@ -1,5 +1,5 @@
-import { BannerCta } from '@/app/home/banner-cta'
-import { BannerEmpresa } from '@/app/home/banner-empresa';
+import { BannerCta } from '@/components/home/banner-cta'
+import { BannerEmpresa } from '@/components/home/banner-empresa';
 import Image from 'next/image';
 import Link from 'next/link';
 import { AiOutlineSafety } from 'react-icons/ai';
