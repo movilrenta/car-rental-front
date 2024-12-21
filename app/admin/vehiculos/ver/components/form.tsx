@@ -64,7 +64,7 @@ export default function CRUD_Form({
   branches: any;
   car?: VehicleType;
 }) {
-  
+
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -130,6 +130,7 @@ export default function CRUD_Form({
 
       try {
         const res = await PostCarAction(newCar);
+        //console.log(res);
         if (res.status === 200) {
           toast({
             variant: "default",
