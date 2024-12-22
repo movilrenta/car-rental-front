@@ -85,7 +85,7 @@ export default function OrdersTableItem({ order, branches }: OrdersTableItemProp
           </div>
         </td>
         <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap ">
-          <Link href={`/reservas/reservation-list/${order.id}`} className="flex items-center justify-center">
+          <Link href={`/admin/reservas/ver/${order.id}`} className="flex items-center justify-center">
             <EyeIcon className="stroke-1" />
           </Link>
         </td>

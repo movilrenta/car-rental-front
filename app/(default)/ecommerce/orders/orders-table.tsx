@@ -20,9 +20,9 @@ export default function OrdersTable({ orders, totalOrders  }: { orders: Reservat
 
 
   return (
-    <div className="bg-white dark:bg-gray-800 shadow-sm rounded-xl relative">
+    <div className="bg-white dark:bg-gray-800 shadow-sm rounded-xl relative animate-fade-in">
       <header className="px-5 py-4 flex gap-1 items-center">
-        <h2 className="font-semibold text-gray-800 dark:text-gray-100">Todas las reservas</h2>
+        <h2 className="font-semibold text-gray-800 dark:text-gray-100">Total</h2>
           <span className="text-gray-400 dark:text-gray-500 font-lg">{totalOrders}</span>
           
       </header>

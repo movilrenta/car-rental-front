@@ -43,8 +43,9 @@ export default function CardCar({ car }: { car: VehicleType }) {
             {/* Rating and price */}
             <div className="flex flex-wrap justify-between items-center mb-4">
               {/* Rating */}
-              <div className="flex items-center space-x-2 mr-2">
-                {/* Stars */}
+              <div></div>
+              {/* <div className="flex items-center space-x-2 mr-2">
+                
                 <div className="flex space-x-1">
                   <button>
                     <span className="sr-only">1 star</span>
@@ -102,11 +103,11 @@ export default function CardCar({ car }: { car: VehicleType }) {
                     </svg>
                   </button>
                 </div>
-                {/* Rate */}
+                
                 <div className="inline-flex text-sm font-medium text-yellow-600">
                   4.2
                 </div>
-              </div>
+              </div> */}
               {/* Price */}
               <div>
                 <div className="inline-flex text-sm font-medium bg-green-500/20 text-green-700 rounded-full text-center px-2 py-0.5">
@@ -145,7 +146,7 @@ export default function CardCar({ car }: { car: VehicleType }) {
               onClick={() => handleCar(car)}
               className="btn-sm w-full bg-red-700 hover:bg-red-900 text-gray-100 duration-200 cursor-pointer"
             >
-              {pickedCar?.id === car.id ? "Quitar" : "Elegir Vehículo"}
+              {pickedCar?.id === car.id ? "Elegir otro" : "Elegir Vehículo"}
             </div>
           </div>
         </div>

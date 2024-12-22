@@ -39,3 +39,15 @@ export interface Brand {
   rate?:       string;
   insurances?: string;
 }
+
+export interface Group {
+  id:          number;
+  name:        string;
+  description: string;
+  rate:        string;
+  image:       string;
+  insurances:  string;
+  deleted_at:  null;
+  created_at:  Date;
+  updated_at:  Date;
+}

@@ -20,12 +20,7 @@ import { Checkbox } from "@/components/checkbox";
 import { Textarea } from "@/components/textarea";
 import { useToast } from "@/hooks/use-toast";
 import axios from "axios";
-// import {
-//   IoMailOutline,
-//   IoPerson,
-//   IoPersonOutline,
-//   IoPhonePortraitOutline,
-// } from "react-icons/io5";
+
 
 type ReservationType = {
   car_id: number,
@@ -49,7 +44,6 @@ function generarCodigoReserva() {
   const parteLetras = Array.from({ length: 3 }, () => letras[Math.floor(Math.random() * letras.length)]).join('');
   const parteLetras2 = Array.from({ length: 3 }, () => letras[Math.floor(Math.random() * letras.length)]).join('');
   const parteNumeros = Array.from({ length: 3 }, () => numeros[Math.floor(Math.random() * numeros.length)]).join('');
-  
   return parteLetras + parteNumeros + parteLetras2;
 }
 
@@ -86,18 +80,10 @@ export const FormConfirm = () => {
       phone: values.phone,
       observation: values?.observation,
       aditionals_array: reservaGet?.aditionals_array || [],
-      //installments: values.installments,
-      //termyCond: true,
-      //mayor25: true
-
     };
-    //console.log(values);
-    
-    //console.log(reserveToConfirm, "voy a confirmar");
 
     try {
       const response = await axios.post("/api/reservation", reserveToConfirm);
-      //console.log(response, "soy el response");
       
       if(response.status === 201) {
         const data = response.data.response
@@ -108,14 +94,10 @@ export const FormConfirm = () => {
           variant: "default",
           title: `Reserva creada con exito, realizar el pago para confirmar`,
         });
-      //TODO guardar el TOKEN
-      console.log(response, "RESERVA response")
-      console.log(reserveToConfirm, "RESERVA ENVIADA")
       router.push("/reservas/payments");
-      //router.replace("/reservas/payments");
+
     }
   } catch (error: any) {
-    console.log(error);
     if (error.response) {
       toast({
         variant: "destructive",
