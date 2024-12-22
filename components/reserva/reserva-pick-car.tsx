@@ -13,6 +13,7 @@ import axios from "axios";
 export default function PickCar() {
   const removeCar = useReservaAutoStore((state) => state.removeReservaAuto);
   const itinerario = useItinerarioStore((state) => state.getItinerario());
+  const car = useReservaAutoStore((state) => state.getReservaAuto());
   const [contentButton, setContentButton] = useState(<span>Buscar vehículos disponibles</span>);
   const [data, setData] = useState<VehicleType[]>([]);
   const [isClient, setIsClient] = useState(false);
@@ -39,13 +40,14 @@ export default function PickCar() {
 
   async function checkCars() {
     //console.log(itinerario);
+    //removeCar()
     setContentButton(<><Loader2Icon className="w-12 h-12 animate-spin" /><span>Actualizando flota...</span></>);
     const payload = {
       start_date: new Date(itinerario?.startDay!).toISOString().slice(0, 10),
       end_date: new Date(itinerario?.endDay!).toISOString().slice(0, 10)
     };
     const {data, status} = await axios.post('/api/check-availability-cars', payload)
-    console.log(status);
+    //console.log(status);
     setShowCars(true)
     setData(data.response)
   }
@@ -57,7 +59,10 @@ export default function PickCar() {
         <h2 className="text-2xl font-medium col-span-12 leading-snug text-gray-800 dark:text-gray-100 mb-3">
         02. Seleccione su <strong>vehículo</strong>
       </h2>
-      <RenderCarsAvailability Vehicles={data}/>
+     {!car 
+  ? <RenderCarsAvailability Vehicles={data} />
+  : <RenderCarsAvailability Vehicles={Array.isArray(car) ? car : [car]} />}
+
         </>
         : <Button onClick={() => checkCars()} className="col-span-12 w-72 min-w-72 !py-5 border mx-auto bg-red-700 hover:bg-orange-800 text-white">
             {contentButton}

@@ -448,8 +448,8 @@ export default function CRUD_Form({
           </form>
         </Form>
       </SheetHeader>
-      <SheetFooter className="flex gap-4 mt-12">
-        <SheetClose className="min-w-24 border border-transparent hover:border-red-500 duration-200 px-4 rounded-md">
+      <SheetFooter className="flex items-center justify-center gap-4 mt-12">
+        <SheetClose className="min-w-24 border border-transparent py-1 hover:border-red-500 duration-200 px-4 rounded-md">
           Cerrar
         </SheetClose>
         <Button

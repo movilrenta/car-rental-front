@@ -33,7 +33,9 @@ export const getTokenPay = async (values: z.infer<typeof formSchema>, code: stri
         card_holder_door_number: puertaNumber,
         ...rest
       });
+    
     const { response } = data;
+
     if (response.status !== "active") {
       console.log("_2");
       return {
@@ -55,13 +57,56 @@ export const getTokenPay = async (values: z.infer<typeof formSchema>, code: stri
     }
 
     const responseEx = await executedPayment(body, reserva_id);
+
+    console.log(responseEx, "REsPONSE EXX");
+
     if (!responseEx?.ok) {
       console.log("_3");
       console.log(responseEx);
+      if (responseEx?.status === 402) {
+        if (responseEx?.data?.error?.status === "rejected") {
+          const dataPago = responseEx.data.error
+          dataPago.reservation_id = reserva_id
+          dataPago.status_details = JSON.stringify(dataPago.status_details)
+          dataPago.sub_payments = JSON.stringify(dataPago.sub_payments)
+          dataPago.date = JSON.stringify(dataPago.date).replace("T", " ").replace("Z", "").replace(/"/g, "")
+          dataPago.fraud_detection = JSON.stringify(dataPago.fraud_detection)
+          delete dataPago.authenticated_token
+          //console.log(dataPago, "DATAPAGO");
+          try {
+            const { data } = await axios.post(`${BACK}payments`, dataPago);
+            console.log(data, "__________data")
+          } catch (error: any) {
+            console.log(error, "_____________1")
+            console.log(error.response.data.error, "VEAMOS");
+            if (error instanceof AxiosError) {
+              console.log(error, "_____________4");
+              return {
+                ok: false,
+                message: error.message,
+                data: null
+              }
+            }
+          }
+        return {
+          ok: false,
+          message: "Tarjeta rechazada",
+          status: 402
+        }
+      }
       return {
         ok: false,
-        message: responseEx?.message
+        message: responseEx,
+        status: 402
       }
+    }
+    console.log(responseEx, "___________________XXX");
+      // TODO ---> Ver aqui
+    return {
+      ok: true,
+      message: responseEx?.message,
+      data: responseEx?.data
+    }
     }
     return {
       ok: true,
@@ -79,29 +124,24 @@ export const getTokenPay = async (values: z.infer<typeof formSchema>, code: stri
 };
 
 const executedPayment = async (values: RequestExecutedPay, reserva_id: number) => {
-  // console.log("soy la reserva_id", reserva_id);
-  console.log(values, "VALUES");
-  console.log(reserva_id, "RESERVA ID");
   try {
     const { data } = await axios.post<ResponseExecutedPay>(`${URL}api/payments`, values);
-    console.log(data);
-    console.log(data.response);
-    console.log(data.response.status);
-    if (data.response.status === "approved" || data.response.status === "pre_approved") {
+    if (data.response.status === "approved" || data.response.status === "pre_approved" || data.response.status === "rejected") {
+      console.log("GO to save payment");
       const dataPago = data.response
       dataPago.reservation_id = reserva_id
       dataPago.status_details = JSON.stringify(dataPago.status_details)
       dataPago.sub_payments = JSON.stringify(dataPago.sub_payments)
       dataPago.date = JSON.stringify(dataPago.date).replace("T", " ").replace("Z", "").replace(/"/g, "")
+      data.response.status === "rejected" ? data.response.fraud_detection = JSON.stringify(data.response.fraud_detection) : null
       delete dataPago.authenticated_token
       //console.log(dataPago, "DATAPAGO");
       try {
         const { data } = await axios.post(`${BACK}payments`, dataPago);
-        //console.log(data, "data")
+        
       } catch (error: any) {
-        //console.log(error, "error")
-        console.log(error.response.data.error, "VEAMOS");
         if (error instanceof AxiosError) {
+          console.log(error, "_____________4");
           return {
             ok: false,
             message: error.message,
@@ -111,7 +151,7 @@ const executedPayment = async (values: RequestExecutedPay, reserva_id: number) =
       }
       return {
         ok: true,
-        message: data.response.status === "approved" ? "Pago realizado con exito" : "Pago pendiente de pago",
+        message: data.response.status === "approved" ? "Pago realizado con exito" : "Pago pendiente",
         data: dataPago
       }
     }
@@ -121,15 +161,25 @@ const executedPayment = async (values: RequestExecutedPay, reserva_id: number) =
       data: null
     }
   } catch (error: any) {
+    console.log(error, "_______________________1________________________");
+    console.log(error.response.data.error, "_____2");
     console.log(error.response.data.error, "executedPayment")
     console.log("ERRRRRRANDO");
     if (error instanceof AxiosError) {
       console.log("_5");
+      console.log(error, "_______3"); // pasa por aqui, es una instancia de axios
       return {
         ok: false,
         message: error.message,
-        data: null
+        data: error.response?.data,
+        status: error.response?.status
       }
+    }
+    console.log("EROORER ________________");
+    return {
+      ok: false,
+      message: "Pago efectuado pero denegado",
+      data: null
     }
   }
 }

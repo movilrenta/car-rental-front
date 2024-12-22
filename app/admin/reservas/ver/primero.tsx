@@ -6,7 +6,8 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 
 export default function OrderesList({data}:{data: any}) {
-  const [itemsShow, setItemsShow] = useState(data.slice(0, 9))
+
+  const [itemsShow, setItemsShow] = useState(data.slice(0, 10))
   const itemsPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(data.length / itemsPerPage);
@@ -76,7 +77,7 @@ export default function OrderesList({data}:{data: any}) {
               <li key={index}>
                 {typeof page === "number" ? (
                   <Button
-                    className={`inline-flex items-center justify-center leading-5 rounded-full px-2 py-2 w-8 ${
+                    className={`inline-flex items-center justify-center leading-5 rounded-full px-2 py-2 w-9 ${
                       page === currentPage
                         ? "bg-violet-500 text-white"
                         : "bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700/60 text-gray-600 dark:text-gray-300 hover:text-violet-500"

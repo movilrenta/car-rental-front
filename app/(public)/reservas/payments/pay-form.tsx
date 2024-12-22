@@ -30,6 +30,7 @@ import { useReservaStore } from "@/stores/reservas/reserva.store";
 import { calcularDiasEntreFechas2 } from "@/components/utils/utils";
 import { getPaymentMethods, getTokenPay } from "@/actions";
 import { useRouter } from "next/navigation";
+import { LuLoader } from "react-icons/lu";
 
 export default function PayForm({aditionals} : {aditionals: any[]}) {
   const router = useRouter();
@@ -80,7 +81,6 @@ export default function PayForm({aditionals} : {aditionals: any[]}) {
     return amount_aditionals
   }
 
-  
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const code = sessionStorage.getItem("movil_renta_code");
     const reserva_id = sessionStorage.getItem("movil_renta_reservation_id")
@@ -102,6 +102,9 @@ export default function PayForm({aditionals} : {aditionals: any[]}) {
         variant: "default",
         title: `${resp?.message}`,
       });
+      setTimeout( () => {
+        router.replace("/");
+      }, 2000)
     } else {
       // await saveCard(values);
 
@@ -493,7 +496,9 @@ export default function PayForm({aditionals} : {aditionals: any[]}) {
                     }
                   )}
                 >
-                  Pagar
+                  {form.formState.isSubmitting 
+                    ?<LuLoader className="mr-2 h-4 w-4 animate-spin" />
+                    : "Pagar"}
                 </Button>
               </div>
             </form>
