@@ -6,6 +6,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 
 export default function OrderesList({data}:{data: any}) {
+
   const [itemsShow, setItemsShow] = useState(data.slice(0, 10))
   const itemsPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);

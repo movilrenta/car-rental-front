@@ -1,8 +1,8 @@
 import { LuPlus } from "react-icons/lu";
 import CRUD_Vehycle from "./components/crud";
 import axios from "axios";
-import DeleteComponent from "./components/delete-component";
 import { GetCarsAction } from "@/actions/car";
+import { CarsTable } from "./components/cars-table";
 
 export default async function VehiculosPage() {
   const BACK = process.env.NEXT_PUBLIC_URL_BACK;
@@ -13,14 +13,15 @@ export default async function VehiculosPage() {
 
 
   return (
-    <div className="relative animate-fade-in">
+    <div className="relative animate-fade-in p-6">
+      {/*BOTON NUEVO AUTO */}
       <CRUD_Vehycle
         children={<LuPlus className="absolute top-2 right-2 text-3xl border rounded-md p-2 w-11 h-11" />}
         groups={groups}
         brands={brands}
         branches={branch}
       />
-      <div className="flex flex-col">
+      {/* <div className="flex flex-col">
         {vehycle?.map((car: any, index: number) => (
           <div key={index} className="flex gap-2">
             <div>{car.name} </div>
@@ -34,7 +35,13 @@ export default async function VehiculosPage() {
             <DeleteComponent children={<div>Delete</div>} id={car.id} />
           </div>
         ))}
-      </div>
+      </div> */}
+      <CarsTable
+      Cars={vehycle}
+      Brands={brands}
+      Groups={groups}
+      Branches={branch}
+      />
     </div>
   );
 }

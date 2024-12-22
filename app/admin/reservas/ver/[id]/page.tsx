@@ -12,7 +12,6 @@ export default async function ReservationByIdPage({ params }: Params) {
   const orderId = (await params).id;
   const { ok, data, branches } = await getReservationById(+orderId);
   if (!ok) {
-    // redirect("/reservas/reservation-list");
     redirect("/admin/reservas/ver");
   }
   const countDays = calcularDiasEntreFechas2(
