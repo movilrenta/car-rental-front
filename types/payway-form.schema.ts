@@ -121,7 +121,7 @@ export interface ResponseExecutedPay {
     payment_type: string;
     sub_payments: any[] | string;
     site_id: string;
-    fraud_detection: null;
+    fraud_detection: string | null;
     aggregate_data: null;
     establishment_name: null;
     spv: null;

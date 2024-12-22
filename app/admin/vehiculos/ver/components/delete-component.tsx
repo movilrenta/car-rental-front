@@ -41,7 +41,7 @@ export default function DeleteComponent({children, id} : {children: React.ReactN
   return (
     <AlertDialog>
   <AlertDialogTrigger>{children}</AlertDialogTrigger>
-  <AlertDialogContent className="bg-white dark:bg-zinc-800">
+  <AlertDialogContent className="bg-white dark:bg-zinc-800 max-w-[85%] sm:max-w-96">
     <AlertDialogHeader>
       <AlertDialogTitle>¿Esta seguro?</AlertDialogTitle>
       <AlertDialogDescription>

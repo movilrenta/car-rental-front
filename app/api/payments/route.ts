@@ -25,7 +25,10 @@ export async function POST(req: any) {
 
     return NextResponse.json({ response: response.data }, { status: 200 });
   } catch (error: any) {
-    const errorMessage = error.response?.data || error.message;
-    return NextResponse.json({ error: errorMessage }, { status: 500 });
+    console.log(error, "XXXXXXXXXXXXXXXXX_______________XXXXXXXXXXXXXXXXXX");
+    if(error.response?.status === 402) {
+      return NextResponse.json({ error: error.response.data }, { status: 402 });
+    }
+    return NextResponse.json({ error: error }, { status: 500 });
  }
 }

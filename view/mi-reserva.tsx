@@ -50,7 +50,7 @@ export const MiReserva = () => {
   return (
     <section className="w-full min-h-screen animate-fade-in mb-14 dark:text-white">
       <BannerPage title="Mi reserva" image="/images2/carBanner.webp" />
-      <div className="container mx-auto mt-6 px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="max-w-7xl mx-auto mt-6 px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <div className="flex flex-col justify-start gap-4 lg:col-span-1">
           <h2 className="font-semibold text-lg">
             Aquí podra revisar los datos de su reserva
@@ -75,7 +75,7 @@ export const MiReserva = () => {
               />
               <Button
                 variant="outline"
-                className="self-end mt-4 bg-red-700 hover:bg-red-800 hover:text-white duration-200 "
+                className="self-end mt-4 bg-red-700 text-white hover:bg-red-800 hover:text-white duration-200 "
                 type="submit"
                 disabled={form.formState.isSubmitting}
               >
@@ -98,8 +98,8 @@ export const MiReserva = () => {
               </h2>
             )}
             {data !== null && (
-              <div className="w-full flex flex-col lg:flex-row-reverse lg:justify-around gap-4">
-                <div className="flex justify-center items-center">
+              <div className="w-full p-6 bg-white text-black dark:bg-zinc-600 dark:text-white rounded-md flex flex-col-reverse lg:flex-row-reverse lg:justify-around gap-4">
+                <div className="flex flex-col justify-center items-center">
                   <Image
                     src={`${data.image}`}
                     width={250}
@@ -107,39 +107,14 @@ export const MiReserva = () => {
                     alt={data?.car}
                     className="h-auto object-cover rounded-md"
                   />
+                  
+                      <p>{data?.brand_name} {data?.car}</p>
+               
                 </div>
                 <div>
-                  <h3 className="font-semibold text-lg my-4">Información:</h3>
+                  <h3 className="font-semibold text-lg mb-4">Código de reservación: ZFS435MNK</h3>
                   <ul className="flex flex-col gap-4">
-                    <li className="flex items-center gap-x-4">
-                      <span className="bg-red-500 rounded-full w-[6px] h-[6px]"></span>
-                      <p>Auto: {data?.car}</p>
-                    </li>
-                    <li className="flex items-center gap-x-4">
-                      <span className="bg-red-500 rounded-full w-[6px] h-[6px]"></span>
-                      <p>Marca: {data?.brand_name}</p>
-                    </li>
-                    <li className="flex items-center gap-x-4">
-                      <span className="bg-red-500 rounded-full w-[6px] h-[6px]"></span>
-                      <p>Tipo de combustible: {data?.fuel_type}</p>
-                    </li>
-                    <li className="flex items-center gap-x-4">
-                      <span className="bg-red-500 rounded-full w-[6px] h-[6px]"></span>
-                      <p>Lugar de salida: {data?.start_branch}</p>
-                    </li>
-                    <li className="flex items-center gap-x-4">
-                      <span className="bg-red-500 rounded-full w-[6px] h-[6px]"></span>
-                      <p>Lugar de llegada: {data?.end_branch}</p>
-                    </li>
-                    <li className="flex items-center gap-x-4">
-                      <span className="bg-red-500 rounded-full w-[6px] h-[6px]"></span>
-                      <p>Inicio: {formatDate(data?.start_date)}</p>
-                    </li>
-                    <li className="flex items-center gap-x-4">
-                      <span className="bg-red-500 rounded-full w-[6px] h-[6px]"></span>
-                      <p>Regreso: {formatDate(data?.end_date)}</p>
-                    </li>
-                    <li className="flex items-center gap-x-4">
+                  <li className="flex items-center gap-x-4">
                       <span className="bg-red-500 rounded-full w-[6px] h-[6px]"></span>
                       <p>
                         Estado de reserva:{" "}
@@ -150,7 +125,24 @@ export const MiReserva = () => {
                           : "Pendiente"}
                       </p>
                     </li>
+                    <li className="flex items-center gap-x-4">
+                      <span className="bg-red-500 rounded-full w-[6px] h-[6px]"></span>
+                      <p>Tipo de combustible: {data?.fuel_type}</p>
+                    </li>
+                    <li className="flex items-center gap-x-4">
+                      <span className="bg-red-500 rounded-full w-[6px] h-[6px]"></span>
+                      <p>Salida: {data?.start_branch} {formatDate(data?.start_date)}</p>
+                    </li>
+                    <li className="flex items-center gap-x-4">
+                      <span className="bg-red-500 rounded-full w-[6px] h-[6px]"></span>
+                      <p>Regreso: {data?.end_branch} {formatDate(data?.end_date)}</p>
+                    </li>
+                    
+                    
                   </ul>
+                  <div>
+                    
+                  </div>
                 </div>
               </div>
             )}
