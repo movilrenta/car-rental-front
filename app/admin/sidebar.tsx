@@ -59,6 +59,9 @@ export default function Sidebar({
       options: [
         {
           value: "ver",
+        },
+        {
+          value: "tarifas",
         }
     ]
       },
@@ -68,6 +71,9 @@ export default function Sidebar({
     options: [
       {
         value: "ver",
+      },
+      {
+        value: "direcciones",
       }
   ]
     }

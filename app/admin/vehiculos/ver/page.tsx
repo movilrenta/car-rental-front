@@ -16,26 +16,11 @@ export default async function VehiculosPage() {
     <div className="relative animate-fade-in p-6">
       {/*BOTON NUEVO AUTO */}
       <CRUD_Vehycle
-        children={<LuPlus className="absolute top-2 right-2 text-3xl border rounded-md p-2 w-11 h-11" />}
+        children={<div className="border group duration-200 rounded-md w-fit px-2 bg-red-700 z-10 fixed bottom-6 right-6 flex gap-2 text-white items-center justify-center"><LuPlus className="text-3xl p-2 w-11 h-11" /><span className="">Nuevo</span></div>}
         groups={groups}
         brands={brands}
         branches={branch}
       />
-      {/* <div className="flex flex-col">
-        {vehycle?.map((car: any, index: number) => (
-          <div key={index} className="flex gap-2">
-            <div>{car.name} </div>
-            <CRUD_Vehycle
-              car={car}
-              children={<div className="w-full h-full bg-cover bg-center"> Editar </div>}
-              groups={groups}
-              brands={brands}
-              branches={branch}
-            />
-            <DeleteComponent children={<div>Delete</div>} id={car.id} />
-          </div>
-        ))}
-      </div> */}
       <CarsTable
       Cars={vehycle}
       Brands={brands}

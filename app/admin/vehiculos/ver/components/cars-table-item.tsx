@@ -2,7 +2,6 @@ import Image from "next/image";
 import CRUD_Vehycle from "./crud";
 import { VehicleType } from "@/constant/cars";
 import DeleteComponent from "./delete-component";
-import { Button } from "@/components/ui/button";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { Branch, Brand, Group } from "@/types/car.interface";
 
@@ -30,17 +29,16 @@ CarTableItemProps) {
       <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
         <div className="text-left">{car.id}</div>
       </td>
-      <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-        <div className="flex items-center">
-          <div className="w-10 h-10 shrink-0 mr-2 sm:mr-3">
+      <td className="flex items-center h-[47px] min-h-full">
+        <div className="flex gap-2 items-center">
             <Image
-              className="rounded-full"
+              className="rounded-full w-auto"
               src={car.image}
-              width={40}
-              height={40}
+              width={46}
+              height={46}
               alt={car.name}
             />
-          </div>
+          
           <div className="font-medium text-gray-800 dark:text-gray-100">
             {car.name}
           </div>
@@ -61,8 +59,8 @@ CarTableItemProps) {
         </div>
       </td>
       <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-       <div className="flex items-center justify-center gap-4">
-       <CRUD_Vehycle
+        <div className="flex items-center justify-center gap-4">
+        <CRUD_Vehycle
           car={car}
           children={<div className="w-full h-full bg-cover bg-center"><FaEdit className="text-blue-500" size={20}/></div>}
           branches={Branches}
@@ -70,7 +68,7 @@ CarTableItemProps) {
           groups={Groups}
         />
         <DeleteComponent children={<div className="w-full"><FaTrash className="text-red-500" size={20}/></div>} id={car.id} />
-       </div>
+        </div>
       </td>
     </tr>
   );
