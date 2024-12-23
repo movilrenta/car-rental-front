@@ -19,7 +19,7 @@ export async function GetAdditionalsAction() {
   }
   catch (error) {
     console.log(error);
-    return {message: "error", error: error, status: 400}
+    return []
   }
 }
 

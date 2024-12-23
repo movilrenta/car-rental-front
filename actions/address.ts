@@ -19,7 +19,8 @@ export async function GetAddressesAction() {
   }
   catch (error) {
     console.log(error);
-    return {message: "error", error: error, status: 400}
+    return []
+    //return {message: "error", error: error, status: 400}
   }
 }
 
