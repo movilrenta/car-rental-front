@@ -41,6 +41,13 @@ const autos_pic = [
   "/images2/toyotaetios.webp",
   "/images2/toyotahilux.webp",
   "/images2/nissanversa.webp",
+  "/images2/renaultlogan.webp",
+  "/images2/chevroletcruze.webp",
+  "/images2/fiatcronos.webp",
+  "/images2/chevrolettracker.webp",
+  "/images2/renaultduster.webp",
+  "/images2/chevrolettracker2.webp",
+  "/images2/toyotahilux4x2.webp",
 ];
 const combustibles = [
   "Gasolina",

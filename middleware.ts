@@ -4,7 +4,7 @@ import { jwtVerify } from "jose";
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  const restrictedRoutes = ['/reservas/reservation-list', '/reservation-list'];
+  const restrictedRoutes = ['/admin', '/reservas/reservation-list', '/reservation-list'];
   const secretKey = new TextEncoder().encode(process.env.JWT_SECRET_KEY);
 
   try {
@@ -35,5 +35,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/reservas/reservation-list", "/reservas/reservation-list/:path*"],
+  matcher: ['/admin/:path*', "/reservas/reservation-list", "/reservas/reservation-list/:path*"],
 };

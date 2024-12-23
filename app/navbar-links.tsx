@@ -42,20 +42,7 @@ export default function NavbarLinks({ burger = false }: { burger?: boolean }) {
             </Link>
           </li>
         ))}
-        {isClient && isLogged && (
-          <li className="m-1">
-            <Link
-              href={`/reservas/reservation-list`}
-              className={`inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 ${
-                pathNoSlash === "/reservas/reservation-list"
-                  ? "border border-transparent shadow-sm bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-800"
-                  : "border hover:bg-red-700 hover:text-white border-gray-200 dark:border-gray-700/60 hover:border-gray-300 dark:hover:border-gray-600 shadow-sm bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400"
-              } transition`}
-            >
-              Lista de reservas
-            </Link>
-          </li>
-        )}
+        
       </ul>
     </div>
   );
