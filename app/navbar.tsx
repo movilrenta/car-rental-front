@@ -26,8 +26,9 @@ export default function Navbar() {
         </Link>
 
         {/* Right: Actions */}
-        <div className="hidden lg:flex sm:auto-cols-max justify-start sm:justify-end gap-2 relative w-full sm:w-fit z-10">
-          <div className="flex gap-8 w-full sm:w-fit justify-center items-center bg-red-800 text-white px-6 sm:absolute sm:top-0 sm:right-0 sm:rounded-es-3xl text-sm font-medium py-2">
+        <div className="hidden lg:flex sm:auto-cols-max justify-start sm:justify-end items-center gap-2 relative w-full sm:w-fit z-10 h-12">
+        <ThemeToggle />
+          <div className="flex gap-8 w-full sm:w-fit justify-center items-center bg-red-800 text-white px-6 h-12 sm:rounded-es-3xl text-sm font-medium py-2">
             <div className="flex justify-center items-center gap-2 text-nowrap">
               <FaPhoneAlt /> 0800 777 7368
             </div>
@@ -38,7 +39,7 @@ export default function Navbar() {
               <MdGTranslate />
               <span className="hidden md:block">In english</span>
             </div>
-            <ThemeToggle />
+            
           </div>
         </div>
         <div className="flex lg:hidden absolute inset-y-0 right-4">

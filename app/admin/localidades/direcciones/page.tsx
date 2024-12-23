@@ -1,7 +1,12 @@
-export default function AddressesPage() {
+import { AddressesTable } from "./components/addresses-table";
+import { GetAddressesAction } from "@/actions/address";
+
+export default async function AddressesPage() {
+  const addresses = await GetAddressesAction()
+
   return (
-    <div>
-      <h1>Addresses</h1>
+    <div className="relative animate-fade-in p-6">
+      <AddressesTable Addresses={addresses}/>
     </div>
   )
 }

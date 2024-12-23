@@ -1,9 +1,9 @@
-"use client";
-
 import { VehicleType } from "@/constant/cars";
 import CarsTableItem from "./cars-table-item";
 import { Brand, Group } from "@/types/car.interface";
 import { Branches } from "@/types/user-reservation.inteface";
+import CRUD_Vehycle from "./crud";
+import { LuPlus } from "react-icons/lu";
 
 export const CarsTable = ({
   Cars,
@@ -25,13 +25,19 @@ export const CarsTable = ({
 
   return (
     <div className="bg-white dark:bg-gray-800 shadow-sm rounded-xl relative">
-      <header className="px-5 py-4">
-        <h2 className="font-semibold text-gray-800 dark:text-gray-100">
+      <header className="flex justify-between items-center px-5 py-4">
+        <h2 className="flex gap-2 items-center justify-center font-semibold text-gray-800 dark:text-gray-100">
           Todos los vehículos{" "}
           <span className="text-gray-400 dark:text-gray-500 font-medium">
             {Cars.length}
           </span>
         </h2>
+        <CRUD_Vehycle
+        children={<div className="border group duration-200 rounded-md w-fit px-2 bg-red-700 flex gap-2 text-white items-center justify-center"><LuPlus className="text-3xl p-2 w-11 h-11" /><span className="">Nuevo</span></div>}
+        groups={Groups}
+        brands={Brands}
+        branches={Branches}
+      />
       </header>
       <div>
         {/* Table */}

@@ -1,7 +1,9 @@
+import { PageUnderConstruction } from "@/components/page-under-construction";
+
 export default function RatesPage() {
   return (
-    <div>
-      <h1>Rates</h1>
+    <div className="pointer-events-none">
+      <PageUnderConstruction />
     </div>
-  )
+  );
 }

@@ -34,12 +34,12 @@ export default function OrdersTableItem({ order, branches }: OrdersTableItemProp
         </td>
         <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
           <div className="font-medium text-gray-800 dark:text-gray-100">
-            {order.start_branch_id}
+            {order.start_branch_id} {formatDate(order.start_date)}
           </div>
         </td>
         <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
           <div className="text-left">
-          {order.end_branch_id}
+          {order.end_branch_id} {formatDate(order.end_date)}
             </div>
         </td>
         <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
