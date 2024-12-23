@@ -373,7 +373,7 @@ export default function CRUD_Form({
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {branches.map((branch: any) => (
+                      {branches?.map((branch: any) => (
                         <SelectItem
                           key={branch.id}
                           value={branch.id.toString()}
