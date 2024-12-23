@@ -37,14 +37,14 @@ import { postBrand, putBrand } from "@/actions";
 
 const autos_pic = [
   "/images2/peugeot.webp",
-  "/images2/chevrolet.webp",
-  "/images2/ford.webp",
+  "/images2/Chevrolet.webp",
+  "/images2/Ford.webp",
   "/images2/nissan.webp",
-  "/images2/renault.webp",
-  "/images2/toyota.webp",
-  "/images2/volkswagen.webp",
+  "/images2/Renault.webp",
+  "/images2/Toyota.webp",
+  "/images2/Volkswagen.webp",
 ];
-
+//mejorando
 export default function CRUD_Form({ Brand }: { Brand?: Brand }) {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
