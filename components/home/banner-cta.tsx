@@ -1,9 +1,8 @@
-import { GetBranchesAction } from "@/actions/branchs";
 import HomeItinerario from "./home-itinerario";
 import { SlideImages } from "./slide-images";
 
-export const BannerCta = async () => {
-  const branches = await GetBranchesAction()
+export const BannerCta = async ({branches} : {branches: any}) => {
+
   const images = [
     {
       url: "/images2/rentacar.webp",
