@@ -14,7 +14,7 @@ export const getUserReservation = async ({code}:FormMiReserva) => {
     const branches:Branches[] = resp.data
 
     const {data} = await axios.get(`${URL}reservations/bytransaction/${code.toUpperCase()}`)
-    console.log(data)
+    //console.log(data)
     if(!data){
       return {
         ok:false,
