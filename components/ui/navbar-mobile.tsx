@@ -64,19 +64,6 @@ export const NavbarMobile = () => {
                 </Link>
               </li>
             ))}
-            {isLogged && (
-              <li>
-                <Link
-                  onClick={() => setToggle(false)}
-                  href="/reservas/reservation-list"
-                  className={clsx("text-lg hover:border-b-2 border-red-400", {
-                    "text-red-950 dark:text-red-200": pathname === "/reservas/reservation-list",
-                  })}
-                >
-                  Lista de reservas
-                </Link>
-              </li>
-            )}
           </ul>
         </div>
       </SheetContent>

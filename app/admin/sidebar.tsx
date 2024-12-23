@@ -66,7 +66,7 @@ export default function Sidebar({
     ]
       },
     {
-    value: "localidades",
+    value: "sucursales",
     icon: <Map className='min-h-4 min-w-4 h-4 w-4 stroke-2'/>,
     options: [
       {

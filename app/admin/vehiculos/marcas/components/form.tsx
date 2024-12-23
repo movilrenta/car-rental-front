@@ -36,10 +36,13 @@ import { Brand } from "@/types/car.interface";
 import { postBrand, putBrand } from "@/actions";
 
 const autos_pic = [
-  "/images2/peugeot-logo.png",
-  "/images2/toyotaetios.webp",
-  "/images2/toyotahilux.webp",
-  "/images2/nissanversa.webp",
+  "/images2/peugeot.webp",
+  "/images2/chevrolet.webp",
+  "/images2/ford.webp",
+  "/images2/nissan.webp",
+  "/images2/renault.webp",
+  "/images2/toyota.webp",
+  "/images2/volkswagen.webp",
 ];
 
 export default function CRUD_Form({ Brand }: { Brand?: Brand }) {
@@ -163,9 +166,9 @@ export default function CRUD_Form({ Brand }: { Brand?: Brand }) {
                               width={80}
                               height={50}
                               alt="2asd"
-                              className="h-8 w-auto"
+                              className="w-16 h-8"
                             />
-                            <p>{url}</p>
+                            {url}
                           </div>
                         </SelectItem>
                       ))}
