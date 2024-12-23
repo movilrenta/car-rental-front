@@ -1,14 +1,30 @@
 'use client'
 
-import Link from 'next/link'
 import Image from 'next/image'
 import { Menu, MenuButton, MenuItems, MenuItem, Transition } from '@headlessui/react'
-import UserAvatar from '@/public/images/user-avatar-32.png'
+import UserAvatar from '@/public/apple-icon-60x60.png'
 import { Button } from './ui/button'
+import { logout } from '@/actions'
+import { useToast } from '@/hooks/use-toast'
+import { useRouter } from 'next/navigation'
 
 export default function DropdownProfile({ align }: {
   align?: 'left' | 'right'
 }) {
+
+  const {toast} = useToast()
+  const router = useRouter()
+
+  const handleLogOut = async () => {
+    const resp = await logout()
+    if(resp?.ok){
+      toast({
+        variant:"default",
+        title: `${resp.message}`
+      })
+      router.replace("/home")
+    }
+  }
   return (
     <Menu as="div" className="relative inline-flex">
       <MenuButton className="inline-flex justify-center items-center group">
@@ -44,7 +60,9 @@ export default function DropdownProfile({ align }: {
             )}
           </MenuItem> */}
           <MenuItem as="li">
-            <Button className={`font-medium text-sm flex items-center py-1 px-3 text-violet-600 dark:text-violet-400`}>
+            <Button 
+            onClick={handleLogOut}
+            className={`w-full text-start font-medium text-sm flex items-start py-1 px-3 text-violet-600 dark:text-violet-400 border-none shadow-none`}>
               Desconectarse
             </Button>
           </MenuItem>
