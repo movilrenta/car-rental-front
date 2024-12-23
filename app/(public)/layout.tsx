@@ -5,6 +5,7 @@ import { Inter } from 'next/font/google'
 import Navbar from '../navbar'
 import Footer from '../footer'
 import { Toaster } from '@/components/ui/toaster'
+import AdminButton from '../admin-button'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -28,6 +29,7 @@ export default function PublicLayout({
             <Navbar />
             {children}
             <Footer />
+            <AdminButton />
             <Toaster/>
           </div>
   )

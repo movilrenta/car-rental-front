@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google'
 import Theme from './theme-provider'
 import AppProvider from './app-provider'
 import { Toaster } from '@/components/ui/toaster'
+import AdminButton from './admin-button'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -29,6 +30,7 @@ export default function RootLayout({
             
             {children}
             <Toaster/>
+            
           </AppProvider>
         </Theme>
       </body>
