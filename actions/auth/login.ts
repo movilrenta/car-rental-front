@@ -11,7 +11,7 @@ export const login = async (values: z.infer<typeof loginSchema>) => {
   const passRenta = process.env.PAS_MOVIL_RENTA;
   try {
     const parsedResult = await loginSchema.safeParseAsync(values);
-    console.log(parsedResult, userRenta);
+    //console.log(parsedResult, userRenta);
     if (!parsedResult.success) {
       return {
         ok: false,

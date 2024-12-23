@@ -6,7 +6,7 @@ import { VehicleType } from "@/constant/cars";
 import React from "react";
 import CRUD_Form from "./form";
 
-export default async function CRUD_Vehycle({
+export default function CRUD_Vehycle({
   children,
   car,
   groups,

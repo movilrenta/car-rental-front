@@ -7,13 +7,13 @@ import {
   useItinerarioStore,
 } from "@/stores/reserva-itinerario/reserva-itinerario.store";
 import { GoArrowDownLeft, GoArrowUpRight } from "react-icons/go";
-import { cities } from "@/constant/cities";
 import { hours } from "@/constant/hours";
 import ItinerarioPickDate from "./itinerario-pick-date";
 //import { Calendar } from "lucide-react";
 import { calcularDiasEntreFechas2 } from "@/components/utils/utils";
+import { BranchesType } from "@/types/branches";
 
-export default function HomeItinerario() {
+export default function HomeItinerario({branches} : {branches: BranchesType[]}) {
   const itinerario = useItinerarioStore((state) => state.getItinerario());
   const nuevoItinerario = useItinerarioStore((state) => state.addItinerario);
   const [dias, setDias] = useState<number>(0);
@@ -91,7 +91,7 @@ export default function HomeItinerario() {
           } */}
 
       </div>
-      <form onSubmit={goReserva} className="max-w-full">
+      <form onSubmit={goReserva} className="max-w-[420px] w-full">
         <div className="space-y-0">
           <div className="flex items-center w-full max-w-full ">
             <label
@@ -112,13 +112,13 @@ export default function HomeItinerario() {
                 <option value="" disabled>
                   Selecciona lugar de retiro
                 </option>
-                {cities.map((city, index) => (
+                {branches?.map((city, index) => (
                   <option
                     key={index}
-                    value={city.value}
-                    className="dark:text-gray-950 text-ellipsis"
+                    value={city.id}
+                    className="dark:text-gray-950 !w-full text-ellipsis"
                   >
-                    {city.label}
+                    {city.name}
                   </option>
                 ))}
               </select>
@@ -154,7 +154,7 @@ export default function HomeItinerario() {
               <GoArrowDownLeft className="text-red-600 stroke-2 text-5xl" />
               Regreso
             </label>
-            <div>
+            <div className="w-full">
               <select
                 id="city-back"
                 required
@@ -165,13 +165,13 @@ export default function HomeItinerario() {
                 <option value="" disabled>
                   Seleccione lugar de entrega
                 </option>
-                {cities.map((city, index) => (
+                {branches?.map((city, index) => (
                   <option
                     key={index}
-                    value={city.value}
+                    value={city.id}
                     className="dark:text-gray-950"
                   >
-                    {city.label}
+                    {city.name}
                   </option>
                 ))}
               </select>
