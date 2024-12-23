@@ -1,8 +1,10 @@
 "use client";
 
+import { useFormatNumber } from "@/components/utils/useFormatterNumber";
 import { calcularDiasEntreFechas2, formatDate } from "@/components/utils/utils";
-import { cities } from "@/constant/cities";
+//import { cities } from "@/constant/cities";
 import { useReservaStore } from "@/stores/reservas/reserva.store";
+import { BranchesType } from "@/types/branches";
 import { useEffect, useState } from "react";
 import {
   IoCalendarOutline,
@@ -11,9 +13,9 @@ import {
   IoNavigateOutline,
 } from "react-icons/io5";
 
-export const ListItems = ({ data }: { data: any }) => {
-  const reservas = useReservaStore((state) => state.getReserva());
+export const ListItems = ({ data, branches }: { data: any, branches: BranchesType[] }) => {
   const [isClient, setIsClient] = useState<boolean>(false);
+  const reservas = useReservaStore((state) => state.getReserva());
   const dias = calcularDiasEntreFechas2(reservas?.startDay!, reservas?.endDay!);
 
   useEffect(() => {
@@ -29,11 +31,11 @@ export const ListItems = ({ data }: { data: any }) => {
     );
   }
 
-  const selectedCity = (ciudad: string) => {
-    const label = cities.find((city) =>
-      city.value === ciudad ? city.label : ciudad
+  const selectedCity = (id: string) => {
+    const label = branches.find((sucursal) =>
+      sucursal.id.toString() === id
     );
-    return label?.label;
+    return label?.name;
   };
 
   const showAccesorios = (): number => {
@@ -41,12 +43,12 @@ export const ListItems = ({ data }: { data: any }) => {
     reservas?.aditionals_array.map((aditional) => {
       const adicional = data.find((item: any) => item.id === aditional.id);
       if (adicional) {
-        console.log(adicional);
+        //console.log(adicional);
         amount_aditionals = amount_aditionals + Number(adicional.price) * dias;
       }
     });
 
-    console.log(amount_aditionals);
+    //console.log(amount_aditionals);
     return amount_aditionals;
   };
   const totalPrice = reservas?.car?.group?.rate
@@ -97,15 +99,13 @@ export const ListItems = ({ data }: { data: any }) => {
               <span className="font-semibold">
                 Categoria: {reservas?.car?.group?.name}
               </span>{" "}
-              - {reservas?.car?.name}. Cobertura total por daños, en caso de
-              robo/hurto con franquicia de: ARS 2.700.000,00. - Por vuelco: ARS
-              8.500.000,00 {reservas?.car?.group?.insurances}
+              - {reservas?.car?.brand?.name} {reservas?.car?.name}. Seguros ${useFormatNumber(reservas?.car?.group?.insurances)}
             </p>
           </div>
         </div>
       </div>
 
-      <>
+      {reservas?.aditionals_array?.length! > 0 && <>
         <hr className="w-full h-[2px] bg-gray-500 dark:bg-slate-100" />
         <div className="w-full flex items-center gap-4">
           <IoNavigateOutline size={50} className="text-red-700" />
@@ -124,13 +124,13 @@ export const ListItems = ({ data }: { data: any }) => {
                   (item: any) => item.id === aditional.id
                 );
                 if (adicional) {
-                  return <p className="font-semibold">{adicional.name}</p>;
+                  return <p key={aditional.id} className="font-semibold">{adicional.name}</p>;
                 }
               })}
             </div>
           </div>
         </div>
-      </>
+      </>}
 
       <hr className="w-full h-[2px] bg-gray-500 dark:bg-slate-100" />
       <div className="w-full flex items-center gap-4">

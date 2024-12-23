@@ -34,7 +34,7 @@ export const NavbarMobile = () => {
       <SheetTrigger>
         <FaBars size={25} />
       </SheetTrigger>
-      <SheetContent className="bg-red-600">
+      <SheetContent className="bg-neutral-200">
       <div className="absolute left-4 top-4"><ThemeToggle /></div>
         <SheetHeader>
           <SheetTitle></SheetTitle>
@@ -56,7 +56,7 @@ export const NavbarMobile = () => {
                 <Link
                   onClick={() => setToggle(false)}
                   href={link.link}
-                  className={clsx("text-lg text-white hover:border-b-2 border-red-400", {
+                  className={clsx("text-lg hover:border-b-2 border-red-400", {
                     "text-red-500": pathname === link.link
                   },`${link.label === "Mi reserva" ? "text-xl" : ""}`)}
                 >
@@ -69,7 +69,7 @@ export const NavbarMobile = () => {
                 <Link
                   onClick={() => setToggle(false)}
                   href="/reservas/reservation-list"
-                  className={clsx("text-lg text-white hover:border-b-2 border-red-400", {
+                  className={clsx("text-lg hover:border-b-2 border-red-400", {
                     "text-red-950 dark:text-red-200": pathname === "/reservas/reservation-list",
                   })}
                 >

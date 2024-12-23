@@ -33,7 +33,6 @@ type ReservationType = {
   lastname: string,
   email: string,
   phone: string,
-  //installments: string,
   aditionals_array: {id: number, amount: number}[],
   observation?: string
 }
@@ -60,7 +59,6 @@ export const FormConfirm = () => {
       lastName: "",
       email: "",
       phone: "",
-      //installments: 1,
       termyCond: false,
       mayor25: false,
       //aditionals_array: []
@@ -71,9 +69,9 @@ export const FormConfirm = () => {
       car_id: reservaGet?.car?.id!,
       code: generarCodigoReserva(),
       start_date: `${new Date(reservaGet?.startDay!).toISOString().split('T')[0]} ${reservaGet?.startTime}`,
-      end_date: `${new Date(reservaGet?.endDay!).toISOString().split('T')[0]} ${reservaGet?.endTime}`,    // `${reservaGet?.endDay.toString().slice(0,10)} ${reservaGet?.endTime}`,
-      start_branch_id: 1,
-      end_branch_id: 1,
+      end_date: `${new Date(reservaGet?.endDay!).toISOString().split('T')[0]} ${reservaGet?.endTime}`,
+      start_branch_id: +(reservaGet?.startLocation!),
+      end_branch_id: +(reservaGet?.endLocation!),
       firstname: values.firtName,
       lastname: values.lastName,
       email: values.email,

@@ -41,10 +41,10 @@ export default function OrdersTable({ orders, totalOrders  }: { orders: Reservat
                   <div className="font-semibold text-left">Fecha</div>
                 </th>
                 <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                  <div className="font-semibold text-left">Lugar salida</div>
+                  <div className="font-semibold text-left">Salida</div>
                 </th>
                 <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                  <div className="font-semibold text-left">Lugar llegada</div>
+                  <div className="font-semibold text-left">Llegada</div>
                 </th>
                 <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                   <div className="font-semibold text-left">Total</div>
