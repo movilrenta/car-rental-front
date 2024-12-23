@@ -1,5 +1,7 @@
 import { Brand } from '@/types/car.interface'
 import { BrandsTableItem } from './brands-table-item'
+import CRUD_Brand from './crud'
+import { LuPlus } from 'react-icons/lu'
 
 interface BrandsTableProps {
   Brands: Brand[]
@@ -8,13 +10,18 @@ interface BrandsTableProps {
 export const BrandTable = ({Brands}:BrandsTableProps) => {
   return (
     <div className="bg-white dark:bg-gray-800 shadow-sm rounded-xl relative">
-    <header className="px-5 py-4">
+    <header className="flex justify-between items-center px-5 py-4">
       <h2 className="font-semibold text-gray-800 dark:text-gray-100">
         Todas las Marcas{" "}
         <span className="text-gray-400 dark:text-gray-500 font-medium">
           {Brands.length}
         </span>
       </h2>
+      <CRUD_Brand
+        children={
+          <div className="border group duration-200 rounded-md w-fit px-2 bg-red-700 flex gap-2 text-white items-center justify-center"><LuPlus className="text-3xl p-2 w-11 h-11" /><span className="">Nuevo</span></div>
+        }
+      />
     </header>
     <div>
       {/* Table */}

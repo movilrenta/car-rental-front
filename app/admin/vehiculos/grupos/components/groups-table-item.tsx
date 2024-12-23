@@ -7,7 +7,7 @@ import DeleteComponent from "./delete-component";
 
 export const GroupsTableItem = ({ group }: { group: Group }) => {
   return (
-    <tr>
+    <tr className="hover:bg-black/5 dark:hover:bg-black/10 duration-200">
       <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
         <div className="text-left">{group.id}</div>
       </td>

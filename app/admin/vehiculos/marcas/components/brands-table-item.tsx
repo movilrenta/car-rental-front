@@ -8,16 +8,16 @@ import DeleteComponent from "./delete-component";
 
 export const BrandsTableItem = ({ brand }: { brand: Brand }) => {
   return (
-    <tr>
+    <tr className="hover:bg-black/5 dark:hover:bg-black/10 duration-200">
       <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
         <div className="text-left">{brand.id}</div>
       </td>
       <td className="flex items-center h-[47px] min-h-full">
         <div className="flex gap-2 items-center">
           <Image
-            className="rounded-full w-auto"
+            className="rounded-md w-auto h-10"
             src={brand.image}
-            width={46}
+            width={60}
             height={46}
             alt={brand.name}
           />
