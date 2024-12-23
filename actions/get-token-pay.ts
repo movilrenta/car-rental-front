@@ -58,7 +58,7 @@ export const getTokenPay = async (values: z.infer<typeof formSchema>, code: stri
 
     const responseEx = await executedPayment(body, reserva_id);
 
-    console.log(responseEx, "REsPONSE EXX");
+    //console.log(responseEx, "REsPONSE EXX");
 
     if (!responseEx?.ok) {
       console.log("_3");
@@ -126,7 +126,69 @@ export const getTokenPay = async (values: z.infer<typeof formSchema>, code: stri
 const executedPayment = async (values: RequestExecutedPay, reserva_id: number) => {
   try {
     const { data } = await axios.post<ResponseExecutedPay>(`${URL}api/payments`, values);
-    if (data.response.status === "approved" || data.response.status === "pre_approved" || data.response.status === "rejected") {
+    if (data.response.status === "pre_approved") {
+      const body = {
+        id: data.response.id,
+        site_transaction_id: data.response.site_transaction_id,
+        token: data.response.token,
+        payment_method_id: data.response.payment_method_id,
+        bin: data.response.bin,
+        amount: data.response.amount,
+        currency: data.response.currency,
+        installments: data.response.installments,
+        payment_type: data.response.payment_type,
+        site_id: data.response.site_id,
+        sub_payments: data.response.sub_payments
+      }
+      try {
+        const { data } = await axios.put<ResponseExecutedPay>(`${URL}api/pre-to-app`, body);     
+        if (data?.response?.status === "approved"){
+
+          console.log("GO to save payment PRE APPROBVED to Aproved");
+          const dataPago = data.response
+          dataPago.reservation_id = reserva_id
+          dataPago.status_details = JSON.stringify(dataPago.status_details)
+          dataPago.sub_payments = JSON.stringify(dataPago.sub_payments)
+          dataPago.date = JSON.stringify(dataPago.date).replace("T", " ").replace("Z", "").replace(/"/g, "")
+          dataPago.confirmed = null
+          //data.response.status === "rejected" ? data.response.fraud_detection = JSON.stringify(data.response.fraud_detection) : null
+          delete dataPago.authenticated_token
+          //console.log(dataPago, "DATAPAGO");
+          try {
+            const { data } = await axios.post(`${BACK}payments`, dataPago);
+            console.log(data, "respuesta del pre aprobado a aprobado desde el back------ 104");
+          } catch (error: any) {
+            if (error instanceof AxiosError) {
+              console.log(error, "_____________4");
+              return {
+                ok: false,
+                message: error.message,
+                data: null
+              }
+            }
+          }
+          return {
+            ok: true,
+            message: data.response.status === "approved" ? "Pago realizado con exito" : "Pago pendiente",
+            data: dataPago
+          }
+        }
+      } catch (error: any) {
+        console.log(error, "_____________ERROR DEL PRE TO APP");
+        console.log(error.response.data.error, "ERRROORRRR PRE APROBED")
+        if (error instanceof AxiosError) {
+          console.log(error, "_____________90________");
+          return {
+            ok: false,
+            message: error.message,
+            data: null
+          }
+        }
+      }
+      
+      
+    }
+    if (data.response.status === "approved" || data.response.status === "rejected") {
       console.log("GO to save payment");
       const dataPago = data.response
       dataPago.reservation_id = reserva_id
@@ -155,9 +217,11 @@ const executedPayment = async (values: RequestExecutedPay, reserva_id: number) =
         data: dataPago
       }
     }
+    
+   
     return {
       ok: false,
-      message: "Hubo un problema al realizar el pago",
+      message: "Hubo un problema al realizar el pago - error 103",
       data: null
     }
   } catch (error: any) {

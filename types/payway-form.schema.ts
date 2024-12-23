@@ -114,7 +114,7 @@ export interface ResponseExecutedPay {
     status_details: StatusDetails | string;
     date: string;
     payment_mode: null;
-    customer: null;
+    customer: null | string;
     bin: string;
     installments: number;
     first_installment_expiration_date: null;
