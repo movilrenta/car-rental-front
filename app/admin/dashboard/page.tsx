@@ -1,4 +1,5 @@
-import { PageUnderConstruction } from "@/components/page-under-construction";
+import brand from '@/public/images2/brand.png'
+import Image from "next/image";
 
 export default function AdminPage() {
   return (
@@ -8,7 +9,15 @@ export default function AdminPage() {
         Panel de administración de todo lo referido a los autos
       </p>
       <div className="pointer-events-none">
-        <PageUnderConstruction />
+        <div className="mt-10">
+          <Image
+          src={brand}
+          alt="Movil Renta brand"
+          width={280}
+          height={200}
+          className="w-auto object-fill"
+          />
+        </div>
       </div>
     </div>
   );

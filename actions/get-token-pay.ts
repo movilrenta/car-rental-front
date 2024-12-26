@@ -61,7 +61,6 @@ export const getTokenPay = async (values: z.infer<typeof formSchema>, code: stri
     //console.log(responseEx, "REsPONSE EXX");
 
     if (!responseEx?.ok) {
-      console.log("_3");
       console.log(responseEx);
       if (responseEx?.status === 402) {
         if (responseEx?.data?.error?.status === "rejected") {
