@@ -8,7 +8,7 @@ const URL = process.env.NEXT_PUBLIC_URL_MOVILRENTA
 
 export const putBrand =  async (values:BrandForm) => {
   try {
-    const res = await axios.put(`${URL}/api/brands/${values.id}`, values);
+    const res = await axios.put(`${URL}api/brands/${values.id}`, values);
     revalidatePath("/admin/vehiculos/marcas")
     return {
       ok:true,
@@ -34,7 +34,7 @@ export const putBrand =  async (values:BrandForm) => {
 
 export const postBrand = async (values:BrandForm) => {
   try {
-    const res = await axios.post(`${URL}/api/brands`, values);
+    const res = await axios.post(`${URL}api/brands`, values);
 
     revalidatePath("/admin/vehiculos/marcas")
     return {
@@ -61,7 +61,7 @@ export const postBrand = async (values:BrandForm) => {
 
 export const deleteBrand = async (id:number) => {
   try {
-    await axios.delete(`${URL}/api/brands/${id}`);
+    await axios.delete(`${URL}api/brands/${id}`);
     revalidatePath("/admin/vehiculos/marcas")
     return {
       ok:true,

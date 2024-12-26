@@ -5,10 +5,9 @@ import axios, { AxiosError } from "axios";
 import { revalidatePath } from "next/cache";
 
 const URL = process.env.NEXT_PUBLIC_URL_MOVILRENTA
-
 export const putGroup =  async (values:GroupForm) => {
   try {
-    const res = await axios.put(`${URL}/api/groups/${values.id}`, values);
+    const res = await axios.put(`${URL}api/groups/${values.id}`, values);
     revalidatePath("/admin/vehiculos/grupos")
     return {
       ok:true,
