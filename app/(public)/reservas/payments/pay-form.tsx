@@ -102,9 +102,9 @@ export default function PayForm({aditionals} : {aditionals: any[]}) {
         variant: "default",
         title: `${resp?.message}`,
       });
-      setTimeout( () => {
-        router.replace("/");
-      }, 2000)
+      // setTimeout( () => {
+      //   router.replace("/");
+      // }, 2000)
     } else {
       // await saveCard(values);
 
