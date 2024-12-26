@@ -14,7 +14,7 @@ const URL = process.env.NEXT_PUBLIC_URL_MOVILRENTA
 export async function GetBranchesAction() {
   noStore();
   try {
-    const {data} = await axios.get(`${URL}/api/branches`)
+    const {data} = await axios.get(`${URL}api/branches`)
     return data.response
   }
   catch (error) {
