@@ -1,6 +1,6 @@
 export const statesCodes = [
   {value:"C",label:"Ciudad Autónoma de Buenos Aires"},
-  {value:"B",label:"Buenos Aires"},
+  {value:"BA",label:"Buenos Aires"},
   {value:"K",label:"Catamarca"},
   {value:"H",label:"Chaco"},
   {value:"U",label:"Chubut"},

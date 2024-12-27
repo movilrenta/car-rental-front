@@ -11,9 +11,12 @@ export async function POST(request: Request) {
   try {
     const { data } = await axios.post(`${URL}api/token`, solicitud);
     ejecucion.token = data.response.id
+    ejecucion.bin = data.response.bin
+
+    console.log(ejecucion, "ejecucion");
 
     const respExc: any = await axios.post(`${URL}api/payments`,ejecucion);
-//
+    console.log(respExc, "-----------------RESPEXT");
     if (respExc?.data?.response?.status === "pre_approved") {
       const body = {
         id: respExc.data.response.id,
@@ -52,6 +55,7 @@ export async function POST(request: Request) {
       status: 201 })
 
   } catch (error) {
+    console.log(error, "_____________________error 101");
     return NextResponse.json({
       ok: false,
       message: "Internal Server",

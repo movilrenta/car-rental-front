@@ -67,8 +67,8 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
       installments: "1",
       bill_to: {
         city: "",
-        country: "AR",
-        customer_id: "xxxxx",
+        country: "",
+        customer_id: "",
         first_name: "",
         last_name: "",
         postal_code: "",
@@ -76,6 +76,30 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
         street1: "",
       },
     },
+    // defaultValues: {
+    //   card_number: "4507990000004905",
+    //   card_expiration_month: "12",
+    //   card_expiration_year: "30",
+    //   security_code: "123",
+    //   card_holder_birthday: "07/05/1964",
+    //   card_holder_door_number: "2473",
+    //   card_holder_identification: {
+    //     type: "DNI",
+    //     number: "25123456",
+    //   },
+    //   payment_method_id: "",
+    //   installments: "1",
+    //   bill_to: {
+    //     city: "Buenos Aires",
+    //     country: "AR",
+    //     customer_id: "xxxxx",
+    //     first_name: "martin",
+    //     last_name: "paoletta",
+    //     postal_code: "1427",
+    //     state: "BA",
+    //     street1: "GARCIA DEL RIO",
+    //   },
+    // },
   });
   const days = calcularDiasEntreFechas2(reserva?.startDay!, reserva?.endDay!);
 
@@ -104,6 +128,7 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
       });
       return;
     }
+    values.bill_to.street1 = values.bill_to.street1 + " 4041"
     try {
       const resp = await getTokenPay(
         values,
@@ -124,7 +149,7 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
         // }, 2000)
       } else {
         // await saveCard(values);
-
+        console.log("4001");
         toast({
           variant: "default",
           title: `${resp.message}`,
@@ -140,19 +165,9 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
     <main>
       <BannerPage title="Realizar el pago" image="/images2/carBanner.webp" />
 
-      <div className="relative px-4 sm:px-6 lg:px-8 pb-8 max-w-lg mx-auto">
-        <div className="bg-white min-h-[755px] dark:bg-gray-800 px-8 pb-6 rounded-b-xl shadow-sm">
-          {/* Card header */}
+      <div className="relative px-4 sm:px-6 lg:px-8 py-6 max-w-lg mx-auto">
+        <div className="bg-white min-h-[755px] dark:bg-gray-800 px-8 pb-6 rounded-md shadow-sm">
           <div className="text-center mb-6">
-            {/* <div className="mb-2">
-              <Image
-                className="-mt-8 inline-flex rounded-full"
-                src={User}
-                width={64}
-                height={64}
-                alt="User"
-              />
-            </div> */}
             <h1 className="text-xl leading-snug text-gray-800 dark:text-gray-100 font-semibold mb-2 pt-4">
               Movil Renta
             </h1>
@@ -180,7 +195,7 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
                     name="payment_method_id"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Seleccione un medio de pago</FormLabel>
+                        <FormLabel className="block text-sm font-medium -mb-2">Seleccione un medio de pago</FormLabel>
                         <Select
                           onValueChange={field.onChange}
                           defaultValue={field.value}
@@ -227,7 +242,7 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
                   name="card_number"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="block text-sm font-medium mb-1">
+                      <FormLabel className="block text-sm font-medium -mb-2">
                         Número de la tarjeta{" "}
                         <span className="text-red-500"> *</span>
                       </FormLabel>
@@ -251,7 +266,7 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
                     name="card_expiration_month"
                     render={({ field }) => (
                       <FormItem className="flex-1">
-                        <FormLabel className="block text-sm font-medium mb-1">
+                        <FormLabel className="block text-sm font-medium -mb-2">
                           Mes
                           <span className="text-red-500"> *</span>
                         </FormLabel>
@@ -280,7 +295,7 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
                     name="card_expiration_year"
                     render={({ field }) => (
                       <FormItem className="flex-1">
-                        <FormLabel className="block text-sm font-medium mb-1">
+                        <FormLabel className="block text-sm font-medium -mb-2">
                           Año
                           <span className="text-red-500"> *</span>
                         </FormLabel>
@@ -308,7 +323,7 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
                     name="security_code"
                     render={({ field }) => (
                       <FormItem className="flex-1">
-                        <FormLabel className="block text-sm font-medium mb-1">
+                        <FormLabel className="block text-sm font-medium -mb-2">
                           CVC
                           <span className="text-red-500"> *</span>
                         </FormLabel>
@@ -332,13 +347,147 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
                     )}
                   />
                 </div>
+                <div className="flex space-x-4">
+                  <FormField
+                    control={form.control}
+                    name="card_holder_identification.type"
+                    render={({ field }) => (
+                      <FormItem className="flex-1">
+                        <FormLabel className="block text-sm font-medium -mb-2 line-clamp-1 text-ellipsis">
+                          Tipo de documento
+                        </FormLabel>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                        >
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Seleccione tipo" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent className="bg-white">
+                            <SelectItem value="DNI">DNI</SelectItem>
+                            <SelectItem value="LE">LE</SelectItem>
+                            <SelectItem value="LC">LC</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="card_holder_identification.number"
+                    render={({ field }) => (
+                      <FormItem className="flex-2">
+                        <FormLabel className="block text-sm font-medium -mb-2">
+                          N°
+                          <span className="text-red-500"> *</span>
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            className="form-input w-full"
+                            type="text"
+                            placeholder="12345678"
+                            maxLength={10}
+                            inputMode="numeric"
+                            pattern="[0-9]*"
+                            value={field.value}
+                            onChange={(e) => {
+                              const input = e.target.value.replace(/\D/g, ""); // Remueve cualquier carácter no numérico
+                              field.onChange(input); // Actualiza el estado del campo
+                            }}
+                          />
+                        </FormControl>
+                        <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                <FormField
+                  control={form.control}
+                  name="card_holder_birthday"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="block text-sm font-medium -mb-2">
+                        Fecha de nacimiento
+                        <span className="text-red-500"> *</span>
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          className="form-input w-full"
+                          type="text"
+                          maxLength={10}
+                          placeholder="DD/MM/AAAA"
+                          pattern="\d{2}/\d{2}/\d{4}"
+                          value={field.value}
+                          onChange={(e) => {
+                            const input = e.target.value.replace(/\D/g, ""); // Remueve cualquier carácter no numérico
+                            const formatted = input
+                              .replace(/^(\d{2})(\d{2})/, "$1/$2") // Añade la primera barra
+                              .replace(/(\d{2}\/\d{2})(\d+)/, "$1/$2"); // Añade la segunda barra
+                            field.onChange(formatted); // Actualiza el estado del campo
+                          }}
+                        />
+                      </FormControl>
+                      <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
+                    </FormItem>
+                  )}
+                />
+                {/* Name on Card */}
+                <div className="flex flex-col md:flex-row md:space-x-4 gap-4 md:gap-0">
+                  <FormField
+                    control={form.control}
+                    name="bill_to.first_name"
+                    render={({ field }) => (
+                      <FormItem className="flex-1">
+                        <FormLabel className="block text-sm font-medium -mb-2">
+                          Nombre
+                          <span className="text-red-500"> *</span>
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            className="form-input w-full"
+                            type="text"
+                            placeholder="José"
+                            maxLength={36}
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="bill_to.last_name"
+                    render={({ field }) => (
+                      <FormItem className="flex-1">
+                        <FormLabel className="block text-sm font-medium -mb-2">
+                          Apellido
+                          <span className="text-red-500"> *</span>
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            className="form-input w-full"
+                            type="text"
+                            placeholder="Perez"
+                            maxLength={36}
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
                 {/* Birthday*/}
                 <FormField
                   control={form.control}
                   name="installments"
                   render={({ field }) => (
                     <FormItem className="flex-1">
-                      <FormLabel className="block text-sm font-medium mb-1">
+                      <FormLabel className="block text-sm font-medium -mb-2">
                         Cantidad de cuotas
                       </FormLabel>
                       <Select
@@ -377,90 +526,13 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
                     </FormItem>
                   )}
                 />
-                <FormField
-                  control={form.control}
-                  name="card_holder_birthday"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="block text-sm font-medium mb-1">
-                        Fecha de nacimiento
-                        <span className="text-red-500"> *</span>
-                      </FormLabel>
-                      <FormControl>
-                        <Input
-                          className="form-input w-full"
-                          type="text"
-                          maxLength={10}
-                          placeholder="DD/MM/AAAA"
-                          pattern="\d{2}/\d{2}/\d{4}"
-                          value={field.value}
-                          onChange={(e) => {
-                            const input = e.target.value.replace(/\D/g, ""); // Remueve cualquier carácter no numérico
-                            const formatted = input
-                              .replace(/^(\d{2})(\d{2})/, "$1/$2") // Añade la primera barra
-                              .replace(/(\d{2}\/\d{2})(\d+)/, "$1/$2"); // Añade la segunda barra
-                            field.onChange(formatted); // Actualiza el estado del campo
-                          }}
-                        />
-                      </FormControl>
-                      <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
-                    </FormItem>
-                  )}
-                />
-                {/* Name on Card */}
-                <div className="flex flex-col md:flex-row md:space-x-4 gap-4 md:gap-0">
-                  <FormField
-                    control={form.control}
-                    name="bill_to.first_name"
-                    render={({ field }) => (
-                      <FormItem className="flex-1">
-                        <FormLabel className="block text-sm font-medium mb-1">
-                          Nombre
-                          <span className="text-red-500"> *</span>
-                        </FormLabel>
-                        <FormControl>
-                          <Input
-                            className="form-input w-full"
-                            type="text"
-                            placeholder="José"
-                            maxLength={36}
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="bill_to.last_name"
-                    render={({ field }) => (
-                      <FormItem className="flex-1">
-                        <FormLabel className="block text-sm font-medium mb-1">
-                          Apellido
-                          <span className="text-red-500"> *</span>
-                        </FormLabel>
-                        <FormControl>
-                          <Input
-                            className="form-input w-full"
-                            type="text"
-                            placeholder="Perez"
-                            maxLength={36}
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
-                      </FormItem>
-                    )}
-                  />
-                </div>
 
                 <FormField
                   control={form.control}
                   name="bill_to.state"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Provincia</FormLabel>
+                      <FormLabel className="block text-sm font-medium -mb-2">Provincia</FormLabel>
                       <Select
                         onValueChange={field.onChange}
                         defaultValue={field.value}
@@ -489,7 +561,7 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
                     name="bill_to.city"
                     render={({ field }) => (
                       <FormItem className="flex-1">
-                        <FormLabel className="block text-sm font-medium mb-1">
+                        <FormLabel className="block text-sm font-medium -mb-2">
                           Ciudad
                           <span className="text-red-500"> *</span>
                         </FormLabel>
@@ -511,7 +583,7 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
                     name="bill_to.postal_code"
                     render={({ field }) => (
                       <FormItem className="flex-1">
-                        <FormLabel className="block text-sm font-medium mb-1">
+                        <FormLabel className="block text-sm font-medium -mb-2">
                           Codigo Postal
                           <span className="text-red-500"> *</span>
                         </FormLabel>
@@ -535,7 +607,7 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
                     name="bill_to.street1"
                     render={({ field }) => (
                       <FormItem className="flex-1">
-                        <FormLabel className="block text-sm font-medium mb-1">
+                        <FormLabel className="block text-sm font-medium -mb-2">
                           Dirección
                           <span className="text-red-500"> *</span>
                         </FormLabel>
@@ -556,7 +628,7 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
                     name="card_holder_door_number"
                     render={({ field }) => (
                       <FormItem className="flex-1">
-                        <FormLabel className="block text-sm font-medium mb-1">
+                        <FormLabel className="block text-sm font-medium -mb-2">
                           Altura
                           <span className="text-red-500"> *</span>
                         </FormLabel>
@@ -578,62 +650,7 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
                     )}
                   />
                 </div>
-                <div className="flex space-x-4">
-                  <FormField
-                    control={form.control}
-                    name="card_holder_identification.type"
-                    render={({ field }) => (
-                      <FormItem className="flex-1">
-                        <FormLabel className="block text-sm font-medium mb-1">
-                          Tipo
-                        </FormLabel>
-                        <Select
-                          onValueChange={field.onChange}
-                          defaultValue={field.value}
-                        >
-                          <FormControl>
-                            <SelectTrigger>
-                              <SelectValue placeholder="Seleccione tipo" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent className="bg-white">
-                            <SelectItem value="DNI">DNI</SelectItem>
-                            <SelectItem value="LE">LE</SelectItem>
-                            <SelectItem value="LC">LC</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="card_holder_identification.number"
-                    render={({ field }) => (
-                      <FormItem className="flex-2">
-                        <FormLabel className="block text-sm font-medium mb-1">
-                          N°
-                          <span className="text-red-500"> *</span>
-                        </FormLabel>
-                        <FormControl>
-                          <Input
-                            className="form-input w-full"
-                            type="text"
-                            placeholder="12345678"
-                            maxLength={10}
-                            inputMode="numeric"
-                            pattern="[0-9]*"
-                            value={field.value}
-                            onChange={(e) => {
-                              const input = e.target.value.replace(/\D/g, ""); // Remueve cualquier carácter no numérico
-                              field.onChange(input); // Actualiza el estado del campo
-                            }}
-                          />
-                        </FormControl>
-                        <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
-                      </FormItem>
-                    )}
-                  />
-                </div>
+
                 {/* htmlForm footer */}
                 <div className="mt-6">
                   <Button
