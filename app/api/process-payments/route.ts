@@ -1,128 +1,61 @@
-import { csmdds } from "@/constant/csmmd";
-import { ResponseDataToken } from "@/types/payway-form.schema";
-import axios, { AxiosError } from "axios";
-import { NextResponse, NextRequest } from "next/server";
+//import { csmdds } from "@/constant/csmmd";
+import { ResponseExecutedPay } from "@/types/payway-form.schema";
+import axios from "axios";
+import { NextResponse } from "next/server";
 
 const URL = process.env.NEXT_PUBLIC_URL_MOVILRENTA;
 
 export async function POST(request: Request) {
-  const deviceUniqueIdentifier = crypto.randomUUID();
+  const {solicitud, ejecucion} = await request.json()
 
-  // console.log(deviceUniqueIdentifier);
   try {
-    const body = {
-      card_number: "4507990000004905",
-      card_expiration_month: "12",
-      card_expiration_year: "30",
-      card_holder_name: "John Doe",
-      card_holder_birthday: "07051964",
-      card_holder_door_number: 2473,
-      security_code: "123",
-      card_holder_identification: {
-        type: "DNI",
-        number: "25123456",
-      },
-      fraud_detection: {
-        device_unique_identifier: deviceUniqueIdentifier,
+    const { data } = await axios.post(`${URL}api/token`, solicitud);
+    ejecucion.token = data.response.id
+
+    const respExc: any = await axios.post(`${URL}api/payments`,ejecucion);
+
+    if (respExc?.data?.response?.status === "pre_approved") {
+      const body = {
+        id: respExc.data.response.id,
+        site_transaction_id: respExc.data.response.site_transaction_id,
+        token: respExc.data.response.token,
+        payment_method_id: respExc.data.response.payment_method_id,
+        bin: respExc.data.response.bin,
+        amount: respExc.data.response.amount,
+        currency: respExc.data.response.currency,
+        installments: respExc.data.response.installments,
+        payment_type: respExc.data.response.payment_type,
+        site_id: respExc.data.response.site_id,
+        sub_payments: respExc.data.response.sub_payments
       }
-    };
-
-    const response = await axios.post(`${URL}api/token`, body);
-    if (!response)
-      return NextResponse.json({
-        ok: false,
-        message: "Error al obtener token",
-      });
-
-    const token: ResponseDataToken = response.data;
-
-    //!Generado con crypto()
-    const respExecutedPayment = {
-      // customer: {
-      //   id: "id_cliente",
-      //   email: "cliente@decidir.com",
-      //   ip_address: "245.160.47.153",
-      // },
-      site_transaction_id: "TEST17",
-      token: token.response.id,
-      establishment_name: "Movil Renta",
-      payment_method_id: 1,
-      bin: "450799",
-      amount: 2000,
-      currency: "ARS",
-      installments: 1,
-      payment_type: "single",
-      sub_payments: [],
-      fraud_detection: {
-        send_to_cs: true,
-        channel: "Web/Mobile",
-        bill_to: {
-          city: "Buenos Aires",
-          country: "AR",
-          customer_id: "0001",
-          email: "accept@decidir.com.ar",
-          first_name: "martin",
-          last_name: "paoletta",
-          phone_number: "1547766329",
-          postal_code: "1427",
-          state: "BA",
-          street1: "GARCIA DEL RIO 4041",
-        },
-        purchase_totals: { currency: "ARS", amount: 2000 },
-        // customer_in_site: { date_of_birth: "129412", street: "RIO 4041" },
-        retail_transaction_data: {
-          ship_to: {//TODO datos de la empresa
-            city: "Buenos Aires",
-            country: "AR",
-            customer_id: "0001",
-            email: "accept@decidir.com.ar",
-            first_name: "martin",
-            last_name: "paoletta",
-            phone_number: "1547766329",
-            postal_code: "1427",
-            state: "BA",
-            street1: "GARCIA DEL RIO 4041",
-          },
-          dispatch_method: "movilrenta",
-          items: [
-            {
-              code: "codigoProducto1",
-              description: "Descripcion condicional del producto",
-              name: "nombre del producto",
-              sku: "asas",
-              total_amount: 2000,
-              quantity: 1,
-              unit_price: 2000,
-            },
-          ],
-        },
-      },
-      // csmdds: csmdds,
-    };
-
-    const respExc = await axios.post(
-      `${URL}api/payments`,
-      respExecutedPayment
-    );
-    if (!respExc)
-      return NextResponse.json({
-        ok: false,
-        message: "Error al ejecutar el pago",
-      });
-
-    return NextResponse.json({data: respExc.data.response, status: respExc.status})
-
-    // return NextResponse.json({ message: "ip obtenida" });
-  } catch (error) {
-    if (error instanceof AxiosError) {
-      return NextResponse.json({
-        error: error.response?.data,
-        status: error.status,
-      });
+      try {
+        const { data } = await axios.put<ResponseExecutedPay>(`${URL}api/pre-to-app`, body);
+        return NextResponse.json({ 
+          ok: true, 
+          message: "Transacción exitosa", 
+          data: data.response, 
+          status: 201 })
+      } catch (error) {
+        return NextResponse.json({
+          ok: false,
+          message: "Transacción en estado pre aprobada",
+          data: error,
+          status: 500,
+        });
+      }
     }
+
+    return NextResponse.json({ 
+      ok: true, 
+      message: "Transacción exitosa", 
+      data: respExc.data, 
+      status: 201 })
+
+  } catch (error) {
     return NextResponse.json({
       ok: false,
       message: "Internal Server",
+      data: error,
       status: 500,
     });
   }
