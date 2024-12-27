@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { NextResponse } from "next/server";
 
 export async function POST(req: any) {
@@ -24,10 +24,10 @@ export async function POST(req: any) {
     );
 
     return NextResponse.json({ response: response.data }, { status: 200 });
-  } catch (error: any) {
-    console.log(error, "XXXXXXXXXXXXXXXXX_______________XXXXXXXXXXXXXXXXXX");
-    if(error.response?.status === 402) {
-      return NextResponse.json({ error: error.response.data }, { status: 402 });
+  } catch (error) {
+    console.log(error)
+    if(error instanceof AxiosError) {
+      return NextResponse.json({ error: error.response?.data }, { status: error.status });
     }
     return NextResponse.json({ error: error }, { status: 500 });
  }
