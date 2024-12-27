@@ -13,7 +13,7 @@ export async function POST(request: Request) {
     ejecucion.token = data.response.id
 
     const respExc: any = await axios.post(`${URL}api/payments`,ejecucion);
-
+//
     if (respExc?.data?.response?.status === "pre_approved") {
       const body = {
         id: respExc.data.response.id,
