@@ -67,8 +67,8 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
       installments: "1",
       bill_to: {
         city: "",
-        country: "",
-        customer_id: "",
+        country: "AR",
+        customer_id: "xxxx",
         first_name: "",
         last_name: "",
         postal_code: "",
