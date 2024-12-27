@@ -79,7 +79,6 @@ export const formSchema = z.object({
 });
 
 export interface ResponseDataToken {
-  response: {
     id: string;
     status: string;
     card_number_length: number;
@@ -91,7 +90,6 @@ export interface ResponseDataToken {
     expiration_year: number;
     date_due: string;
     cardholder: Cardholder;
-  };
 }
 
 export interface Cardholder {
