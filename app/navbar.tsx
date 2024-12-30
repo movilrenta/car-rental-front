@@ -20,7 +20,7 @@ export default function Navbar() {
             width={300}
             height={200}
             priority={true}
-            className="w-auto"
+            className="w-auto py-0 sm:py-2"
           />
           {/* <h1 className="text-2xl md:text-3xl text-gray-800 dark:text-gray-100 font-bold">Discover Meetups</h1> */}
         </Link>
