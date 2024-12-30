@@ -96,13 +96,15 @@ export const getTokenPay = async (values: z.infer<typeof formSchema>, code: stri
     };
     const { data } = await axios.post(`${URL}api/process-payments`, payload);
     console.log(data, "___________")
-    return { ok: true, message: "Pago realizado con exito", status: 200, data: data.response }
+    return { ok: data.ok, message: data.message , status: data.status, data: data.data }
   } catch (error) {
+    console.log(error,"________________2");
     if (error instanceof AxiosError) {
       console.log(error.response?.data);
+      // return { ok: data.ok, message: data.message , status: data.status, data: data.data }
+
       return { ok: false, message: "Hubo un problema al intentar realizar el pago1", status: 403 }
     }
-    console.log("________________2");
     return { ok: false, message: "Hubo un problema al intentar realizar el pago2", status: 403 }
   }
 }
