@@ -5,6 +5,7 @@ import { BsLuggageFill } from "react-icons/bs";
 import { FaUser } from "react-icons/fa";
 import { GiCarDoor, GiGasPump } from "react-icons/gi";
 import { TbManualGearbox } from "react-icons/tb";
+import { useFormatNumber } from "../utils/useFormatterNumber";
 
 export default function CardCar({ car }: { car: VehicleType }) {
   const addReservaCar = useReservaAutoStore((state) => state.addReservaAuto)
@@ -33,7 +34,7 @@ export default function CardCar({ car }: { car: VehicleType }) {
           <div className="grow">
             {/* Header */}
             <header className="mb-3">
-              <h3 className="text-lg text-gray-800 dark:text-gray-100 font-semibold">
+              <h3 className="text-lg text-gray-800 dark:text-gray-100 font-semibold line-clamp-1">
                 {car?.brand?.name} {car?.name}
               </h3>
               <h5 className="text-sm line-clamp-1">
@@ -43,8 +44,9 @@ export default function CardCar({ car }: { car: VehicleType }) {
             {/* Rating and price */}
             <div className="flex flex-wrap justify-between items-center mb-4">
               {/* Rating */}
-              <div className="flex items-center space-x-2 mr-2">
-                {/* Stars */}
+              <div></div>
+              {/* <div className="flex items-center space-x-2 mr-2">
+                
                 <div className="flex space-x-1">
                   <button>
                     <span className="sr-only">1 star</span>
@@ -102,15 +104,15 @@ export default function CardCar({ car }: { car: VehicleType }) {
                     </svg>
                   </button>
                 </div>
-                {/* Rate */}
+                
                 <div className="inline-flex text-sm font-medium text-yellow-600">
                   4.2
                 </div>
-              </div>
+              </div> */}
               {/* Price */}
               <div>
                 <div className="inline-flex text-sm font-medium bg-green-500/20 text-green-700 rounded-full text-center px-2 py-0.5">
-                  $ {car?.group?.rate}
+                  $ {useFormatNumber(car?.group?.rate)}
                 </div>
               </div>
               <div className="text-xs text-end w-full">Tarifa base: 1 día</div>
@@ -145,7 +147,7 @@ export default function CardCar({ car }: { car: VehicleType }) {
               onClick={() => handleCar(car)}
               className="btn-sm w-full bg-red-700 hover:bg-red-900 text-gray-100 duration-200 cursor-pointer"
             >
-              {pickedCar?.id === car.id ? "Quitar" : "Elegir Vehículo"}
+              {pickedCar?.id === car.id ? "Elegir otro" : "Elegir Vehículo"}
             </div>
           </div>
         </div>

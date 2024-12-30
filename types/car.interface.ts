@@ -15,7 +15,7 @@ export interface CarResponse {
   updated_at:   Date;
   deleted_at:   null;
   brand:        Brand;
-  group:        Brand;
+  group:        Group;
   branch:       Branch;
 }
 
@@ -36,6 +36,18 @@ export interface Brand {
   created_at:  Date;
   updated_at:  Date;
   deleted_at:  null;
-  rate?:       string;
-  insurances?: string;
+  // rate?:       string;
+  // insurances?: string;
+}
+
+export interface Group {
+  id:          number;
+  name:        string;
+  description: string;
+  rate:        string;
+  image:       string;
+  insurances:  string;
+  deleted_at:  null;
+  created_at:  Date;
+  updated_at:  Date;
 }

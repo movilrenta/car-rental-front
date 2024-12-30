@@ -1,6 +1,5 @@
 import axios from "axios";
-
-
+import { unstable_noStore as noStore } from "next/cache";
 
 // const axiosInstance = axios.create({
 //   baseURL: "http://maxbernasconi.com/", // Cambia a tu URL base
@@ -10,6 +9,19 @@ import axios from "axios";
 // const setupCsrf = async () => {
 //   await axiosInstance.get("/sanctum/csrf-cookie");
 // };
+
+const URL = process.env.NEXT_PUBLIC_URL_MOVILRENTA
+export async function GetCarsAction() {
+  noStore();
+  try {
+    const {data} = await axios.get(`${URL}/api/cars`)
+    return data.response
+  }
+  catch (error) {
+    console.log(error);
+    return {message: "error", error: error, status: 400}
+  }
+}
 
 export async function PostCarAction(car: any) {
   try {

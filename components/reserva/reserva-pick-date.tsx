@@ -3,13 +3,14 @@ import * as React from "react";
 import { GoArrowDownLeft, GoArrowUpRight } from "react-icons/go";
 import { useEffect, useState } from "react";
 import { ItinerarioType, useItinerarioStore } from "@/stores/reserva-itinerario/reserva-itinerario.store";
-import { cities } from "@/constant/cities";
+//import { cities } from "@/constant/cities";
 import { hours } from "@/constant/hours";
 import { calcularDiasEntreFechas2 } from "@/components/utils/utils";
 import ItinerarioPickDate from "@/components/home/itinerario-pick-date";
 import { Loader2Icon } from "lucide-react";
+import { BranchesType } from "@/types/branches";
 
-export default function PickDate() {
+export default function PickDate({branches}:{branches: BranchesType[]}) {
   const itinerario = useItinerarioStore((state) => state.getItinerario());
   const nuevoItinerario = useItinerarioStore((state) => state.addItinerario);
   const [dias, setDias] = useState<number>(0);
@@ -51,8 +52,6 @@ export default function PickDate() {
   };
   
 
-
-
   return (
     <div className=" w-full max-w-full min-w-0">
     <h2 className="text-2xl font-medium col-span-12 leading-snug text-gray-800 dark:text-gray-100 mb-5">
@@ -92,13 +91,13 @@ export default function PickDate() {
                 <option value="" disabled>
                   Selecciona lugar de retiro
                 </option>
-                {cities.map((city, index) => (
+                {branches?.map((sucursal, index) => (
                   <option
                     key={index}
-                    value={city.value}
+                    value={sucursal.id}
                     className="dark:text-gray-950"
                   >
-                    {city.label}
+                    {sucursal.name}
                   </option>
                 ))}
               </select>
@@ -145,13 +144,13 @@ export default function PickDate() {
                 <option value="" disabled>
                   Seleccione lugar de entrega
                 </option>
-                {cities.map((city, index) => (
+                {branches?.map((sucursal, index) => (
                   <option
                     key={index}
-                    value={city.value}
+                    value={sucursal.id}
                     className="dark:text-gray-950"
                   >
-                    {city.label}
+                    {sucursal.name}
                   </option>
                 ))}
               </select>
@@ -185,10 +184,14 @@ export default function PickDate() {
     <p className="text-blue-600 italic text-sm mt-8">
       Las tarifas pueden tener variantes segun la fecha seleccionada.
     </p>
-    {!itinerario?.startLocation.includes("tuc") || !itinerario?.endLocation?.includes("tuc") 
-      ? <p className="text-blue-600 italic text-sm">- La ciudad seleccionada tiene un cargo extra (Drop Off).</p> 
-      : null
+    {branches.some(
+      (sucursal) =>
+        (sucursal.id === Number(itinerario?.startLocation) && !sucursal.name.toLowerCase().includes("tuc")) || 
+        (sucursal.id === Number(itinerario?.endLocation) && !sucursal.name.toLowerCase().includes("tuc"))
+      ) 
+      && <p className="text-blue-600 italic text-sm">- La ciudad seleccionada tiene un cargo extra (Drop Off).</p>
     }
+
     {Number(itinerario?.startTime?.slice(0,2)) <= 7 || Number(itinerario?.startTime?.slice(0,2)) > 19 
       ? <p className="text-blue-600 italic text-sm">- El horario de salida tiene un cargo extra ya que está fuera de nuestros horarios de atención en oficina.</p> 
       : null

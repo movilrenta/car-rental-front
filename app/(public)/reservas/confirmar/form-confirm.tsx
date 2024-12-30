@@ -20,12 +20,7 @@ import { Checkbox } from "@/components/checkbox";
 import { Textarea } from "@/components/textarea";
 import { useToast } from "@/hooks/use-toast";
 import axios from "axios";
-// import {
-//   IoMailOutline,
-//   IoPerson,
-//   IoPersonOutline,
-//   IoPhonePortraitOutline,
-// } from "react-icons/io5";
+
 
 type ReservationType = {
   car_id: number,
@@ -38,7 +33,6 @@ type ReservationType = {
   lastname: string,
   email: string,
   phone: string,
-  //installments: string,
   aditionals_array: {id: number, amount: number}[],
   observation?: string
 }
@@ -49,7 +43,6 @@ function generarCodigoReserva() {
   const parteLetras = Array.from({ length: 3 }, () => letras[Math.floor(Math.random() * letras.length)]).join('');
   const parteLetras2 = Array.from({ length: 3 }, () => letras[Math.floor(Math.random() * letras.length)]).join('');
   const parteNumeros = Array.from({ length: 3 }, () => numeros[Math.floor(Math.random() * numeros.length)]).join('');
-  
   return parteLetras + parteNumeros + parteLetras2;
 }
 
@@ -66,7 +59,6 @@ export const FormConfirm = () => {
       lastName: "",
       email: "",
       phone: "",
-      //installments: 1,
       termyCond: false,
       mayor25: false,
       //aditionals_array: []
@@ -77,27 +69,19 @@ export const FormConfirm = () => {
       car_id: reservaGet?.car?.id!,
       code: generarCodigoReserva(),
       start_date: `${new Date(reservaGet?.startDay!).toISOString().split('T')[0]} ${reservaGet?.startTime}`,
-      end_date: `${new Date(reservaGet?.endDay!).toISOString().split('T')[0]} ${reservaGet?.endTime}`,    // `${reservaGet?.endDay.toString().slice(0,10)} ${reservaGet?.endTime}`,
-      start_branch_id: 1,
-      end_branch_id: 1,
+      end_date: `${new Date(reservaGet?.endDay!).toISOString().split('T')[0]} ${reservaGet?.endTime}`,
+      start_branch_id: +(reservaGet?.startLocation!),
+      end_branch_id: +(reservaGet?.endLocation!),
       firstname: values.firtName,
       lastname: values.lastName,
       email: values.email,
       phone: values.phone,
       observation: values?.observation,
       aditionals_array: reservaGet?.aditionals_array || [],
-      //installments: values.installments,
-      //termyCond: true,
-      //mayor25: true
-
     };
-    //console.log(values);
-    
-    //console.log(reserveToConfirm, "voy a confirmar");
 
     try {
       const response = await axios.post("/api/reservation", reserveToConfirm);
-      //console.log(response, "soy el response");
       
       if(response.status === 201) {
         const data = response.data.response
@@ -108,14 +92,10 @@ export const FormConfirm = () => {
           variant: "default",
           title: `Reserva creada con exito, realizar el pago para confirmar`,
         });
-      //TODO guardar el TOKEN
-      console.log(response, "RESERVA response")
-      console.log(reserveToConfirm, "RESERVA ENVIADA")
       router.push("/reservas/payments");
-      //router.replace("/reservas/payments");
+
     }
   } catch (error: any) {
-    console.log(error);
     if (error.response) {
       toast({
         variant: "destructive",

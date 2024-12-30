@@ -41,6 +41,13 @@ const autos_pic = [
   "/images2/toyotaetios.webp",
   "/images2/toyotahilux.webp",
   "/images2/nissanversa.webp",
+  "/images2/renaultlogan.webp",
+  "/images2/chevroletcruze.webp",
+  "/images2/fiatcronos.webp",
+  "/images2/chevrolettracker.webp",
+  "/images2/renaultduster.webp",
+  "/images2/chevrolettracker2.webp",
+  "/images2/toyotahilux4x2.webp",
 ];
 const combustibles = [
   "Gasolina",
@@ -64,7 +71,7 @@ export default function CRUD_Form({
   branches: any;
   car?: VehicleType;
 }) {
-  
+
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -130,6 +137,7 @@ export default function CRUD_Form({
 
       try {
         const res = await PostCarAction(newCar);
+        //console.log(res);
         if (res.status === 200) {
           toast({
             variant: "default",
@@ -372,7 +380,7 @@ export default function CRUD_Form({
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {branches.map((branch: any) => (
+                      {branches?.map((branch: any) => (
                         <SelectItem
                           key={branch.id}
                           value={branch.id.toString()}
@@ -447,8 +455,8 @@ export default function CRUD_Form({
           </form>
         </Form>
       </SheetHeader>
-      <SheetFooter className="flex gap-4 mt-12">
-        <SheetClose className="min-w-24 border border-transparent hover:border-red-500 duration-200 px-4 rounded-md">
+      <SheetFooter className="flex items-center justify-center gap-4 mt-12">
+        <SheetClose className="min-w-24 border border-transparent py-1 hover:border-red-500 duration-200 px-4 rounded-md">
           Cerrar
         </SheetClose>
         <Button

@@ -1,10 +1,9 @@
 'use client'
-import Image from "next/image"
-import { useReservaAdicionalesStore } from "@/stores/reserva-adicionales/reserva-adicionales.store";
+
 import { Loader2Icon } from "lucide-react";
 import { useEffect, useState } from "react";
-import { BiCheck } from "react-icons/bi"
 import AdditionalCard from "./reserva-pick-aditional-card";
+import { useReservaAutoStore } from "@/stores/reserva-auto/reserva-auto.store";
 
 export type AditionalType = {
   id: number;
@@ -20,8 +19,8 @@ export type AditionalType = {
 }
 
 export default function PickAditional ({data} : {data: AditionalType[]}) {
-  //const adicionales = useReservaAdicionalesStore((state) => state.getReservaAdicionales());
   const [isClient, setIsClient] = useState(false)
+  const car = useReservaAutoStore((state) => state.getReservaAuto())
 
   useEffect(() => {
     setIsClient(true);
@@ -37,7 +36,7 @@ export default function PickAditional ({data} : {data: AditionalType[]}) {
   }
 
   return (
-    <div className="">
+    car && <div className="">
     <h2 className="text-2xl font-medium leading-snug text-gray-800 dark:text-gray-100 mb-5">
       03. Accesorios <strong>opcionales</strong>
     </h2>

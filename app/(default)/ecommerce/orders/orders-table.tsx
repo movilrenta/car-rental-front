@@ -20,9 +20,9 @@ export default function OrdersTable({ orders, totalOrders  }: { orders: Reservat
 
 
   return (
-    <div className="bg-white dark:bg-gray-800 shadow-sm rounded-xl relative">
+    <div className="bg-white dark:bg-gray-800 shadow-sm rounded-xl relative animate-fade-in">
       <header className="px-5 py-4 flex gap-1 items-center">
-        <h2 className="font-semibold text-gray-800 dark:text-gray-100">Todas las reservas</h2>
+        <h2 className="font-semibold text-gray-800 dark:text-gray-100">Total</h2>
           <span className="text-gray-400 dark:text-gray-500 font-lg">{totalOrders}</span>
           
       </header>
@@ -32,28 +32,28 @@ export default function OrdersTable({ orders, totalOrders  }: { orders: Reservat
         <div className="overflow-x-auto">
           <table className="table-auto w-full dark:text-gray-300 divide-y divide-gray-100 dark:divide-gray-700/60">
             {/* Table header */}
-            <thead className="text-xs uppercase text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-900/20 border-t border-gray-100 dark:border-gray-700/60">
+            <thead className="text-xs uppercase font-semibold text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-900/20 border-t border-gray-100 dark:border-gray-700/60">
               <tr>
-                <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                  <div className="font-semibold text-left">Id</div>
+                <th className="px-2 py-3 whitespace-nowrap">
+                  Id
                 </th>
-                <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                  <div className="font-semibold text-left">Fecha</div>
+                <th className="px-2 py-3 whitespace-nowrap">
+                  Fecha
                 </th>
-                <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                  <div className="font-semibold text-left">Lugar salida</div>
+                <th className="text-start px-2 py-3 whitespace-nowrap">
+                  Salida
                 </th>
-                <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                  <div className="font-semibold text-left">Lugar llegada</div>
+                <th className="text-start px-2 py-3 whitespace-nowrap">
+                  Llegada
                 </th>
-                <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                  <div className="font-semibold text-left">Total</div>
+                <th className="px-2 py-3 whitespace-nowrap">
+                  Total
                 </th>
-                <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                  <div className="font-semibold text-left">Estado</div>
+                <th className="px-2 py-3 whitespace-nowrap">
+                  Estado
                 </th>
-                <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                  <div className="font-semibold text-center">Opciones</div>
+                <th className="px-2 py-3 whitespace-nowrap">
+                 Opciones
                 </th>
               </tr>
             </thead>
