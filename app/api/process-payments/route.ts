@@ -16,7 +16,9 @@ export async function POST(request: Request) {
     console.log(ejecucion, "ejecucion");
 
     const respExc: any = await axios.post(`${URL}api/payments`,ejecucion);
+    
     console.log(respExc, "-----------------RESPEXT");
+    
     if (respExc?.data?.response?.status === "pre_approved") {
       const body = {
         id: respExc.data.response.id,
@@ -36,7 +38,7 @@ export async function POST(request: Request) {
         return NextResponse.json({ 
           ok: true, 
           message: "Transacción exitosa", 
-          data: data.response, 
+          data: data.response, // envio el response
           status: 201 })
       } catch (error) {
         return NextResponse.json({
@@ -51,16 +53,27 @@ export async function POST(request: Request) {
     return NextResponse.json({ 
       ok: true, 
       message: "Transacción exitosa", 
-      data: respExc.data, 
+      data: respExc.data.response, // envio el response
       status: 201 })
 
   } catch (error) {
+    //TODO: Aqui tengo que agarrar el error de la ejecucion de pago con el tipado errorpaymentsmethods
     console.log(error, "_____________________error 101");
+   if(axios.isAxiosError(error)){
+    console.log(error,"________ERROR PAYMENTSSSSS")
+    if(error.status === 400){
+      return NextResponse.json({
+        ok:false,
+        message:error.response?.data?.response,
+        status: error.response?.status
+      })
+    }
     return NextResponse.json({
       ok: false,
-      message: "Internal Server",
-      data: error,
-      status: 500,
+      message: error.response?.data.response.status_details?.error?.reason?.description,
+      data: error.response?.data.response,
+      status: error.response?.status,
     });
   }
+   }
 }

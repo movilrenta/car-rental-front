@@ -41,22 +41,22 @@ export const NavbarMobile = () => {
           <SheetDescription></SheetDescription>
         </SheetHeader>
         <div className="h-screen">
-          <div className="flex justify-center items-center my-12">
+          <Link href="/home" className="flex justify-center items-center my-7">
             <Image
               src={"/images2/brand.png"}
               alt="movil-renta"
               width={150}
               height={150}
-              className="h-auto w-full max-w-80 m-auto"
+              className="h-auto w-full max-w-52 m-auto"
             />
-          </div>
+          </Link>
           <ul className="flex flex-col items-center gap-6 h-2/3">
             {LinksNavbar.map((link) => (
               <li key={link.label}>
                 <Link
                   onClick={() => setToggle(false)}
                   href={link.link}
-                  className={clsx("text-lg hover:border-b-2 border-red-400", {
+                  className={clsx("text-xl font-semibold hover:border-b-2 border-red-400", {
                     "text-red-500": pathname === link.link
                   },`${link.label === "Mi reserva" ? "text-xl" : ""}`)}
                 >

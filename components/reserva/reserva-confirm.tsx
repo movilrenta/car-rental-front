@@ -63,7 +63,7 @@ export default function ReservaConfirm() {
   };
 
   return (
-    <div className="flex w-full justify-center sm:justify-end items-end px-14">
+    <div className="flex w-full pt-12 justify-center sm:justify-end items-end px-14">
     <button
       disabled={buttonDisabled}
       onClick={handleGoBook}

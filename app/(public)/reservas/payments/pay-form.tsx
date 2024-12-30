@@ -52,54 +52,54 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      card_number: "",
-      card_expiration_month: "",
-      card_expiration_year: "",
-      security_code: "",
-      card_holder_birthday: "",
-      card_holder_door_number: "",
-      card_holder_identification: {
-        type: "DNI",
-        number: "",
-      },
-      payment_method_id: "",
-      installments: "1",
-      bill_to: {
-        city: "",
-        country: "AR",
-        customer_id: "xxxx",
-        first_name: "",
-        last_name: "",
-        postal_code: "",
-        state: "",
-        street1: "",
-      },
-    },
     // defaultValues: {
-    //   card_number: "4507990000004905",
-    //   card_expiration_month: "12",
-    //   card_expiration_year: "30",
-    //   security_code: "123",
-    //   card_holder_birthday: "07/05/1964",
-    //   card_holder_door_number: "2473",
+    //   card_number: "",
+    //   card_expiration_month: "",
+    //   card_expiration_year: "",
+    //   security_code: "",
+    //   card_holder_birthday: "",
+    //   card_holder_door_number: "",
     //   card_holder_identification: {
     //     type: "DNI",
-    //     number: "25123456",
+    //     number: "",
     //   },
     //   payment_method_id: "",
     //   installments: "1",
     //   bill_to: {
-    //     city: "Buenos Aires",
+    //     city: "",
     //     country: "AR",
-    //     customer_id: "xxxxx",
-    //     first_name: "martin",
-    //     last_name: "paoletta",
-    //     postal_code: "1427",
-    //     state: "BA",
-    //     street1: "GARCIA DEL RIO",
+    //     customer_id: "xxxx",
+    //     first_name: "",
+    //     last_name: "",
+    //     postal_code: "",
+    //     state: "",
+    //     street1: "",
     //   },
     // },
+    defaultValues: {
+      card_number: "",
+      card_expiration_month: "12",
+      card_expiration_year: "30",
+      security_code: "124",
+      card_holder_birthday: "07/05/1964",
+      card_holder_door_number: "2473",
+      card_holder_identification: {
+        type: "DNI",
+        number: "25123456",
+      },
+      payment_method_id: "",
+      installments: "1",
+      bill_to: {
+        city: "Buenos Aires",
+        country: "AR",
+        customer_id: "xxxxx",
+        first_name: "martin",
+        last_name: "paoletta",
+        postal_code: "1427",
+        state: "BA",
+        street1: "GARCIA DEL RIO",
+      },
+    },
   });
   const days = calcularDiasEntreFechas2(reserva?.startDay!, reserva?.endDay!);
 
@@ -142,14 +142,11 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
       if (!resp?.ok) {
         toast({
           variant: "default",
-          title: `${resp?.message}`,
+          title: "Pago rechazado",
+          description:`${resp?.message}`
         });
-        // setTimeout( () => {
-        //   router.replace("/");
-        // }, 2000)
       } else {
         // await saveCard(values);
-        console.log("4001");
         toast({
           variant: "default",
           title: `${resp.message}`,
@@ -164,7 +161,6 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
   return (
     <main>
       <BannerPage title="Realizar el pago" image="/images2/carBanner.webp" />
-
       <div className="relative px-4 sm:px-6 lg:px-8 py-6 max-w-lg mx-auto">
         <div className="bg-white min-h-[755px] dark:bg-gray-800 px-8 pb-6 rounded-md shadow-sm">
           <div className="text-center mb-6">

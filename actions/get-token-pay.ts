@@ -1,10 +1,10 @@
 "use server";
 
 import { formSchema } from "@/types/payway-form.schema";
+import { ReservationDetail } from "@/types/reservation.interface";
 import axios, { AxiosError } from "axios";
 import { z } from "zod";
-//const URL = process.env.NEXT_PUBLIC_URL_MOVILRENTA
-//const URL = "http://localhost:3000/";
+
 const URL = process.env.NEXT_PUBLIC_URL_MOVILRENTA;
 const BACK = process.env.NEXT_PUBLIC_URL_BACK
 
@@ -15,6 +15,7 @@ export const getTokenPay = async (values: z.infer<typeof formSchema>, code: stri
       resultParse.error.issues.forEach((err) => {console.log(`Error en ${err.path} - ${err.message}`);});
       return {ok: false, message: "Hubo un problema al intentar realizar el pago", status: 403 };
     }
+    const reservation_info = await axios.get<ReservationDetail>( `${BACK}reservations/${reserva_id}`)
     const deviceUniqueIdentifier = crypto.randomUUID();
     const resp_group = await axios.get(`${BACK}groups/${group_id}`)
     const price_car = resp_group.data.rate
@@ -28,7 +29,7 @@ export const getTokenPay = async (values: z.infer<typeof formSchema>, code: stri
         card_holder_name: values.bill_to.first_name + " " + values.bill_to.last_name,
         card_holder_birthday: dateTransform,
         card_holder_door_number: +(values.card_holder_door_number),
-        security_code: values.security_code,
+        security_code: values.security_code || reservation_info?.data?.code,
         card_holder_identification: {
           type: values.card_holder_identification.type,
           number: values.card_holder_identification.number,
@@ -54,11 +55,11 @@ export const getTokenPay = async (values: z.infer<typeof formSchema>, code: stri
           bill_to: {
             city: values.bill_to.city,
             country: values.bill_to.country,
-            customer_id: values.bill_to.customer_id,
-            email: "accept@decidir.com.ar",
+            customer_id: reservation_info?.data?.code || values.bill_to.customer_id,
+            email: reservation_info?.data?.reservation_detail?.email,
             first_name: values.bill_to.first_name,
             last_name: values.bill_to.last_name,
-            phone_number: "1547766329",
+            phone_number: reservation_info?.data?.reservation_detail?.phone,
             postal_code: values.bill_to.postal_code,
             state: values.bill_to.state,
             street1: values.bill_to.street1,
@@ -67,23 +68,23 @@ export const getTokenPay = async (values: z.infer<typeof formSchema>, code: stri
           // customer_in_site: { date_of_birth: "129412", street: "RIO 4041" },
           retail_transaction_data: {
             ship_to: {//TODO datos de la empresa
-              city: "Buenos Aires",
+              city: values.bill_to.city,
               country: "AR",
               customer_id: "0001",
-              email: "accept@decidir.com.ar",
-              first_name: "martin",
-              last_name: "paoletta",
-              phone_number: "1547766329",
-              postal_code: "1427",
-              state: "BA",
-              street1: "GARCIA DEL RIO 4041",
+              email: reservation_info?.data?.reservation_detail?.email || "accept@decidir.com.ar",
+              first_name: reservation_info?.data?.reservation_detail?.firstname,
+              last_name: reservation_info?.data?.reservation_detail?.lastname,
+              phone_number: reservation_info?.data?.reservation_detail?.email,
+              postal_code: values.bill_to.postal_code,
+              state: values.bill_to.state,
+              street1: values.bill_to.street1 + " " + values.card_holder_door_number,
             },
             dispatch_method: "movilrenta",
             items: [
               {
-                code: "codigoProducto1",
-                description: "Descripcion condicional del producto",
-                name: "nombre del producto",
+                code: "Alquiler vehiculo",
+                description: "Paquete de renta",
+                name: "Paquete",
                 sku: "asas",
                 total_amount: amount_to_send,
                 quantity: 1,
@@ -94,15 +95,31 @@ export const getTokenPay = async (values: z.infer<typeof formSchema>, code: stri
         },
       }
     };
-    const { data } = await axios.post(`${URL}api/process-payments`, payload);
-    console.log(data, "___________")
-    return { ok: true, message: "Pago realizado con exito", status: 200, data: data.response }
+    const { data: response } = await axios.post(`${URL}api/process-payments`, payload);
+    if( response?.data?.status === "approved"){
+      const dataPago = response.data
+      dataPago.reservation_id = reservation_info.data.reservation_detail.id
+      dataPago.status_details = JSON.stringify(dataPago.status_details)
+      dataPago.sub_payments = JSON.stringify(dataPago.sub_payments)
+      dataPago.date = JSON.stringify(dataPago.date).replace("T", " ").replace("Z", "").replace(/"/g, "")
+      dataPago.fraud_detection = JSON.stringify(dataPago.fraud_detection)
+      dataPago.amount = dataPago.amount/100
+      dataPago.customer = null // TODO: No hacer null, hacer string
+      dataPago.confirmed = true // No hacer esto!
+      delete dataPago.authenticated_token // No eliminar
+      await axios.post(`${BACK}payments`, dataPago);
+
+    }
+    console.log(response, "___________")
+    return { ok: response.ok, message: response.message , status: response.status, data: response.data }
   } catch (error) {
+    console.log(error,"________________2");
     if (error instanceof AxiosError) {
       console.log(error.response?.data);
+      // return { ok: data.ok, message: data.message , status: data.status, data: data.data }
+
       return { ok: false, message: "Hubo un problema al intentar realizar el pago1", status: 403 }
     }
-    console.log("________________2");
     return { ok: false, message: "Hubo un problema al intentar realizar el pago2", status: 403 }
   }
 }
