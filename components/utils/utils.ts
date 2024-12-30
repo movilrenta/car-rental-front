@@ -67,3 +67,10 @@ export const formatDate = (isoDate:Date) => {
   // Obtener el formato en español:
   return new Intl.DateTimeFormat('es-ES', {weekday:'long', day:'numeric',month:'short',year:'numeric'} ).format(date);
 };
+
+export const formatDateShort = (isoDate:Date) => {
+  const date = new Date(isoDate);
+
+  // Obtener el formato en español:
+  return new Intl.DateTimeFormat('es-ES', {day:'numeric',month:'2-digit',year:'2-digit'} ).format(date);
+};

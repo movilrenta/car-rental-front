@@ -16,7 +16,9 @@ export async function POST(request: Request) {
     console.log(ejecucion, "ejecucion");
 
     const respExc: any = await axios.post(`${URL}api/payments`,ejecucion);
+    
     console.log(respExc, "-----------------RESPEXT");
+    
     if (respExc?.data?.response?.status === "pre_approved") {
       const body = {
         id: respExc.data.response.id,
@@ -36,7 +38,7 @@ export async function POST(request: Request) {
         return NextResponse.json({ 
           ok: true, 
           message: "Transacción exitosa", 
-          data: data.response, 
+          data: data.response, // envio el response
           status: 201 })
       } catch (error) {
         return NextResponse.json({
@@ -51,7 +53,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ 
       ok: true, 
       message: "Transacción exitosa", 
-      data: respExc.data, 
+      data: respExc.data.response, // envio el response
       status: 201 })
 
   } catch (error) {

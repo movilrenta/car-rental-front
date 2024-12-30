@@ -32,28 +32,28 @@ export default function OrdersTable({ orders, totalOrders  }: { orders: Reservat
         <div className="overflow-x-auto">
           <table className="table-auto w-full dark:text-gray-300 divide-y divide-gray-100 dark:divide-gray-700/60">
             {/* Table header */}
-            <thead className="text-xs uppercase text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-900/20 border-t border-gray-100 dark:border-gray-700/60">
+            <thead className="text-xs uppercase font-semibold text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-900/20 border-t border-gray-100 dark:border-gray-700/60">
               <tr>
-                <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                  <div className="font-semibold text-left">Id</div>
+                <th className="px-2 py-3 whitespace-nowrap">
+                  Id
                 </th>
-                <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                  <div className="font-semibold text-left">Fecha</div>
+                <th className="px-2 py-3 whitespace-nowrap">
+                  Fecha
                 </th>
-                <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                  <div className="font-semibold text-left">Salida</div>
+                <th className="text-start px-2 py-3 whitespace-nowrap">
+                  Salida
                 </th>
-                <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                  <div className="font-semibold text-left">Llegada</div>
+                <th className="text-start px-2 py-3 whitespace-nowrap">
+                  Llegada
                 </th>
-                <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                  <div className="font-semibold text-left">Total</div>
+                <th className="px-2 py-3 whitespace-nowrap">
+                  Total
                 </th>
-                <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                  <div className="font-semibold text-left">Estado</div>
+                <th className="px-2 py-3 whitespace-nowrap">
+                  Estado
                 </th>
-                <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                  <div className="font-semibold text-center">Opciones</div>
+                <th className="px-2 py-3 whitespace-nowrap">
+                 Opciones
                 </th>
               </tr>
             </thead>

@@ -145,12 +145,8 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
           title: "Pago rechazado",
           description:`${resp?.message}`
         });
-        // setTimeout( () => {
-        //   router.replace("/");
-        // }, 2000)
       } else {
         // await saveCard(values);
-        console.log("4001");
         toast({
           variant: "default",
           title: `${resp.message}`,
@@ -165,7 +161,6 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
   return (
     <main>
       <BannerPage title="Realizar el pago" image="/images2/carBanner.webp" />
-
       <div className="relative px-4 sm:px-6 lg:px-8 py-6 max-w-lg mx-auto">
         <div className="bg-white min-h-[755px] dark:bg-gray-800 px-8 pb-6 rounded-md shadow-sm">
           <div className="text-center mb-6">
