@@ -52,7 +52,7 @@ export const ListItems = ({ data, branches }: { data: any, branches: BranchesTyp
     return amount_aditionals;
   };
   const totalPrice = reservas?.car?.group?.rate
-    ? reservas.car.group?.rate * dias + showAccesorios()
+    ? +(reservas.car.group?.rate) * dias + showAccesorios()
     : 0;
 
   return (
@@ -91,7 +91,7 @@ export const ListItems = ({ data, branches }: { data: any, branches: BranchesTyp
               Vehículo
             </h2>
             <span className="text-md md:text-lg font-semibold text-gray-900 dark:text-slate-100">
-              ARS {(reservas?.car?.group?.rate! * dias).toFixed(2) || "--"}
+              ARS { useFormatNumber((+(reservas?.car?.group?.rate!) * dias)) || "--"}
             </span>
           </div>
           <div className="text-xs md:text-base text-gray-900 dark:text-slate-100">
@@ -115,7 +115,7 @@ export const ListItems = ({ data, branches }: { data: any, branches: BranchesTyp
                 Accesorios
               </h2>
               <span className="text-md md:text-lg font-semibold text-gray-900 dark:text-slate-100">
-                ARS {showAccesorios().toFixed(2)}
+                ARS {useFormatNumber(showAccesorios())}
               </span>
             </div>
             <div className="text-xs md:text-base text-gray-900 dark:text-slate-100">
@@ -124,7 +124,7 @@ export const ListItems = ({ data, branches }: { data: any, branches: BranchesTyp
                   (item: any) => item.id === aditional.id
                 );
                 if (adicional) {
-                  return <p key={aditional.id} className="font-semibold">{adicional.name}</p>;
+                  return <p key={aditional.id} className="">{adicional.name}</p>;
                 }
               })}
             </div>
@@ -141,7 +141,7 @@ export const ListItems = ({ data, branches }: { data: any, branches: BranchesTyp
               Total
             </h2>
             <span className="text-md md:text-lg font-bold text-gray-900 dark:text-slate-100">
-              ARS {totalPrice.toFixed(2)}
+              ARS {useFormatNumber(totalPrice)}
             </span>
           </div>
           <div className="text-xs md:text-base text-gray-900 dark:text-slate-100">
