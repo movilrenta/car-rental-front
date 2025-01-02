@@ -97,6 +97,7 @@ export const getTokenPay = async (values: z.infer<typeof formSchema>, code: stri
     };
     const { data: response } = await axios.post(`${URL}api/process-payments`, payload);
     if( response?.data?.status === "approved"){
+      //console.log(response.data, "_________________10002!!!")
       const dataPago = response.data
       dataPago.reservation_id = reservation_info.data.reservation_detail.id
       dataPago.status_details = JSON.stringify(dataPago.status_details)
@@ -104,13 +105,13 @@ export const getTokenPay = async (values: z.infer<typeof formSchema>, code: stri
       dataPago.date = JSON.stringify(dataPago.date).replace("T", " ").replace("Z", "").replace(/"/g, "")
       dataPago.fraud_detection = JSON.stringify(dataPago.fraud_detection)
       dataPago.amount = dataPago.amount/100
-      dataPago.customer = null // TODO: No hacer null, hacer string
-      dataPago.confirmed = true // No hacer esto!
-      delete dataPago.authenticated_token // No eliminar
+      dataPago.customer = JSON.stringify(dataPago?.customer)
+      dataPago.confirmed = JSON.stringify(dataPago?.confirmed)
+      //console.log(dataPago, "dataPago ___________________");
       await axios.post(`${BACK}payments`, dataPago);
 
     }
-    console.log(response, "___________")
+    //console.log(response, "___________")
     return { ok: response.ok, message: response.message , status: response.status, data: response.data }
   } catch (error) {
     console.log(error,"________________2");
