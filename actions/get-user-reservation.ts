@@ -14,8 +14,7 @@ export const getUserReservation = async ({code}:FormMiReserva) => {
     const branches:Branches[] = resp.data
 
     const {data} = await axios.get(`${URL}reservations/bytransaction/${code.toUpperCase()}`)
-    //console.log(data)
-    if(!data){
+    if(!Object.entries(data).length){
       return {
         ok:false,
         message:`No se encontró ninguna reserva con el codigo ${code}`,
@@ -33,6 +32,8 @@ export const getUserReservation = async ({code}:FormMiReserva) => {
     const brandData:Brand = brand.data
     const start_branch = branches.find((item) => item.id === reserva.start_branch_id)?.name
     const end_branch = branches.find((item) => item.id === reserva.end_branch_id)?.name
+
+    console.log(start_branch, end_branch, "ramas")
 
     return {
       ok:true,
