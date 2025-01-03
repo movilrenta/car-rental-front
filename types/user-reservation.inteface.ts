@@ -66,4 +66,5 @@ export interface ResponseUserReservation {
   start_date: Date;
   end_date: Date;
   status: string;
+  code: string;
 }
