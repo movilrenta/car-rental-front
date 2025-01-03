@@ -47,7 +47,8 @@ export const getUserReservation = async ({code}:FormMiReserva) => {
         end_branch: end_branch ?? "",
         start_date: reserva.start_date,
         end_date: reserva.end_date,
-        status: reserva.status
+        status: reserva.status,
+        code: reserva.code
       }
     }
   } catch (error) {
