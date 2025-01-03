@@ -9,7 +9,7 @@ export async function PUT(req: any, res: any) {
   const API_URL = process.env.NODE_ENV === "production" 
     ? process.env.NEXT_PUBLIC_URL
     : process.env.NEXT_PUBLIC_URL_DEV
-
+  console.log("transform pre to app");
   try {
     const body = await req.json();
     const id = body.id

@@ -36,14 +36,19 @@ export const MiReserva = () => {
 
   const onsubmit = async (values: FormMiReserva) => {
     setLoading(true);
+   
     const resp = await getUserReservation(values);
     if (resp.ok) {
+      setMsgRender({message:"",success:false})
       setData(resp.data);
+      form.reset()
     } else {
+      setData(null)
       setMsgRender({
         message: resp.message,
         success: true,
       });
+      form.reset()
     }
     setLoading(false);
   };
@@ -67,7 +72,7 @@ export const MiReserva = () => {
                   <FormItem className="flex flex-col gap-2">
                     <FormLabel>Código:</FormLabel>
                     <FormControl>
-                      <Input placeholder="AAA321" maxLength={9} {...field} />
+                      <Input placeholder="ABC321XYZ" maxLength={9} {...field} />
                     </FormControl>
                     <FormMessage className="text-red-500" />
                   </FormItem>
@@ -112,7 +117,7 @@ export const MiReserva = () => {
                
                 </div>
                 <div>
-                  <h3 className="font-semibold text-lg mb-4">Código de reservación: ZFS435MNK</h3>
+                  <h3 className="font-semibold text-lg mb-4">Código de reservación: {data.code}</h3>
                   <ul className="flex flex-col gap-4">
                   <li className="flex items-center gap-x-4">
                       <span className="bg-red-500 rounded-full w-[6px] h-[6px]"></span>
