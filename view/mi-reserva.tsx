@@ -36,14 +36,19 @@ export const MiReserva = () => {
 
   const onsubmit = async (values: FormMiReserva) => {
     setLoading(true);
+   
     const resp = await getUserReservation(values);
     if (resp.ok) {
+      setMsgRender({message:"",success:false})
       setData(resp.data);
+      form.reset()
     } else {
+      setData(null)
       setMsgRender({
         message: resp.message,
         success: true,
       });
+      form.reset()
     }
     setLoading(false);
   };
