@@ -63,8 +63,8 @@ export const MiReserva = () => {
   return (
     <section className="w-full min-h-screen animate-fade-in mb-14 dark:text-white">
       <BannerPage title="Mi reserva" image="/images2/carBanner.webp" />
-      <div className="max-w-7xl mx-auto mt-6 px-4 grid grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-6">
-        <div className="flex flex-col justify-start gap-4 lg:col-span-1">
+      <div className="max-w-7xl mx-auto mt-6 px-4 grid grid-cols-12 gap-6">
+        <div className="flex flex-col justify-start gap-4 col-span-12 sm:col-span-3">
           <h2 className="font-semibold text-lg">
             Aquí podra revisar los datos de su reserva
           </h2>
@@ -98,24 +98,24 @@ export const MiReserva = () => {
           </Form>
         </div>
         {loading ? (
-          <div className="md:col-span-3 flex items-center justify-center">
+          <div className="col-span-12 sm:col-span-9 flex items-center justify-center">
             <LuLoader className="animate-spin" />
             <span className="text-slate-600 text-center">
               Cargando
             </span>
           </div>
         ) : (
-          <div className="md:col-span-3 flex justify-center items-center animate-fade-in">
+          <div className="min-w-0 w-full col-span-12 sm:col-span-9 flex justify-center items-center animate-fade-in">
             {msgRender.success && (
               <h2 className="font-medium text-slate-400 text-lg italic">
                 {msgRender.message}
               </h2>
             )}
             {data !== null && (
-              <div className="grid grid-cols-12 w-full p-6 bg-white text-black dark:bg-zinc-600 dark:text-white rounded-md gap-8">
-                <div className="col-span-12 lg:col-span-8 font-light mb-4 md:mb-0">
-                  <h2 className="font-semibold text-xl mb-2">Información de tu itinerario</h2>
-                  <h3 className="text-sm">Número de reserva: <strong>{data.code}</strong> </h3>
+              <div className="grid grid-cols-6 w-full min-w-0 p-4 bg-white text-black dark:bg-zinc-600 dark:text-white rounded-md gap-8">
+                <div className="col-span-6 w-full lg:col-span-4 font-light mb-4 md:mb-0">
+                  <h2 className="font-semibold text-xl mb-2 border-b w-fit">Detalle de tu itinerario</h2>
+                  <h3 className="text-sm -mt-1">Número de reserva: <strong>{data.code}</strong> </h3>
                   <div className="text-sm mb-4">Estado:{" "}
                         {data?.status === "approved"
                           ? <span className="text-green-600 font-semibold">Aprobada</span>
@@ -124,7 +124,7 @@ export const MiReserva = () => {
                           : <span>Pendiente</span>}
                       </div>
                   <ul className="flex flex-col gap-4">
-                    <li className="flex flex-col items-center p-2 gap-x-4 border dark:border-[rgb(17_24_39_/_0.7)] rounded-md dark:bg-[rgb(17_24_39_/_0.3)]">
+                    <li className="flex flex-col items-center p-2 border dark:border-[rgb(17_24_39_/_0.7)] rounded-md dark:bg-[rgb(17_24_39_/_0.3)]">
                       <div className="flex gap-1">
                         <GoArrowUpRight className="text-red-600 stroke-2 text-3xl" />
                         <p className="font-semibold text-xl">Partida</p>
@@ -133,7 +133,7 @@ export const MiReserva = () => {
                       <p>Fecha: {formatDate(data?.start_date)}</p>
                       <p>Horario: {data?.start_date.toString().slice(10,16)}</p>
                     </li>
-                    <li className="flex flex-col items-center p-2 gap-x-4 border dark:border-[rgb(17_24_39_/_0.7)] rounded-md dark:bg-[rgb(17_24_39_/_0.3)]">
+                    <li className="flex flex-col items-center p-2 border dark:border-[rgb(17_24_39_/_0.7)] rounded-md dark:bg-[rgb(17_24_39_/_0.3)]">
                       <div className="flex gap-1">
                         <GoArrowDownLeft className="text-red-600 stroke-2 text-3xl" />
                         <p className="font-semibold text-xl">Regreso</p>
@@ -145,31 +145,46 @@ export const MiReserva = () => {
                   </ul>
 
                 </div>
-                <div className="col-span-12 lg:col-span-4">
+                <div className="w-full col-span-6 lg:col-span-2">
+                <p className="font-semibold text-xl mb-2 border-b w-fit line-clamp-1">Detalle del vehículo</p>
                   <Image
                     src={`${data.image}`}
                     width={250}
                     height={250}
                     alt={data?.car}
-                    className="w-full mx-auto h-auto object-cover rounded-md"
+                    className="w-full min-w-0 mx-auto h-auto object-cover rounded-md"
                   />
-                  <li className="flex items-center gap-x-4">
-                      <div className="w-full">
-                        <p className="font-semibold mb-2">Datos del vehículo</p>
-                        <div>
-                        <p>{data?.brand_name} {data?.car}</p>
-                        <p className="text-xs">O similar Grupo {data.group}</p>
-                        <div className="grid grid-cols-12 mt-2">
-                      <div className="col-span-6 flex gap-1 items-center flex-nowrap"><GiGasPump className="w-4 h-4 min-h-4 min-w-4"/>{data?.fuel_type}</div>
-                      <div className="col-span-6 flex gap-1 items-center flex-nowrap"><TbManualGearbox className="w-4 h-4 min-h-4 min-w-4"/> {data?.transmission}</div>
-                      <div className="col-span-6 flex gap-1 items-center flex-nowrap"><GiCarDoor className="w-4 h-4 min-h-4 min-w-4"/> {data?.doors}</div>
-                      <div className="col-span-6 flex gap-1 items-center flex-nowrap"><FaUser className="w-4 h-4 min-h-4 min-w-4"/> {data?.seats}</div>
-                      <div className="col-span-6 flex gap-1 items-center flex-nowrap"><BsLuggageFill className="w-4 h-4 min-h-4 min-w-4"/> {data?.luggage}</div>
-                      </div>
+                  
+                  <div className="w-full">
+                    
+                    <div className="w-full max-w-full">
+                      <p>{data?.brand_name} {data?.car}</p>
+                      <p className="text-xs">O similar Grupo {data.group}</p>
+                      <div className="grid grid-cols-12 mt-2">
+                        <div className="col-span-6 flex gap-1 items-center flex-nowrap">
+                          <GiGasPump className="w-4 h-4 min-h-4 min-w-4"/>
+                          <span>{data?.fuel_type}</span>
+                        </div>
+                        <div className="col-span-6 flex gap-1 items-center flex-nowrap">
+                          <TbManualGearbox className="w-4 h-4 min-h-4 min-w-4"/> 
+                          <span>{data?.transmission}</span>
+                        </div>
+                        <div className="col-span-6 flex gap-1 items-center flex-nowrap">
+                          <GiCarDoor className="w-4 h-4 min-h-4 min-w-4"/> 
+                          <span>{data?.doors}</span>
+                        </div>
+                        <div className="col-span-6 flex gap-1 items-center flex-nowrap">
+                          <FaUser className="w-4 h-4 min-h-4 min-w-4"/> 
+                          <span>{data?.seats}</span>
+                        </div>
+                        <div className="col-span-6 flex gap-1 items-center flex-nowrap">
+                          <BsLuggageFill className="w-4 h-4 min-h-4 min-w-4"/> 
+                          <span>{data?.luggage}</span>
                         </div>
                       </div>
-                    </li>
+                    </div>
                   </div>
+                </div>
               </div>
             )}
           </div>
