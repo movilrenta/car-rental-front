@@ -19,6 +19,13 @@ import { getUserReservation } from "@/actions";
 import { ResponseUserReservation } from "@/types/user-reservation.inteface";
 import { formatDate } from "@/components/utils/utils";
 import Image from "next/image";
+import { LuLoader } from "react-icons/lu";
+import { VehicleType } from "@/constant/cars";
+import { BsLuggageFill } from "react-icons/bs";
+import { FaUser } from "react-icons/fa";
+import { GiCarDoor, GiGasPump } from "react-icons/gi";
+import { TbManualGearbox } from "react-icons/tb";
+import { GoArrowDownLeft, GoArrowUpRight } from "react-icons/go";
 
 export const MiReserva = () => {
   const [loading, setLoading] = React.useState<boolean>(false);
@@ -52,10 +59,11 @@ export const MiReserva = () => {
     }
     setLoading(false);
   };
+
   return (
     <section className="w-full min-h-screen animate-fade-in mb-14 dark:text-white">
       <BannerPage title="Mi reserva" image="/images2/carBanner.webp" />
-      <div className="max-w-7xl mx-auto mt-6 px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="max-w-7xl mx-auto mt-6 px-4 grid grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-6">
         <div className="flex flex-col justify-start gap-4 lg:col-span-1">
           <h2 className="font-semibold text-lg">
             Aquí podra revisar los datos de su reserva
@@ -80,7 +88,7 @@ export const MiReserva = () => {
               />
               <Button
                 variant="outline"
-                className="self-end mt-4 bg-red-700 text-white hover:bg-red-800 hover:text-white duration-200 "
+                className="self-end !min-w-32 !w-32 mt-4 bg-red-700 text-white hover:bg-red-800 hover:text-white duration-200 "
                 type="submit"
                 disabled={form.formState.isSubmitting}
               >
@@ -90,65 +98,78 @@ export const MiReserva = () => {
           </Form>
         </div>
         {loading ? (
-          <div className="lg:col-span-2 flex items-center justify-center">
-            <span className="text-slate-600 animate-pulse text-center">
+          <div className="md:col-span-3 flex items-center justify-center">
+            <LuLoader className="animate-spin" />
+            <span className="text-slate-600 text-center">
               Cargando
             </span>
           </div>
         ) : (
-          <div className="lg:col-span-2 flex justify-center items-center">
+          <div className="md:col-span-3 flex justify-center items-center animate-fade-in">
             {msgRender.success && (
               <h2 className="font-medium text-slate-400 text-lg italic">
                 {msgRender.message}
               </h2>
             )}
             {data !== null && (
-              <div className="w-full p-6 bg-white text-black dark:bg-zinc-600 dark:text-white rounded-md flex flex-col-reverse lg:flex-row-reverse lg:justify-around gap-4">
-                <div className="flex flex-col justify-center items-center">
+              <div className="grid grid-cols-12 w-full p-6 bg-white text-black dark:bg-zinc-600 dark:text-white rounded-md gap-8">
+                <div className="col-span-12 lg:col-span-8 font-light mb-4 md:mb-0">
+                  <h2 className="font-semibold text-xl mb-2">Información de tu itinerario</h2>
+                  <h3 className="text-sm">Número de reserva: <strong>{data.code}</strong> </h3>
+                  <div className="text-sm mb-4">Estado:{" "}
+                        {data?.status === "approved"
+                          ? <span className="text-green-600 font-semibold">Aprobada</span>
+                          : data?.status === "rejected"
+                          ? <span className="text-red-500 font-semibold">Rechazada</span>
+                          : <span>Pendiente</span>}
+                      </div>
+                  <ul className="flex flex-col gap-4">
+                    <li className="flex flex-col items-center p-2 gap-x-4 border dark:border-[rgb(17_24_39_/_0.7)] rounded-md dark:bg-[rgb(17_24_39_/_0.3)]">
+                      <div className="flex gap-1">
+                        <GoArrowUpRight className="text-red-600 stroke-2 text-3xl" />
+                        <p className="font-semibold text-xl">Partida</p>
+                      </div>
+                      <p>Lugar: {data?.start_branch}</p>
+                      <p>Fecha: {formatDate(data?.start_date)}</p>
+                      <p>Horario: {data?.start_date.toString().slice(10,16)}</p>
+                    </li>
+                    <li className="flex flex-col items-center p-2 gap-x-4 border dark:border-[rgb(17_24_39_/_0.7)] rounded-md dark:bg-[rgb(17_24_39_/_0.3)]">
+                      <div className="flex gap-1">
+                        <GoArrowDownLeft className="text-red-600 stroke-2 text-3xl" />
+                        <p className="font-semibold text-xl">Regreso</p>
+                      </div>
+                      <p>Lugar: {data?.end_branch}</p>
+                      <p>Fecha: {formatDate(data?.end_date)}</p>
+                      <p>Horario: {data?.end_date.toString().slice(10,16)}</p>
+                    </li>
+                  </ul>
+
+                </div>
+                <div className="col-span-12 lg:col-span-4">
                   <Image
                     src={`${data.image}`}
                     width={250}
                     height={250}
                     alt={data?.car}
-                    className="h-auto object-cover rounded-md"
+                    className="w-full mx-auto h-auto object-cover rounded-md"
                   />
-                  
-                      <p>{data?.brand_name} {data?.car}</p>
-               
-                </div>
-                <div>
-                  <h3 className="font-semibold text-lg mb-4">Código de reservación: {data.code}</h3>
-                  <ul className="flex flex-col gap-4">
                   <li className="flex items-center gap-x-4">
-                      <span className="bg-red-500 rounded-full w-[6px] h-[6px]"></span>
-                      <p>
-                        Estado de reserva:{" "}
-                        {data?.status === "approved"
-                          ? "Aprobada"
-                          : data?.status === "rejected"
-                          ? "Rechazada"
-                          : "Pendiente"}
-                      </p>
+                      <div className="w-full">
+                        <p className="font-semibold mb-2">Datos del vehículo</p>
+                        <div>
+                        <p>{data?.brand_name} {data?.car}</p>
+                        <p className="text-xs">O similar Grupo {data.group}</p>
+                        <div className="grid grid-cols-12 mt-2">
+                      <div className="col-span-6 flex gap-1 items-center flex-nowrap"><GiGasPump className="w-4 h-4 min-h-4 min-w-4"/>{data?.fuel_type}</div>
+                      <div className="col-span-6 flex gap-1 items-center flex-nowrap"><TbManualGearbox className="w-4 h-4 min-h-4 min-w-4"/> {data?.transmission}</div>
+                      <div className="col-span-6 flex gap-1 items-center flex-nowrap"><GiCarDoor className="w-4 h-4 min-h-4 min-w-4"/> {data?.doors}</div>
+                      <div className="col-span-6 flex gap-1 items-center flex-nowrap"><FaUser className="w-4 h-4 min-h-4 min-w-4"/> {data?.seats}</div>
+                      <div className="col-span-6 flex gap-1 items-center flex-nowrap"><BsLuggageFill className="w-4 h-4 min-h-4 min-w-4"/> {data?.luggage}</div>
+                      </div>
+                        </div>
+                      </div>
                     </li>
-                    <li className="flex items-center gap-x-4">
-                      <span className="bg-red-500 rounded-full w-[6px] h-[6px]"></span>
-                      <p>Tipo de combustible: {data?.fuel_type}</p>
-                    </li>
-                    <li className="flex items-center gap-x-4">
-                      <span className="bg-red-500 rounded-full w-[6px] h-[6px]"></span>
-                      <p>Salida: {data?.start_branch} {formatDate(data?.start_date)}</p>
-                    </li>
-                    <li className="flex items-center gap-x-4">
-                      <span className="bg-red-500 rounded-full w-[6px] h-[6px]"></span>
-                      <p>Regreso: {data?.end_branch} {formatDate(data?.end_date)}</p>
-                    </li>
-                    
-                    
-                  </ul>
-                  <div>
-                    
                   </div>
-                </div>
               </div>
             )}
           </div>
