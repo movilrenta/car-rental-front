@@ -40,8 +40,13 @@ export const getUserReservation = async ({code}:FormMiReserva) => {
       message:"Petición exitosa",
       data: {
         car: carData.name,
+        group: carData.group.name,
         image: carData.image,
         fuel_type: carData.fuel_type,
+        transmission: carData.transmission,
+        seats: carData.seats,
+        luggage: carData.luggage,
+        doors: carData.doors,
         brand_name: brandData.name,
         start_branch: start_branch ?? "",
         end_branch: end_branch ?? "",
