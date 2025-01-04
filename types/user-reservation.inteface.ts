@@ -58,8 +58,13 @@ export interface Branches {
 
 export interface ResponseUserReservation {
   car: string;
+  group: string;
   image: string;
   fuel_type: string;
+  transmission: string;
+  seats: number;
+  luggage: number;
+  doors: number;
   brand_name: string;
   start_branch: string;
   end_branch: string;

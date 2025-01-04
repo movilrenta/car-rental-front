@@ -1,9 +1,12 @@
-import { PageUnderConstruction } from "@/components/page-under-construction";
+import { GetRatesAction } from "@/actions/rates";
+import { RatesTable } from "./components/rates-table";
 
-export default function RatesPage() {
+export default async function RatesPage() {
+  const rates = await GetRatesAction()
+
   return (
-    <div className="pointer-events-none">
-      <PageUnderConstruction />
+    <div className="relative animate-fade-in p-6">
+      <RatesTable Rates={rates}/>
     </div>
-  );
+  )
 }
