@@ -27,20 +27,20 @@ CarTableItemProps) {
   return (
     <tr className="hover:bg-black/5 dark:hover:bg-black/10 duration-200">
       <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-        <div className="text-left">{car.id}</div>
+        <div className="text-left">{car?.id}</div>
       </td>
       <td className="flex items-center h-[47px] min-h-full">
         <div className="flex gap-3 items-center">
             <Image
               className="hidden sm:block rounded-md w-auto h-10"
-              src={car.image}
+              src={car?.image}
               width={60}
               height={48}
-              alt={car.name}
+              alt={car?.name}
             />
           
           <div className="font-medium text-gray-800 dark:text-gray-100 text-ellipsis line-clamp-1">
-            {car.name}
+            {car?.name}
           </div>
         </div>
       </td>
