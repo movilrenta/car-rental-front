@@ -36,13 +36,13 @@ export default async function ReservationByIdPage({ params }: Params) {
           <li>
             <div className="flex items-center gap-x-2">
               <span className="w-[6px] h-[6px] rounded-full bg-red-500"></span>
-              <p>Auto: {data?.car_details.name ?? ""}</p>
+              <p>Auto: {data?.car_details?.name ?? ""}</p>
             </div>
           </li>
           <li>
             <div className="flex items-center gap-x-2">
               <span className="w-[6px] h-[6px] rounded-full bg-red-500"></span>
-              <p>Marca: {data?.car_details.brand.name ?? ""}</p>
+              <p>Marca: {data?.car_details?.brand?.name ?? ""}</p>
             </div>
           </li>
           {aditionals.length !== 0 && <li>
@@ -52,7 +52,7 @@ export default async function ReservationByIdPage({ params }: Params) {
                 {aditionals.length > 0 &&
                   aditionals.map((aditional, index) => (
                     <span key={index}> 
-                     {aditional.name}
+                     {aditional?.name}
                     {index < aditionals.length - 1 && " - "}
                     </span>
                   ))}
@@ -62,7 +62,7 @@ export default async function ReservationByIdPage({ params }: Params) {
           <li>
             <div className="flex items-center gap-x-2">
               <span className="w-[6px] h-[6px] rounded-full bg-red-500"></span>
-              <p>Grupo: {data?.car_details.group.name ?? ""}</p>
+              <p>Grupo: {data?.car_details?.group?.name ?? ""}</p>
             </div>
           </li>
           {/* <li>
@@ -82,7 +82,7 @@ export default async function ReservationByIdPage({ params }: Params) {
               <span className="w-[6px] h-[6px] rounded-full bg-red-500"></span>
               <p>
                 Fecha de incio:{" "}
-                {formatDate(data!.reservation.start_date) ?? "S/D"}
+                {formatDate(data!?.reservation?.start_date) ?? "S/D"}
               </p>
             </div>
           </li>
@@ -91,20 +91,20 @@ export default async function ReservationByIdPage({ params }: Params) {
               <span className="w-[6px] h-[6px] rounded-full bg-red-500"></span>
               <p>
                 Fecha de finalización:{" "}
-                {formatDate(data!.reservation.end_date) ?? "S/D"}
+                {formatDate(data!?.reservation?.end_date) ?? "S/D"}
               </p>
             </div>
           </li>
           <li>
             <div className="flex items-center gap-x-2">
               <span className="w-[6px] h-[6px] rounded-full bg-red-500"></span>
-              <p>Lugar de partida: {branches ? branches.find((item:Branch) => item.id === data?.reservation.start_branch_id)?.name : "sin datos"}</p>
+              <p>Lugar de partida: {branches ? branches.find((item:Branch) => item.id === data?.reservation?.start_branch_id)?.name : "sin datos"}</p>
             </div>
           </li>
           <li>
             <div className="flex items-center gap-x-2">
               <span className="w-[6px] h-[6px] rounded-full bg-red-500"></span>
-              <p>Lugar de finalización: {branches ? branches.find((item:Branch) => item.id === data?.reservation.end_branch_id)?.name : "sin datos"}</p>
+              <p>Lugar de finalización: {branches ? branches.find((item:Branch) => item.id === data?.reservation?.end_branch_id)?.name : "sin datos"}</p>
             </div>
           </li>
           <li>

@@ -36,13 +36,13 @@ export default async function ReservationByIdPage({ params }: Params) {
           <li>
             <div className="flex items-center gap-x-2">
               <span className="w-[6px] h-[6px] rounded-full bg-red-500"></span>
-              <p>Auto: {data?.car_details.name ?? ""}</p>
+              <p>Auto: {data?.car_details?.name ?? ""}</p>
             </div>
           </li>
           <li>
             <div className="flex items-center gap-x-2">
               <span className="w-[6px] h-[6px] rounded-full bg-red-500"></span>
-              <p>Marca: {data?.car_details.brand.name ?? ""}</p>
+              <p>Marca: {data?.car_details?.brand?.name ?? ""}</p>
             </div>
           </li>
           {aditionals.length !== 0 && <li>

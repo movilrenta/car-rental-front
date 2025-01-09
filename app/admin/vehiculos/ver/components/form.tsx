@@ -171,7 +171,7 @@ export default function CRUD_Form({
               <div className="col-span-12 py-2">
                 <p className="text-mmd">Auto seleccionado</p>
                 <p className="col-span-12 text-lg text-blue-600">
-                  {car.brand.name} {car.name}
+                  {car?.brand?.name} {car?.name}
                 </p>
               </div>
             )}
