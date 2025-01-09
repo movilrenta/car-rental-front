@@ -52,9 +52,9 @@ export default function CRUD_Form({ Brand }: { Brand?: Brand }) {
   const form = useForm<z.infer<typeof brandSchema>>({
     resolver: resolver,
     defaultValues: {
-      name: Brand ? Brand.name : "",
-      image: Brand ? Brand.image : "",
-      description: Brand ? Brand.description : "",
+      name: Brand ? Brand?.name : "",
+      image: Brand ? Brand?.image : "",
+      description: Brand ? Brand?.description : "",
     },
   });
 
@@ -120,7 +120,7 @@ export default function CRUD_Form({ Brand }: { Brand?: Brand }) {
               <div className="col-span-12 py-2">
                 <p className="text-mmd">Grupo seleccionado</p>
                 <p className="col-span-12 text-lg text-blue-600">
-                  {Brand.name}
+                  {Brand?.name}
                 </p>
               </div>
             )}
