@@ -64,7 +64,7 @@ export default function PickCar() {
   : <RenderCarsAvailability Vehicles={Array.isArray(car) ? car : [car]} />}
 
         </>
-        : <Button onClick={() => checkCars()} className="col-span-12 w-72 min-w-72 !py-5 border mx-auto bg-red-700 hover:bg-orange-800 text-white">
+        : <Button disabled={!itinerario?.startDay || !itinerario?.endDay || !itinerario?.startLocation || !itinerario?.endLocation || !itinerario?.startTime || !itinerario?.endTime} onClick={() => checkCars()} className="col-span-12 w-72 min-w-72 !py-5 border mx-auto bg-red-700 hover:bg-orange-800 text-white">
             {contentButton}
           </Button>
       }

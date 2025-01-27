@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaPhoneAlt } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
-import { MdGTranslate } from "react-icons/md";
+import { MdEmail } from "react-icons/md";
 import NavbarLinks from "./navbar-links";
 import ThemeToggle from "@/components/theme-toggle";
 import { NavbarMobile } from "@/components/ui/navbar-mobile";
@@ -36,10 +36,10 @@ export default function Navbar() {
               <FaLocationDot /> San Lorenzo 370
             </div>
             <div className="flex justify-center items-center gap-2 text-nowrap">
-              <MdGTranslate />
-              <span className="hidden md:block">In english</span>
+              {/* <MdGTranslate /> */}
+              <MdEmail />
+              <span className="hidden md:block">movil@movilrenta.com</span>
             </div>
-            
           </div>
         </div>
         <div className="flex lg:hidden absolute inset-y-0 right-4">

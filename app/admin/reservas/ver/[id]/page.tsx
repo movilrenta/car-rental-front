@@ -1,5 +1,5 @@
 import { getReservationById } from "@/actions/get-reservations-by-id";
-import { calcularDiasEntreFechas2, formatDate } from "@/components/utils/utils";
+import { calcularDiasEntreFechas, formatDateComplete } from "@/components/utils/utils";
 import { Aditional } from "@/types";
 import { Branch } from "@/types/car.interface";
 import { redirect } from "next/navigation";
@@ -14,7 +14,7 @@ export default async function ReservationByIdPage({ params }: Params) {
   if (!ok) {
     redirect("/admin/reservas/ver");
   }
-  const countDays = calcularDiasEntreFechas2(
+  const countDays = calcularDiasEntreFechas(
     data!.reservation.start_date,
     data!.reservation.end_date
   );
@@ -81,8 +81,8 @@ export default async function ReservationByIdPage({ params }: Params) {
             <div className="flex items-center gap-x-2">
               <span className="w-[6px] h-[6px] rounded-full bg-red-500"></span>
               <p>
-                Fecha de incio:{" "}
-                {formatDate(data!?.reservation?.start_date) ?? "S/D"}
+                Fecha de inicio:{" "}
+                {formatDateComplete(data!?.reservation?.start_date) ?? "S/D"} Hs.
               </p>
             </div>
           </li>
@@ -91,7 +91,7 @@ export default async function ReservationByIdPage({ params }: Params) {
               <span className="w-[6px] h-[6px] rounded-full bg-red-500"></span>
               <p>
                 Fecha de finalización:{" "}
-                {formatDate(data!?.reservation?.end_date) ?? "S/D"}
+                {formatDateComplete(data!?.reservation?.end_date) ?? "S/D"} Hs.
               </p>
             </div>
           </li>
@@ -112,7 +112,7 @@ export default async function ReservationByIdPage({ params }: Params) {
               <span className="w-[6px] h-[6px] rounded-full bg-red-500"></span>
               <p>
                 Fecha de creación de reserva:{" "}
-                {formatDate(data!.reservation.created_at) ?? "S/D"}
+                {formatDateComplete(data!.reservation.created_at) ?? "S/D"} Hs.
               </p>
             </div>
           </li>
@@ -199,8 +199,8 @@ export default async function ReservationByIdPage({ params }: Params) {
                 <p>
                   Fecha:{" "}
                   {data!.reservation?.payment?.date
-                    ? formatDate(data!.reservation?.payment?.date)
-                    : "S/D"}
+                    ? formatDateComplete(data!.reservation?.payment?.date)
+                    : "S/D"} Hs.
                 </p>
               </div>
             </li>

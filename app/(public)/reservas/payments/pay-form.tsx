@@ -101,7 +101,7 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
       },
     },
   });
-  const days = calcularDiasEntreFechas2(reserva?.startDay!, reserva?.endDay!);
+  const days = calcularDiasEntreFechas2(reserva?.startDay!, reserva?.startTime!, reserva?.endDay!, reserva?.endTime!);
 
   const showAccesorios = (): number => {
     let amount_aditionals = 0;

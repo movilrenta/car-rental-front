@@ -21,7 +21,7 @@ export default function ThemeToggle() {
           return setTheme('dark')
         }}
       />
-      <label className="flex items-center justify-center cursor-pointer w-8 h-8 hover:rotate-[360deg] duration-500 rounded-full" htmlFor="light-switch">
+      <label className="flex items-center justify-center cursor-pointer w-8 h-8 hover:opacity-30 duration-200 rounded-full" htmlFor="light-switch">
         <svg
           className="dark:hidden fill-current text-black dark:!text-white"
           width={16}
