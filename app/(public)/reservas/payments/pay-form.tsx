@@ -104,6 +104,7 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
   const days = calcularDiasEntreFechas2(reserva?.startDay!, reserva?.startTime!, reserva?.endDay!, reserva?.endTime!);
 
   const showAccesorios = (): number => {
+    //TODO: Calcular drop off, calcular horario extendido
     let amount_aditionals = 0;
     reserva?.aditionals_array.map((aditional) => {
       const adicional = aditionals.find(
