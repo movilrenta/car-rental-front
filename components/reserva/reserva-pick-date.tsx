@@ -22,7 +22,7 @@ export default function PickDate({branches}:{branches: BranchesType[]}) {
 
   useEffect(() => {
     if (itinerario?.startDay && itinerario?.endDay) {
-      const dias = calcularDiasEntreFechas2(itinerario.startDay, itinerario.endDay);
+      const dias = calcularDiasEntreFechas2(itinerario.startDay, itinerario.startTime!, itinerario.endDay, itinerario.endTime!);
       return setDias(dias);
     }
     return setDias(0)
@@ -112,14 +112,15 @@ export default function PickDate({branches}:{branches: BranchesType[]}) {
                   <option value="" disabled>
                     Horario
                   </option>
-                  {hours.hours.map((item, index) => (
-                    <option
+                  {hours.map((item, index) => (
+                    item.work ? <option
                       key={index}
                       value={item.hour}
                       className="dark:text-gray-950"
                     >
                       {item.hour}
                     </option>
+                    : null
                   ))}
                 </select>
               </div>
@@ -165,14 +166,15 @@ export default function PickDate({branches}:{branches: BranchesType[]}) {
                   <option value="" disabled>
                     Horario
                   </option>
-                  {hours.hours.map((item, index) => (
-                    <option
+                  {hours.map((item, index) => (
+                    item.work ? <option
                       key={index}
                       value={item.hour}
                       className="dark:text-gray-950"
                     >
                       {item.hour}
                     </option>
+                    : null
                   ))}
                 </select>
               </div>

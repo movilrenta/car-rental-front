@@ -44,7 +44,7 @@ export default function ReservaConfirm() {
 
   const handleGoBook = () => {
     if(reservaAuto === null || reservaItinerario === null) return;
-    const dias = calcularDiasEntreFechas2(reservaItinerario?.startDay!, reservaItinerario?.endDay!)
+    const dias = calcularDiasEntreFechas2(reservaItinerario?.startDay!, reservaItinerario?.startTime!, reservaItinerario?.endDay!, reservaItinerario?.endTime!)
     const reservation: ReservaType = {
       car: reservaAuto,
       startLocation: reservaItinerario.startLocation,

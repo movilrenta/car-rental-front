@@ -7,6 +7,7 @@ import { AiOutlineSafety } from 'react-icons/ai';
 import { BiSolidCarMechanic } from 'react-icons/bi';
 import { GrUserExpert } from 'react-icons/gr';
 import { IoCarSportOutline } from 'react-icons/io5';
+import ButtonWhatsapp from './button-whatsapp';
 
 export const Home = async () => {
   const branches = await GetBranchesAction()
@@ -47,6 +48,7 @@ export const Home = async () => {
         ))}
       </div>
       <BannerEmpresa />
+      <ButtonWhatsapp />
     </div>
   );
 }

@@ -20,8 +20,8 @@ export async function POST(req: any) {
   try {
     const body = await req.json();
     const URL = `${API_URL}payments`;
-    console.log(body, "____________BODY");
-    console.log(URL, "______ URL");
+    // console.log(body, "____________BODY");
+    // console.log(URL, "______ URL");
     const response = await axios.post(URL, body, {
       headers: {
         "Content-Type": "application/json",
@@ -75,7 +75,7 @@ export async function POST(req: any) {
         { status: error.response?.status }
       );
     }
-    console.log("error fuera del if");
+    //console.log("error fuera del if");
     return NextResponse.json({ response: error }, { status: 500 });
   }
 }

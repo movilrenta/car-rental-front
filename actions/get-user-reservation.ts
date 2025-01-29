@@ -41,6 +41,7 @@ export const getUserReservation = async ({code}:FormMiReserva) => {
       data: {
         car: carData.name,
         group: carData.group.name,
+        insurances: carData.group.insurances,
         image: carData.image,
         fuel_type: carData.fuel_type,
         transmission: carData.transmission,

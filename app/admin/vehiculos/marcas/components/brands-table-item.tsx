@@ -19,11 +19,11 @@ export const BrandsTableItem = ({ brand }: { brand: Brand }) => {
             src={brand.image}
             width={60}
             height={46}
-            alt={brand.name}
+            alt={brand?.name}
           />
 
           <div className="font-medium text-gray-800 dark:text-gray-100 whitespace-nowrap">
-            {brand.name}
+            {brand?.name}
           </div>
         </div>
       </td>
