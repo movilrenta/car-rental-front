@@ -16,7 +16,7 @@ import {
 export const ListItems = ({ data, branches }: { data: any, branches: BranchesType[] }) => {
   const [isClient, setIsClient] = useState<boolean>(false);
   const reservas = useReservaStore((state) => state.getReserva());
-  const dias = calcularDiasEntreFechas2(reservas?.startDay!, reservas?.endDay!);
+  const dias = calcularDiasEntreFechas2(reservas?.startDay!, reservas?.startTime!, reservas?.endDay!, reservas?.endTime!);
 
   useEffect(() => {
     setIsClient(true);
@@ -95,11 +95,14 @@ export const ListItems = ({ data, branches }: { data: any, branches: BranchesTyp
             </span>
           </div>
           <div className="text-xs md:text-base text-gray-900 dark:text-slate-100">
-            <p>
+            <p className="flex flex-col">
               <span className="font-semibold">
-                Categoria: {reservas?.car?.group?.name}
+                Grupo: {reservas?.car?.group?.name}
               </span>{" "}
-              - {reservas?.car?.brand?.name} {reservas?.car?.name}. Seguros ${useFormatNumber(reservas?.car?.group?.insurances)}
+              - {reservas?.car?.brand?.name} {reservas?.car?.name}. 
+              <span>
+                - Seguros: Por daños o faltantes ${useFormatNumber(reservas?.car?.group?.insurances)}, por vuelcos o robo ${useFormatNumber(Number(reservas?.car?.group?.insurances) * 3)}
+              </span>
             </p>
           </div>
         </div>

@@ -59,6 +59,7 @@ export interface Branches {
 export interface ResponseUserReservation {
   car: string;
   group: string;
+  insurances: string;
   image: string;
   fuel_type: string;
   transmission: string;

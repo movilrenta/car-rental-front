@@ -20,12 +20,12 @@ import { ResponseUserReservation } from "@/types/user-reservation.inteface";
 import { formatDate } from "@/components/utils/utils";
 import Image from "next/image";
 import { LuLoader } from "react-icons/lu";
-import { VehicleType } from "@/constant/cars";
 import { BsLuggageFill } from "react-icons/bs";
 import { FaUser } from "react-icons/fa";
 import { GiCarDoor, GiGasPump } from "react-icons/gi";
 import { TbManualGearbox } from "react-icons/tb";
 import { GoArrowDownLeft, GoArrowUpRight } from "react-icons/go";
+import { useFormatNumber } from "@/components/utils/useFormatterNumber";
 
 export const MiReserva = () => {
   const [loading, setLoading] = React.useState<boolean>(false);
@@ -59,7 +59,7 @@ export const MiReserva = () => {
     }
     setLoading(false);
   };
-
+console.log(data);
   return (
     <section className="w-full min-h-screen animate-fade-in mb-14 dark:text-white">
       <BannerPage title="Mi reserva" image="/images2/carBanner.webp" />
@@ -182,6 +182,8 @@ export const MiReserva = () => {
                           <span>{data?.luggage}</span>
                         </div>
                       </div>
+                      <p className="text-xs">- Seguros: Por daños o faltantes ${useFormatNumber(data?.insurances)}, por vuelcos o robo ${useFormatNumber(Number(data?.insurances) * 3)}</p>
+
                     </div>
                   </div>
                 </div>
