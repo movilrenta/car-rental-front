@@ -28,27 +28,32 @@ import { useEffect, useState } from "react";
 import BannerPage from "@/view/banner-page";
 import { useReservaStore } from "@/stores/reservas/reserva.store";
 import { calcularDiasEntreFechas2 } from "@/components/utils/utils";
-import { getPaymentMethods, getTokenPay } from "@/actions";
+import { 
+  //getPaymentMethods, 
+  getTokenPay } from "@/actions";
 import { useRouter } from "next/navigation";
 import { LuLoader } from "react-icons/lu";
 import { statesCodes } from "@/constant/states-codes";
+import { CARDS } from "@/constant/cards";
 
 export default function PayForm({ aditionals }: { aditionals: any[] }) {
   const router = useRouter();
-  const [loader, setLoader] = useState<boolean>(true);
-  const [paymentsMethods, setPaymentsMethods] = useState<PaymentMethods[]>();
+  const [loader, setLoader] = useState<boolean>(false);
+  const [paymentsMethods, setPaymentsMethods] = useState<PaymentMethods[]>(CARDS);
   const reserva = useReservaStore((state) => state.getReserva());
 
   const { toast } = useToast();
 
-  const payMethods = async () => {
-    const resp = await getPaymentMethods();
-    setPaymentsMethods(resp.data);
-  };
-  useEffect(() => {
-    payMethods();
-    setLoader(false);
-  }, []);
+  // const payMethods = async () => {
+  //   const resp = await getPaymentMethods();
+  //   setPaymentsMethods(resp.data);
+  // };
+
+  
+  // useEffect(() => {
+  //   payMethods();
+  //   setLoader(false);
+  // }, []);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
