@@ -113,7 +113,7 @@ export default function CRUD_Form({
 
       try {
         const res = await PutCarAction(editCar);
-        console.log(res);
+        //console.log(res);
         if (res.status === 200) {
           toast({
             variant: "default",
