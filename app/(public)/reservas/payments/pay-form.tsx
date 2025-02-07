@@ -29,7 +29,7 @@ import BannerPage from "@/view/banner-page";
 import { useReservaStore } from "@/stores/reservas/reserva.store";
 import { calcularDiasEntreFechas2 } from "@/components/utils/utils";
 import { 
-  //getPaymentMethods, 
+  getPaymentMethods, 
   getTokenPay } from "@/actions";
 import { useRouter } from "next/navigation";
 import { LuLoader } from "react-icons/lu";
@@ -39,72 +39,75 @@ import { CARDS } from "@/constant/cards";
 export default function PayForm({ aditionals }: { aditionals: any[] }) {
   const router = useRouter();
   const [loader, setLoader] = useState<boolean>(false);
-  const [paymentsMethods, setPaymentsMethods] = useState<PaymentMethods[]>(CARDS);
+  const [paymentsMethods, setPaymentsMethods] = useState<PaymentMethods[]>();
   const reserva = useReservaStore((state) => state.getReserva());
 
   const { toast } = useToast();
 
-  // const payMethods = async () => {
-  //   const resp = await getPaymentMethods();
-  //   setPaymentsMethods(resp.data);
-  // };
+  const payMethods = async () => {
+    const resp = await getPaymentMethods();
+    if(resp.ok){
+      const filterCard = resp.data?.filter((item) => item.idmediopago !== "65" && item.idmediopago !== "15")
+      setPaymentsMethods(filterCard);
+    }
+  };
 
   
-  // useEffect(() => {
-  //   payMethods();
-  //   setLoader(false);
-  // }, []);
+  useEffect(() => {
+    payMethods();
+    setLoader(false);
+  }, []);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    // defaultValues: {
-    //   card_number: "",
-    //   card_expiration_month: "",
-    //   card_expiration_year: "",
-    //   security_code: "",
-    //   card_holder_birthday: "",
-    //   card_holder_door_number: "",
-    //   card_holder_identification: {
-    //     type: "DNI",
-    //     number: "",
-    //   },
-    //   payment_method_id: "",
-    //   installments: "1",
-    //   bill_to: {
-    //     city: "",
-    //     country: "AR",
-    //     customer_id: "xxxx",
-    //     first_name: "",
-    //     last_name: "",
-    //     postal_code: "",
-    //     state: "",
-    //     street1: "",
-    //   },
-    // },
     defaultValues: {
       card_number: "",
-      card_expiration_month: "12",
-      card_expiration_year: "30",
-      security_code: "124",
-      card_holder_birthday: "07/05/1964",
-      card_holder_door_number: "2473",
+      card_expiration_month: "",
+      card_expiration_year: "",
+      security_code: "",
+      card_holder_birthday: "",
+      card_holder_door_number: "",
       card_holder_identification: {
         type: "DNI",
-        number: "25123456",
+        number: "",
       },
       payment_method_id: "",
       installments: "1",
       bill_to: {
-        city: "Buenos Aires",
+        city: "",
         country: "AR",
-        customer_id: "xxxxx",
-        first_name: "martin",
-        last_name: "paoletta",
-        postal_code: "1427",
-        state: "BA",
-        street1: "GARCIA DEL RIO",
+        customer_id: "xxxx",
+        first_name: "",
+        last_name: "",
+        postal_code: "",
+        state: "",
+        street1: "",
       },
     },
+    // defaultValues: {
+    //   card_number: "",
+    //   card_expiration_month: "12",
+    //   card_expiration_year: "30",
+    //   security_code: "124",
+    //   card_holder_birthday: "07/05/1964",
+    //   card_holder_door_number: "2473",
+    //   card_holder_identification: {
+    //     type: "DNI",
+    //     number: "25123456",
+    //   },
+    //   payment_method_id: "",
+    //   installments: "1",
+    //   bill_to: {
+    //     city: "Buenos Aires",
+    //     country: "AR",
+    //     customer_id: "xxxxx",
+    //     first_name: "martin",
+    //     last_name: "paoletta",
+    //     postal_code: "1427",
+    //     state: "BA",
+    //     street1: "GARCIA DEL RIO",
+    //   },
+    // },
   });
   const days = calcularDiasEntreFechas2(reserva?.startDay!, reserva?.startTime!, reserva?.endDay!, reserva?.endTime!);
 
