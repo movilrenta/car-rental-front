@@ -14,7 +14,7 @@ export const BannerCta = async ({branches} : {branches: any}) => {
       h4: "movete con libertad"
     }]
   return (
-    <div className="h-full grid grid-cols-12  dark:bg-gray-800">
+    <div className="h-full grid grid-cols-12 z-0 dark:bg-gray-800">
        <SlideImages
         images={images}
         className="relative col-span-12 lg:col-span-7"

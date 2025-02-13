@@ -24,12 +24,12 @@ import {
 import clsx from "clsx";
 import { FaCreditCard } from "react-icons/fa";
 import { useToast } from "@/hooks/use-toast";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import BannerPage from "@/view/banner-page";
 import { useReservaStore } from "@/stores/reservas/reserva.store";
 import { calcularDiasEntreFechas2 } from "@/components/utils/utils";
 import { 
-  getPaymentMethods, 
+  //getPaymentMethods, 
   getTokenPay } from "@/actions";
 import { useRouter } from "next/navigation";
 import { LuLoader } from "react-icons/lu";
@@ -39,24 +39,21 @@ import { CARDS } from "@/constant/cards";
 export default function PayForm({ aditionals }: { aditionals: any[] }) {
   const router = useRouter();
   const [loader, setLoader] = useState<boolean>(false);
-  const [paymentsMethods, setPaymentsMethods] = useState<PaymentMethods[]>();
+  const [paymentsMethods, setPaymentsMethods] = useState<PaymentMethods[]>(CARDS);
   const reserva = useReservaStore((state) => state.getReserva());
 
   const { toast } = useToast();
 
-  const payMethods = async () => {
-    const resp = await getPaymentMethods();
-    if(resp.ok){
-      const filterCard = resp.data?.filter((item) => item.idmediopago !== "65" && item.idmediopago !== "15")
-      setPaymentsMethods(filterCard);
-    }
-  };
+  // const payMethods = async () => {
+  //   const resp = await getPaymentMethods();
+  //   setPaymentsMethods(resp.data);
+  // };
 
   
-  useEffect(() => {
-    payMethods();
-    setLoader(false);
-  }, []);
+  // useEffect(() => {
+  //   payMethods();
+  //   setLoader(false);
+  // }, []);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -76,7 +73,7 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
       bill_to: {
         city: "",
         country: "AR",
-        customer_id: "xxxx",
+        customer_id: "xxxxx",
         first_name: "",
         last_name: "",
         postal_code: "",

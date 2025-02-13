@@ -45,6 +45,12 @@ export default async function ReservationByIdPage({ params }: Params) {
               <p>Marca: {data?.car_details?.brand?.name ?? ""}</p>
             </div>
           </li>
+          <li>
+            <div className="flex items-center gap-x-2">
+              <span className="w-[6px] h-[6px] rounded-full bg-red-500"></span>
+              <p>Patente: {data?.car_details?.description ?? ""}</p>
+            </div>
+          </li>
           {aditionals.length !== 0 && <li>
             <div className="flex items-center gap-x-2">
               <span className="w-[6px] h-[6px] rounded-full bg-red-500"></span>
