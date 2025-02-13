@@ -24,7 +24,7 @@ import {
 import clsx from "clsx";
 import { FaCreditCard } from "react-icons/fa";
 import { useToast } from "@/hooks/use-toast";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import BannerPage from "@/view/banner-page";
 import { useReservaStore } from "@/stores/reservas/reserva.store";
 import { calcularDiasEntreFechas2 } from "@/components/utils/utils";
@@ -57,54 +57,54 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    // defaultValues: {
-    //   card_number: "",
-    //   card_expiration_month: "",
-    //   card_expiration_year: "",
-    //   security_code: "",
-    //   card_holder_birthday: "",
-    //   card_holder_door_number: "",
-    //   card_holder_identification: {
-    //     type: "DNI",
-    //     number: "",
-    //   },
-    //   payment_method_id: "",
-    //   installments: "1",
-    //   bill_to: {
-    //     city: "",
-    //     country: "AR",
-    //     customer_id: "xxxx",
-    //     first_name: "",
-    //     last_name: "",
-    //     postal_code: "",
-    //     state: "",
-    //     street1: "",
-    //   },
-    // },
     defaultValues: {
       card_number: "",
-      card_expiration_month: "12",
-      card_expiration_year: "30",
-      security_code: "124",
-      card_holder_birthday: "07/05/1964",
-      card_holder_door_number: "2473",
+      card_expiration_month: "",
+      card_expiration_year: "",
+      security_code: "",
+      card_holder_birthday: "",
+      card_holder_door_number: "",
       card_holder_identification: {
         type: "DNI",
-        number: "25123456",
+        number: "",
       },
       payment_method_id: "",
       installments: "1",
       bill_to: {
-        city: "Buenos Aires",
+        city: "",
         country: "AR",
         customer_id: "xxxxx",
-        first_name: "martin",
-        last_name: "paoletta",
-        postal_code: "1427",
-        state: "BA",
-        street1: "GARCIA DEL RIO",
+        first_name: "",
+        last_name: "",
+        postal_code: "",
+        state: "",
+        street1: "",
       },
     },
+    // defaultValues: {
+    //   card_number: "",
+    //   card_expiration_month: "12",
+    //   card_expiration_year: "30",
+    //   security_code: "124",
+    //   card_holder_birthday: "07/05/1964",
+    //   card_holder_door_number: "2473",
+    //   card_holder_identification: {
+    //     type: "DNI",
+    //     number: "25123456",
+    //   },
+    //   payment_method_id: "",
+    //   installments: "1",
+    //   bill_to: {
+    //     city: "Buenos Aires",
+    //     country: "AR",
+    //     customer_id: "xxxxx",
+    //     first_name: "martin",
+    //     last_name: "paoletta",
+    //     postal_code: "1427",
+    //     state: "BA",
+    //     street1: "GARCIA DEL RIO",
+    //   },
+    // },
   });
   const days = calcularDiasEntreFechas2(reserva?.startDay!, reserva?.startTime!, reserva?.endDay!, reserva?.endTime!);
 
