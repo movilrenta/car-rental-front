@@ -166,7 +166,6 @@ export const CarsTable = ({
                       <td className="px-4 py-2">{firstCar.group_name}</td>
                       <td className="px-4 py-2 flex gap-2"></td>
                     </tr>
-
                     {/* Filas ocultas */}
                     {isExpanded &&
                       carsInGroup.map((car: any) => (
