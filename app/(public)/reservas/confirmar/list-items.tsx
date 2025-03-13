@@ -101,7 +101,7 @@ export const ListItems = ({ data, branches }: { data: any, branches: BranchesTyp
               </span>{" "}
               - {reservas?.car?.brand?.name} {reservas?.car?.name}. 
               <span>
-                - Seguros: Por daños o faltantes ${useFormatNumber(reservas?.car?.group?.insurances)}, por vuelcos o robo ${useFormatNumber(Number(reservas?.car?.group?.insurances) * 3)}
+                - Seguros: Por daños o faltantes ${useFormatNumber(+(reservas?.car?.group?.insurances || 0))}, por vuelcos o robo ${useFormatNumber(Number(reservas?.car?.group?.insurances || 0) * 3)}
               </span>
             </p>
           </div>

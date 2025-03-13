@@ -1,4 +1,4 @@
-export const useFormatNumber = (number: any) => {
+export const useFormatNumber = (number: number) => {
   return new Intl.NumberFormat("es-AR", {
     style: "decimal",
     minimumFractionDigits: 2,

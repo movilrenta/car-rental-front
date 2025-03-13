@@ -41,7 +41,7 @@ export default function OrdersTableItem({
           {order.end_date.toString().slice(11, 16)}Hs.
         </td>
         <td className="px-2 text-end py-3 whitespace-nowrap text-green-600">
-          $ {useFormatNumber(order.payment?.amount || 0) ?? 0}
+          $ {useFormatNumber(+(order.payment?.amount) || 0) ?? 0}
         </td>
         <td
           className={`px-2 py-3 whitespace-nowrap text-left  ${

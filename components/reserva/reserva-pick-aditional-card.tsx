@@ -15,7 +15,7 @@ export default function AdditionalCard({ item }: { item: AditionalType }) {
     >
       <Image
         className="max-w-40 sm:w-36 rounded-sm group-hover:scale-[1.01] duration-200"
-        src={"/images2/silla.webp"}
+        src={item.name === "GPS" ? "/images2/gps.webp" : "/images2/silla.webp"}
         //src={item.image}
         width={200}
         height={200}

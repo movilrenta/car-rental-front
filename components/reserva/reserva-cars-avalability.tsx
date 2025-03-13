@@ -3,7 +3,7 @@ import CardCar from "./reserva-pick-car-card";
 import { BiCheck } from "react-icons/bi";
 import { useReservaAutoStore } from "@/stores/reserva-auto/reserva-auto.store";
 
-export default function RenderCarsAvailability({Vehicles}:{Vehicles: VehicleType[]}) {
+export default function RenderCarsAvailability({Vehicles, extra}:{Vehicles: VehicleType[], extra: number}) {
   const reservaAuto = useReservaAutoStore((state) => state.getReservaAuto());
   return(
     Vehicles.map((car) => (
@@ -16,7 +16,7 @@ export default function RenderCarsAvailability({Vehicles}:{Vehicles: VehicleType
             <BiCheck className="text-7xl text-white stroke-1 animate-fade-in duration-500" />
           </span>
         )}
-        <CardCar car={car} />
+        <CardCar car={car} extra={extra}/>
       </div>
     ))
   )

@@ -22,7 +22,7 @@ AdicionalesTableItemProps) {
         <div className="text-left">{additional?.name}</div>
       </td>
       <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-        <div className="text-left">{useFormatNumber(additional?.price)}</div>
+        <div className="text-left">{useFormatNumber(+additional?.price)}</div>
       </td>
       <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
         <div className="text-left">{additional?.rate?.name}</div>
