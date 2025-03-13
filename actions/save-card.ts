@@ -1,31 +1,63 @@
 "use server";
 
-import { z } from 'zod';
-import { formSchema } from '../types/payway-form.schema';
-import clientPromise from '@/lib/mongodb'
+import clientPromise from "@/lib/mongodb";
 
-export const saveCard = async (values:z.infer<typeof formSchema>) => {
+export const lockCar = async (values: any) => {
   try {
-    const resultParsed = await formSchema.safeParseAsync(values)
-    if(!resultParsed.success){
-      return {
-        ok:false,
-        message:"no se pudo realizar la peticion"
-      }
-    }
-
     const client = await clientPromise;
-    const db = client.db("MovilRenta")
-    const collection = db.collection('card')
-    await collection.insertOne(resultParsed.data)
+    const db = client.db("MovilRenta");
+    const collection = db.collection("Data");
+    const car = await collection.findOne({ id: values.id });
+    if (car) {
+      await collection.updateOne(
+        { id: values.id },
+        { $set: { locked_status: values.locked_status } }
+      );
+    } else {
+      await collection.insertOne(values);
+    }
 
     return {
-      ok: true
-    }
+      ok: true,
+    };
   } catch (error) {
     return {
-      ok:false,
-      message:"Internal server error"
-    }
+      ok: false,
+      message: "Internal server error",
+    };
   }
-}
+};
+export const getSatusCar = async (id: number) => {
+  try {
+    const client = await clientPromise;
+    const db = client.db("MovilRenta");
+    const collection = db.collection("Data");
+    const car = await collection.findOne({ id });
+
+    return car;
+  } catch (error) {
+    return {
+      ok: false,
+      message: "Internal server error",
+    };
+  }
+};
+
+// export const saveCard = async (values: any) => {
+//   try {
+//     const client = await clientPromise;
+//     const db = client.db("MovilRenta");
+//     const collection = db.collection("Data");
+//     await collection.insertOne(values);
+//     console.log(client, "valkyes");
+
+//     return {
+//       ok: true,
+//     };
+//   } catch (error) {
+//     return {
+//       ok: false,
+//       message: "Internal server error",
+//     };
+//   }
+// };
