@@ -1,3 +1,4 @@
+"use client";
 import { GetBranchesAction } from "@/actions/branchs";
 import { BannerCta } from "@/components/home/banner-cta";
 import { BannerEmpresa } from "@/components/home/banner-empresa";
