@@ -138,7 +138,6 @@ export const CarsTable = ({
                 const carsInGroup = groupedCars[name];
                 const firstCar = carsInGroup[0];
                 const isExpanded = expandedGroups[name];
-
                 return (
                   <React.Fragment key={name}>
                     {/* Fila principal */}
