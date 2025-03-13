@@ -25,39 +25,7 @@ export default function PickCar() {
   useEffect(() => {
     setIsClient(true);
   }, []);
-  
   useEffect(() => {
-    if (!data || data.length === 0) return;
-  
-    const fetchCarStatuses = async () => {
-      try {
-        const updatedCars = await Promise.all(
-          data.map(async (car) => {
-            try {
-              const locked_status = (await getSatusCar(car.id)) as any;
-  
-              return {
-                ...car,
-                locked_status: locked_status?.locked_status ?? false, // Default `false`
-              };
-            } catch (error) {
-              console.error("Error al obtener estado del auto:", error);
-              return { ...car, locked_status: false }; // Manejo de error
-            }
-          })
-        );
-  
-        setNewCars(updatedCars);
-      } catch (error) {
-        console.error("Error en fetchCarStatuses:", error);
-      }
-    };
-  
-    fetchCarStatuses();
-  }, [data]);
-/*
-  useEffect(() => {
-    if (!data || data.length === 0) return;
     const fetchCarStatuses = async () => {
       const updatedCars = await Promise.all(
         data.map(async (car) => {
@@ -74,9 +42,6 @@ export default function PickCar() {
 
     fetchCarStatuses();
   }, [data]);
-*/
-
-
   useEffect(() => {
     setContentButton(<span>Buscar vehículos disponibles</span>);
     setShowCars(false);
@@ -150,4 +115,3 @@ export default function PickCar() {
     </div>
   );
 }
-
