@@ -13,35 +13,56 @@ export default function RenderCarsAvailability({
   itinerary: any;
 }) {
   const reservaAuto = useReservaAutoStore((state) => state.getReservaAuto());
-  const message = `Hola!, me gustaria saber si me quedan disponible algun vehiculo para las siguientes fechas: ${itinerary.startDay?.toLocaleDateString()} a las ${
+  const message = `Hola!, me gustaria saber si queda disponible algun vehiculo para las siguientes fechas: ${itinerary.startDay?.toLocaleDateString()} a las ${
     itinerary.startTime
   } hasta el ${itinerary.endDay?.toLocaleDateString()} a las ${
     itinerary.endTime
   }`;
   const encodedMessage = encodeURIComponent(message);
+  console.log(Vehicles);
+
+  const availableCars = (array: any[]) => {
+    return array.reduce((acc, item) => {
+      if (!item.status) {
+        // Solo pushea si el status es true
+        if (!acc[item.name]) {
+          acc[item.name] = [];
+        }
+        acc[item.name].push(item);
+      }
+      return acc;
+    }, {} as Record<string, VehicleType[]>);
+  };
+
+  const groupByName = availableCars(Vehicles);
 
   return (
     <div className="grid grid-cols-12 gap-4 col-span-full">
-      {Vehicles.map((car) => (
-        <div
-          key={car.id}
-          className="relative grid col-span-full sm:col-span-6 md:col-span-4 xl:col-span-3"
-        >
-          {reservaAuto?.id === car.id && (
-            <span className="absolute inset-0 bg-black/40 rounded-md flex justify-center items-center animate-fade-in pointer-events-none">
-              <BiCheck className="text-7xl text-white stroke-1 animate-fade-in duration-500" />
-            </span>
-          )}
-          <CardCar car={car} />
-        </div>
-      ))}
+      {Object.entries(groupByName).map(([name, cars]: any) => {
+        const firstCar = cars[0];
+
+        return firstCar ? (
+          <div
+            key={firstCar.id}
+            className="relative grid col-span-full sm:col-span-6 md:col-span-4 xl:col-span-3"
+          >
+            {reservaAuto?.id === firstCar.id && (
+              <span className="absolute inset-0 bg-black/40 rounded-md flex justify-center items-center animate-fade-in pointer-events-none">
+                <BiCheck className="text-7xl text-white stroke-1 animate-fade-in duration-500" />
+              </span>
+            )}
+            <CardCar car={firstCar} />
+          </div>
+        ) : null;
+      })}
+
       <div className="flex items-center justify-center col-span-full">
         <div className="flex flex-col justify-center items-center bg-gray-800 text-white rounded-lg shadow-lg p-6 w-80">
           <h2 className="text-2xl font-bold mb-4 text-center">
             No encontraste lo que buscabas?
           </h2>
           <p className="mb-4 text-center">
-            Tranquilo!, contactanos para que podamos ayudarte en tu proxima
+            Tranquilo!, contactanos para que podamos ayudarte en tu próxima
             reserva.
           </p>
 
