@@ -28,7 +28,8 @@ export async function PostCarAction(car: any) {
     //await setupCsrf();
     const res = await axios.post(`/api/cars`, car)
     console.log(res);
-    return res.data
+    //return res.data
+    return {data: res.data, status: res.status}
   }
   catch (error) {
     console.log(error);
@@ -42,7 +43,7 @@ export async function PutCarAction(car: any) {
     //await setupCsrf();
     const res = await axios.put(`/api/cars/${car.id}`, car)
     console.log(res);
-    return res.data
+    return {data: res.data, status: res.status}
   }
   catch (error) {
     console.log(error);
