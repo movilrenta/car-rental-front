@@ -38,6 +38,8 @@ export default function PickCar() {
     );
   }
 
+
+
   async function checkCars() {
     //console.log(itinerario);
     //removeCar()
@@ -47,11 +49,13 @@ export default function PickCar() {
       end_date: new Date(itinerario?.endDay!).toISOString().slice(0, 10)
     };
     const {data, status} = await axios.post('/api/check-availability-cars', payload)
-    //console.log(status);
+    // console.log(data.response);
     setShowCars(true)
     setData(data.response)
+    
   }
 
+  
   return (
     <div className="grid grid-cols-12 col-span-12 gap-6 mt-8 min-h-96 w-full place-content-start">
       {showCars 
