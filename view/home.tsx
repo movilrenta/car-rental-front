@@ -1,3 +1,4 @@
+"use client";
 import { GetBranchesAction } from "@/actions/branchs";
 import { BannerCta } from "@/components/home/banner-cta";
 import { BannerEmpresa } from "@/components/home/banner-empresa";
@@ -8,9 +9,18 @@ import { BiSolidCarMechanic } from "react-icons/bi";
 import { GrUserExpert } from "react-icons/gr";
 import { IoCarSportOutline } from "react-icons/io5";
 import ButtonWhatsapp from "./button-whatsapp";
+import { useEffect } from "react";
+import { useState } from "react";
 
 export const Home = async () => {
-  const branches = await GetBranchesAction();
+  const [branches, setBranches] = useState<any[]>([]);
+  useEffect(() => {
+    const fetchBranches = async () => {
+      const branches = await GetBranchesAction();
+      setBranches(branches);
+    };
+    fetchBranches();
+  }, []);
 
   return (
     <div className="flex flex-col gap-12 animate-fade-in mb-12">
