@@ -5,7 +5,7 @@ const BACK = process.env.NEXT_PUBLIC_URL_BACK;
 const URL =
   process.env.NODE_ENV === "development"
     ? "http://localhost:3000"
-    : "www.movilrenta.com.ar";
+    : "https://www.movilrenta.com.ar";
 async function getStatus(id: string) {
   try {
     const response = await fetch(`${URL}/api/status-car?id=${id}`);
