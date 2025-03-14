@@ -11,18 +11,13 @@ interface CarTipe extends VehicleType {
 }
 
 interface CarTableItemProps {
-  car: CarTipe;
+  car: any;
   Groups: Group[];
   Brands: Brand[];
   Branches: Branch[];
 }
 
-export default function CarsTableItem({
-  car,
-  Groups,
-  Brands,
-  Branches,
-}: CarTableItemProps) {
+export default function CarsTableItem({ car, Groups, Brands, Branches }: any) {
   return (
     <tr className="hover:bg-black/5 dark:hover:bg-black/10 duration-200">
       <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
