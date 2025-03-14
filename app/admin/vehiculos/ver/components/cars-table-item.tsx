@@ -192,7 +192,7 @@ export default function CarsTableItem({
 
               <DialogFooter>
                 <Button
-                  type="submit"
+                  type="button"
                   onClick={() => handlerLockCar(!car.status)}
                 >
                   {car.status ? "Desbloquear" : "Bloquear"}
