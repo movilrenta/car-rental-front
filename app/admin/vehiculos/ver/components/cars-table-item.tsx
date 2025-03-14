@@ -22,6 +22,7 @@ import { MdOutlineControlPointDuplicate } from "react-icons/md";
 import { Input } from "@/components/input";
 import { toast } from "@/hooks/use-toast";
 import { PostCarAction } from "@/actions/car";
+import axios from "axios";
 
 interface CarTipe extends VehicleType {
   brand_name: string;
@@ -46,14 +47,14 @@ export default function CarsTableItem({
 }: CarTableItemProps) {
   const [copies, setCopies] = useState<number>(1);
   const [patentes, setPatentes] = useState<string>("");
-  console.log(car);
-  // const handlerLockCar = async (locked_status: boolean) => {
-  //   await lockCar({
-  //     id: car.id,
-  //     locked_status,
-  //   });
-  //   window.location.reload();
-  // };
+
+  const handlerLockCar = async (locked_status: boolean) => {
+    await axios.post("/api/lock-car", {
+      id: car.id,
+      locked_status,
+    });
+    // window.location.reload();
+  };
   const handlerCopyCar = async () => {
     const patentes_array = patentes.split(",");
     const formData = Array.from({ length: copies }, (_, index) => {
@@ -193,7 +194,7 @@ export default function CarsTableItem({
               <DialogFooter>
                 <Button
                   type="submit"
-                  // onClick={() => handlerLockCar(!car.locked_status)}
+                  onClick={() => handlerLockCar(!car.locked_status)}
                 >
                   {car.locked_status ? "Desbloquear" : "Bloquear"}
                 </Button>

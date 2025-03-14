@@ -9,7 +9,6 @@ export default async function VehiculosPage() {
   const branch = await GetBranchesAction();
   const { data: groups } = await axios.get(`${BACK}groups`);
   const { data: brands } = await axios.get(`${BACK}brands`);
-  console.log(vehycle, "v");
 
   return (
     <div className="relative animate-fade-in p-6">
