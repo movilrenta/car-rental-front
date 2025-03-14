@@ -27,7 +27,7 @@ export const CarsTable = ({
   const [expandedGroups, setExpandedGroups] = useState<Record<string, boolean>>(
     {}
   );
-
+  console.log(Cars, "v");
   // Agrupar los autos por nombre
   const groupedCars = newCars.reduce((acc, car) => {
     if (!acc[car.name]) {
@@ -43,7 +43,7 @@ export const CarsTable = ({
   useEffect(() => {
     const fetchCarStatuses = async () => {
       const updatedCars = await Promise.all(
-        Cars.map(async (car) => {
+        Cars?.map(async (car) => {
           // const locked_status = (await getSatusCar(car.id)) as any;
           const brands =
             Brands.find((brand) => brand.id === car.brand_id)?.name ||
@@ -71,7 +71,7 @@ export const CarsTable = ({
         <h2 className="flex gap-2 items-center justify-center font-semibold text-gray-800 dark:text-gray-100">
           Todos los vehículos{" "}
           <span className="text-gray-400 dark:text-gray-500 font-medium">
-            {Cars.length}
+            {Cars?.length}
           </span>
         </h2>
         <CRUD_Vehycle

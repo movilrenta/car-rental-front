@@ -15,7 +15,8 @@ export async function GetCarsAction() {
   noStore();
   try {
     const { data } = await axios.get(`${URL}/api/cars`);
-    return data.response;
+
+    return data?.cars;
   } catch (error) {
     console.log(error);
     return { message: "error", error: error, status: 400 };

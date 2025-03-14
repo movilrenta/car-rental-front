@@ -1,12 +1,34 @@
 import axios from "axios";
 import { NextResponse } from "next/server";
 
-const BACK = process.env.NEXT_PUBLIC_URL_BACK
-
+const BACK = process.env.NEXT_PUBLIC_URL_BACK;
+async function getStatus(id: string) {
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/status-car?id=${id}`
+    );
+    const data = await response.json();
+    // console.log(data, "data");
+    return data?.locked_status || false;
+  } catch (error) {
+    return "unknown"; // En caso de error, devolver un estado predeterminado
+  }
+}
 export async function GET() {
   try {
     const response = await axios.get(`${BACK}cars`);
-    return NextResponse.json({ response: response.data }, { status: 200 });
+    const cars = response.data;
+
+    // Mapear cada auto y obtener su estado
+    const carsWithStatus = await Promise.all(
+      cars.map(async (car: { id: string }) => ({
+        ...car,
+        status: await getStatus(car.id),
+      }))
+    );
+    // console.log(carsWithStatus, "cars");
+
+    return NextResponse.json({ cars: carsWithStatus }, { status: 200 });
   } catch (error: any) {
     const errorMessage = error.response?.data || error.message;
     return NextResponse.json({ error: errorMessage }, { status: 500 });
@@ -16,14 +38,11 @@ export async function GET() {
 export async function POST(req: any) {
   try {
     const body = await req.json();
-    const response = await axios.post(
-      `${BACK}cars` || "",
-      body
-    );
+    const response = await axios.post(`${BACK}cars` || "", body);
 
     return NextResponse.json({ response: response.data }, { status: 200 });
   } catch (error: any) {
     const errorMessage = error.response?.data || error.message;
     return NextResponse.json({ error: errorMessage }, { status: 500 });
- }
+  }
 }
