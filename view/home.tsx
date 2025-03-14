@@ -11,10 +11,9 @@ import { IoCarSportOutline } from "react-icons/io5";
 import ButtonWhatsapp from "./button-whatsapp";
 
 export const Home = async () => {
-  const branches = await GetBranchesAction();
   return (
     <div className="flex flex-col gap-12 animate-fade-in mb-12">
-      <BannerCta branches={branches} />
+      <BannerCta />
       <div className="mx-4 sm:mx-16 overflow-clip">
         <div className="flex flex-wrap justify-center gap-x-12 gap-y-5 items-center text-4xl font-semibold text-red-700 dark:text-red-200">
           {carTipes.map((item, index) => (
