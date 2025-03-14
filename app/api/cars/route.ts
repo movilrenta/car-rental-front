@@ -8,7 +8,9 @@ const URL =
     : "www.movilrenta.com.ar";
 async function getStatus(id: string) {
   try {
-    const response = await fetch(`${URL}/api/status-car?id=${id}`);
+    const response = await fetch(
+      `https://www.movilrenta.com.ar/api/status-car?id=${id}`
+    );
     const data = await response.json();
     // console.log(data, "data");
     return data?.locked_status || false;
