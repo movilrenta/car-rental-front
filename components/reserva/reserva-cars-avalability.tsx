@@ -19,7 +19,6 @@ export default function RenderCarsAvailability({
     itinerary.endTime
   }`;
   const encodedMessage = encodeURIComponent(message);
-  console.log(Vehicles);
 
   const availableCars = (array: any[]) => {
     return array.reduce((acc, item) => {
