@@ -20,9 +20,21 @@ export const Flota = ({ cars }: Props) => {
       return acc;
     }, {} as Record<string, any[]>);
   };
+  const total = (array: any[]) => {
+    return array.reduce((acc, item) => {
+      if (!acc[item.name]) {
+        acc[item.name] = [];
+      }
+      acc[item.name].push(item);
+      return acc;
+    }, {} as Record<string, any[]>);
+  };
+  console.log(cars, "cas");
 
   const groupByName = availableCars(cars);
-  console.log(groupByName, "gu");
+  const totalCars = total(cars)["Hilux DC 4X4"];
+  console.log(totalCars.length, "total");
+
   return (
     <section className="w-full min-h-screen animate-fade-in mb-14 dark:text-white">
       <BannerPage title="Flota de vehículos" image="/images2/carBanner.webp" />
@@ -31,15 +43,16 @@ export const Flota = ({ cars }: Props) => {
         más de 350 unidades, último modelo, ofrecemos disponibilidad inmediata.
       </h3>
       <div className="max-w-7xl mx-auto mt-6 px-4 grid grid-cols-12 gap-6">
-        {Object.entries(groupByName).map(([name, cars]: any) => {
-          const firstCar = cars[0];
+        {Object.entries(groupByName).map(([name, Cars]: any, index) => {
+          const firstCar = Cars[0];
+          const totalCars = total(cars)[name];
 
           return firstCar ? (
             <div className="col-span-4">
               <h3 className="text-2xl font-bold">
-                Cantidad: {cars.length}
+                Cantidad: {totalCars.length}
                 <span className="text-sm text-gray-500 ml-2">
-                  Disponibles: {cars.filter((car: any) => !car.status).length}
+                  Disponibles: {Cars.filter((car: any) => !car.status).length}
                 </span>
               </h3>
               <div
