@@ -12,17 +12,22 @@ import ItinerarioPickDate from "./itinerario-pick-date";
 //import { Calendar } from "lucide-react";
 import { calcularDiasEntreFechas2 } from "@/components/utils/utils";
 import { BranchesType } from "@/types/branches";
+import { GetBranchesAction } from "@/actions/branchs";
 
-export default function HomeItinerario({
-  branches,
-}: {
-  branches: BranchesType[];
-}) {
+export default function HomeItinerario() {
+  const [branches, setBranches] = useState<any[]>([]);
   const itinerario = useItinerarioStore((state) => state.getItinerario());
   const nuevoItinerario = useItinerarioStore((state) => state.addItinerario);
   const [dias, setDias] = useState<number>(0);
   const [isClient, setIsClient] = useState(false);
 
+  useEffect(() => {
+    const fetchBranches = async () => {
+      const branches = await GetBranchesAction();
+      setBranches(branches);
+    };
+    fetchBranches();
+  }, []);
   useEffect(() => {
     setIsClient(true);
   }, []);

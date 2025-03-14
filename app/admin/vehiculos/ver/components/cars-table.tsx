@@ -29,7 +29,7 @@ export const CarsTable = ({
   );
 
   // Agrupar los autos por nombre
-  const groupedCars = newCars.reduce((acc, car) => {
+  const groupedCars = Cars.reduce((acc, car) => {
     if (!acc[car.name]) {
       acc[car.name] = [];
     }
