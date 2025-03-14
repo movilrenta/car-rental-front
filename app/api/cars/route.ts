@@ -2,11 +2,13 @@ import axios from "axios";
 import { NextResponse } from "next/server";
 
 const BACK = process.env.NEXT_PUBLIC_URL_BACK;
+const URL =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:3000"
+    : "www.movilrenta.com.ar";
 async function getStatus(id: string) {
   try {
-    const response = await fetch(
-      `http://localhost:3000/api/status-car?id=${id}`
-    );
+    const response = await fetch(`${URL}/api/status-car?id=${id}`);
     const data = await response.json();
     // console.log(data, "data");
     return data?.locked_status || false;
