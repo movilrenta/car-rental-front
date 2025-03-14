@@ -1,7 +1,10 @@
-// lib/mongodb.ts
-import { MongoClient } from "mongodb";
+"use server";
 
-const uri = process.env.MONGO_URL;
+import { MongoClient } from "mongodb";
+import { NextResponse } from "next/server";
+
+const uri =
+  "mongodb+srv://juanignaciomunozok:Morrison241408@cluster0.h573vbi.mongodb.net/";
 
 let client: MongoClient;
 let clientPromise: Promise<MongoClient>;
@@ -18,4 +21,13 @@ if (process.env.NODE_ENV === "development") {
   clientPromise = client.connect();
 }
 
-export default clientPromise;
+export async function GET(request: Request) {
+  const client = await clientPromise;
+  const db = client.db("MovilRenta");
+  const collection = db.collection("Data");
+  const { searchParams } = new URL(request.url);
+  const id = searchParams.get("id");
+  const car = await collection.findOne({ id: Number(id) });
+
+  return NextResponse.json(car);
+}

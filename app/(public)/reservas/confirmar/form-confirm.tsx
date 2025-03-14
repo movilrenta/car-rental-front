@@ -273,7 +273,7 @@ export const FormConfirm = () => {
             type="submit"
             className="bg-red-700 text-slate-100 flex-1 hover:shadow-lg transition-all font-semibold border-0 rounded-md"
           >
-            Confirmar reserva
+            Ir a confirmar reserva
           </button>
         </div>
       </form>

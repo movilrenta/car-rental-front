@@ -8,13 +8,11 @@ import { TbManualGearbox } from "react-icons/tb";
 import { useFormatNumber } from "../utils/useFormatterNumber";
 
 export default function CardCar({ car }: { car: VehicleType }) {
-  const addReservaCar = useReservaAutoStore((state) => state.addReservaAuto)
-  const removeCar = useReservaAutoStore((state) => state.removeReservaAuto)
-  const pickedCar = useReservaAutoStore((state) => state.getReservaAuto())
+  const addReservaCar = useReservaAutoStore((state) => state.addReservaAuto);
+  const removeCar = useReservaAutoStore((state) => state.removeReservaAuto);
+  const pickedCar = useReservaAutoStore((state) => state.getReservaAuto());
   function handleCar(car: VehicleType) {
-    pickedCar?.id === car.id 
-    ? removeCar()
-    : addReservaCar(car)
+    pickedCar?.id === car.id ? removeCar() : addReservaCar(car);
   }
 
   return (
@@ -120,24 +118,34 @@ export default function CardCar({ car }: { car: VehicleType }) {
             {/* Features list */}
             <ul className="grid grid-cols-2 gap-y-3 text-nowrap mb-5 dark:text-gray-300">
               <li className="flex gap-2 items-center w-full overflow-clip text-ellipsis">
-                <GiGasPump className="w-4 h-4 min-h-4 min-w-4"/>
-                <span className="text-nowrap text-ellipsis overflow-clip capitalize">{car?.fuel_type}</span>
+                <GiGasPump className="w-4 h-4 min-h-4 min-w-4" />
+                <span className="text-nowrap text-ellipsis overflow-clip capitalize">
+                  {car?.fuel_type}
+                </span>
               </li>
               <li className="flex gap-2 items-center w-full overflow-clip text-ellipsis">
-                <BsLuggageFill className="w-4 h-4 min-h-4 min-w-4"/>
-                <span className="text-nowrap text-ellipsis overflow-clip">{car?.luggage} Maleta(s)</span>
+                <BsLuggageFill className="w-4 h-4 min-h-4 min-w-4" />
+                <span className="text-nowrap text-ellipsis overflow-clip">
+                  {car?.luggage} Maleta(s)
+                </span>
               </li>
               <li className="flex gap-2 items-center w-full overflow-clip text-ellipsis">
-                <GiCarDoor className="w-4 h-4 min-h-4 min-w-4"/>
-                <span className="text-nowrap text-ellipsis overflow-clip">{car?.doors} Puertas</span>
+                <GiCarDoor className="w-4 h-4 min-h-4 min-w-4" />
+                <span className="text-nowrap text-ellipsis overflow-clip">
+                  {car?.doors} Puertas
+                </span>
               </li>
               <li className="flex gap-2 items-center w-full overflow-clip text-ellipsis">
-                <TbManualGearbox className="w-4 h-4 min-h-4 min-w-4"/>
-                <span className="text-nowrap text-ellipsis overflow-clip capitalize">{car?.transmission}</span>
+                <TbManualGearbox className="w-4 h-4 min-h-4 min-w-4" />
+                <span className="text-nowrap text-ellipsis overflow-clip capitalize">
+                  {car?.transmission}
+                </span>
               </li>
               <li className="flex gap-2 items-center w-full overflow-clip text-ellipsis">
-                <FaUser className="w-4 h-4 min-h-4 min-w-4"/>
-                <span className="text-nowrap text-ellipsis overflow-clip">{car?.seats} Plazas</span>
+                <FaUser className="w-4 h-4 min-h-4 min-w-4" />
+                <span className="text-nowrap text-ellipsis overflow-clip">
+                  {car?.seats} Plazas
+                </span>
               </li>
             </ul>
           </div>
@@ -154,4 +162,4 @@ export default function CardCar({ car }: { car: VehicleType }) {
       </div>
     </div>
   );
-};
+}
