@@ -29,7 +29,7 @@ export const CarsTable = ({
   );
 
   // Agrupar los autos por nombre
-  const groupedCars = Cars.reduce((acc, car) => {
+  const groupedCars = newCars.reduce((acc, car) => {
     if (!acc[car.name]) {
       acc[car.name] = [];
     }
@@ -44,18 +44,26 @@ export const CarsTable = ({
     const fetchCarStatuses = async () => {
       const updatedCars = await Promise.all(
         Cars.map(async (car) => {
-          const locked_status = (await getSatusCar(car.id)) as any;
-          const brands =
-            Brands.find((brand) => brand.id === car.brand_id)?.name ||
-            "No disponible";
-          const groups =
-            Groups.find((group) => group.id === car.group_id)?.name ||
-            "No disponible";
+          // Llamada a la API
+          const fetchCar = async (id: number): Promise<any> => {
+            const response = await fetch(`/api/status-car?id=${id}`);
+            const data = await response.json();
+            console.log(data, "data");
+
+            return data;
+          };
+
+          const carData = await fetchCar(car.id); // Esperar la resolución de la promesa
+
           return {
             ...car,
-            brand_name: brands,
-            group_name: groups,
-            locked_status: locked_status?.locked_status,
+            brand_name:
+              Brands.find((brand) => brand.id === car.brand_id)?.name ||
+              "No disponible",
+            group_name:
+              Groups.find((group) => group.id === car.group_id)?.name ||
+              "No disponible",
+            locked_status: carData?.response?.locked_status, // Acceder correctamente al dato
           };
         })
       );
@@ -63,7 +71,9 @@ export const CarsTable = ({
     };
 
     fetchCarStatuses();
-  }, [Cars, Brands, Groups]);
+  }, [Cars, Brands, Groups]); // Dependencias para evitar llamadas innecesarias
+
+  console.log(newCars);
 
   return (
     <div className="bg-white dark:bg-gray-800 shadow-sm rounded-xl relative">
