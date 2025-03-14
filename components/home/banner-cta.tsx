@@ -1,7 +1,7 @@
 import HomeItinerario from "./home-itinerario";
 import { SlideImages } from "./slide-images";
 
-export const BannerCta = () => {
+export const BannerCta = async ({ branches }: { branches: any }) => {
   const images = [
     {
       url: "/images2/rentacar.webp",
@@ -20,7 +20,7 @@ export const BannerCta = () => {
         images={images}
         className="relative col-span-12 lg:col-span-7"
       />
-      <HomeItinerario />
+      <HomeItinerario branches={branches} />
     </div>
   );
 };

@@ -1,13 +1,7 @@
+"use server";
+
 import clientPromise from "@/lib/mongodb";
 import { NextResponse } from "next/server";
-
-type errorType = {
-  response: {
-    data: {
-      message: string;
-    };
-  };
-};
 
 export async function GET(request: Request) {
   try {
