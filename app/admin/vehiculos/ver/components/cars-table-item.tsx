@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import CRUD_Vehycle from "./crud";
 import { VehicleType } from "@/constant/cars";
