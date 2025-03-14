@@ -82,11 +82,16 @@ export const FormConfirm = () => {
 
     try {
       const response = await axios.post("/api/reservation", reserveToConfirm);
-      
+     
       if(response.status === 201) {
         const data = response.data.response
+        const dataUserMail = {
+          firstName: `${values.firtName} ${values.lastName}`,
+          userEmail: values.email
+        }
         sessionStorage.setItem("movil_renta_code", data.code)
         sessionStorage.setItem("movil_renta_reservation_id", data.id)
+        sessionStorage.setItem("movil_renta_user_data_mail", JSON.stringify(dataUserMail))
         //console.log(sessionStorage.getItem("movil_renta_code"), "ELCODIGO");
         toast({
           variant: "default",
