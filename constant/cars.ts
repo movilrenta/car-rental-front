@@ -17,8 +17,7 @@ export type VehicleType = {
   brand: Brand;
   group: Group;
   branch: Branch;
-  locked_status?: boolean;
-};
+}
 
 type Brand = {
   id: number;
@@ -28,7 +27,7 @@ type Brand = {
   created_at: Date;
   updated_at: Date;
   deleted_at: Date | null;
-};
+}
 
 type Branch = {
   id: number;
@@ -36,7 +35,7 @@ type Branch = {
   deleted_at: Date | null;
   created_at: Date;
   updated_at: Date;
-};
+}
 
 type Group = {
   id: number;
@@ -48,4 +47,4 @@ type Group = {
   deleted_at: Date | null;
   created_at: Date;
   updated_at: Date;
-};
+}

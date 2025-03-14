@@ -6,6 +6,7 @@ import { Brand, Group } from "@/types/car.interface";
 import { Branches } from "@/types/user-reservation.inteface";
 import CRUD_Vehycle from "./crud";
 import { LuPlus } from "react-icons/lu";
+// import { getSatusCar } from "@/actions/save-card";
 import React, { useEffect, useState } from "react";
 import { FaChevronUp, FaEdit } from "react-icons/fa";
 import { FaChevronDown } from "react-icons/fa";
@@ -43,26 +44,18 @@ export const CarsTable = ({
     const fetchCarStatuses = async () => {
       const updatedCars = await Promise.all(
         Cars.map(async (car) => {
-          // Llamada a la API
-          const fetchCar = async (id: number): Promise<any> => {
-            const response = await fetch(`/api/status-car?id=${id}`);
-            const data = await response.json();
-            console.log(data, "data");
-
-            return data;
-          };
-
-          const carData = await fetchCar(car.id); // Esperar la resolución de la promesa
-
+          // const locked_status = (await getSatusCar(car.id)) as any;
+          const brands =
+            Brands.find((brand) => brand.id === car.brand_id)?.name ||
+            "No disponible";
+          const groups =
+            Groups.find((group) => group.id === car.group_id)?.name ||
+            "No disponible";
           return {
             ...car,
-            brand_name:
-              Brands.find((brand) => brand.id === car.brand_id)?.name ||
-              "No disponible",
-            group_name:
-              Groups.find((group) => group.id === car.group_id)?.name ||
-              "No disponible",
-            locked_status: carData?.response?.locked_status, // Acceder correctamente al dato
+            brand_name: brands,
+            group_name: groups,
+            locked_status: false,
           };
         })
       );
@@ -70,9 +63,7 @@ export const CarsTable = ({
     };
 
     fetchCarStatuses();
-  }, [Cars, Brands, Groups]); // Dependencias para evitar llamadas innecesarias
-
-  console.log(newCars);
+  }, [Cars, Brands, Groups]);
 
   return (
     <div className="bg-white dark:bg-gray-800 shadow-sm rounded-xl relative">

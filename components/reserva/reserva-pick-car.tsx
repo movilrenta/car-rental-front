@@ -20,35 +20,10 @@ export default function PickCar() {
   const [data, setData] = useState<VehicleType[]>([]);
   const [isClient, setIsClient] = useState(false);
   const [showCars, setShowCars] = useState(false);
-  const [newCars, setNewCars] = useState<any[]>(data);
+
   useEffect(() => {
     setIsClient(true);
   }, []);
-  useEffect(() => {
-    const fetchCarStatuses = async () => {
-      const updatedCars = await Promise.all(
-        data.map(async (car) => {
-          const fetchCar = async (id: number): Promise<any> => {
-            const response = await fetch(`/api/status-car?id=${id}`);
-            const data = await response.json();
-            console.log(data, "data");
-
-            return data;
-          };
-
-          const carData = await fetchCar(car.id);
-
-          return {
-            ...car,
-            locked_status: carData?.response?.locked_status,
-          };
-        })
-      );
-      setNewCars(updatedCars);
-    };
-
-    fetchCarStatuses();
-  }, [data]);
   useEffect(() => {
     setContentButton(<span>Buscar vehículos disponibles</span>);
     setShowCars(false);
@@ -94,9 +69,7 @@ export default function PickCar() {
             02. Seleccione su <strong>vehículo</strong>
           </h2>
           {!car ? (
-            <RenderCarsAvailability
-              Vehicles={newCars.filter((car) => car.locked_status !== true)}
-            />
+            <RenderCarsAvailability Vehicles={data} />
           ) : (
             <RenderCarsAvailability
               Vehicles={Array.isArray(car) ? car : [car]}
