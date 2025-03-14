@@ -69,9 +69,10 @@ export default function PickCar() {
             02. Seleccione su <strong>vehículo</strong>
           </h2>
           {!car ? (
-            <RenderCarsAvailability Vehicles={data} />
+            <RenderCarsAvailability Vehicles={data} itinerary={itinerario} />
           ) : (
             <RenderCarsAvailability
+              itinerary={itinerario}
               Vehicles={Array.isArray(car) ? car : [car]}
             />
           )}
