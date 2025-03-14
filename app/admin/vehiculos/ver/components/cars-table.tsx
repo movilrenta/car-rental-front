@@ -24,13 +24,13 @@ export const CarsTable = ({
   Groups: Group[];
   Branches: Branches[];
 }) => {
-  // const [newCars, setNewCars] = useState<any[]>([]);
+  const [newCars, setNewCars] = useState<any[]>([]);
   const [expandedGroups, setExpandedGroups] = useState<Record<string, boolean>>(
     {}
   );
 
   // Agrupar los autos por nombre
-  const groupedCars = Cars.reduce((acc, car) => {
+  const groupedCars = Cars.reduce((acc: any, car: any) => {
     if (!acc[car.name]) {
       acc[car.name] = [];
     }
@@ -41,30 +41,30 @@ export const CarsTable = ({
   const toggleExpand = (name: string) => {
     setExpandedGroups((prev) => ({ ...prev, [name]: !prev[name] }));
   };
-  // useEffect(() => {
-  //   const fetchCarStatuses = async () => {
-  //     const updatedCars = await Promise.all(
-  //       Cars.map(async (car) => {
-  //         const locked_status = (await getSatusCar(car.id)) as any;
-  //         const brands =
-  //           Brands.find((brand) => brand.id === car.brand_id)?.name ||
-  //           "No disponible";
-  //         const groups =
-  //           Groups.find((group) => group.id === car.group_id)?.name ||
-  //           "No disponible";
-  //         return {
-  //           ...car,
-  //           brand_name: brands,
-  //           group_name: groups,
-  //           locked_status: locked_status?.locked_status,
-  //         };
-  //       })
-  //     );
-  //     setNewCars(updatedCars);
-  //   };
+  useEffect(() => {
+    const fetchCarStatuses = async () => {
+      const updatedCars = await Promise.all(
+        Cars.map(async (car) => {
+          const locked_status = (await getSatusCar(car.id)) as any;
+          const brands =
+            Brands.find((brand) => brand.id === car.brand_id)?.name ||
+            "No disponible";
+          const groups =
+            Groups.find((group) => group.id === car.group_id)?.name ||
+            "No disponible";
+          return {
+            ...car,
+            brand_name: brands,
+            group_name: groups,
+            locked_status: locked_status?.locked_status,
+          };
+        })
+      );
+      setNewCars(updatedCars);
+    };
 
-  //   fetchCarStatuses();
-  // }, [Cars, Brands, Groups]);
+    fetchCarStatuses();
+  }, [Cars, Brands, Groups]);
 
   return (
     <div className="bg-white dark:bg-gray-800 shadow-sm rounded-xl relative">
