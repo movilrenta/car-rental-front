@@ -10,47 +10,45 @@ export default async function VehiculosPage() {
     throw new Error("NEXT_PUBLIC_URL_BACK no está definida");
   }
 
-  const [vehycleRes, branchRes, groupsRes, brandsRes] =
-    await Promise.allSettled([
+  try {
+    const [vehycle, branch, groupsRes, brandsRes] = await Promise.all([
       GetCarsAction(),
       GetBranchesAction(),
       axios.get(`${BACK}groups`),
       axios.get(`${BACK}brands`),
     ]);
 
-  const vehycle = vehycleRes.status === "fulfilled" ? vehycleRes.value : [];
-  const branch = branchRes.status === "fulfilled" ? branchRes.value : [];
-  const groups = groupsRes.status === "fulfilled" ? groupsRes.value.data : [];
-  const brands = brandsRes.status === "fulfilled" ? brandsRes.value.data : [];
+    const groups = groupsRes.data;
+    const brands = brandsRes.data;
 
-  const updatedCars = await Promise.allSettled(
-    vehycle.map(async (car: any) => {
-      const locked_status = (await getSatusCar(car.id)) as any;
-      return {
-        ...car,
-        brand_name:
-          brands.find((b: any) => b.id === car.brand_id)?.name ??
-          "No disponible",
-        group_name:
-          groups.find((g: any) => g.id === car.group_id)?.name ??
-          "No disponible",
-        locked_status: locked_status?.locked_status,
-      };
-    })
-  );
+    const updatedCars = await Promise.all(
+      vehycle.map(async (car: any) => {
+        const locked_status = (await getSatusCar(car.id)) as any;
+        return {
+          ...car,
+          brand_name:
+            brands.find((b: any) => b.id === car.brand_id)?.name ??
+            "No disponible",
+          group_name:
+            groups.find((g: any) => g.id === car.group_id)?.name ??
+            "No disponible",
+          locked_status: locked_status?.locked_status,
+        };
+      })
+    );
 
-  const validCars = updatedCars
-    .filter((result) => result.status === "fulfilled")
-    .map((result) => (result as PromiseFulfilledResult<any>).value);
-
-  return (
-    <div className="relative animate-fade-in p-6">
-      <CarsTable
-        Cars={validCars}
-        Brands={brands}
-        Groups={groups}
-        Branches={branch}
-      />
-    </div>
-  );
+    return (
+      <div className="relative animate-fade-in p-6">
+        <CarsTable
+          Cars={updatedCars}
+          Brands={brands}
+          Groups={groups}
+          Branches={branch}
+        />
+      </div>
+    );
+  } catch (error) {
+    console.error("Error al cargar los datos:", error);
+    return <div>Error al cargar los datos</div>;
+  }
 }
