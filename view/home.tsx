@@ -1,4 +1,3 @@
-"use client";
 import { GetBranchesAction } from "@/actions/branchs";
 import { BannerCta } from "@/components/home/banner-cta";
 import { BannerEmpresa } from "@/components/home/banner-empresa";
@@ -12,6 +11,7 @@ import ButtonWhatsapp from "./button-whatsapp";
 
 export const Home = async () => {
   const branches = await GetBranchesAction();
+
   return (
     <div className="flex flex-col gap-12 animate-fade-in mb-12">
       <BannerCta branches={branches} />
