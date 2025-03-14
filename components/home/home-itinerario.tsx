@@ -13,7 +13,11 @@ import ItinerarioPickDate from "./itinerario-pick-date";
 import { calcularDiasEntreFechas2 } from "@/components/utils/utils";
 import { BranchesType } from "@/types/branches";
 
-export default function HomeItinerario({branches} : {branches: BranchesType[]}) {
+export default function HomeItinerario({
+  branches,
+}: {
+  branches: BranchesType[];
+}) {
   const itinerario = useItinerarioStore((state) => state.getItinerario());
   const nuevoItinerario = useItinerarioStore((state) => state.addItinerario);
   const [dias, setDias] = useState<number>(0);
@@ -25,7 +29,12 @@ export default function HomeItinerario({branches} : {branches: BranchesType[]}) 
 
   useEffect(() => {
     if (itinerario?.startDay && itinerario?.endDay) {
-      const dias = calcularDiasEntreFechas2(itinerario?.startDay, itinerario?.startTime!, itinerario?.endDay, itinerario?.endTime!);
+      const dias = calcularDiasEntreFechas2(
+        itinerario?.startDay,
+        itinerario?.startTime!,
+        itinerario?.endDay,
+        itinerario?.endTime!
+      );
       setDias(dias);
     }
   }, [itinerario]);
@@ -54,8 +63,6 @@ export default function HomeItinerario({branches} : {branches: BranchesType[]}) 
     );
   }
 
-  
-
   const goReserva = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     window.location.href = "/reservas";
@@ -67,21 +74,23 @@ export default function HomeItinerario({branches} : {branches: BranchesType[]}) 
         Hace tu reserva
       </h2>
       <div className="flex items-start pb-2 w-full max-w-[420px] ">
-        <label className="block text-lg font-bold mb-1 min-w-20 w-20 pe-4"
-        htmlFor="asd">
-          {dias !== 0 
-            ? <div className="flex gap-0 text-center text-2xl text-nowrap items-center justify-center font-extrabold h-12 rounded-md px-3 w-full bg-red-50 dark:bg-red-800 text-red-800 dark:text-red-50">
-                {dias}
-              </div>
-            : <div className="flex items-center justify-center text-xl font-extrabold  gap-0 text-center rounded-md px-3 w-full h-12 bg-red-50 dark:bg-red-800 text-red-800 dark:text-red-50">
-                {"Elija"}
-              </div>
-          }
-          
+        <label
+          className="block text-lg font-bold mb-1 min-w-20 w-20 pe-4"
+          htmlFor="asd"
+        >
+          {dias !== 0 ? (
+            <div className="flex gap-0 text-center text-2xl text-nowrap items-center justify-center font-extrabold h-12 rounded-md px-3 w-full bg-red-50 dark:bg-red-800 text-red-800 dark:text-red-50">
+              {dias}
+            </div>
+          ) : (
+            <div className="flex items-center justify-center text-xl font-extrabold  gap-0 text-center rounded-md px-3 w-full h-12 bg-red-50 dark:bg-red-800 text-red-800 dark:text-red-50">
+              {"Elija"}
+            </div>
+          )}
         </label>
 
-          <ItinerarioPickDate />
-          {/* {dias !== 0 
+        <ItinerarioPickDate />
+        {/* {dias !== 0 
             ? <div className="flex gap-0 text-start text-lg text-nowrap items-center justify-start font-extrabold h-12 rounded-md px-3 w-full bg-red-50 dark:bg-red-800 text-red-800 dark:text-red-50">
                 {dias === 1 ? `${dias} Día` : `${dias} Días`}
               </div>
@@ -89,7 +98,6 @@ export default function HomeItinerario({branches} : {branches: BranchesType[]}) 
                 Elija
               </div>
           } */}
-
       </div>
       <form onSubmit={goReserva} className="max-w-[420px] w-full">
         <div className="space-y-0">
@@ -133,16 +141,17 @@ export default function HomeItinerario({branches} : {branches: BranchesType[]}) 
                   <option value="" disabled>
                     Horario
                   </option>
-                  {hours.map((item, index) => (
-                    item.work ? <option
-                      key={index}
-                      value={item.hour}
-                      className="dark:text-gray-950"
-                    >
-                      {item.hour}
-                    </option>
-                    : null
-                  ))}
+                  {hours.map((item, index) =>
+                    item.work ? (
+                      <option
+                        key={index}
+                        value={item.hour}
+                        className="dark:text-gray-950"
+                      >
+                        {item.hour}
+                      </option>
+                    ) : null
+                  )}
                 </select>
               </div>
             </div>
@@ -187,16 +196,17 @@ export default function HomeItinerario({branches} : {branches: BranchesType[]}) 
                   <option value="" disabled>
                     Horario
                   </option>
-                  {hours.map((item, index) => (
-                    item.work ? <option
-                      key={index}
-                      value={item.hour}
-                      className="dark:text-gray-950"
-                    >
-                      {item.hour}
-                    </option>
-                     : null
-                  ))}
+                  {hours.map((item, index) =>
+                    item.work ? (
+                      <option
+                        key={index}
+                        value={item.hour}
+                        className="dark:text-gray-950"
+                      >
+                        {item.hour}
+                      </option>
+                    ) : null
+                  )}
                 </select>
               </div>
             </div>

@@ -9,19 +9,9 @@ import { BiSolidCarMechanic } from "react-icons/bi";
 import { GrUserExpert } from "react-icons/gr";
 import { IoCarSportOutline } from "react-icons/io5";
 import ButtonWhatsapp from "./button-whatsapp";
-import { useEffect } from "react";
-import { useState } from "react";
 
 export const Home = async () => {
-  const [branches, setBranches] = useState<any[]>([]);
-  useEffect(() => {
-    const fetchBranches = async () => {
-      const branches = await GetBranchesAction();
-      setBranches(branches);
-    };
-    fetchBranches();
-  }, []);
-
+  const branches = await GetBranchesAction();
   return (
     <div className="flex flex-col gap-12 animate-fade-in mb-12">
       <BannerCta branches={branches} />
