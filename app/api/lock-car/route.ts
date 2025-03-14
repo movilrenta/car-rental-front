@@ -22,7 +22,7 @@ if (process.env.NODE_ENV === "development") {
   clientPromise = client.connect();
 }
 
-export const lockCar = async (values: any) => {
+const lockCar = async (values: any) => {
   try {
     const client = await clientPromise;
     const db = client.db("MovilRenta");
