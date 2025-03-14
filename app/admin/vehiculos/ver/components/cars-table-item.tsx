@@ -49,11 +49,11 @@ export default function CarsTableItem({
   const [patentes, setPatentes] = useState<string>("");
 
   const handlerLockCar = async (locked_status: boolean) => {
+    window.location.reload();
     await axios.post("/api/lock-car", {
       id: car.id,
       locked_status,
     });
-    window.location.reload();
   };
   const handlerCopyCar = async () => {
     const patentes_array = patentes.split(",");
