@@ -3,7 +3,8 @@
 import { MongoClient } from "mongodb";
 import { NextResponse } from "next/server";
 
-const uri = process.env.MONGO_URL;
+const uri =
+  "mongodb+srv://juanignaciomunozok:Morrison241408@cluster0.h573vbi.mongodb.net/";
 
 let client: MongoClient;
 let clientPromise: Promise<MongoClient>;
