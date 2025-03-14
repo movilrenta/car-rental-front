@@ -30,7 +30,8 @@ import { useReservaStore } from "@/stores/reservas/reserva.store";
 import { calcularDiasEntreFechas2 } from "@/components/utils/utils";
 import { 
   //getPaymentMethods, 
-  getTokenPay } from "@/actions";
+  getTokenPay, 
+  sendEmail} from "@/actions";
 import { useRouter } from "next/navigation";
 import { LuLoader } from "react-icons/lu";
 import { statesCodes } from "@/constant/states-codes";
@@ -41,6 +42,7 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
   const [loader, setLoader] = useState<boolean>(false);
   const [paymentsMethods, setPaymentsMethods] = useState<PaymentMethods[]>(CARDS);
   const reserva = useReservaStore((state) => state.getReserva());
+  const userDataEmail = JSON.parse(sessionStorage.getItem("movil_renta_user_data_mail") as string);
 
   const { toast } = useToast();
 
@@ -123,6 +125,7 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
   };
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    
     const code = sessionStorage.getItem("movil_renta_code");
     const reserva_id = sessionStorage.getItem("movil_renta_reservation_id");
     const number_reserva_id = Number(reserva_id);
@@ -152,7 +155,18 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
           description:`${resp?.message}`
         });
       } else {
-        // await saveCard(values);
+        const respEmail = await sendEmail({
+          userEmail: userDataEmail.userEmail as string,
+          firstName: userDataEmail.firstName as string,
+          code
+        })
+        if(respEmail.ok){
+          toast({
+            variant: "default",
+            title: `${respEmail.message}`,
+            description: `${respEmail.description}`
+          })
+        }
         toast({
           variant: "default",
           title: `${resp.message}`,
