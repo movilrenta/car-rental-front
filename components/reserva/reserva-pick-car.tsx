@@ -9,7 +9,6 @@ import { Button } from "../ui/button";
 import RenderCarsAvailability from "./reserva-cars-avalability";
 import { useItinerarioStore } from "@/stores/reserva-itinerario/reserva-itinerario.store";
 import axios from "axios";
-import { getSatusCar } from "@/actions/save-card";
 
 export default function PickCar() {
   const removeCar = useReservaAutoStore((state) => state.removeReservaAuto);
@@ -29,11 +28,19 @@ export default function PickCar() {
     const fetchCarStatuses = async () => {
       const updatedCars = await Promise.all(
         data.map(async (car) => {
-          const locked_status = (await getSatusCar(car.id)) as any;
+          const fetchCar = async (id: number): Promise<any> => {
+            const response = await fetch(`/api/status-car?id=${id}`);
+            const data = await response.json();
+            console.log(data, "data");
+
+            return data;
+          };
+
+          const carData = await fetchCar(car.id);
 
           return {
             ...car,
-            locked_status: locked_status?.locked_status,
+            locked_status: carData?.response?.locked_status,
           };
         })
       );

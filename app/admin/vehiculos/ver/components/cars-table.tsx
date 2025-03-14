@@ -6,7 +6,6 @@ import { Brand, Group } from "@/types/car.interface";
 import { Branches } from "@/types/user-reservation.inteface";
 import CRUD_Vehycle from "./crud";
 import { LuPlus } from "react-icons/lu";
-import { getSatusCar } from "@/actions/save-card";
 import React, { useEffect, useState } from "react";
 import { FaChevronUp, FaEdit } from "react-icons/fa";
 import { FaChevronDown } from "react-icons/fa";

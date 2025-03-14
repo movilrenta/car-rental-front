@@ -5,7 +5,7 @@ import DeleteComponent from "./delete-component";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { Branch, Brand, Group } from "@/types/car.interface";
 import { LuLock } from "react-icons/lu";
-import { getSatusCar, lockCar } from "@/actions/save-card";
+import { lockCar } from "@/actions/save-card";
 import { useEffect, useState } from "react";
 import { LucideUnlock } from "lucide-react";
 import {
