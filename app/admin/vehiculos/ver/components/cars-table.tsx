@@ -1,6 +1,5 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
 import { VehicleType } from "@/constant/cars";
 import CarsTableItem from "./cars-table-item";
 import { Brand, Group } from "@/types/car.interface";
@@ -8,7 +7,7 @@ import { Branches } from "@/types/user-reservation.inteface";
 import CRUD_Vehycle from "./crud";
 import { LuPlus } from "react-icons/lu";
 import { getSatusCar } from "@/actions/save-card";
-
+import React, { useEffect, useState } from "react";
 import { FaChevronUp, FaEdit } from "react-icons/fa";
 import { FaChevronDown } from "react-icons/fa";
 import Image from "next/image";
@@ -30,7 +29,7 @@ export const CarsTable = ({
   );
 
   // Agrupar los autos por nombre
-  const groupedCars = Cars.reduce((acc: any, car: any) => {
+  const groupedCars = newCars.reduce((acc, car) => {
     if (!acc[car.name]) {
       acc[car.name] = [];
     }
