@@ -27,7 +27,7 @@ import axios from "axios";
 interface CarTipe extends VehicleType {
   brand_name: string;
   group_name: string;
-  locked_status: boolean;
+  status: boolean;
 }
 
 interface CarTableItemProps {
@@ -53,7 +53,7 @@ export default function CarsTableItem({
       id: car.id,
       locked_status,
     });
-    // window.location.reload();
+    window.location.reload();
   };
   const handlerCopyCar = async () => {
     const patentes_array = patentes.split(",");
@@ -169,7 +169,7 @@ export default function CarsTableItem({
           />
           <Dialog>
             <DialogTrigger asChild>
-              {car.locked_status ? (
+              {car.status ? (
                 <LuLock className="text-red-500 cursor-pointer" size={20} />
               ) : (
                 <LucideUnlock
@@ -181,11 +181,10 @@ export default function CarsTableItem({
             <DialogContent className="sm:max-w-[425px] bg-white">
               <DialogHeader>
                 <DialogTitle>
-                  Vas a {car.locked_status ? "desbloquear" : "bloquear"} el
-                  vehiculo
+                  Vas a {car.status ? "desbloquear" : "bloquear"} el vehiculo
                 </DialogTitle>
                 <DialogDescription>
-                  {car.locked_status
+                  {car.status
                     ? "Si desbloqueas el vehiculo podra ser rentado por el usuario."
                     : "Si bloqueas el vehiculo no podra ser rentado por el usuario."}
                 </DialogDescription>
@@ -194,9 +193,9 @@ export default function CarsTableItem({
               <DialogFooter>
                 <Button
                   type="submit"
-                  onClick={() => handlerLockCar(!car.locked_status)}
+                  onClick={() => handlerLockCar(!car.status)}
                 >
-                  {car.locked_status ? "Desbloquear" : "Bloquear"}
+                  {car.status ? "Desbloquear" : "Bloquear"}
                 </Button>
               </DialogFooter>
             </DialogContent>

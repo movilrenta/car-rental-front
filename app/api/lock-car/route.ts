@@ -24,6 +24,8 @@ if (process.env.NODE_ENV === "development") {
 
 const lockCar = async (values: any) => {
   try {
+    console.log(values, "values");
+
     const client = await clientPromise;
     const db = client.db("MovilRenta");
     const collection = db.collection("Data");
@@ -36,10 +38,7 @@ const lockCar = async (values: any) => {
     } else {
       await collection.insertOne(values);
     }
-
-    return {
-      ok: true,
-    };
+    console.log("lleuge");
   } catch (error) {
     return {
       ok: false,
