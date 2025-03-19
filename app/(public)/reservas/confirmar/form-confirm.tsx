@@ -1,5 +1,6 @@
 "use client";
 
+import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
@@ -19,7 +20,6 @@ import { Input } from "@/components/input";
 import { Checkbox } from "@/components/checkbox";
 import { Textarea } from "@/components/textarea";
 import { useToast } from "@/hooks/use-toast";
-import axios from "axios";
 
 
 type ReservationType = {
@@ -69,7 +69,6 @@ export const FormConfirm = () => {
       lastName: "",
       email: "",
       phone: "",
-
       document_type: "DNI",
       document_number: "",
       license_number: "",
@@ -77,7 +76,6 @@ export const FormConfirm = () => {
       drivers_address: "",
       drivers_city: "",
       flight_number: "",
-     
       observation: "",
       termyCond: false,
       mayor25: false,
@@ -105,12 +103,10 @@ export const FormConfirm = () => {
       drivers_city: values.drivers_city,
       flight_number: values.flight_number || "",
 
-      
-
       observation: values?.observation,
       aditionals_array: reservaGet?.aditionals_array || [],
     };
-    
+    //console.log(reserveToConfirm, "DATOS");
     try {
       const response = await axios.post("/api/reservation", reserveToConfirm);
       
@@ -148,14 +144,14 @@ export const FormConfirm = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onsubmit)}
-        className="grid grid-cols-6 gap-5"
+        className="grid grid-cols-6 gap-4"
       >
         <FormField
           control={form.control}
           name="firstName"
           render={({ field }) => (
-            <FormItem className="col-span-6 flex flex-col">
-              <FormLabel>
+            <FormItem className="col-span-3 flex flex-col">
+              <FormLabel className="-mb-1 line-clamp-1 truncate">
                 Nombre
               </FormLabel>
             <div className="w-full flex flex-col">
@@ -171,8 +167,8 @@ export const FormConfirm = () => {
           control={form.control}
           name="lastName"
           render={({ field }) => (
-            <FormItem className="col-span-6 flex flex-col">
-              <FormLabel>
+            <FormItem className="col-span-3 flex flex-col">
+              <FormLabel className="-mb-1 line-clamp-1 truncate">
                 Apellido
               </FormLabel>
             <div className="w-full flex flex-col">
@@ -191,7 +187,7 @@ export const FormConfirm = () => {
           name="document_type"
           render={({ field }) => (
             <FormItem className="col-span-3 flex flex-col">
-              <FormLabel>
+              <FormLabel className="-mb-1 line-clamp-1 truncate">
                 Tipo de documento
               </FormLabel>
               <div className="w-full flex flex-col">
@@ -215,8 +211,8 @@ export const FormConfirm = () => {
           name="document_number"
           render={({ field }) => (
             <FormItem className="col-span-3 flex flex-col">
-              <FormLabel>
-                N° Doc / N° Pasaporte
+              <FormLabel className="-mb-1 line-clamp-1 truncate">
+                N° DNI / N° Pasaporte
               </FormLabel>
               <div className="w-full flex flex-col">
                 <FormControl>
@@ -232,7 +228,7 @@ export const FormConfirm = () => {
           name="email"
           render={({ field }) => (
             <FormItem className="col-span-6 flex flex-col">
-              <FormLabel>
+              <FormLabel className="-mb-1 line-clamp-1 truncate">
                 Correo electrónico
               </FormLabel>
               <div className="w-full flex flex-col">
@@ -249,7 +245,7 @@ export const FormConfirm = () => {
           name="phone"
           render={({ field }) => (
             <FormItem className="col-span-6 flex flex-col">
-              <FormLabel>
+              <FormLabel className="-mb-1 line-clamp-1 truncate">
                 Teléfono
               </FormLabel>
               <div className="w-full flex flex-col">
@@ -280,12 +276,12 @@ export const FormConfirm = () => {
           name="license_number"
           render={({ field }) => (
             <FormItem className="col-span-3 flex flex-col">
-              <FormLabel>
-                N° de licencia
+              <FormLabel className="-mb-1 line-clamp-1 truncate">
+                N° de Licencia
               </FormLabel>
               <div className="w-full flex flex-col">
                 <FormControl>
-                  <Input className="placeholder:text-zinc-300 dark:placeholder:text-zinc-600 dark:text-white" placeholder="correo.ejemplo@mail.com" {...field} />
+                  <Input className="placeholder:text-zinc-300 dark:placeholder:text-zinc-600 dark:text-white" {...field} />
                 </FormControl>
                 <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
               </div>
@@ -297,7 +293,7 @@ export const FormConfirm = () => {
           name="license_expiration_date"
           render={({ field }) => (
             <FormItem className="col-span-3 flex flex-col">
-              <FormLabel>
+              <FormLabel className="-mb-1 line-clamp-1 truncate">
                 Vencimiento Licencia
               </FormLabel>
               <div className="w-full flex flex-col">
@@ -315,12 +311,12 @@ export const FormConfirm = () => {
           name="drivers_address"
           render={({ field }) => (
             <FormItem className="col-span-6 flex flex-col">
-              <FormLabel>
+              <FormLabel className="-mb-1 line-clamp-1 truncate">
                 Domicilio
               </FormLabel>
               <div className="w-full flex flex-col">
                 <FormControl>
-                  <Input className="placeholder:text-zinc-300 dark:placeholder:text-zinc-600 dark:text-white" placeholder="correo.ejemplo@mail.com" {...field} />
+                  <Input className="placeholder:text-zinc-300 dark:placeholder:text-zinc-600 dark:text-white" {...field} />
                 </FormControl>
                 <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
               </div>
@@ -332,12 +328,12 @@ export const FormConfirm = () => {
           name="drivers_city"
           render={({ field }) => (
             <FormItem className="col-span-6 flex flex-col">
-              <FormLabel>
+              <FormLabel className="-mb-1 line-clamp-1 truncate">
                 Localidad
               </FormLabel>
               <div className="w-full flex flex-col">
                 <FormControl>
-                  <Input className="placeholder:text-zinc-300 dark:placeholder:text-zinc-600 dark:text-white" placeholder="correo.ejemplo@mail.com" {...field} />
+                  <Input className="placeholder:text-zinc-300 dark:placeholder:text-zinc-600 dark:text-white" {...field} />
                 </FormControl>
                 <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
               </div>
@@ -349,8 +345,8 @@ export const FormConfirm = () => {
           name="flight_number"
           render={({ field }) => (
             <FormItem className="col-span-6 flex flex-col">
-              <FormLabel>
-                Vuelo
+              <FormLabel className="-mb-1 line-clamp-1 truncate">
+                N° de Vuelo
               </FormLabel>
               <div className="w-full flex flex-col">
                 <FormControl>
@@ -372,7 +368,7 @@ export const FormConfirm = () => {
           name="observation"
           render={({ field }) => (
             <FormItem className="col-span-6 flex flex-col">
-              <FormLabel>
+              <FormLabel className="-mb-1 line-clamp-1 truncate">
                 Comentarios
               </FormLabel>
               <div className="w-full flex flex-col">
@@ -380,7 +376,7 @@ export const FormConfirm = () => {
                   {/* <Texta className="placeholder:text-zinc-300 dark:placeholder:text-zinc-600 dark:text-white" placeholder="Mi vuelo llega a las 17..." {...field} /> */}
                   <Textarea
                     className="placeholder:text-zinc-300 dark:placeholder:text-zinc-600 dark:text-white" 
-                    placeholder="Mi vuelo llega a las 17..."
+                    placeholder="Mi vuelo llega a las 17:00..."
                       
                   {...field}
                 />
@@ -429,7 +425,7 @@ export const FormConfirm = () => {
           )}
         />
         </div>
-        <div className="col-span-6 flex items-cente gap-4 mt-2">
+        <div className="col-span-6 flex flex-col md:flex-row items-center gap-4 mt-2">
           <Link
             href={"/reservas"}
             className="text-red-700 flex-1 font-semibold text-center py-1 dark:text-slate-100 transition-all border-2 border-transparent hover:border-red-700 rounded-md duration-200"
@@ -438,9 +434,9 @@ export const FormConfirm = () => {
           </Link>
           <button
             type="submit"
-            className="bg-red-700 text-slate-100 flex-1 hover:shadow-lg transition-all font-semibold border-0 rounded-md"
+            className="bg-red-700 text-slate-100 flex-1 hover:shadow-lg transition-all font-semibold border-0 rounded-md line-clamp-1 px-4 py-2"
           >
-            Confirmar reserva
+            Ir a confirmar reserva
           </button>
         </div>
       </form>

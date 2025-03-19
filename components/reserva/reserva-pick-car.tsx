@@ -50,8 +50,6 @@ export default function PickCar() {
     : false;
 
   async function checkCars() {
-    //console.log(itinerario);
-    //removeCar()
     setContentButton(
       <>
         <Loader2Icon className="w-12 h-12 animate-spin" />
@@ -71,7 +69,7 @@ export default function PickCar() {
     setData(data.response);
   }
 
-  console.log("Incremento máximo encontrado:", maxIncrement);
+  //console.log("Incremento máximo encontrado:", maxIncrement);
 
   return (
     <div className="grid grid-cols-12 col-span-12 gap-6 mt-8 min-h-96 w-full place-content-start">

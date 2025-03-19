@@ -98,8 +98,8 @@ export const getTokenPay = async (values: z.infer<typeof formSchema>, code: stri
       }
     };
 
-    console.log(payload);
-    return { ok: true, message: "test" , status: 203, data: "data" }
+    //console.log(payload);
+    //return { ok: true, message: "test" , status: 203, data: "data" }
 
 
     const { data: response } = await axios.post(`${URL}api/process-payments`, payload);
