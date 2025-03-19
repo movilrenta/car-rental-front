@@ -24,10 +24,10 @@ import {
 import clsx from "clsx";
 import { FaCreditCard } from "react-icons/fa";
 import { useToast } from "@/hooks/use-toast";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BannerPage from "@/view/banner-page";
 import { useReservaStore } from "@/stores/reservas/reserva.store";
-import { calcularDiasEntreFechas2 } from "@/components/utils/utils";
+//import { calcularDiasEntreFechas2 } from "@/components/utils/utils";
 import { 
   //getPaymentMethods, 
   getTokenPay } from "@/actions";
@@ -35,25 +35,18 @@ import { useRouter } from "next/navigation";
 import { LuLoader } from "react-icons/lu";
 import { statesCodes } from "@/constant/states-codes";
 import { CARDS } from "@/constant/cards";
+import { getReservaPrice } from "../confirmar/calculate-price";
+import { useFormatNumber } from "@/components/utils/useFormatterNumber";
+import PayWay from "./test/payway";
 
 export default function PayForm({ aditionals }: { aditionals: any[] }) {
   const router = useRouter();
+  const [totales, setTotales] = useState<any>(null) 
   const [loader, setLoader] = useState<boolean>(false);
+  const [isClient, setIsClient] = useState<boolean>(false);
   const [paymentsMethods, setPaymentsMethods] = useState<PaymentMethods[]>(CARDS);
   const reserva = useReservaStore((state) => state.getReserva());
-
   const { toast } = useToast();
-
-  // const payMethods = async () => {
-  //   const resp = await getPaymentMethods();
-  //   setPaymentsMethods(resp.data);
-  // };
-
-  
-  // useEffect(() => {
-  //   payMethods();
-  //   setLoader(false);
-  // }, []);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -106,27 +99,71 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
     //   },
     // },
   });
-  const days = calcularDiasEntreFechas2(reserva?.startDay!, reserva?.startTime!, reserva?.endDay!, reserva?.endTime!);
+  
+  useEffect(() => {
+    if (reserva?.startDay && reserva?.endDay) {
+      consulta()
+    }
+    
+  }, []);
 
-  const showAccesorios = (): number => {
-    //TODO: Calcular drop off, calcular horario extendido
-    let amount_aditionals = 0;
-    reserva?.aditionals_array.map((aditional) => {
-      const adicional = aditionals.find(
-        (item: any) => item.id === aditional.id
-      );
-      if (adicional) {
-        amount_aditionals = amount_aditionals + Number(adicional.price) * days;
-      }
-    });
-    return amount_aditionals;
-  };
+  if(!isClient) {
+    return (
+      <div className="flex flex-col justify-start items-center h-screen min-w-full">
+        <div className="animate-spin rounded-full h-28 w-28 border-b-2 border-gray-900 mt-52 my-4"></div>
+        <div>Obteniendo datos de su reserva...</div>
+      </div>
+    );
+  
+  }
+
+  async function consulta ()  {
+    const datos = await getReservaPrice(reserva)
+    console.log(datos, "DATOS");
+    setTotales(datos)
+    setIsClient(true);
+    return datos
+  }
+
+  
+
+  
+
+  // const payMethods = async () => {
+  //   const resp = await getPaymentMethods();
+  //   setPaymentsMethods(resp.data);
+  // };
+
+  
+  // useEffect(() => {
+  //   payMethods();
+  //   setLoader(false);
+  // }, []);
+
+  
+  // const days = calcularDiasEntreFechas2(reserva?.startDay!, reserva?.startTime!, reserva?.endDay!, reserva?.endTime!);
+  // console.log(days);
+  // const showAccesorios = (): number => {
+  //   //TODO: Calcular drop off, calcular horario extendido
+  //   let amount_aditionals = 0;
+  //   reserva?.aditionals_array.map((aditional) => {
+  //     const adicional = aditionals.find(
+  //       (item: any) => item.id === aditional.id
+  //     );
+  //     if (adicional) {
+  //       amount_aditionals = amount_aditionals + Number(adicional.price) * days;
+  //     }
+  //   });
+  //   return amount_aditionals;
+  // };
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const code = sessionStorage.getItem("movil_renta_code");
     const reserva_id = sessionStorage.getItem("movil_renta_reservation_id");
     const number_reserva_id = Number(reserva_id);
-    const amount_aditionals = showAccesorios();
+    //const amount_aditionals = showAccesorios();
+    const amount_aditionals = totales?.totalAdicionales;
+    const dropOff = totales?.totalDropOff
     if (!code) {
       toast({
         variant: "destructive",
@@ -141,8 +178,10 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
         code!,
         number_reserva_id,
         reserva?.car?.group_id!,
-        days,
-        amount_aditionals
+        totales?.days,
+        //days,
+        amount_aditionals,
+        dropOff
       );
       console.log(resp);
       if (!resp?.ok) {
@@ -177,6 +216,13 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
               Por favor complete los siguientes campos con los datos del{" "}
               <span className="font-semibold">titular</span> de la tarjeta en el
               formulario de pago para finalizar su reserva.
+            </div>
+            <div className="text-sm max-w-64 w-full mx-auto pt-2">
+              <div className="font-semibold text-base">Resumen</div>
+              {totales?.totalAuto && <div className="flex justify-between text-start"><span>Vehículo</span><span> {useFormatNumber(totales.totalAuto)}</span></div>}
+              {totales?.totalAdicionales > 0 && <div className="flex justify-between text-start"><span>Adicionales</span><span> {useFormatNumber(totales.totalAdicionales)}</span></div>}
+              {totales?.totalDropOff > 0 && <div className="flex justify-between text-start"><span>Dropoff</span><span> {useFormatNumber(totales.totalDropOff)}</span></div>}
+              {totales?.totalCompleto && <div className="flex justify-between text-start border-t font-bold"><span>Total</span><span> {useFormatNumber(totales.totalCompleto)}</span></div>}
             </div>
           </div>
           {!loader && (
@@ -509,19 +555,19 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
                             className="hover:bg-zinc-700 hover:text-white"
                             value="1"
                           >
-                            1 cuota s/int
+                            1 cuota de ${useFormatNumber(totales?.totalCompleto)}
                           </SelectItem>
                           <SelectItem
                             className="hover:bg-zinc-700 hover:text-white"
                             value="2"
                           >
-                            2 cuotas s/int
+                            2 cuotas de ${useFormatNumber(totales?.totalCompleto / 2)}
                           </SelectItem>
                           <SelectItem
                             className="hover:bg-zinc-700 hover:text-white"
                             value="3"
                           >
-                            3 cuotas s/int
+                            3 cuotas de ${useFormatNumber(totales?.totalCompleto / 3)}
                           </SelectItem>
                         </SelectContent>
                       </Select>
@@ -659,7 +705,7 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
                     disabled={form.formState.isSubmitting}
                     type="submit"
                     className={clsx(
-                      "btn w-full bg-gray-900 text-gray-100 hover:bg-gray-800 dark:bg-gray-100 dark:text-gray-800 dark:hover:bg-white",
+                      "btn dark:border-white w-full bg-gray-900 text-gray-100 hover:bg-gray-800 dark:hover:bg-gray-950",
                       {
                         "bg-gray-900/60": form.formState.isSubmitting,
                         "bg-gray-900": !form.formState.isSubmitting,
@@ -669,9 +715,10 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
                     {form.formState.isSubmitting ? (
                       <LuLoader className="mr-2 h-4 w-4 animate-spin" />
                     ) : (
-                      "Pagar"
+                      <div className="flex flex-nowrap gap-2 items-center"><span>Pagar con </span><PayWay /></div>
                     )}
                   </Button>
+                  <div className="text-center text-xs leading-4 pt-2">Una vez aprobado el pago la reserva será confirmada y se le enviará un email con el código de reserva</div>
                 </div>
               </form>
             </Form>

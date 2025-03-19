@@ -54,6 +54,7 @@ export interface Branches {
   created_at: Date;
   updated_at: Date;
   deleted_at: null;
+  distance_to_main_branch: number;
 }
 
 export interface ResponseUserReservation {

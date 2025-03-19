@@ -9,6 +9,7 @@ interface LocalidadesTableItemProps {
     name: string;
     address_id: number;
     address: string;
+    distance_to_main_branch: number;
   }
   Addresses: any
 }
@@ -18,16 +19,20 @@ export default function LocalidadesTableItem({
   Addresses
 }:
 LocalidadesTableItemProps) {
+
   return (
     <tr className="hover:bg-black/5 dark:hover:bg-black/10 duration-200">
-      <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+      {/* <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
         <div className="text-left">{branch.id}</div>
+      </td> */}
+      <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+        <div className="text-left">{branch?.name}</div>
       </td>
       <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-        <div className="text-left">{branch.name}</div>
+        <div className="text-left">{branch?.address}</div>
       </td>
       <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-        <div className="text-left">{branch.address}</div>
+        <div className="text-right pe-2">{branch?.distance_to_main_branch} Kms.</div>
       </td>
       <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
         <div className="flex items-center justify-center gap-4">

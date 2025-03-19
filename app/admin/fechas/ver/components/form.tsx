@@ -17,63 +17,47 @@ import {
 } from "@/components/sheet";
 import { Button } from "@/components/ui/button";
 import { z } from "zod";
-import { BranchFormSchema } from "./schema";
+import { FechaFormSchema } from "./schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Input } from "@/components/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/select";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
 import { LoaderIcon } from "lucide-react";
-import { PostBranchesAction, PutBranchesAction } from "@/actions/branchs";
+import { PostFechasAction, PutFechasAction } from "@/actions/fechas";
 
-
-
-export default function CRUD_Branch_Form({
-  branch,
-  address
-}: {
-  branch?: any;
-  address: any;
-}) {
+export default function CRUD_Fecha_Form({ fecha }: { fecha?: {id: number, reason: string, multiplier: number, start_date: string} }) {
 
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
 
-  const form = useForm<z.infer<typeof BranchFormSchema>>({
-    resolver: zodResolver(BranchFormSchema),
+  const form = useForm<z.infer<typeof FechaFormSchema>>({
+    resolver: zodResolver(FechaFormSchema),
     defaultValues: {
-      name: branch?.name || "",
-      address_id: branch?.address_id || "",
-      distance_to_main_branch: branch?.distance_to_main_branch || ""
+      reason: fecha?.reason || "",
+      multiplier: fecha?.multiplier || 1,
+      start_date: fecha?.start_date || ""
     },
   });
-//mostrar errores del form
 
-  const onSubmit = async (values: z.infer<typeof BranchFormSchema>) => {
-    //event?.preventDefault();
+  const onSubmit = async (values: z.infer<typeof FechaFormSchema>) => {
+
     setIsLoading(true);
-    if (branch) {
-      const editBranch = {
-        id: branch.id,
-        name: values.name,
-        address_id: Number(values.address_id),
-        distance_to_main_branch: Number(values.distance_to_main_branch)
+    if (fecha) {
+      const editFecha = {
+        id: fecha.id,
+        reason: values.reason,
+        multiplier: +(values.multiplier),
+        start_date: values.start_date
       };
 
       try {
-        const res = await PutBranchesAction(editBranch);
+        const res = await PutFechasAction(editFecha);
         console.log(res, "1");
         if (res.status === 200) {
           toast({
             variant: "default",
-            title: `Sucursal editada con exito`,
+            title: `Fecha editada con exito`,
           });
           setIsLoading(false);
           //window.location.reload();
@@ -86,18 +70,16 @@ export default function CRUD_Branch_Form({
         });
       }
     } else {
-      const newBranch: any = values;
-      newBranch.address_id = Number(newBranch.address_id);
-      newBranch.distance_to_main_branch = Number(newBranch.distance_to_main_branch);
-      
-
+      const newFecha: any = values;
+      newFecha.multiplier = Number(newFecha.multiplier);
+      console.log(newFecha);
       try {
-        const res = await PostBranchesAction(newBranch);
+        const res = await PostFechasAction(newFecha);
         console.log(res, "3");
         if (res.status === 200) {
           toast({
             variant: "default",
-            title: `Sucursal creada con exito`,
+            title: `Fecha creada con exito`,
           });
           setIsLoading(false);
           //window.location.reload();
@@ -116,27 +98,29 @@ export default function CRUD_Branch_Form({
   return (
     <SheetContent className="w-full !max-w-3xl min-h-screen overflow-y-auto">
       <SheetHeader>
-        <SheetTitle>{branch ? "Editar sucursal" : "Agregar sucursal"}</SheetTitle>
+        <SheetTitle>
+          {fecha ? "Editar fecha" : "Agregar fecha"}
+        </SheetTitle>
         <SheetDescription></SheetDescription>
         <Form {...form}>
           <form className="w-full grid grid-cols-12 space-y-2 space-x-2 !text-start ">
             <p className="col-span-12 text-xs dark:text-zinc-400">
-              Complete los datos para agregar esta sucursal en la plantilla
+              Complete los datos para agregar una modificación de precio
             </p>
-            {branch && (
+            {fecha && (
               <div className="col-span-12 py-2">
-                <p className="text-mmd">Sucursal seleccionada</p>
+                <p className="text-mmd">Fecha seleccionada</p>
                 <p className="col-span-12 text-lg text-blue-600">
-                  {branch.name}
+                  {fecha.reason}
                 </p>
               </div>
             )}
             <FormField
               control={form.control}
-              name="name"
+              name="reason"
               render={({ field }) => (
                 <FormItem className="col-span-12 flex flex-col justify-end">
-                  <FormLabel>Nombre</FormLabel>
+                  <FormLabel>Motivo</FormLabel>
                   <FormControl>
                     <Input className="form-input w-full" {...field} />
                   </FormControl>
@@ -146,44 +130,10 @@ export default function CRUD_Branch_Form({
             />
             <FormField
               control={form.control}
-              name="address_id"
+              name="multiplier"
               render={({ field }) => (
                 <FormItem className="col-span-12 flex flex-col justify-end">
-                  <FormLabel>Dirección</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value?.toString()}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Seleccione una dirección" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {address
-                        ?.sort((a: any, b: any) => a.state.localeCompare(b.state))
-                        .map((item: any, index: number) => (
-                          <div
-                            key={index}
-                            className="flex items-center gap-4 p-2 pe-0 cursor-pointer hover:bg-slate-100"
-                          >
-                            <SelectItem value={item.id.toString()}>
-                              {item.state} - {item.city} - {item.street}
-                            </SelectItem>
-                          </div>
-                        ))}
-                    </SelectContent>
-                  </Select>
-                  <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="distance_to_main_branch"
-              render={({ field }) => (
-                <FormItem className="col-span-12 flex flex-col justify-end">
-                  <FormLabel>Distancia a la sucursal principal en KMs</FormLabel>
+                  <FormLabel>Multiplicador %</FormLabel>
                   <FormControl>
                     <Input className="form-input w-full" {...field} />
                   </FormControl>
@@ -192,6 +142,24 @@ export default function CRUD_Branch_Form({
               )}
             />
 
+        <FormField
+          control={form.control}
+          name="start_date"
+          render={({ field }) => (
+            <FormItem className="col-span-12 flex flex-col">
+              <FormLabel>
+                Fecha (Día/Mes/Año)
+              </FormLabel>
+              <div className="w-full flex flex-col">
+                <FormControl>
+                  {/* <Input className="placeholder:text-zinc-300 dark:placeholder:text-zinc-600 dark:text-white" placeholder="correo.ejemplo@mail.com" {...field} /> */}
+                  <input type="date" className="w-full p-1 border rounded-md bg-transparent text-zinc-500 dark:text-zinc-600 dark:border-zinc-600" {...field} />
+                </FormControl>
+                <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
+              </div>
+            </FormItem>
+          )}
+        />
           </form>
         </Form>
       </SheetHeader>
@@ -207,7 +175,7 @@ export default function CRUD_Branch_Form({
         >
           {isLoading ? (
             <LoaderIcon className="w-4 h-4 animate-spin" />
-          ) : branch ? (
+          ) : fecha ? (
             "Editar"
           ) : (
             "Crear"

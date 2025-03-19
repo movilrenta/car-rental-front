@@ -4,11 +4,12 @@ import { formSchema } from "@/types/payway-form.schema";
 import { ReservationDetail } from "@/types/reservation.interface";
 import axios, { AxiosError } from "axios";
 import { z } from "zod";
+import { getMaxIncrement } from "./holidays";
 
 const URL = process.env.NEXT_PUBLIC_URL_MOVILRENTA;
 const BACK = process.env.NEXT_PUBLIC_URL_BACK
 
-export const getTokenPay = async (values: z.infer<typeof formSchema>, code: string, reserva_id: number, group_id: number, dias: number, amount_aditionals: number) => {
+export const getTokenPay = async (values: z.infer<typeof formSchema>, code: string, reserva_id: number, group_id: number, dias: number, amount_aditionals: number, dropoff: number) => {
   try {
     const resultParse = await formSchema.safeParseAsync(values);
     if (!resultParse.success) {
@@ -18,9 +19,10 @@ export const getTokenPay = async (values: z.infer<typeof formSchema>, code: stri
     const reservation_info = await axios.get<ReservationDetail>( `${BACK}reservations/${reserva_id}`)
     const deviceUniqueIdentifier = crypto.randomUUID();
     const resp_group = await axios.get(`${BACK}groups/${group_id}`)
-    const price_car = resp_group.data.rate
+    const price_car = resp_group?.data?.rate
+    const increment_per_holiday = await getMaxIncrement(reservation_info?.data?.start_date, reservation_info?.data?.end_date) //Si deberia funcionar
     const dateTransform = values.card_holder_birthday.replace(/\//g, "")
-    const amount_to_send = (Math.floor(+(price_car*dias))+amount_aditionals)*100
+    const amount_to_send = (Math.floor(+(price_car*dias*(increment_per_holiday || 1)))+amount_aditionals + dropoff)*100
     const payload = {
       solicitud: {
         card_number: values.card_number,
@@ -95,6 +97,11 @@ export const getTokenPay = async (values: z.infer<typeof formSchema>, code: stri
         },
       }
     };
+
+    console.log(payload);
+    return { ok: true, message: "test" , status: 203, data: "data" }
+
+
     const { data: response } = await axios.post(`${URL}api/process-payments`, payload);
     if( response?.data?.status === "approved"){
       //console.log(response.data, "_________________10002!!!")

@@ -10,7 +10,7 @@ import SidebarLink from '@/components/ui/sidebar-link'
 import Image from 'next/image'
 import Link from 'next/link'
 import { LuCar } from 'react-icons/lu'
-import { Calendar, Map, Plus, Settings } from 'lucide-react'
+import { Calendar, CalendarDays, Map, Plus, Settings } from 'lucide-react'
 
 export default function Sidebar({
   variant = 'default',
@@ -65,6 +65,15 @@ export default function Sidebar({
         }
     ]
       },
+    {
+    value: "fechas",
+    icon: <CalendarDays className='min-h-4 min-w-4 h-4 w-4 stroke-2'/>,
+    options: [
+      {
+        value: "ver",
+      }
+  ]
+    },
     {
     value: "sucursales",
     icon: <Map className='min-h-4 min-w-4 h-4 w-4 stroke-2'/>,

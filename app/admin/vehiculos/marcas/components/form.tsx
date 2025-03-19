@@ -43,6 +43,9 @@ const autos_pic = [
   "/images2/Renault.webp",
   "/images2/Toyota.webp",
   "/images2/Volkswagen.webp",
+  "/images2/Fiat.webp",
+  "/images2/Mercedes-Benz.webp",
+  "/images2/Citroen.webp",
 ];
 //mejorando
 export default function CRUD_Form({ Brand }: { Brand?: Brand }) {
@@ -67,7 +70,6 @@ export default function CRUD_Form({ Brand }: { Brand?: Brand }) {
         image: values.image,
         description: values.description,
       };
-
       try {
         const res = await putBrand(editBrand);
         if (res.ok) {
@@ -160,7 +162,7 @@ export default function CRUD_Form({ Brand }: { Brand?: Brand }) {
                           value={url}
                           className="hover:bg-red-700 hover:text-white duration-200"
                         >
-                          <div className="flex flex-nowrap items-center gap-2">
+                          <div className="flex flex-nowrap items-center gap-2 capitalize">
                             <Image
                               src={url}
                               width={80}
@@ -168,7 +170,7 @@ export default function CRUD_Form({ Brand }: { Brand?: Brand }) {
                               alt="2asd"
                               className="w-16 h-8"
                             />
-                            {url}
+                            {url.replace("/images2/","").replace(".webp", "")}
                           </div>
                         </SelectItem>
                       ))}
