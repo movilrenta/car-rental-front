@@ -24,10 +24,11 @@ export default function PickCar() {
   useEffect(() => {
     setIsClient(true);
   }, []);
-
   useEffect(() => {
     if (itinerario?.startDay && itinerario?.endDay) {
-      getMaxIncrement(itinerario.startDay, itinerario.endDay).then(setMaxIncrement);
+      getMaxIncrement(itinerario.startDay, itinerario.endDay).then(
+        setMaxIncrement
+      );
     }
   }, [itinerario?.startDay, itinerario?.endDay]);
 
@@ -81,31 +82,41 @@ export default function PickCar() {
             02. Seleccione su <strong>vehículo</strong>
           </h2>
           {!car ? (
-            <RenderCarsAvailability Vehicles={data} extra={maxIncrement}/>
+            <RenderCarsAvailability
+              Vehicles={data}
+              extra={maxIncrement}
+              itinerary={itinerario}
+            />
           ) : (
             <RenderCarsAvailability
               Vehicles={Array.isArray(car) ? car : [car]}
               extra={maxIncrement}
+              itinerary={itinerario}
             />
           )}
         </>
-      ) : (<>
-        <Button
-          disabled={
-            !itinerario?.startDay ||
-            !itinerario?.endDay ||
-            !itinerario?.startLocation ||
-            !itinerario?.endLocation ||
-            !itinerario?.startTime ||
-            !itinerario?.endTime ||
-            !isStartDayValid
-          }
-          onClick={() => checkCars()}
-          className="col-span-12 w-72 min-w-72 !py-5 border mx-auto bg-red-700 hover:bg-orange-800 text-white"
-        >
-          {contentButton}
-        </Button>
-        {!isStartDayValid && <span className="col-span-12 text-center mx-auto text-red-600 -mt-6 text-xs">Verifique las fechas de reserva</span>}
+      ) : (
+        <>
+          <Button
+            disabled={
+              !itinerario?.startDay ||
+              !itinerario?.endDay ||
+              !itinerario?.startLocation ||
+              !itinerario?.endLocation ||
+              !itinerario?.startTime ||
+              !itinerario?.endTime ||
+              !isStartDayValid
+            }
+            onClick={() => checkCars()}
+            className="col-span-12 w-72 min-w-72 !py-5 border mx-auto bg-red-700 hover:bg-orange-800 text-white"
+          >
+            {contentButton}
+          </Button>
+          {!isStartDayValid && (
+            <span className="col-span-12 text-center mx-auto text-red-600 -mt-6 text-xs">
+              Verifique las fechas de reserva
+            </span>
+          )}
         </>
       )}
     </div>

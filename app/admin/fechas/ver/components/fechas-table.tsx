@@ -3,7 +3,7 @@ import AdicionalesTableItem from "./fecha-table-item";
 import CRUD_Fechas from "./crud";
 
 export const FechasTable = ({
-  Fechas
+  Fechas,
 }: {
   Fechas: {
     id: number;
@@ -12,7 +12,6 @@ export const FechasTable = ({
     start_date: string;
   }[];
 }) => {
-
   return (
     <div className="bg-white dark:bg-gray-800 shadow-sm rounded-xl relative">
       <header className="flex justify-between items-center px-5 py-4">
@@ -23,7 +22,12 @@ export const FechasTable = ({
           </span>
         </h2>
         <CRUD_Fechas
-        children={<div className="border group duration-200 rounded-md w-fit px-2 bg-red-700 flex gap-2 text-white items-center justify-center"><LuPlus className="text-3xl p-2 w-11 h-11" /><span className="">Nueva</span></div>}
+          children={
+            <div className="border group duration-200 rounded-md w-fit px-2 bg-red-700 flex gap-2 text-white items-center justify-center">
+              <LuPlus className="text-3xl p-2 w-11 h-11" />
+              <span className="">Nueva</span>
+            </div>
+          }
         />
       </header>
       <div>
@@ -40,12 +44,15 @@ export const FechasTable = ({
                   <div className="font-semibold text-left">Motivo</div>
                 </th>
                 <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                  <div className="font-semibold text-left">Multiplicador</div>
+                  <div className="font-semibold text-left">
+                    Porcentaje de Recago/Descuento%
+                  </div>
                 </th>
                 <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                  <div className="font-semibold text-left">Día (Año/Mes/Día)</div>
+                  <div className="font-semibold text-left">
+                    Día (Año/Mes/Día)
+                  </div>
                 </th>
- 
 
                 <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                   <div className="font-semibold">Opciones</div>
@@ -55,7 +62,7 @@ export const FechasTable = ({
             {/* Table body */}
             <tbody className="text-sm divide-y divide-gray-100 dark:divide-gray-700/60">
               {Fechas?.map((item) => (
-                <AdicionalesTableItem key={item.id} fecha={item}/>
+                <AdicionalesTableItem key={item.id} fecha={item} />
               ))}
             </tbody>
           </table>

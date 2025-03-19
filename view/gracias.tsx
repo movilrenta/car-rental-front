@@ -27,6 +27,7 @@ export const Gracias = () => {
           Mi Reserva
         </Link>
         .
+        Además, recibirá un correo electrónico con este mismo código en su bandeja de entrada.
       </p>
       <ButtonClipboard />
     </div>
