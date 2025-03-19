@@ -23,7 +23,6 @@ export const ListItems = ({
 }) => {
   const [isClient, setIsClient] = useState<boolean>(false);
   const reservas = useReservaStore((state) => state.getReserva());
-  //const [maxIncrement, setMaxIncrement] = useState(1)
   const [totales, setTotales] = useState<any>(null);
 
   const dias = calcularDiasEntreFechas2(
@@ -32,7 +31,7 @@ export const ListItems = ({
     reservas?.endDay!,
     reservas?.endTime!
   );
-  //console.log(maxIncrement, "Incremento");
+
 
   useEffect(() => {
     setIsClient(true);
@@ -41,8 +40,6 @@ export const ListItems = ({
       consulta();
     }
   }, []);
-
-  //const { totalAuto, totalAdicionales, totalCompleto } = await getReservaPrice(reservas, maxIncrement, data);
 
   if (!isClient || !reservas || !totales) {
     return (
@@ -55,40 +52,20 @@ export const ListItems = ({
 
   async function consulta() {
     const datos = await getReservaPrice(reservas);
-    console.log(datos, "DATOS");
+    //console.log(datos, "DATOS");
     setTotales(datos);
     return datos;
   }
 
-  console.log(totales, "TOTALES");
+  //console.log(totales, "TOTALES");
 
-  //console.log(totales);
-  // const { totalAuto, totalAdicionales, totalCompleto } = useCalculoReserva(reservas, maxIncrement, data);
-  // console.log(totalAuto, "TOTAL AUTO");
-  // console.log(totalAdicionales, "TOTAL ADICIONAL");
-  // console.log(totalCompleto, "TOTAL");
+
 
   const selectedCity = (id: string) => {
     const label = branches.find((sucursal) => sucursal.id.toString() === id);
     return label?.name;
   };
 
-  // const showAccesorios = (): number => {
-  //   let amount_aditionals = 0;
-  //   reservas?.aditionals_array.map((aditional) => {
-  //     const adicional = data.find((item: any) => item.id === aditional.id);
-  //     if (adicional) {
-  //       //console.log(adicional);
-  //       amount_aditionals = amount_aditionals + Number(adicional.price) * dias;
-  //     }
-  //   });
-
-  //   //console.log(amount_aditionals);
-  //   return amount_aditionals;
-  // };
-  // const totalPrice = reservas?.car?.group?.rate
-  //   ? (+(reservas.car.group?.rate) * dias * maxIncrement) + showAccesorios()
-  //   : 0;
 
   return (
     <div className="flex flex-col gap-y-6">

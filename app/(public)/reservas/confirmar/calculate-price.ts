@@ -22,7 +22,8 @@ export async function getReservaPrice(
   reserva: ReservaType | null
 ) {
   if (!reserva || !reserva.car) {
-    return { totalAuto: 0, totalAdicionales: 0, totalCompleto: 0 };
+    //return { totalAuto: 0, totalAdicionales: 0, totalCompleto: 0 };
+    return { totalAuto: 0, totalAdicionales: 0, totalDropOff:0, totalCompleto: 0, days: 0 };
   }
 
   try {
@@ -46,13 +47,13 @@ export async function getReservaPrice(
       return adicional ? total + Number(adicional.price) * dias : total;
     }, 0);
 
-    console.log(reserva);
     const {data: startBranch} = await axios.get(`${BACK}branches/${reserva.startLocation}`);
     const {data: endBranch} = await axios.get(`${BACK}branches/${reserva.endLocation}`);
-    console.log(startBranch, "start");
-    console.log(endBranch, "end");
-    
-    const totalDropOff = (Number(startBranch.distance_to_main_branch) + Number(endBranch.distance_to_main_branch))* 600
+
+    const KILOMETERS = data_adicionales.find((item: any )=> item.name === "Kilometro")
+    const price_per_km = +(KILOMETERS?.price) || 600
+
+    const totalDropOff = (Number(startBranch?.distance_to_main_branch) + Number(endBranch?.distance_to_main_branch)) * price_per_km
 
     return {
       totalAuto,
