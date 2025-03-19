@@ -115,6 +115,9 @@ export default function CardCar({
               </div> */}
               {/* Price */}
               <div>
+                <span className="text-xl text-end w-full">
+                  {extra < 1 && extra !== 0 && `${extra * 100 - 100}% off`}
+                </span>
                 <div className="inline-flex text-sm font-medium bg-green-500/20 text-green-700 rounded-full text-center px-2 py-0.5">
                   $ {useFormatNumber(+car?.group?.rate * extra)}
                 </div>
