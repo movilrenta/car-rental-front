@@ -8,11 +8,11 @@ export const reservasSchema = z.object({
     phone:z.string().min(10,{message:"El telefono es obligatorio y debe contener como minimo 10 caracteres"}),
 
     document_type: z.enum(["DNI", "Pasaporte"]),
-    document_number:z.string().trim(),
-    license_number:z.string().trim(),
-    license_expiration_date:z.string().trim(),
-    drivers_address:z.string().trim(),
-    drivers_city:z.string().trim(),
+    document_number:z.string().trim().min(7, "El campo es obligatorio"),
+    license_number:z.string().trim().min(6, "El campo es obligatorio"),
+    license_expiration_date:z.string().trim().min(1, "El campo es obigatorio"),
+    drivers_address:z.string().trim().min(1, "El campo es obigatorio"),
+    drivers_city:z.string().trim().min(1, "El campo es obigatorio"),
     flight_number:z.string().trim().optional(),
 
     observation: z.string().max(200, "No se admiten más de 200 caracteres").optional(),

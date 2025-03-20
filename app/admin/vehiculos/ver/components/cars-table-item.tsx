@@ -21,13 +21,16 @@ import { Button } from "@/components/ui/button";
 import { MdOutlineControlPointDuplicate } from "react-icons/md";
 import { Input } from "@/components/input";
 import { toast } from "@/hooks/use-toast";
-import { PostCarAction } from "@/actions/car";
+import { PostCarAction, StatusCarAction } from "@/actions/car";
+import axios from "axios";
+import { LucideUnlock } from "lucide-react";
+import { LuLock } from "react-icons/lu";
 //import axios from "axios";
 
 interface CarTipe extends VehicleType {
   brand_name: string;
   group_name: string;
-  status: boolean;
+  is_active: boolean;
 }
 
 interface CarTableItemProps {
@@ -48,13 +51,29 @@ export default function CarsTableItem({
   const [copies, setCopies] = useState<number>(1);
   const [patentes, setPatentes] = useState<string>("");
 
-  // const handlerLockCar = async (locked_status: boolean) => {
-  //   window.location.reload();
-  //   await axios.post("/api/lock-car", {
-  //     id: car.id,
-  //     locked_status,
-  //   });
-  // };
+  const handlerLockCar = async (car: CarTipe) => {
+    try {
+      const res = await StatusCarAction(car)
+      if (res.status === 200) {
+        toast({
+          variant: "default",
+          title: `El auto ${car.name} fue ${res.data ? "bloqueado" : "desbloqueado"} con éxito`,
+        });
+      } else {
+        toast({
+          variant: "default",
+          title: `Hubo un error en la modificación.`,
+        });
+      }
+    } catch (error) {
+      toast({
+        variant: "default",
+        title: `Hubo un error en la modificación.`,
+      });
+
+      console.log(error);
+    }
+  };
   
   const handlerCopyCar = async () => {
     const patentes_array = patentes.split(",");
@@ -173,9 +192,10 @@ export default function CarsTableItem({
             }
             id={car.id}
           />
-          {/* <Dialog>
+          <Dialog>
             <DialogTrigger asChild>
-              {car.status ? (
+              {/* TODO:status */}
+              {!car.is_active ? (
                 <LuLock className="text-red-500 cursor-pointer" size={20} />
               ) : (
                 <LucideUnlock
@@ -187,10 +207,10 @@ export default function CarsTableItem({
             <DialogContent className="sm:max-w-[425px] bg-white">
               <DialogHeader>
                 <DialogTitle>
-                  Vas a {car.status ? "desbloquear" : "bloquear"} el vehiculo
+                  Vas a {!car.is_active ? "desbloquear" : "bloquear"} el vehiculo
                 </DialogTitle>
                 <DialogDescription>
-                  {car.status
+                  {!car.is_active
                     ? "Si desbloqueas el vehiculo podra ser rentado por el usuario."
                     : "Si bloqueas el vehiculo no podra ser rentado por el usuario."}
                 </DialogDescription>
@@ -199,13 +219,15 @@ export default function CarsTableItem({
               <DialogFooter>
                 <Button
                   type="button"
-                  onClick={() => handlerLockCar(!car.status)}
+                  variant="outline"
+                  className="bg-red-600 text-white"
+                  onClick={() => handlerLockCar(car)}
                 >
-                  {car.status ? "Desbloquear" : "Bloquear"}
+                  {!car.is_active ? "Desbloquear" : "Bloquear"}
                 </Button>
               </DialogFooter>
             </DialogContent>
-          </Dialog> */}
+          </Dialog>
           <Dialog>
             <DialogTrigger asChild>
               <MdOutlineControlPointDuplicate

@@ -43,7 +43,10 @@ export default function PickCar() {
     );
     //console.log(status);
     setShowCars(true);
-    setData(data.response);
+    //TODO:status
+    const onlyAvailable = await data.response.filter((car: any) => car.is_active);
+    setData(onlyAvailable);
+    //console.log(data.response.filter((item: any) => item.name === "Hilux DC 4X4"));
   };
   useEffect(() => {
     if (firstMount.current) {
