@@ -134,3 +134,12 @@ export const formatDateShort = (isoDate:Date) => {
   // Obtener el formato en español:
   return new Intl.DateTimeFormat('es-ES', {day:'numeric',month:'2-digit',year:'2-digit'}).format(date);
 };
+
+export function generarCodigoReserva() {
+  const letras = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const numeros = '0123456789';
+  const parteLetras = Array.from({ length: 3 }, () => letras[Math.floor(Math.random() * letras.length)]).join('');
+  const parteLetras2 = Array.from({ length: 3 }, () => letras[Math.floor(Math.random() * letras.length)]).join('');
+  const parteNumeros = Array.from({ length: 3 }, () => numeros[Math.floor(Math.random() * numeros.length)]).join('');
+  return parteLetras + parteNumeros + parteLetras2;
+}
