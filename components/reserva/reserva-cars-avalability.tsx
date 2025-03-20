@@ -15,21 +15,36 @@ export default function RenderCarsAvailability({
   extra: number;
 }) {
   const reservaAuto = useReservaAutoStore((state) => state.getReservaAuto());
-  const message = `Hola!, me gustaria saber si queda disponible algun vehiculo para las siguientes fechas: ${itinerary?.startDay?.toLocaleDateString() || ""} a las ${
-    itinerary?.startTime
-  } hasta el ${itinerary?.endDay?.toLocaleDateString() || ""} a las ${
-    itinerary?.endTime
-  }`;
+
+  const formatDate = (date: any) => {
+    if (!date) return ""; // Si es null o undefined, devuelve un string vacío
+    const parsedDate = date instanceof Date ? date : new Date(date);
+    return !isNaN(parsedDate.getTime()) ? parsedDate.toLocaleDateString() : "";
+  };
+
+  const message = itinerary.startTime
+    ? `Hola!, me gustaria saber si queda disponible algun vehiculo para las siguientes fechas: ${formatDate(
+        itinerary?.startDay
+      )} a las ${itinerary?.startTime} hasta el ${formatDate(
+        itinerary?.endDay
+      )} a las ${itinerary?.endTime}`
+    : `Hola!, me gustaria saber si queda disponible algun vehiculo para las siguientes fechas:  `;
+
+  // const message = `Hola!, me gustaria saber si queda disponible algun vehiculo para las siguientes fechas: ${itinerary?.startDay?.toLocaleDateString() || ""} a las ${
+  //   itinerary?.startTime
+  // } hasta el ${itinerary?.endDay?.toLocaleDateString() || ""} a las ${
+  //   itinerary?.endTime
+  // }`;
   const encodedMessage = encodeURIComponent(message);
 
   const availableCars = (array: any[]) => {
     return array.reduce((acc, item) => {
       //if (!item.status) {
-        // Solo pushea si el status es true
-        if (!acc[item.name]) {
-          acc[item.name] = [];
-        }
-        acc[item.name].push(item);
+      // Solo pushea si el status es true
+      if (!acc[item.name]) {
+        acc[item.name] = [];
+      }
+      acc[item.name].push(item);
       //}
       return acc;
     }, {} as Record<string, VehicleType[]>);
@@ -57,26 +72,28 @@ export default function RenderCarsAvailability({
         ) : null;
       })}
 
-      {Vehicles.length > 1 && <div className="flex items-center justify-center col-span-full">
-        <div className="flex flex-col justify-center items-center bg-gray-800 text-white rounded-lg shadow-lg p-6 w-80">
-          <h2 className="text-2xl font-bold mb-4 text-center">
-            No encontraste lo que buscabas?
-          </h2>
-          <p className="mb-4 text-center">
-            Tranquilo!, contactanos para que podamos ayudarte en tu próxima
-            reserva.
-          </p>
+      {Vehicles.length > 1 && (
+        <div className="flex items-center justify-center col-span-full">
+          <div className="flex flex-col justify-center items-center bg-gray-800 text-white rounded-lg shadow-lg p-6 w-80">
+            <h2 className="text-2xl font-bold mb-4 text-center">
+              No encontraste lo que buscabas?
+            </h2>
+            <p className="mb-4 text-center">
+              Tranquilo!, contactanos para que podamos ayudarte en tu próxima
+              reserva.
+            </p>
 
-          <Link
-            href={`https://api.whatsapp.com/send?phone=5493815873049&text=${encodedMessage}`}
-            target="_blank"
-            className="bg-gradient-to-r mt-4 flex gap-2 items-center justify-center from-blue-500 to-pink-500 text-white font-bold py-2 px-4 rounded-full animate-pulse"
-          >
-            <span>Habla con un asesor</span>
-            <FaWhatsapp className="text-3xl text-white" />
-          </Link>
+            <Link
+              href={`https://api.whatsapp.com/send?phone=5493815873049&text=${encodedMessage}`}
+              target="_blank"
+              className="bg-gradient-to-r mt-4 flex gap-2 items-center justify-center from-blue-500 to-pink-500 text-white font-bold py-2 px-4 rounded-full animate-pulse"
+            >
+              <span>Habla con un asesor</span>
+              <FaWhatsapp className="text-3xl text-white" />
+            </Link>
+          </div>
         </div>
-      </div>}
+      )}
     </div>
   );
 }
