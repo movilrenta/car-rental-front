@@ -56,11 +56,13 @@ export default function CRUD_Fecha_Form({
 
   const onSubmit = async (values: z.infer<typeof FechaFormSchema>) => {
     setIsLoading(true);
+    const division = values.multiplier / 100;
+    console.log(division, "division");
     if (fecha) {
       const editFecha = {
         id: fecha.id,
         reason: values.reason,
-        multiplier: values.multiplier / 100 + 1,
+        multiplier: 1 + division,
         start_date: values.start_date,
       };
 
@@ -84,11 +86,10 @@ export default function CRUD_Fecha_Form({
       }
     } else {
       const newFecha: any = values;
-      newFecha.multiplier = Number(newFecha.multiplier);
-      console.log(newFecha);
+      newFecha.multiplier = 1 + division;
       try {
         const res = await PostFechasAction(newFecha);
-        console.log(res, "3");
+
         if (res.status === 200) {
           toast({
             variant: "default",

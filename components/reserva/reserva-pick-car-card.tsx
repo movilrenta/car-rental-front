@@ -6,6 +6,8 @@ import { FaUser } from "react-icons/fa";
 import { GiCarDoor, GiGasPump } from "react-icons/gi";
 import { TbManualGearbox } from "react-icons/tb";
 import { useFormatNumber } from "../utils/useFormatterNumber";
+import BadgeOffer from "@/app/admin/fechas/ver/components/badge-offer";
+import { Tag } from "lucide-react";
 
 export default function CardCar({
   car,
@@ -114,10 +116,15 @@ export default function CardCar({
                 </div>
               </div> */}
               {/* Price */}
-              <div>
-                <span className="text-xl text-end w-full">
-                  {extra < 1 && extra !== 0 && `${extra * 100 - 100}% off`}
-                </span>
+              <div className="flex items-center gap-2">
+                {extra < 1 && extra !== 0 && (
+                  <BadgeOffer
+                    variant="special"
+                    text={`${extra * 100 - 100}% off`}
+                    icon={<Tag className="h-3.5 w-3.5" />}
+                  />
+                )}
+
                 <div className="inline-flex text-sm font-medium bg-green-500/20 text-green-700 rounded-full text-center px-2 py-0.5">
                   $ {useFormatNumber(+car?.group?.rate * extra)}
                 </div>
