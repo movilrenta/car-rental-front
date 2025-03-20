@@ -113,7 +113,7 @@ export const FormConfirm = () => {
       if(response.status === 201) {
         const data = response.data.response
         const dataUserMail = {
-          firstName: `${values.firtName} ${values.lastName}`,
+          firstName: `${values.firstName} ${values.lastName}`,
           userEmail: values.email
         }
         sessionStorage.setItem("movil_renta_code", data.code)
