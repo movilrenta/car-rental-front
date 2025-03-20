@@ -4,7 +4,7 @@ import { z } from "zod";
 const documentType = ["DNI", "Pasaporte"] as const;
 
 export const newReservationSchema = z.object({
-  car_id: z.coerce.number().min(1, "Debe elegir un vehiculo"),
+  car_id: z.number().min(1, "Debe elegir un vehiculo"),
   code: z.string().min(9, "El código es obligatorio"),
   start_date: z.string().date("El campo es obligatorio"),
   // start_date: z.date().refine((val) => val instanceof Date, { message: "Fecha y hora requeridas" }),

@@ -2,13 +2,10 @@
 
 import React from "react";
 import clsx from "clsx";
-// import { CalendarIcon } from "lucide-react";
-// import { format, formatDate, setHours, setMinutes } from "date-fns";
 import { LuLoader } from "react-icons/lu";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useToast } from "@/hooks/use-toast";
-
 import { newReservationSchema, resolver } from "@/types";
 import { Button } from "@/components/ui/button";
 import {
@@ -30,14 +27,9 @@ import {
 } from "@/components/select";
 import { Textarea } from "@/components/textarea";
 import { generarCodigoReserva } from "@/components/utils/utils";
-// import {
-//   Popover,
-//   PopoverContent,
-//   PopoverTrigger,
-// } from "@/components/ui/popover";
 import { CarResponse } from "@/types/car.interface";
 import { BranchesType } from "@/types/branches";
-import { Calendar } from "@/components/ui/calendar";
+//import { Calendar } from "@/components/ui/calendar";
 import { addReservationAction } from "@/actions";
 import { hours } from "@/constant/hours";
 
@@ -48,24 +40,17 @@ interface Props {
 export const ReservaAddNew = ({ cars, branches }: Props) => {
   const { toast } = useToast();
 
-  const today = new Date();
-  const timeOptions: string[] = [];
-  for (let hour = 8; hour <= 20; hour++) {
-    ["00", "15"].forEach((minute) => {
-      const time = `${String(hour).padStart(2, "0")}:${minute}`;
-      timeOptions.push(time);
-    });
-  }
-
   const form = useForm<z.infer<typeof newReservationSchema>>({
     resolver: resolver,
     defaultValues: {
-      car_id: 0,
+      car_id: -1,
       code: "nuevalinea",
-      start_date: undefined,
-      end_date: undefined,
-      start_branch_id: 0,
-      end_branch_id: 0,
+      start_date: "",
+      start_hour: undefined,
+      end_date: "",
+      end_hour: undefined,
+      start_branch_id: -1,
+      end_branch_id: -1,
       firstname: "",
       lastname: "",
       observation: "",
@@ -120,7 +105,10 @@ export const ReservaAddNew = ({ cars, branches }: Props) => {
           variant: "default",
           title: resp.message,
         });
-        form.reset();
+        setTimeout(() => {
+          //form.reset();
+          window.location.reload();
+        }, 1000)
       } else {
         toast({
           variant: "default",
@@ -139,7 +127,7 @@ export const ReservaAddNew = ({ cars, branches }: Props) => {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="grid grid-cols-12 gap-4 lg:gap-y-6 text-gray-900 dark:text-white"
+          className="grid grid-cols-12 gap-x-2 gap-y-2 text-gray-900 dark:text-white"
         >
           {/* Selectores de vehiculos y sucursales */}
           <FormField
@@ -147,7 +135,7 @@ export const ReservaAddNew = ({ cars, branches }: Props) => {
             name="car_id"
             render={({ field }) => (
               <FormItem className="col-span-full lg:col-span-4">
-                <FormLabel>
+                <FormLabel className="mt-4 opacity-70">
                   Vehículo <span className="text-red-700 text-xs">*</span>
                 </FormLabel>
                 <Select
@@ -155,12 +143,12 @@ export const ReservaAddNew = ({ cars, branches }: Props) => {
                   defaultValue={String(field.value)}
                 >
                   <FormControl>
-                    <SelectTrigger>
+                    <SelectTrigger className="!mt-0 border border-neutral-300 dark:border-neutral-700 dark:bg-[rgb(17_24_39_/_0.3)]">
                       <SelectValue placeholder="Seleccione un vehículo" />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent className="bg-white dark:bg-gray-800">
-                    <SelectItem value="0">
+                    <SelectItem value={"-1"}>
                       Seleccione un vehiculo
                     </SelectItem>
                     {cars.map((car) => (
@@ -170,7 +158,7 @@ export const ReservaAddNew = ({ cars, branches }: Props) => {
                     ))}
                   </SelectContent>
                 </Select>
-                <FormMessage />
+                <FormMessage className="text-red-300 dark:text-red-600 !mt-0 text-xs" />
               </FormItem>
             )}
           />
@@ -179,7 +167,7 @@ export const ReservaAddNew = ({ cars, branches }: Props) => {
             name="start_branch_id"
             render={({ field }) => (
               <FormItem className="col-span-full md:col-span-6 lg:col-span-4">
-                <FormLabel>
+                <FormLabel className="mt-4 opacity-70">
                   Lugar de partida{" "}
                   <span className="text-red-700 text-xs">*</span>
                 </FormLabel>
@@ -188,12 +176,12 @@ export const ReservaAddNew = ({ cars, branches }: Props) => {
                   defaultValue={String(field.value)}
                 >
                   <FormControl>
-                    <SelectTrigger>
+                    <SelectTrigger className="!mt-0 border border-neutral-300 dark:border-neutral-700 dark:bg-[rgb(17_24_39_/_0.3)]">
                       <SelectValue placeholder="Seleccione el lugar de partida" />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent className="bg-white dark:bg-gray-800">
-                  <SelectItem value="0">
+                  <SelectItem value="-1">
                       Seleccione un lugar
                     </SelectItem>
                     {branches.map((branch) => (
@@ -203,7 +191,7 @@ export const ReservaAddNew = ({ cars, branches }: Props) => {
                     ))}
                   </SelectContent>
                 </Select>
-                <FormMessage />
+                <FormMessage className="text-red-300 dark:text-red-600 !mt-0 text-xs" />
               </FormItem>
             )}
           />
@@ -212,7 +200,7 @@ export const ReservaAddNew = ({ cars, branches }: Props) => {
             name="end_branch_id"
             render={({ field }) => (
               <FormItem className="col-span-full md:col-span-6 lg:col-span-4">
-                <FormLabel>
+                <FormLabel className="mt-4 opacity-70">
                   Lugar de finalización{" "}
                   <span className="text-red-700 text-xs">*</span>
                 </FormLabel>
@@ -221,12 +209,12 @@ export const ReservaAddNew = ({ cars, branches }: Props) => {
                   defaultValue={String(field.value)}
                 >
                   <FormControl>
-                    <SelectTrigger>
+                    <SelectTrigger className="!mt-0 border border-neutral-300 dark:border-neutral-700 dark:bg-[rgb(17_24_39_/_0.3)]">
                       <SelectValue placeholder="Seleccione el lugar de entrega" />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent className="bg-white dark:bg-gray-800">
-                  <SelectItem value="0">
+                  <SelectItem value="-1">
                       Seleccione un lugar
                     </SelectItem>
                     {branches.map((branch) => (
@@ -236,7 +224,7 @@ export const ReservaAddNew = ({ cars, branches }: Props) => {
                     ))}
                   </SelectContent>
                 </Select>
-                <FormMessage />
+                <FormMessage className="text-red-300 dark:text-red-600 !mt-0 text-xs" />
               </FormItem>
             )}
           />
@@ -246,13 +234,13 @@ export const ReservaAddNew = ({ cars, branches }: Props) => {
             name="start_date"
             render={({ field }) => (
               <FormItem className="col-span-full md:col-span-3 ">
-                <FormLabel>
+                <FormLabel className="mt-4 opacity-70">
                   Fecha de inicio <span className="text-red-700 text-xs">*</span>
                 </FormLabel>
                 <FormControl>
-                  <Input type="date" placeholder="01-02-2029" {...field} />
+                  <Input type="date" className="!mt-0 border border-neutral-300 dark:border-neutral-700 dark:bg-[rgb(17_24_39_/_0.3)]" placeholder="01-02-2029" {...field} />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-red-300 dark:text-red-600 !mt-0 text-xs" />
               </FormItem>
             )}
           />
@@ -261,7 +249,7 @@ export const ReservaAddNew = ({ cars, branches }: Props) => {
             name="start_hour"
             render={({ field }) => (
               <FormItem className="col-span-full md:col-span-3 ">
-                <FormLabel>
+                <FormLabel className="mt-4 opacity-70">
                   Hora de inicio <span className="text-red-700 text-xs">*</span>
                 </FormLabel>
                 <FormControl>
@@ -270,7 +258,7 @@ export const ReservaAddNew = ({ cars, branches }: Props) => {
                     defaultValue={field.value}
                   >
                     <FormControl>
-                      <SelectTrigger>
+                      <SelectTrigger className="!mt-0 border border-neutral-300 dark:border-neutral-700 dark:bg-[rgb(17_24_39_/_0.3)]">
                         <SelectValue placeholder="Selecciona una hora" />
                       </SelectTrigger>
                     </FormControl>
@@ -289,7 +277,7 @@ export const ReservaAddNew = ({ cars, branches }: Props) => {
                     </SelectContent>
                   </Select>
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-red-300 dark:text-red-600 !mt-0 text-xs" />
               </FormItem>
             )}
           />
@@ -298,13 +286,13 @@ export const ReservaAddNew = ({ cars, branches }: Props) => {
             name="end_date"
             render={({ field }) => (
               <FormItem className="col-span-full md:col-span-3 ">
-                <FormLabel>
+                <FormLabel className="mt-4 opacity-70">
                   Fecha de entrega <span className="text-red-700 text-xs">*</span>
                 </FormLabel>
                 <FormControl>
-                  <Input type="date" placeholder="01-02-2029" {...field} />
+                  <Input type="date" className="!mt-0 border border-neutral-300 dark:border-neutral-700 dark:bg-[rgb(17_24_39_/_0.3)]" placeholder="01-02-2029" {...field} />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-red-300 dark:text-red-600 !mt-0 text-xs" />
               </FormItem>
             )}
           />
@@ -313,7 +301,7 @@ export const ReservaAddNew = ({ cars, branches }: Props) => {
             name="end_hour"
             render={({ field }) => (
               <FormItem className="col-span-full md:col-span-3 ">
-                <FormLabel>
+                <FormLabel className="mt-4 opacity-70">
                   Hora de entrega<span className="text-red-700 text-xs">*</span>
                 </FormLabel>
                 <FormControl>
@@ -322,7 +310,7 @@ export const ReservaAddNew = ({ cars, branches }: Props) => {
                     defaultValue={field.value}
                   >
                     <FormControl>
-                      <SelectTrigger>
+                      <SelectTrigger className="!mt-0 border border-neutral-300 dark:border-neutral-700 dark:bg-[rgb(17_24_39_/_0.3)]">
                         <SelectValue placeholder="Selecciona una hora" />
                       </SelectTrigger>
                     </FormControl>
@@ -341,7 +329,7 @@ export const ReservaAddNew = ({ cars, branches }: Props) => {
                     </SelectContent>
                   </Select>
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-red-300 dark:text-red-600 !mt-0 text-xs" />
               </FormItem>
             )}
           />
@@ -350,13 +338,13 @@ export const ReservaAddNew = ({ cars, branches }: Props) => {
             name="firstname"
             render={({ field }) => (
               <FormItem className="col-span-full md:col-span-6 lg:col-span-4">
-                <FormLabel>
+                <FormLabel className="mt-4 opacity-70">
                   Nombre <span className="text-red-700 text-xs">*</span>
                 </FormLabel>
                 <FormControl>
-                  <Input placeholder="José" {...field} />
+                  <Input placeholder="José" className="!mt-0 border border-neutral-300 dark:border-neutral-700 dark:bg-[rgb(17_24_39_/_0.3)]" {...field} />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-red-300 dark:text-red-600 !mt-0 text-xs" />
               </FormItem>
             )}
           />
@@ -365,13 +353,13 @@ export const ReservaAddNew = ({ cars, branches }: Props) => {
             name="lastname"
             render={({ field }) => (
               <FormItem className="col-span-full md:col-span-6 lg:col-span-4">
-                <FormLabel>
+                <FormLabel className="mt-4 opacity-70">
                   Apellido <span className="text-red-700 text-xs">*</span>
                 </FormLabel>
                 <FormControl>
-                  <Input placeholder="Perez" {...field} />
+                  <Input placeholder="Perez" className="!mt-0 border border-neutral-300 dark:border-neutral-700 dark:bg-[rgb(17_24_39_/_0.3)]" {...field} />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-red-300 dark:text-red-600 !mt-0 text-xs" />
               </FormItem>
             )}
           />
@@ -380,14 +368,14 @@ export const ReservaAddNew = ({ cars, branches }: Props) => {
             name="email"
             render={({ field }) => (
               <FormItem className="col-span-full md:col-span-6 lg:col-span-4">
-                <FormLabel>
+                <FormLabel className="mt-4 opacity-70">
                   Correo Electrónico{" "}
                   <span className="text-red-700 text-xs">*</span>
                 </FormLabel>
                 <FormControl>
-                  <Input placeholder="juanperez@mail.com" {...field} />
+                  <Input placeholder="juanperez@mail.com" className="!mt-0 border border-neutral-300 dark:border-neutral-700 dark:bg-[rgb(17_24_39_/_0.3)]" {...field} />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-red-300 dark:text-red-600 !mt-0 text-xs" />
               </FormItem>
             )}
           />
@@ -396,13 +384,13 @@ export const ReservaAddNew = ({ cars, branches }: Props) => {
             name="phone"
             render={({ field }) => (
               <FormItem className="col-span-full md:col-span-6 lg:col-span-4">
-                <FormLabel>
+                <FormLabel className="mt-4 opacity-70">
                   Teléfono <span className="text-red-700 text-xs">*</span>
                 </FormLabel>
                 <FormControl>
-                  <Input placeholder="5411123456789" {...field} />
+                  <Input placeholder="5411123456789" className="!mt-0 border border-neutral-300 dark:border-neutral-700 dark:bg-[rgb(17_24_39_/_0.3)]" {...field} />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-red-300 dark:text-red-600 !mt-0 text-xs" />
               </FormItem>
             )}
           />
@@ -412,7 +400,7 @@ export const ReservaAddNew = ({ cars, branches }: Props) => {
               name="document_type"
               render={({ field }) => (
                 <FormItem className="w-1/2">
-                  <FormLabel>
+                  <FormLabel className="mt-4 opacity-70">
                     Tipo <span className="text-red-700 text-xs">*</span>
                   </FormLabel>
                   <Select
@@ -420,7 +408,7 @@ export const ReservaAddNew = ({ cars, branches }: Props) => {
                     defaultValue={field.value}
                   >
                     <FormControl>
-                      <SelectTrigger>
+                      <SelectTrigger className="!mt-0 border border-neutral-300 dark:border-neutral-700 dark:bg-[rgb(17_24_39_/_0.3)]">
                         <SelectValue placeholder="Select a verified email to display" />
                       </SelectTrigger>
                     </FormControl>
@@ -429,7 +417,7 @@ export const ReservaAddNew = ({ cars, branches }: Props) => {
                       <SelectItem value="Pasaporte">PASAPORTE</SelectItem>
                     </SelectContent>
                   </Select>
-                  <FormMessage />
+                  <FormMessage className="text-red-300 dark:text-red-600 !mt-0 text-xs" />
                 </FormItem>
               )}
             />
@@ -438,13 +426,13 @@ export const ReservaAddNew = ({ cars, branches }: Props) => {
               name="document_number"
               render={({ field }) => (
                 <FormItem className="w-1/2">
-                  <FormLabel>
-                    Número <span className="text-red-700 text-xs">*</span>
+                  <FormLabel className="mt-4 opacity-70">
+                    N° DNI/Pasaporte <span className="text-red-700 text-xs">*</span>
                   </FormLabel>
                   <FormControl>
-                    <Input placeholder="10809777" {...field} />
+                    <Input placeholder="10809777" className="!mt-0 border border-neutral-300 dark:border-neutral-700 dark:bg-[rgb(17_24_39_/_0.3)]" {...field} />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="text-red-300 dark:text-red-600 !mt-0 text-xs" />
                 </FormItem>
               )}
             />
@@ -454,13 +442,13 @@ export const ReservaAddNew = ({ cars, branches }: Props) => {
             name="drivers_address"
             render={({ field }) => (
               <FormItem className="col-span-full md:col-span-6 lg:col-span-4">
-                <FormLabel>
+                <FormLabel className="mt-4 opacity-70">
                   Dirección <span className="text-red-700 text-xs">*</span>
                 </FormLabel>
                 <FormControl>
-                  <Input placeholder="Calle 123" {...field} />
+                  <Input placeholder="Calle 123" className="!mt-0 border border-neutral-300 dark:border-neutral-700 dark:bg-[rgb(17_24_39_/_0.3)]" {...field} />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-red-300 dark:text-red-600 !mt-0 text-xs" />
               </FormItem>
             )}
           />
@@ -469,13 +457,13 @@ export const ReservaAddNew = ({ cars, branches }: Props) => {
             name="drivers_city"
             render={({ field }) => (
               <FormItem className="col-span-full md:col-span-6 lg:col-span-4">
-                <FormLabel>
+                <FormLabel className="mt-4 opacity-70">
                   Ciudad <span className="text-red-700 text-xs">*</span>
                 </FormLabel>
                 <FormControl>
-                  <Input placeholder="Ciudad" {...field} />
+                  <Input placeholder="Ciudad" className="!mt-0 border border-neutral-300 dark:border-neutral-700 dark:bg-[rgb(17_24_39_/_0.3)]" {...field} />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-red-300 dark:text-red-600 !mt-0 text-xs" />
               </FormItem>
             )}
           />
@@ -485,13 +473,13 @@ export const ReservaAddNew = ({ cars, branches }: Props) => {
               name="license_number"
               render={({ field }) => (
                 <FormItem className="w-1/2">
-                  <FormLabel>
+                  <FormLabel className="mt-4 opacity-70">
                     Nº Licencia <span className="text-red-700 text-xs">*</span>
                   </FormLabel>
                   <FormControl>
-                    <Input placeholder="10809777" {...field} />
+                    <Input placeholder="10809777" className="!mt-0 border border-neutral-300 dark:border-neutral-700 dark:bg-[rgb(17_24_39_/_0.3)]" {...field} />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="text-red-300 dark:text-red-600 !mt-0 text-xs" />
                 </FormItem>
               )}
             />
@@ -500,14 +488,14 @@ export const ReservaAddNew = ({ cars, branches }: Props) => {
               name="license_expiration_date"
               render={({ field }) => (
                 <FormItem className="w-1/2">
-                  <FormLabel>
-                    Fecha de Exp.{" "}
+                  <FormLabel className="mt-4 opacity-70">
+                    Vto. Licencia{" "}
                     <span className="text-red-700 text-xs">*</span>
                   </FormLabel>
                   <FormControl>
-                    <Input type="date" placeholder="01-02-2029" {...field} />
+                    <Input type="date" placeholder="01-02-2029" className="!mt-0 border border-neutral-300 dark:border-neutral-700 dark:bg-[rgb(17_24_39_/_0.3)]" {...field} />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="text-red-300 dark:text-red-600 !mt-0 text-xs" />
                 </FormItem>
               )}
             />
@@ -517,11 +505,11 @@ export const ReservaAddNew = ({ cars, branches }: Props) => {
             name="flight_number"
             render={({ field }) => (
               <FormItem className="col-span-full md:col-span-6 lg:col-span-4">
-                <FormLabel>Nº de vuelo</FormLabel>
+                <FormLabel className="mt-4 opacity-70">Nº de vuelo</FormLabel>
                 <FormControl>
-                  <Input placeholder="1234" {...field} />
+                  <Input placeholder="1234" className="!mt-0 border border-neutral-300 dark:border-neutral-700 dark:bg-[rgb(17_24_39_/_0.3)]" {...field} />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-red-300 dark:text-red-600 !mt-0 text-xs" />
               </FormItem>
             )}
           />
@@ -530,19 +518,19 @@ export const ReservaAddNew = ({ cars, branches }: Props) => {
             name="observation"
             render={({ field }) => (
               <FormItem className="col-span-full">
-                <FormLabel>Observación</FormLabel>
+                <FormLabel className="mt-4 opacity-70">Observación</FormLabel >
                 <FormControl>
                   <Textarea
                     maxLength={200}
                     placeholder="Número de transacción (Pago)"
-                    className="resize-none"
+                    className="resize-none !mt-0 border border-neutral-300 dark:border-neutral-700 dark:bg-[rgb(17_24_39_/_0.3)]"
                     {...field}
                   />
                 </FormControl>
-                <FormDescription>
+                <FormDescription className="!mt-0 ps-2 opacity-70">
                   Observación adicional para la reserva
                 </FormDescription>
-                <FormMessage />
+                <FormMessage className="text-red-300 dark:text-red-600 !mt-0 text-xs" />
               </FormItem>
             )}
           />
@@ -550,7 +538,7 @@ export const ReservaAddNew = ({ cars, branches }: Props) => {
             disabled={form.formState.isSubmitting}
             type="submit"
             className={clsx(
-              "btn w-full md:min-w-24 md:w-fit px-6 py-2 bg-red-700 text-white hover:bg-red-800 duration-200",
+              "btn w-full md:min-w-24 md:w-fit px-6 py-2 bg-red-700 text-white hover:bg-red-800 duration-200 flex flex-nowrap gap-2",
               {
                 "bg-red-700/60": form.formState.isSubmitting,
                 "bg-red-800": !form.formState.isSubmitting,

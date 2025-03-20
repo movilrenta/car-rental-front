@@ -4,10 +4,10 @@ import { VehicleType } from "@/constant/cars";
 import DeleteComponent from "./delete-component";
 import { FaEdit, FaGasPump, FaTrash } from "react-icons/fa";
 import { Branch, Brand, Group } from "@/types/car.interface";
-import { LuLock } from "react-icons/lu";
+//import { LuLock } from "react-icons/lu";
 // import { getSatusCar, lockCar } from "@/actions/save-card";
-import { useEffect, useState } from "react";
-import { LucideUnlock } from "lucide-react";
+import { useState } from "react";
+//import { LucideUnlock } from "lucide-react";
 import {
   DialogDescription,
   DialogTitle,
@@ -17,12 +17,12 @@ import {
 import { DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Dialog } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/label";
+//import { Label } from "@/components/label";
 import { MdOutlineControlPointDuplicate } from "react-icons/md";
 import { Input } from "@/components/input";
 import { toast } from "@/hooks/use-toast";
 import { PostCarAction } from "@/actions/car";
-import axios from "axios";
+//import axios from "axios";
 
 interface CarTipe extends VehicleType {
   brand_name: string;
@@ -35,26 +35,27 @@ interface CarTableItemProps {
   Groups: Group[];
   Brands: Brand[];
   Branches: Branch[];
-  cars: any[];
+  //cars: any[];
 }
 
 export default function CarsTableItem({
   car,
   Groups,
   Brands,
-  cars,
+  //cars,
   Branches,
 }: CarTableItemProps) {
   const [copies, setCopies] = useState<number>(1);
   const [patentes, setPatentes] = useState<string>("");
 
-  const handlerLockCar = async (locked_status: boolean) => {
-    window.location.reload();
-    await axios.post("/api/lock-car", {
-      id: car.id,
-      locked_status,
-    });
-  };
+  // const handlerLockCar = async (locked_status: boolean) => {
+  //   window.location.reload();
+  //   await axios.post("/api/lock-car", {
+  //     id: car.id,
+  //     locked_status,
+  //   });
+  // };
+  
   const handlerCopyCar = async () => {
     const patentes_array = patentes.split(",");
     const formData = Array.from({ length: copies }, (_, index) => {
@@ -108,15 +109,15 @@ export default function CarsTableItem({
   };
 
   return (
-    <tr className="hover:bg-black/5 dark:hover:bg-black/10 duration-200">
-      <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">-</td>
-      <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+    <tr className="dark:bg-gray-950/80 bg-neutral-50 hover:bg-black/5 dark:hover:bg-gray-950/50 duration-200">
+      <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap"></td>
+      {/* <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
         <div className="text-left">{car?.id}</div>
-      </td>
+      </td> */}
       <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-        <div className="text-left">-</div>
+        <div className="text-left"></div>
       </td>
-      <td className="flex items-center h-[47px] min-h-full">
+      <td className=" h-[47px] min-h-full">
         <div className="flex gap-3 items-center">
           <Image
             className="hidden sm:block rounded-md w-auto h-10"
@@ -140,16 +141,16 @@ export default function CarsTableItem({
         <div className="text-left">{car?.brand_name}</div>
       </td>
       <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-        <div className="text-left">{car?.group_name}</div>
+        <div className="text-center">{car?.group_name}</div>
       </td>
       <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
         <div className="text-center">{car?.doors}</div>
       </td>
-      <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap flex items-center gap-2">
-        <div className="text-left font-medium text-green-600">
+      <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap ">
+        <div className="text-left font-medium text-green-600 flex items-center gap-2">
           {car?.fuel_type}
-        </div>{" "}
-        <FaGasPump className="text-gray-600" size={20} />
+          <FaGasPump className="text-gray-600" size={20} />
+        </div>
       </td>
       <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
         <div className="flex items-center justify-center gap-4">
@@ -172,7 +173,7 @@ export default function CarsTableItem({
             }
             id={car.id}
           />
-          <Dialog>
+          {/* <Dialog>
             <DialogTrigger asChild>
               {car.status ? (
                 <LuLock className="text-red-500 cursor-pointer" size={20} />
@@ -204,7 +205,7 @@ export default function CarsTableItem({
                 </Button>
               </DialogFooter>
             </DialogContent>
-          </Dialog>
+          </Dialog> */}
           <Dialog>
             <DialogTrigger asChild>
               <MdOutlineControlPointDuplicate
