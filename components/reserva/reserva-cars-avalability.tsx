@@ -15,10 +15,10 @@ export default function RenderCarsAvailability({
   extra: number;
 }) {
   const reservaAuto = useReservaAutoStore((state) => state.getReservaAuto());
-  const message = `Hola!, me gustaria saber si queda disponible algun vehiculo para las siguientes fechas: ${itinerary?.startDay?.toLocaleDateString()} a las ${
-    itinerary.startTime
-  } hasta el ${itinerary?.endDay?.toLocaleDateString()} a las ${
-    itinerary.endTime
+  const message = `Hola!, me gustaria saber si queda disponible algun vehiculo para las siguientes fechas: ${itinerary?.startDay?.toLocaleDateString() || ""} a las ${
+    itinerary?.startTime
+  } hasta el ${itinerary?.endDay?.toLocaleDateString() || ""} a las ${
+    itinerary?.endTime
   }`;
   const encodedMessage = encodeURIComponent(message);
 
@@ -34,7 +34,7 @@ export default function RenderCarsAvailability({
       return acc;
     }, {} as Record<string, VehicleType[]>);
   };
-  console.log(Vehicles);
+
   const groupByName = availableCars(Vehicles);
 
   return (
@@ -57,7 +57,7 @@ export default function RenderCarsAvailability({
         ) : null;
       })}
 
-      <div className="flex items-center justify-center col-span-full">
+      {Vehicles.length > 1 && <div className="flex items-center justify-center col-span-full">
         <div className="flex flex-col justify-center items-center bg-gray-800 text-white rounded-lg shadow-lg p-6 w-80">
           <h2 className="text-2xl font-bold mb-4 text-center">
             No encontraste lo que buscabas?
@@ -76,7 +76,7 @@ export default function RenderCarsAvailability({
             <FaWhatsapp className="text-3xl text-white" />
           </Link>
         </div>
-      </div>
+      </div>}
     </div>
   );
 }
