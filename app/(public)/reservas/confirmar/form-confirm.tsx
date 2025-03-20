@@ -21,6 +21,8 @@ import { Checkbox } from "@/components/checkbox";
 import { Textarea } from "@/components/textarea";
 import { useToast } from "@/hooks/use-toast";
 
+import { generarCodigoReserva } from "@/components/utils/utils";
+
 
 type ReservationType = {
   car_id: number,
@@ -45,15 +47,6 @@ type ReservationType = {
 
   aditionals_array: {id: number, amount: number}[],
   observation?: string
-}
-
-function generarCodigoReserva() {
-  const letras = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  const numeros = '0123456789';
-  const parteLetras = Array.from({ length: 3 }, () => letras[Math.floor(Math.random() * letras.length)]).join('');
-  const parteLetras2 = Array.from({ length: 3 }, () => letras[Math.floor(Math.random() * letras.length)]).join('');
-  const parteNumeros = Array.from({ length: 3 }, () => numeros[Math.floor(Math.random() * numeros.length)]).join('');
-  return parteLetras + parteNumeros + parteLetras2;
 }
 
 export const FormConfirm = () => {

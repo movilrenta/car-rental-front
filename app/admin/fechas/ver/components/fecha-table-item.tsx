@@ -14,12 +14,13 @@ interface FechasTableItemProps {
 }
 
 export default function FechasTableItem({ fecha }: FechasTableItemProps) {
-  const percentaje =
+  const percentaje = Math.round(
     (fecha &&
       (+fecha?.multiplier < 1
         ? +fecha.multiplier * 100 - 100
         : (+fecha.multiplier - 1) * 100)) ||
-    0;
+      0
+  );
   const StyleBadge = {
     discount: {
       style: "bg-green-300 text-green-800",
