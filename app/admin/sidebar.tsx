@@ -35,6 +35,9 @@ export default function Sidebar({
     options: [
       {
         value: "ver",
+      },
+      {
+        value: "agregar"
       }
   ]
     },

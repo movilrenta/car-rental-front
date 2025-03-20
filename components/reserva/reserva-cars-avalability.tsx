@@ -15,26 +15,26 @@ export default function RenderCarsAvailability({
   extra: number;
 }) {
   const reservaAuto = useReservaAutoStore((state) => state.getReservaAuto());
-  const message = `Hola!, me gustaria saber si queda disponible algun vehiculo para las siguientes fechas: ${itinerary.startDay?.toLocaleDateString()} a las ${
+  const message = `Hola!, me gustaria saber si queda disponible algun vehiculo para las siguientes fechas: ${itinerary?.startDay?.toLocaleDateString()} a las ${
     itinerary.startTime
-  } hasta el ${itinerary.endDay?.toLocaleDateString()} a las ${
+  } hasta el ${itinerary?.endDay?.toLocaleDateString()} a las ${
     itinerary.endTime
   }`;
   const encodedMessage = encodeURIComponent(message);
 
   const availableCars = (array: any[]) => {
     return array.reduce((acc, item) => {
-      if (!item.status) {
+      //if (!item.status) {
         // Solo pushea si el status es true
         if (!acc[item.name]) {
           acc[item.name] = [];
         }
         acc[item.name].push(item);
-      }
+      //}
       return acc;
     }, {} as Record<string, VehicleType[]>);
   };
-
+  console.log(Vehicles);
   const groupByName = availableCars(Vehicles);
 
   return (

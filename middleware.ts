@@ -12,14 +12,14 @@ export async function middleware(request: NextRequest) {
       const token = request.cookies.get("authUser")?.value;
 
       if (!token) {
-        console.log("Token no encontrado");
+        //console.log("Token no encontrado");
         return NextResponse.redirect(new URL("/login", request.url));
       }
 
       // Verificar el token
       try {
         await jwtVerify(token, secretKey);
-        console.log("Token válido");
+        //console.log("Token válido");
 
       } catch (error) {
         console.error("Error al verificar el token:", error);

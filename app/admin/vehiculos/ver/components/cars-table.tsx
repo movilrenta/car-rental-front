@@ -8,7 +8,7 @@ import CRUD_Vehycle from "./crud";
 import { LuPlus } from "react-icons/lu";
 // import { getSatusCar } from "@/actions/save-card";
 import React, { useEffect, useState } from "react";
-import { FaChevronUp, FaEdit } from "react-icons/fa";
+import { FaChevronUp } from "react-icons/fa";
 import { FaChevronDown } from "react-icons/fa";
 import Image from "next/image";
 
@@ -27,7 +27,7 @@ export const CarsTable = ({
   const [expandedGroups, setExpandedGroups] = useState<Record<string, boolean>>(
     {}
   );
-  console.log(Cars, "v");
+  //console.log(Cars, "v");
   // Agrupar los autos por nombre
   const groupedCars = newCars.reduce((acc, car) => {
     if (!acc[car.name]) {
@@ -55,7 +55,7 @@ export const CarsTable = ({
             ...car,
             brand_name: brands,
             group_name: groups,
-            locked_status: false,
+            //locked_status: false,
           };
         })
       );
@@ -96,9 +96,9 @@ export const CarsTable = ({
                 <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                   <div className="font-semibold text-left">#</div>
                 </th>
-                <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                {/* <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                   <div className="font-semibold text-left">Id</div>
-                </th>
+                </th> */}
                 <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                   <div className="font-semibold text-left">Cantidad</div>
                 </th>
@@ -106,13 +106,13 @@ export const CarsTable = ({
                   <div className="font-semibold text-left">Auto</div>
                 </th>
                 <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                  <div className="font-semibold text-left">Patente</div>
+                  <div className="font-semibold text-center">Patente</div>
                 </th>
                 <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                   <div className="font-semibold text-left">Marca</div>
                 </th>
                 <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                  <div className="font-semibold text-left">Grupo</div>
+                  <div className="font-semibold text-center">Grupo</div>
                 </th>
                 <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                   <div className="font-semibold">Nº puertas</div>
@@ -144,16 +144,16 @@ export const CarsTable = ({
                 return (
                   <React.Fragment key={name}>
                     {/* Fila principal */}
-                    <tr className="bg-white border-b dark:bg-gray-800">
+                    <tr onClick={() => toggleExpand(name)} className="bg-white dark:bg-gray-800 cursor-pointer hover:bg-neutral-100 dark:hover:bg-gray-700">
                       <td className="px-4 py-2">
                         <button
-                          onClick={() => toggleExpand(name)}
+                          
                           className="focus:outline-none"
                         >
                           {isExpanded ? <FaChevronUp /> : <FaChevronDown />}
                         </button>
                       </td>{" "}
-                      <td className="px-4 py-2">-</td>
+                      {/* <td className="px-4 py-2">-</td> */}
                       <td className="px-4 py-2">{carsInGroup.length}</td>
                       <td className="px-4 py-2">
                         <td className="flex items-center h-[47px] min-h-full">
@@ -172,10 +172,12 @@ export const CarsTable = ({
                           </div>
                         </td>
                       </td>
-                      <td className="px-4 py-2">----</td>
+                      <td className="px-4 py-2 min-w-28"></td>
                       <td className="px-4 py-2">{firstCar.brand_name}</td>
-                      <td className="px-4 py-2">{firstCar.group_name}</td>
-                      <td className="px-4 py-2 flex gap-2"></td>
+                      <td className="px-4 py-2 text-center">{firstCar.group_name}</td>
+                      <td className="px-4 py-2"></td>
+                      <td className="px-4 py-2"></td>
+                      <td className="px-4 py-2 min-w-32"></td>
                     </tr>
                     {/* Filas ocultas */}
                     {isExpanded &&
@@ -186,7 +188,7 @@ export const CarsTable = ({
                           Brands={Brands}
                           Branches={Branches}
                           Groups={Groups}
-                          cars={Cars}
+                          //cars={Cars}
                         />
                       ))}
                   </React.Fragment>

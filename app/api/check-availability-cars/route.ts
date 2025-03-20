@@ -32,17 +32,17 @@ export async function POST(request: any) {
       `${URL}reservations/available-cars`,
       payload
     );
-
+    //console.log(status, "DESDE LA API");
     // Mapear cada auto y obtener su estado
-    const carsWithStatus = await Promise.all(
-      data.map(async (car: { id: string }) => ({
-        ...car,
-        status: await getStatus(car.id),
-      }))
-    );
+    // const carsWithStatus = await Promise.all(
+    //   data.map(async (car: { id: string }) => ({
+    //     ...car,
+    //     status: await getStatus(car.id),
+    //   }))
+    // );
     // console.log(carsWithStatus, "cars");
 
-    return NextResponse.json({ response: carsWithStatus }, { status: 200 });
+    return NextResponse.json({ response: data }, { status: 200 });
   } catch (error) {
     console.log(error);
     return NextResponse.json({ response: [] }, { status: 400 });

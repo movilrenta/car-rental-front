@@ -154,6 +154,36 @@ export default async function ReservationByIdPage({ params }: Params) {
           <li>
             <div className="flex items-center gap-x-2">
               <span className="w-[6px] h-[6px] rounded-full bg-red-500"></span>
+              <p>{data?.reservation?.reservation_detail?.document_type}: {data?.reservation.reservation_detail.document_number}</p>
+            </div>
+          </li>
+          <li>
+            <div className="flex items-center gap-x-2">
+              <span className="w-[6px] h-[6px] rounded-full bg-red-500"></span>
+              <p>Licencia n°: {data?.reservation?.reservation_detail?.license_number} Vencimiento: {data?.reservation?.reservation_detail?.license_expiration_date}</p>
+            </div>
+          </li>
+          <li>
+            <div className="flex items-center gap-x-2">
+              <span className="w-[6px] h-[6px] rounded-full bg-red-500"></span>
+              <p>Domicilio: {data?.reservation.reservation_detail.drivers_address}</p>
+            </div>
+          </li>
+          <li>
+            <div className="flex items-center gap-x-2">
+              <span className="w-[6px] h-[6px] rounded-full bg-red-500"></span>
+              <p>Localidad: {data?.reservation.reservation_detail.drivers_city}</p>
+            </div>
+          </li>
+          {data?.reservation.reservation_detail.flight_number && <li>
+            <div className="flex items-center gap-x-2">
+              <span className="w-[6px] h-[6px] rounded-full bg-red-500"></span>
+              <p>Vuelo: {data?.reservation.reservation_detail.flight_number}</p>
+            </div>
+          </li>}
+          <li>
+            <div className="flex items-center gap-x-2">
+              <span className="w-[6px] h-[6px] rounded-full bg-red-500"></span>
               <p>
                 Observaciones:{" "}
                 {data?.reservation.reservation_detail.observation}
