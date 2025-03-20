@@ -48,6 +48,20 @@ const autos_pic = [
   "/images2/renaultduster.webp",
   "/images2/chevrolettracker2.webp",
   "/images2/toyotahilux4x2.webp",
+  "/images2/cruze-5.webp",
+  "/images2/cronos.webp",
+  "/images2/kangoo.webp",
+  "/images2/kicks.webp",
+  "/images2/kangoo-roja.webp",
+  "/images2/alaskan.webp",
+  "/images2/ranger.webp",
+  "/images2/master.webp",
+  "/images2/partner.webp",
+  "/images2/sandero.webp",
+  "/images2/sprinter.webp",
+  "/images2/toyota-.webp",
+  "/images2/berlingo.webp",
+  "/images2/h-1-wagon.webp",
 ];
 const combustibles = [
   "Gasolina",
@@ -89,6 +103,7 @@ export default function CRUD_Form({
       branch_id: car ? car.branch_id.toString() : "",
       image: car ? car.image : "",
       description: car ? car.description : "",
+      plate: car ? car.plate ? car.plate : "" : "",
     },
   });
 
@@ -106,6 +121,7 @@ export default function CRUD_Form({
         fuel_type: values.fuel_type,
         image: values.image,
         description: values.description,
+        plate: values.plate,
         brand_id: Number(values.brand_id),
         group_id: Number(values.group_id),
         branch_id: Number(values.branch_id),
@@ -120,7 +136,7 @@ export default function CRUD_Form({
             title: `Auto editado con exito`,
           });
           setIsLoading(false);
-          window.location.reload();
+          //window.location.reload();
         }
       } catch (error) {
         console.log(error);
@@ -144,7 +160,7 @@ export default function CRUD_Form({
             title: `Auto creado con exito`,
           });
           setIsLoading(false);
-          window.location.reload();
+          //window.location.reload();
         }
       } catch (error) {
         toast({
@@ -425,12 +441,25 @@ export default function CRUD_Form({
                               alt="2asd"
                               className="h-8 w-auto"
                             />
-                            <p>{url}</p>
+                            <p>{url.replace("/images2/","").replace(".webp", "")}</p>
                           </div>
                         </SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
+                  <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="plate"
+              render={({ field }) => (
+                <FormItem className="col-span-12 flex flex-col justify-end">
+                  <FormLabel>Patente</FormLabel>
+                  <FormControl>
+                    <Input className="form-input w-full" {...field} />
+                  </FormControl>
                   <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
                 </FormItem>
               )}

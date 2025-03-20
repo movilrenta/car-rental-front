@@ -8,6 +8,7 @@ type Params = {
 }
 
 export async function PUT(req: NextRequest, context: { params: { branchId: string } }) {
+
   try {
     const body = await req.json();
     const response = await axios.put(

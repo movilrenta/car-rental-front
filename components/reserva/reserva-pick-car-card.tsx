@@ -7,7 +7,13 @@ import { GiCarDoor, GiGasPump } from "react-icons/gi";
 import { TbManualGearbox } from "react-icons/tb";
 import { useFormatNumber } from "../utils/useFormatterNumber";
 
-export default function CardCar({ car }: { car: VehicleType }) {
+export default function CardCar({
+  car,
+  extra,
+}: {
+  car: VehicleType;
+  extra: number;
+}) {
   const addReservaCar = useReservaAutoStore((state) => state.addReservaAuto);
   const removeCar = useReservaAutoStore((state) => state.removeReservaAuto);
   const pickedCar = useReservaAutoStore((state) => state.getReservaAuto());
@@ -109,8 +115,11 @@ export default function CardCar({ car }: { car: VehicleType }) {
               </div> */}
               {/* Price */}
               <div>
+                <span className="text-xl text-end w-full">
+                  {extra < 1 && extra !== 0 && `${extra * 100 - 100}% off`}
+                </span>
                 <div className="inline-flex text-sm font-medium bg-green-500/20 text-green-700 rounded-full text-center px-2 py-0.5">
-                  $ {useFormatNumber(car?.group?.rate)}
+                  $ {useFormatNumber(+car?.group?.rate * extra)}
                 </div>
               </div>
               <div className="text-xs text-end w-full">Tarifa base: 1 día</div>

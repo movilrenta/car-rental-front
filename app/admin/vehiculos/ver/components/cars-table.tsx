@@ -106,6 +106,9 @@ export const CarsTable = ({
                   <div className="font-semibold text-left">Auto</div>
                 </th>
                 <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                  <div className="font-semibold text-left">Patente</div>
+                </th>
+                <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                   <div className="font-semibold text-left">Marca</div>
                 </th>
                 <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -153,14 +156,23 @@ export const CarsTable = ({
                       <td className="px-4 py-2">-</td>
                       <td className="px-4 py-2">{carsInGroup.length}</td>
                       <td className="px-4 py-2">
-                        <Image
-                          src={firstCar.image}
-                          width={60}
-                          height={48}
-                          alt={firstCar.name}
-                          className="rounded-md"
-                        />
+                        <td className="flex items-center h-[47px] min-h-full">
+                          <div className="flex gap-3 items-center">
+                            <Image
+                              className="hidden sm:block rounded-md w-auto h-10"
+                              src={firstCar?.image}
+                              width={60}
+                              height={48}
+                              alt={firstCar?.name}
+                            />
+
+                            <div className="font-medium text-gray-800 dark:text-gray-100 text-ellipsis line-clamp-1">
+                              {firstCar?.name}
+                            </div>
+                          </div>
+                        </td>
                       </td>
+                      <td className="px-4 py-2">----</td>
                       <td className="px-4 py-2">{firstCar.brand_name}</td>
                       <td className="px-4 py-2">{firstCar.group_name}</td>
                       <td className="px-4 py-2 flex gap-2"></td>

@@ -182,7 +182,7 @@ console.log(data);
                           <span>{data?.luggage}</span>
                         </div>
                       </div>
-                      <p className="text-xs">- Seguros: Por daños o faltantes ${useFormatNumber(data?.insurances)}, por vuelcos o robo ${useFormatNumber(Number(data?.insurances) * 3)}</p>
+                      <p className="text-xs">- Seguros: Por daños o faltantes ${useFormatNumber(+(data?.insurances || 0))}, por vuelcos o robo ${useFormatNumber(Number(data?.insurances || 0) * 3)}</p>
 
                     </div>
                   </div>

@@ -8,9 +8,11 @@ import { FaWhatsapp } from "react-icons/fa";
 export default function RenderCarsAvailability({
   Vehicles,
   itinerary,
+  extra,
 }: {
-  Vehicles: VehicleType[];
+  Vehicles: any[];
   itinerary: any;
+  extra: number;
 }) {
   const reservaAuto = useReservaAutoStore((state) => state.getReservaAuto());
   const message = `Hola!, me gustaria saber si queda disponible algun vehiculo para las siguientes fechas: ${itinerary.startDay?.toLocaleDateString()} a las ${
@@ -50,7 +52,7 @@ export default function RenderCarsAvailability({
                 <BiCheck className="text-7xl text-white stroke-1 animate-fade-in duration-500" />
               </span>
             )}
-            <CardCar car={firstCar} />
+            <CardCar car={firstCar} extra={extra} />
           </div>
         ) : null;
       })}

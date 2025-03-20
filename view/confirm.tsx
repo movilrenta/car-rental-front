@@ -20,7 +20,7 @@ export const Confirm = async () => {
         </div>
         <div className="w-full md:px-4">
           <h2 className="text-xl md:text-2xl text-gray-900 dark:text-slate-100 mb-5">
-            Datos <span className="font-semibold">personales</span>
+            Datos del <span className="font-semibold">conductor</span>
           </h2>
 					<FormConfirm/>
         </div>

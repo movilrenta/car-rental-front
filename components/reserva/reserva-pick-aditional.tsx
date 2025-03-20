@@ -42,7 +42,7 @@ export default function PickAditional ({data} : {data: AditionalType[]}) {
     </h2>
     <ul className="grid grid-cols-2 gap-4 mb-16">
       {data.map((item: AditionalType) => (
-        <AdditionalCard key={item.id} item={item} />
+        item.name !== "Kilometro" && <AdditionalCard key={item.id} item={item} />
       ))}
     </ul>
   </div>

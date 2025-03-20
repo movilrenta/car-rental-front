@@ -1,5 +1,8 @@
+'use server';
+
 import axios from "axios";
-import { unstable_noStore as noStore } from "next/cache";
+import { revalidatePath } from "next/cache";
+//import { unstable_noStore as noStore } from "next/cache";
 
 // const axiosInstance = axios.create({
 //   baseURL: "http://maxbernasconi.com/", // Cambia a tu URL base
@@ -12,7 +15,7 @@ import { unstable_noStore as noStore } from "next/cache";
 
 const URL = process.env.NEXT_PUBLIC_URL_MOVILRENTA
 export async function GetBranchesAction() {
-  noStore();
+  //noStore();
   try {
     const {data} = await axios.get(`${URL}api/branches`)
     return data.response
@@ -23,10 +26,11 @@ export async function GetBranchesAction() {
   }
 }
 
-export async function PostBranchesAction(branch: any) {
+export async function PostBranchesAction({branch} : {branch: any}) {
   try {
     //await setupCsrf();
-    const res = await axios.post(`/api/branches`, branch)
+    const res = await axios.post(`${process.env.NEXT_PUBLIC_URL_MOVILRENTA}/api/branches`, {branch})
+    revalidatePath("/admin/sucursales/ver")
     return {data: res.data, status: res.status}
   }
   catch (error) {
@@ -37,10 +41,12 @@ export async function PostBranchesAction(branch: any) {
 
 
 export async function PutBranchesAction(branch: any) {
+  console.log(branch, "BRUNCH");
   try {
     //await setupCsrf();
-    const res = await axios.put(`/api/branches/${branch.id}`, branch)
-    console.log(res);
+    const res = await axios.put(`${process.env.NEXT_PUBLIC_URL_MOVILRENTA}/api/branches/${branch.id}`, branch)
+    //console.log(res);
+    revalidatePath("/admin/sucursales/ver")
     return res.data
   }
   catch (error) {
@@ -51,8 +57,9 @@ export async function PutBranchesAction(branch: any) {
 
 export async function DeleteBranchesAction(id: number) {
   try {
-    const res = await axios.delete(`/api/branches/${id}`)
-    console.log(res);
+    const res = await axios.delete(`${process.env.NEXT_PUBLIC_URL_MOVILRENTA}/api/branches/${id}`)
+    //console.log(res);
+    revalidatePath("/admin/sucursales/ver")
     return res.data
   }
   catch (error) {

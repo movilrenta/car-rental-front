@@ -2,7 +2,7 @@ import Image from "next/image";
 import CRUD_Vehycle from "./crud";
 import { VehicleType } from "@/constant/cars";
 import DeleteComponent from "./delete-component";
-import { FaEdit, FaTrash } from "react-icons/fa";
+import { FaEdit, FaGasPump, FaTrash } from "react-icons/fa";
 import { Branch, Brand, Group } from "@/types/car.interface";
 import { LuLock } from "react-icons/lu";
 // import { getSatusCar, lockCar } from "@/actions/save-card";
@@ -70,7 +70,8 @@ export default function CarsTableItem({
         fuel_type: car?.fuel_type || "",
         branch_id: Number(car?.branch_id),
         image: car?.image || "",
-        description: patent,
+        description: "",
+        plate: patent,
       };
     });
 
@@ -106,8 +107,6 @@ export default function CarsTableItem({
     }
   };
 
-  const quantity = cars.filter((car_) => car_.name === car.name)?.length;
-
   return (
     <tr className="hover:bg-black/5 dark:hover:bg-black/10 duration-200">
       <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">-</td>
@@ -115,7 +114,7 @@ export default function CarsTableItem({
         <div className="text-left">{car?.id}</div>
       </td>
       <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-        <div className="text-left">{quantity}</div>
+        <div className="text-left">-</div>
       </td>
       <td className="flex items-center h-[47px] min-h-full">
         <div className="flex gap-3 items-center">
@@ -126,12 +125,17 @@ export default function CarsTableItem({
             height={48}
             alt={car?.name}
           />
-
           <div className="font-medium text-gray-800 dark:text-gray-100 text-ellipsis line-clamp-1">
             {car?.name}
           </div>
         </div>
       </td>
+      <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+        <div className="text-center border bottom-1 bg-black rounded-md text-white font-bold p-1 ">
+          {car.plate || "-"}
+        </div>
+      </td>
+
       <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
         <div className="text-left">{car?.brand_name}</div>
       </td>
@@ -141,10 +145,11 @@ export default function CarsTableItem({
       <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
         <div className="text-center">{car?.doors}</div>
       </td>
-      <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+      <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap flex items-center gap-2">
         <div className="text-left font-medium text-green-600">
           {car?.fuel_type}
-        </div>
+        </div>{" "}
+        <FaGasPump className="text-gray-600" size={20} />
       </td>
       <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
         <div className="flex items-center justify-center gap-4">

@@ -2,7 +2,6 @@
 
 import { useFormatNumber } from "@/components/utils/useFormatterNumber";
 import { calcularDiasEntreFechas2, formatDate } from "@/components/utils/utils";
-//import { cities } from "@/constant/cities";
 import { useReservaStore } from "@/stores/reservas/reserva.store";
 import { BranchesType } from "@/types/branches";
 import { useEffect, useState } from "react";
@@ -12,48 +11,61 @@ import {
   IoCheckboxOutline,
   IoNavigateOutline,
 } from "react-icons/io5";
+import { getReservaPrice } from "./calculate-price";
+import { Plus } from "lucide-react";
 
-export const ListItems = ({ data, branches }: { data: any, branches: BranchesType[] }) => {
+export const ListItems = ({
+  data,
+  branches,
+}: {
+  data: any;
+  branches: BranchesType[];
+}) => {
   const [isClient, setIsClient] = useState<boolean>(false);
   const reservas = useReservaStore((state) => state.getReserva());
-  const dias = calcularDiasEntreFechas2(reservas?.startDay!, reservas?.startTime!, reservas?.endDay!, reservas?.endTime!);
+  const [totales, setTotales] = useState<any>(null);
+
+  const dias = calcularDiasEntreFechas2(
+    reservas?.startDay!,
+    reservas?.startTime!,
+    reservas?.endDay!,
+    reservas?.endTime!
+  );
+
 
   useEffect(() => {
     setIsClient(true);
+    if (reservas?.startDay && reservas?.endDay) {
+      //getMaxIncrement(reservas.startDay, reservas.endDay).then(setMaxIncrement);
+      consulta();
+    }
   }, []);
 
-  if (!isClient) {
+  if (!isClient || !reservas || !totales) {
     return (
-      <div className="flex flex-col justify-start items-center h-screen">
+      <div className="flex flex-col justify-start items-center h-screen min-w-full">
         <div className="animate-spin rounded-full h-28 w-28 border-b-2 border-gray-900 mt-52 my-4"></div>
-        <div>Obteniendo datos...</div>
+        <div>Obteniendo datos de su reserva...</div>
       </div>
     );
   }
 
+  async function consulta() {
+    const datos = await getReservaPrice(reservas);
+    //console.log(datos, "DATOS");
+    setTotales(datos);
+    return datos;
+  }
+
+  //console.log(totales, "TOTALES");
+
+
+
   const selectedCity = (id: string) => {
-    const label = branches.find((sucursal) =>
-      sucursal.id.toString() === id
-    );
+    const label = branches.find((sucursal) => sucursal.id.toString() === id);
     return label?.name;
   };
 
-  const showAccesorios = (): number => {
-    let amount_aditionals = 0;
-    reservas?.aditionals_array.map((aditional) => {
-      const adicional = data.find((item: any) => item.id === aditional.id);
-      if (adicional) {
-        //console.log(adicional);
-        amount_aditionals = amount_aditionals + Number(adicional.price) * dias;
-      }
-    });
-
-    //console.log(amount_aditionals);
-    return amount_aditionals;
-  };
-  const totalPrice = reservas?.car?.group?.rate
-    ? +(reservas.car.group?.rate) * dias + showAccesorios()
-    : 0;
 
   return (
     <div className="flex flex-col gap-y-6">
@@ -91,7 +103,8 @@ export const ListItems = ({ data, branches }: { data: any, branches: BranchesTyp
               Vehículo
             </h2>
             <span className="text-md md:text-lg font-semibold text-gray-900 dark:text-slate-100">
-              ARS { useFormatNumber((+(reservas?.car?.group?.rate!) * dias)) || "--"}
+              {/* ARS { useFormatNumber((+(reservas?.car?.group?.rate!) * dias * maxIncrement)) || "--"} */}
+              ARS {useFormatNumber(totales?.totalAuto) || "--"}
             </span>
           </div>
           <div className="text-xs md:text-base text-gray-900 dark:text-slate-100">
@@ -99,41 +112,80 @@ export const ListItems = ({ data, branches }: { data: any, branches: BranchesTyp
               <span className="font-semibold">
                 Grupo: {reservas?.car?.group?.name}
               </span>{" "}
-              - {reservas?.car?.brand?.name} {reservas?.car?.name}. 
+              - {reservas?.car?.brand?.name} {reservas?.car?.name}.
               <span>
-                - Seguros: Por daños o faltantes ${useFormatNumber(reservas?.car?.group?.insurances)}, por vuelcos o robo ${useFormatNumber(Number(reservas?.car?.group?.insurances) * 3)}
+                - Seguros: Por daños o faltantes $
+                {useFormatNumber(+(reservas?.car?.group?.insurances || 0))}, por
+                vuelcos o robo $
+                {useFormatNumber(
+                  Number(reservas?.car?.group?.insurances || 0) * 3
+                )}
               </span>
             </p>
           </div>
         </div>
       </div>
 
-      {reservas?.aditionals_array?.length! > 0 && <>
-        <hr className="w-full h-[2px] bg-gray-500 dark:bg-slate-100" />
-        <div className="w-full flex items-center gap-4">
-          <IoNavigateOutline size={50} className="text-red-700" />
-          <div className="w-full flex flex-col gap-y-2">
-            <div className="flex justify-between">
-              <h2 className="text-md md:text-lg font-semibold  text-red-700">
-                Accesorios
-              </h2>
-              <span className="text-md md:text-lg font-semibold text-gray-900 dark:text-slate-100">
-                ARS {useFormatNumber(showAccesorios())}
-              </span>
-            </div>
-            <div className="text-xs md:text-base text-gray-900 dark:text-slate-100">
-              {reservas?.aditionals_array.map((aditional) => {
-                const adicional = data.find(
-                  (item: any) => item.id === aditional.id
-                );
-                if (adicional) {
-                  return <p key={aditional.id} className="">{adicional.name}</p>;
-                }
-              })}
+      {totales?.totalDropOff > 0 && (
+        <>
+          <hr className="w-full h-[2px] bg-gray-500 dark:bg-slate-100" />
+          <div className="w-full flex items-center gap-4">
+            <Plus size={50} className="text-red-700" />
+            <div className="w-full flex flex-col gap-y-2">
+              <div className="flex justify-between">
+                <h2 className="text-md md:text-lg font-semibold  text-red-700">
+                  Adicional
+                </h2>
+                <span className="text-md md:text-lg font-semibold text-gray-900 dark:text-slate-100">
+                  {/* ARS { useFormatNumber((+(reservas?.car?.group?.rate!) * dias * maxIncrement)) || "--"} */}
+                  ARS {useFormatNumber(totales?.totalDropOff) || "--"}
+                </span>
+              </div>
+              <div className="text-xs md:text-base text-gray-900 dark:text-slate-100">
+                <p className="flex flex-col">
+                  <span>
+                    Adicional por retiro y/o entrega fuera de Tucumán.
+                  </span>
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-      </>}
+        </>
+      )}
+
+      {reservas?.aditionals_array?.length! > 0 && (
+        <>
+          <hr className="w-full h-[2px] bg-gray-500 dark:bg-slate-100" />
+          <div className="w-full flex items-center gap-4">
+            <IoNavigateOutline size={50} className="text-red-700" />
+            <div className="w-full flex flex-col gap-y-2">
+              <div className="flex justify-between">
+                <h2 className="text-md md:text-lg font-semibold  text-red-700">
+                  Accesorios
+                </h2>
+                <span className="text-md md:text-lg font-semibold text-gray-900 dark:text-slate-100">
+                  ARS {useFormatNumber(totales?.totalAdicionales)}
+                  {/* ARS {useFormatNumber(showAccesorios())} */}
+                </span>
+              </div>
+              <div className="text-xs md:text-base text-gray-900 dark:text-slate-100">
+                {reservas?.aditionals_array.map((aditional) => {
+                  const adicional = data.find(
+                    (item: any) => item.id === aditional.id
+                  );
+                  if (adicional) {
+                    return (
+                      <p key={aditional.id} className="">
+                        {adicional.name}
+                      </p>
+                    );
+                  }
+                })}
+              </div>
+            </div>
+          </div>
+        </>
+      )}
 
       <hr className="w-full h-[2px] bg-gray-500 dark:bg-slate-100" />
       <div className="w-full flex items-center gap-4">
@@ -144,7 +196,8 @@ export const ListItems = ({ data, branches }: { data: any, branches: BranchesTyp
               Total
             </h2>
             <span className="text-md md:text-lg font-bold text-gray-900 dark:text-slate-100">
-              ARS {useFormatNumber(totalPrice)}
+              ARS {useFormatNumber(totales?.totalCompleto)}
+              {/* ARS {useFormatNumber(totalPrice)} */}
             </span>
           </div>
           <div className="text-xs md:text-base text-gray-900 dark:text-slate-100">
