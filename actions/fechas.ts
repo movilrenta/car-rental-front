@@ -17,7 +17,7 @@ const URL = process.env.NEXT_PUBLIC_URL_MOVILRENTA
 
 export async function GetFechasAction() {
   try {
-    const {data} = await axios.get(`${URL}/api/date-based-price-multipliers`)
+    const {data} = await axios.get(`${URL}api/date-based-price-multipliers`)
     return data.response
   }
   catch (error) {
@@ -29,7 +29,7 @@ export async function GetFechasAction() {
 export async function PostFechasAction(fecha: any) {
   try {
     //await setupCsrf();
-    const res = await axios.post(`${URL}/api/date-based-price-multipliers`, fecha)
+    const res = await axios.post(`${URL}api/date-based-price-multipliers`, fecha)
     revalidatePath("/admin/fechas/ver")
     return {data: res.data, status: res.status}
   }
@@ -43,7 +43,7 @@ export async function PostFechasAction(fecha: any) {
 export async function PutFechasAction(fecha: any) {
   try {
     //await setupCsrf();
-    const res = await axios.put(`${URL}/api/date-based-price-multipliers/${fecha.id}`, fecha)
+    const res = await axios.put(`${URL}api/date-based-price-multipliers/${fecha.id}`, fecha)
     revalidatePath("/admin/fechas/ver")
     console.log(res);
     return res.data
@@ -56,7 +56,7 @@ export async function PutFechasAction(fecha: any) {
 
 export async function DeleteFechasAction(id: number) {
   try {
-    const res = await axios.delete(`${URL}/api/date-based-price-multipliers/${id}`)
+    const res = await axios.delete(`${URL}api/date-based-price-multipliers/${id}`)
     revalidatePath("/admin/fechas/ver")
     console.log(res);
     return res.data

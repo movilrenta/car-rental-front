@@ -38,7 +38,7 @@ export default function Navbar() {
             <div className="flex justify-center items-center gap-2 text-nowrap">
               {/* <MdGTranslate /> */}
               <MdEmail />
-              <span className="hidden md:block">movil@movilrenta.com</span>
+              <span className="hidden md:block">informes@movilrenta.com.ar</span>
             </div>
           </div>
         </div>

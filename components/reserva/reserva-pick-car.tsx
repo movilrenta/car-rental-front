@@ -1,7 +1,7 @@
 "use client";
 import axios from "axios";
 import { VehicleType } from "@/constant/cars";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useReservaAutoStore } from "@/stores/reserva-auto/reserva-auto.store";
 import { Loader2Icon } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -16,6 +16,7 @@ export default function PickCar() {
   const [contentButton, setContentButton] = useState(
     <span>Buscar vehículos disponibles</span>
   );
+  const firstMount = useRef(true);
   const [data, setData] = useState<VehicleType[]>([]);
   const [isClient, setIsClient] = useState(false);
   const [showCars, setShowCars] = useState(false);
@@ -24,13 +25,32 @@ export default function PickCar() {
   useEffect(() => {
     setIsClient(true);
   }, []);
-
   useEffect(() => {
     if (itinerario?.startDay && itinerario?.endDay) {
-      getMaxIncrement(itinerario.startDay, itinerario.endDay).then(setMaxIncrement);
+      getMaxIncrement(itinerario.startDay, itinerario.endDay).then(
+        setMaxIncrement
+      );
     }
   }, [itinerario?.startDay, itinerario?.endDay]);
-
+  const handlerSubmit = async () => {
+    const payload = {
+      start_date: new Date(itinerario?.startDay!).toISOString().slice(0, 10),
+      end_date: new Date(itinerario?.endDay!).toISOString().slice(0, 10),
+    };
+    const { data, status } = await axios.post(
+      "/api/check-availability-cars",
+      payload
+    );
+    //console.log(status);
+    setShowCars(true);
+    setData(data.response);
+  };
+  useEffect(() => {
+    if (firstMount.current) {
+      firstMount.current = false;
+      handlerSubmit();
+    }
+  }, []);
   useEffect(() => {
     setContentButton(<span>Buscar vehículos disponibles</span>);
     setShowCars(false);
@@ -50,28 +70,16 @@ export default function PickCar() {
     : false;
 
   async function checkCars() {
-    //console.log(itinerario);
-    //removeCar()
     setContentButton(
       <>
         <Loader2Icon className="w-12 h-12 animate-spin" />
         <span>Actualizando flota...</span>
       </>
     );
-    const payload = {
-      start_date: new Date(itinerario?.startDay!).toISOString().slice(0, 10),
-      end_date: new Date(itinerario?.endDay!).toISOString().slice(0, 10),
-    };
-    const { data, status } = await axios.post(
-      "/api/check-availability-cars",
-      payload
-    );
-    //console.log(status);
-    setShowCars(true);
-    setData(data.response);
+    handlerSubmit();
   }
 
-  console.log("Incremento máximo encontrado:", maxIncrement);
+  //console.log("Incremento máximo encontrado:", maxIncrement);
 
   return (
     <div className="grid grid-cols-12 col-span-12 gap-6 mt-8 min-h-96 w-full place-content-start">
@@ -81,31 +89,41 @@ export default function PickCar() {
             02. Seleccione su <strong>vehículo</strong>
           </h2>
           {!car ? (
-            <RenderCarsAvailability Vehicles={data} extra={maxIncrement}/>
+            <RenderCarsAvailability
+              Vehicles={data}
+              extra={maxIncrement}
+              itinerary={itinerario}
+            />
           ) : (
             <RenderCarsAvailability
               Vehicles={Array.isArray(car) ? car : [car]}
               extra={maxIncrement}
+              itinerary={itinerario}
             />
           )}
         </>
-      ) : (<>
-        <Button
-          disabled={
-            !itinerario?.startDay ||
-            !itinerario?.endDay ||
-            !itinerario?.startLocation ||
-            !itinerario?.endLocation ||
-            !itinerario?.startTime ||
-            !itinerario?.endTime ||
-            !isStartDayValid
-          }
-          onClick={() => checkCars()}
-          className="col-span-12 w-72 min-w-72 !py-5 border mx-auto bg-red-700 hover:bg-orange-800 text-white"
-        >
-          {contentButton}
-        </Button>
-        {!isStartDayValid && <span className="col-span-12 text-center mx-auto text-red-600 -mt-6 text-xs">Verifique las fechas de reserva</span>}
+      ) : (
+        <>
+          <Button
+            disabled={
+              !itinerario?.startDay ||
+              !itinerario?.endDay ||
+              !itinerario?.startLocation ||
+              !itinerario?.endLocation ||
+              !itinerario?.startTime ||
+              !itinerario?.endTime ||
+              !isStartDayValid
+            }
+            onClick={() => checkCars()}
+            className="col-span-12 w-72 min-w-72 !py-5 border mx-auto bg-red-700 hover:bg-orange-800 text-white"
+          >
+            {contentButton}
+          </Button>
+          {!isStartDayValid && (
+            <span className="col-span-12 text-center mx-auto text-red-600 -mt-6 text-xs">
+              Verifique las fechas de reserva
+            </span>
+          )}
         </>
       )}
     </div>

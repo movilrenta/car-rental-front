@@ -26,29 +26,44 @@ import { useState } from "react";
 import { LoaderIcon } from "lucide-react";
 import { PostFechasAction, PutFechasAction } from "@/actions/fechas";
 
-export default function CRUD_Fecha_Form({ fecha }: { fecha?: {id: number, reason: string, multiplier: number, start_date: string} }) {
-
+export default function CRUD_Fecha_Form({
+  fecha,
+}: {
+  fecha?: {
+    id: number;
+    reason: string;
+    multiplier: number;
+    start_date: string;
+  };
+}) {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
+
+  const percentaje =
+    fecha &&
+    (fecha?.multiplier < 1
+      ? fecha.multiplier * 100 - 100
+      : (fecha.multiplier - 1) * 100);
 
   const form = useForm<z.infer<typeof FechaFormSchema>>({
     resolver: zodResolver(FechaFormSchema),
     defaultValues: {
       reason: fecha?.reason || "",
-      multiplier: fecha?.multiplier || 1,
-      start_date: fecha?.start_date || ""
+      multiplier: percentaje || 0,
+      start_date: fecha?.start_date || "",
     },
   });
 
   const onSubmit = async (values: z.infer<typeof FechaFormSchema>) => {
-
     setIsLoading(true);
+    const division = values.multiplier / 100;
+    console.log(division, "division");
     if (fecha) {
       const editFecha = {
         id: fecha.id,
         reason: values.reason,
-        multiplier: +(values.multiplier),
-        start_date: values.start_date
+        multiplier: 1 + division,
+        start_date: values.start_date,
       };
 
       try {
@@ -71,11 +86,10 @@ export default function CRUD_Fecha_Form({ fecha }: { fecha?: {id: number, reason
       }
     } else {
       const newFecha: any = values;
-      newFecha.multiplier = Number(newFecha.multiplier);
-      console.log(newFecha);
+      newFecha.multiplier = 1 + division;
       try {
         const res = await PostFechasAction(newFecha);
-        console.log(res, "3");
+
         if (res.status === 200) {
           toast({
             variant: "default",
@@ -98,9 +112,7 @@ export default function CRUD_Fecha_Form({ fecha }: { fecha?: {id: number, reason
   return (
     <SheetContent className="w-full !max-w-3xl min-h-screen overflow-y-auto">
       <SheetHeader>
-        <SheetTitle>
-          {fecha ? "Editar fecha" : "Agregar fecha"}
-        </SheetTitle>
+        <SheetTitle>{fecha ? "Editar fecha" : "Agregar fecha"}</SheetTitle>
         <SheetDescription></SheetDescription>
         <Form {...form}>
           <form className="w-full grid grid-cols-12 space-y-2 space-x-2 !text-start ">
@@ -133,7 +145,7 @@ export default function CRUD_Fecha_Form({ fecha }: { fecha?: {id: number, reason
               name="multiplier"
               render={({ field }) => (
                 <FormItem className="col-span-12 flex flex-col justify-end">
-                  <FormLabel>Multiplicador %</FormLabel>
+                  <FormLabel>Porcentaje %</FormLabel>
                   <FormControl>
                     <Input className="form-input w-full" {...field} />
                   </FormControl>
@@ -142,24 +154,26 @@ export default function CRUD_Fecha_Form({ fecha }: { fecha?: {id: number, reason
               )}
             />
 
-        <FormField
-          control={form.control}
-          name="start_date"
-          render={({ field }) => (
-            <FormItem className="col-span-12 flex flex-col">
-              <FormLabel>
-                Fecha (Día/Mes/Año)
-              </FormLabel>
-              <div className="w-full flex flex-col">
-                <FormControl>
-                  {/* <Input className="placeholder:text-zinc-300 dark:placeholder:text-zinc-600 dark:text-white" placeholder="correo.ejemplo@mail.com" {...field} /> */}
-                  <input type="date" className="w-full p-1 border rounded-md bg-transparent text-zinc-500 dark:text-zinc-600 dark:border-zinc-600" {...field} />
-                </FormControl>
-                <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
-              </div>
-            </FormItem>
-          )}
-        />
+            <FormField
+              control={form.control}
+              name="start_date"
+              render={({ field }) => (
+                <FormItem className="col-span-12 flex flex-col">
+                  <FormLabel>Fecha (Día/Mes/Año)</FormLabel>
+                  <div className="w-full flex flex-col">
+                    <FormControl>
+                      {/* <Input className="placeholder:text-zinc-300 dark:placeholder:text-zinc-600 dark:text-white" placeholder="correo.ejemplo@mail.com" {...field} /> */}
+                      <input
+                        type="date"
+                        className="w-full p-1 border rounded-md bg-transparent text-zinc-500 dark:text-zinc-600 dark:border-zinc-600"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
+                  </div>
+                </FormItem>
+              )}
+            />
           </form>
         </Form>
       </SheetHeader>
