@@ -89,7 +89,7 @@ export const NavbarMobile = () => {
           </div>
           <div className="flex justify-center items-center gap-2 text-nowrap">
             {/* <MdGTranslate /> */}
-            <MdEmail /> movil@movilrenta.com
+            <MdEmail />informes@movilrenta.com.ar
           </div>
         </SheetFooter>
       </SheetContent>

@@ -1,4 +1,4 @@
-'use server'
+"use server";
 
 import { GetFechasAction } from "./fechas";
 
@@ -18,7 +18,6 @@ import { GetFechasAction } from "./fechas";
 //   { date: "2025-12-25", value: 1.2, name: "11" }
 // ]
 
-
 const normalizeDate = (date: Date): number => {
   const normalized = new Date(date);
   normalized.setHours(0, 0, 0, 0); // Ajustamos la fecha a medianoche local
@@ -27,24 +26,29 @@ const normalizeDate = (date: Date): number => {
 
 export const getMaxIncrement = async (
   startDate: Date,
-  endDate: Date,
+  endDate: Date
   //specialDates: { date: string; value: number, name: string }[]
 ) => {
   if (!startDate || !endDate) return 1;
   const start = normalizeDate(startDate);
   const end = normalizeDate(endDate);
 
-  const specialDates = await GetFechasAction()
+  const specialDates = await GetFechasAction();
   //console.log(specialDates);
-  
+
   //const maxIncrement = specialDates.reduce((maxValue: number, { start_date, multiplier, reason }: any) => {
-  const maxIncrement = specialDates.reduce((maxValue: number, { start_date, multiplier }: any) => {
-    const [year, month, day] = start_date.split("-").map(Number);
-    const specialDate = normalizeDate(new Date(year, month - 1, day));
-    //console.log(specialDate, reason);
-    return specialDate >= start && specialDate <= end
-      ? Math.max(maxValue, Number(multiplier))
-      : maxValue;
-  }, 1)
+  const maxIncrement = specialDates.reduce(
+    (maxValue: number, { start_date, multiplier }: any) => {
+      const [year, month, day] = start_date.split("-").map(Number);
+      const specialDate = normalizeDate(new Date(year, month - 1, day));
+      //console.log(specialDate, reason);
+      return specialDate >= start && specialDate <= end
+        ? multiplier > 1
+          ? Math.max(maxValue, Number(multiplier))
+          : maxValue * Number(multiplier)
+        : maxValue;
+    },
+    1
+  );
   return maxIncrement;
 };

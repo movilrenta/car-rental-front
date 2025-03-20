@@ -28,9 +28,11 @@ import { useEffect, useState } from "react";
 import BannerPage from "@/view/banner-page";
 import { useReservaStore } from "@/stores/reservas/reserva.store";
 //import { calcularDiasEntreFechas2 } from "@/components/utils/utils";
-import { 
-  //getPaymentMethods, 
-  getTokenPay } from "@/actions";
+import {
+  //getPaymentMethods,
+  getTokenPay,
+  sendEmail,
+} from "@/actions";
 import { useRouter } from "next/navigation";
 import { LuLoader } from "react-icons/lu";
 import { statesCodes } from "@/constant/states-codes";
@@ -41,11 +43,16 @@ import PayWay from "./test/payway";
 
 export default function PayForm({ aditionals }: { aditionals: any[] }) {
   const router = useRouter();
-  const [totales, setTotales] = useState<any>(null) 
+  const [totales, setTotales] = useState<any>(null);
   const [loader, setLoader] = useState<boolean>(false);
   const [isClient, setIsClient] = useState<boolean>(false);
-  const [paymentsMethods, setPaymentsMethods] = useState<PaymentMethods[]>(CARDS);
+  const [paymentsMethods, setPaymentsMethods] =
+    useState<PaymentMethods[]>(CARDS);
   const reserva = useReservaStore((state) => state.getReserva());
+  const userDataEmail = JSON.parse(
+    sessionStorage.getItem("movil_renta_user_data_mail") as string
+  );
+
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -99,48 +106,40 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
     //   },
     // },
   });
-  
+
   useEffect(() => {
     if (reserva?.startDay && reserva?.endDay) {
-      consulta()
+      consulta();
     }
-    
   }, []);
 
-  if(!isClient) {
+  if (!isClient) {
     return (
       <div className="flex flex-col justify-start items-center h-screen min-w-full">
         <div className="animate-spin rounded-full h-28 w-28 border-b-2 border-gray-900 mt-52 my-4"></div>
         <div>Obteniendo datos de su reserva...</div>
       </div>
     );
-  
   }
 
-  async function consulta ()  {
-    const datos = await getReservaPrice(reserva)
+  async function consulta() {
+    const datos = await getReservaPrice(reserva);
     console.log(datos, "DATOS");
-    setTotales(datos)
+    setTotales(datos);
     setIsClient(true);
-    return datos
+    return datos;
   }
-
-  
-
-  
 
   // const payMethods = async () => {
   //   const resp = await getPaymentMethods();
   //   setPaymentsMethods(resp.data);
   // };
 
-  
   // useEffect(() => {
   //   payMethods();
   //   setLoader(false);
   // }, []);
 
-  
   // const days = calcularDiasEntreFechas2(reserva?.startDay!, reserva?.startTime!, reserva?.endDay!, reserva?.endTime!);
   // console.log(days);
   // const showAccesorios = (): number => {
@@ -163,7 +162,7 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
     const number_reserva_id = Number(reserva_id);
     //const amount_aditionals = showAccesorios();
     const amount_aditionals = totales?.totalAdicionales;
-    const dropOff = totales?.totalDropOff
+    const dropOff = totales?.totalDropOff;
     if (!code) {
       toast({
         variant: "destructive",
@@ -171,7 +170,7 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
       });
       return;
     }
-    values.bill_to.street1 = values.bill_to.street1 + " 4041"
+    values.bill_to.street1 = values.bill_to.street1 + " 4041";
     try {
       const resp = await getTokenPay(
         values,
@@ -188,10 +187,21 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
         toast({
           variant: "default",
           title: "Pago rechazado",
-          description:`${resp?.message}`
+          description: `${resp?.message}`,
         });
       } else {
-        // await saveCard(values);
+        const respEmail = await sendEmail({
+          userEmail: userDataEmail.userEmail as string,
+          firstName: userDataEmail.firstName as string,
+          code,
+        });
+        if (respEmail.ok) {
+          toast({
+            variant: "default",
+            title: `${respEmail.message}`,
+            description: `${respEmail.description}`,
+          });
+        }
         toast({
           variant: "default",
           title: `${resp.message}`,
@@ -219,10 +229,30 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
             </div>
             <div className="text-sm max-w-64 w-full mx-auto pt-2">
               <div className="font-semibold text-base">Resumen</div>
-              {totales?.totalAuto && <div className="flex justify-between text-start"><span>Vehículo</span><span> {useFormatNumber(totales.totalAuto)}</span></div>}
-              {totales?.totalAdicionales > 0 && <div className="flex justify-between text-start"><span>Adicionales</span><span> {useFormatNumber(totales.totalAdicionales)}</span></div>}
-              {totales?.totalDropOff > 0 && <div className="flex justify-between text-start"><span>Dropoff</span><span> {useFormatNumber(totales.totalDropOff)}</span></div>}
-              {totales?.totalCompleto && <div className="flex justify-between text-start border-t font-bold"><span>Total</span><span> {useFormatNumber(totales.totalCompleto)}</span></div>}
+              {totales?.totalAuto && (
+                <div className="flex justify-between text-start">
+                  <span>Vehículo</span>
+                  <span> {useFormatNumber(totales.totalAuto)}</span>
+                </div>
+              )}
+              {totales?.totalAdicionales > 0 && (
+                <div className="flex justify-between text-start">
+                  <span>Adicionales</span>
+                  <span> {useFormatNumber(totales.totalAdicionales)}</span>
+                </div>
+              )}
+              {totales?.totalDropOff > 0 && (
+                <div className="flex justify-between text-start">
+                  <span>Dropoff</span>
+                  <span> {useFormatNumber(totales.totalDropOff)}</span>
+                </div>
+              )}
+              {totales?.totalCompleto && (
+                <div className="flex justify-between text-start border-t font-bold">
+                  <span>Total</span>
+                  <span> {useFormatNumber(totales.totalCompleto)}</span>
+                </div>
+              )}
             </div>
           </div>
           {!loader && (
@@ -243,7 +273,9 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
                     name="payment_method_id"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="block text-sm font-medium -mb-2">Seleccione un medio de pago</FormLabel>
+                        <FormLabel className="block text-sm font-medium -mb-2">
+                          Seleccione un medio de pago
+                        </FormLabel>
                         <Select
                           onValueChange={field.onChange}
                           defaultValue={field.value}
@@ -555,19 +587,22 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
                             className="hover:bg-zinc-700 hover:text-white"
                             value="1"
                           >
-                            1 cuota de ${useFormatNumber(totales?.totalCompleto)}
+                            1 cuota de $
+                            {useFormatNumber(totales?.totalCompleto)}
                           </SelectItem>
                           <SelectItem
                             className="hover:bg-zinc-700 hover:text-white"
                             value="2"
                           >
-                            2 cuotas de ${useFormatNumber(totales?.totalCompleto / 2)}
+                            2 cuotas de $
+                            {useFormatNumber(totales?.totalCompleto / 2)}
                           </SelectItem>
                           <SelectItem
                             className="hover:bg-zinc-700 hover:text-white"
                             value="3"
                           >
-                            3 cuotas de ${useFormatNumber(totales?.totalCompleto / 3)}
+                            3 cuotas de $
+                            {useFormatNumber(totales?.totalCompleto / 3)}
                           </SelectItem>
                         </SelectContent>
                       </Select>
@@ -580,7 +615,9 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
                   name="bill_to.state"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="block text-sm font-medium -mb-2">Provincia</FormLabel>
+                      <FormLabel className="block text-sm font-medium -mb-2">
+                        Provincia
+                      </FormLabel>
                       <Select
                         onValueChange={field.onChange}
                         defaultValue={field.value}
@@ -715,10 +752,16 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
                     {form.formState.isSubmitting ? (
                       <LuLoader className="mr-2 h-4 w-4 animate-spin" />
                     ) : (
-                      <div className="flex flex-nowrap gap-2 items-center"><span>Pagar con </span><PayWay /></div>
+                      <div className="flex flex-nowrap gap-2 items-center">
+                        <span>Pagar con </span>
+                        <PayWay />
+                      </div>
                     )}
                   </Button>
-                  <div className="text-center text-xs leading-4 pt-2">Una vez aprobado el pago la reserva será confirmada y se le enviará un email con el código de reserva</div>
+                  <div className="text-center text-xs leading-4 pt-2">
+                    Una vez aprobado el pago la reserva será confirmada y se le
+                    enviará un email con el código de reserva
+                  </div>
                 </div>
               </form>
             </Form>
