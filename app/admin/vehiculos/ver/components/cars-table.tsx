@@ -177,7 +177,7 @@ export const CarsTable = ({
                       <td className="px-4 py-2 text-center">{firstCar.group_name}</td>
                       <td className="px-4 py-2"></td>
                       <td className="px-4 py-2"></td>
-                      <td className="px-4 py-2 min-w-32"></td>
+                      <td className="px-4 py-2 min-w-[210px]"></td>
                     </tr>
                     {/* Filas ocultas */}
                     {isExpanded &&

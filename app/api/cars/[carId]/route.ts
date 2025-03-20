@@ -10,6 +10,24 @@ type Params = {
 export async function PUT(req: NextRequest, context: { params: { carId: string } }) {
   try {
     const body = await req.json();
+    console.log(body, "__________");
+    const response = await axios.put(
+      `${BACK}cars/${context.params.carId}`,
+      body
+    );
+    return NextResponse.json({message: response.data, status: 200});
+  } catch (e) {
+    return NextResponse.json(
+      { error: 'Failed to fetch data', errorData: e },
+      { status: 500 }
+    );
+  }
+}
+
+export async function PATCH(req: NextRequest, context: { params: { carId: string } }) {
+  try {
+    const body = await req.json();
+    console.log(body);
     const response = await axios.put(
       `${BACK}cars/${context.params.carId}`,
       body

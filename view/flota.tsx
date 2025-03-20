@@ -28,7 +28,7 @@ export const Flota = ({ cars }: Props) => {
       return acc;
     }, {} as Record<string, any[]>);
   };
-  console.log(cars, "cas");
+  //console.log(cars, "cas");
 
   const groupByName = availableCars(cars);
   // const totalCars = total(cars)["Hilux DC 4X4"];
