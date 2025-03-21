@@ -43,10 +43,9 @@ export const getMaxIncrement = async (
       const [year2, month2, day2] = end_date.split("-").map(Number);
       const startDate = normalizeDate(new Date(year, month - 1, day));
       const endDate = normalizeDate(new Date(year2, month2 - 1, day2));
-      console.log(startDate, start, end, "startDate, endDate");
 
-      return (startDate >= start && startDate <= end) ||
-        (endDate >= start && endDate <= end)
+      return (start >= startDate && start <= endDate) ||
+        (end >= startDate && end <= endDate)
         ? multiplier > 1
           ? Math.max(maxValue, Number(multiplier))
           : maxValue * Number(multiplier)
