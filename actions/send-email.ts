@@ -12,20 +12,12 @@ const formSchema = z.object({
 })
 
 export const sendEmail = async (values:z.infer<typeof formSchema>) => {
-
-  const resultParsed = await formSchema.safeParseAsync(values)
-  if(!resultParsed.success){
-    return {
-      ok:false,
-      message: "Error al enviar email de confirmación"
-    }
-  }
-  const dataEmail = resultParsed.data
+ 
     try {
       await emailjs.send(
         `${SERVICE_ID}`,
         `${TEMPLATE_ID}`,
-        {dataEmail},
+        values,
         {
           publicKey: `${PUBLIC_KEY}`,
         },
