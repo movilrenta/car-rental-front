@@ -1,19 +1,18 @@
 'use client';
 
-import { CarType } from "@/constant/cars";
+import { VehicleType } from "@/constant/cars";
 import { StateCreator, create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
 export type ReservaType = {
-  car: CarType | null,
+  car: VehicleType | null,
   startLocation: string,
   endLocation: string,
   startDay: Date,
   endDay: Date,
   startTime: string | undefined,
   endTime: string | undefined,
-  silla: boolean,
-  gps: boolean
+  aditionals_array: {id: number, amount: number}[]
 };
 
 interface StoreState {
@@ -29,8 +28,7 @@ const storeApi: StateCreator<StoreState> = (set, get) => ({
   getReserva: () => get().reserva,
   addReserva: (item: ReservaType) => set(() => ({reserva: item})  ),
   removeReserva: () => set(() => ({ reserva: null }))
-  //removeReserva: (item: Product) => set((state) => ({ cart: state.cart.filter((i) => i !== item) })),
-  //removeAllCart: () => set((state) => ({ cart: [] }))
+
 
 });
 

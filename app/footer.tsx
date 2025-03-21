@@ -38,7 +38,7 @@ const footerInfo = [
     items: [
       {
         label: "Nuestra flota de vehículos",
-        link: "/flota-de-vehiculos"
+        link: "/flota"
       },
       {
         label: "Términos y condiciones",

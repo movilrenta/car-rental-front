@@ -1,159 +1,52 @@
-export type CarType = {
-  id: string,
-  name: string,
-  group: string,
-  price: number,
-  combustible: string,
-  maletas: number,
-  puertas: number,
-  caja: string,
-  plazas: number,
-  image: string
-};
+export type VehicleType = {
+  id: number;
+  name: string;
+  brand_id: number;
+  group_id: number;
+  doors: number;
+  seats: number;
+  transmission: string;
+  luggage: number;
+  fuel_type: string;
+  branch_id: number;
+  image: string;
+  description: string;
+  plate: string;
+  created_at: Date;
+  updated_at: Date;
+  deleted_at: Date | null;
+  brand: Brand;
+  group: Group;
+  branch: Branch;
+}
 
-export const Cars = [
-  {
-    id: "sdfi32",
-    name: "Peugeot 208 Like",
-    group: "B",
-    price: 10000.00,
-    combustible: "Nafta",
-    maletas: 2,
-    puertas: 5,
-    caja: "Manual",
-    plazas: 5,
-    image: "/images2/peugeot208.webp"
-  },
-  {
-    id: "sdfi31",
-    name: "Toyota Etios",
-    group: "B",
-    price: 47235.50,
-    combustible: "Nafta",
-    maletas: 2,
-    puertas: 5,
-    caja: "Manual",
-    plazas: 5,
-    image: "/images2/toyotaetios.webp"
-  },
-  {
-    id: "s4dfi3",
-    name: "Nissaan Versa",
-    group: "H",
-    price: 74260.50,
-    combustible: "Nafta",
-    maletas: 4,
-    puertas: 4,
-    caja: "Automática",
-    plazas: 5,
-    image: "/images2/nissanversa.webp"
-  },
-  {
-    id: "sdf6i3",
-    name: "Toyota Hilux 4x4",
-    group: "X",
-    price: 185532.50,
-    combustible: "Diesel",
-    maletas: 6,
-    puertas: 4,
-    caja: "Manual",
-    plazas: 5,
-    image: "/images2/toyotahilux.webp"
-  },
-  {
-    id: "sdyfi3",
-    name: "Peugeot 208 Like",
-    group: "B",
-    price: 47235.50,
-    combustible: "Nafta",
-    maletas: 2,
-    puertas: 5,
-    caja: "Manual",
-    plazas: 5,
-    image: "/images2/peugeot208.webp"
-  },
-  {
-    id: "sdfli3",
-    name: "Toyota Etios",
-    group: "B",
-    price: 47235.50,
-    combustible: "Nafta",
-    maletas: 2,
-    puertas: 5,
-    caja: "Manual",
-    plazas: 5,
-    image: "/images2/toyotaetios.webp"
-  },
-  {
-    id: "sdfi3x",
-    name: "Nissaan Versa",
-    group: "H",
-    price: 74260.50,
-    combustible: "Nafta",
-    maletas: 4,
-    puertas: 4,
-    caja: "Automática",
-    plazas: 5,
-    image: "/images2/nissanversa.webp"
-  },
-  {
-    id: "sdxfi3",
-    name: "Toyota Hilux 4x4",
-    group: "X",
-    price: 185532.50,
-    combustible: "Diesel",
-    maletas: 6,
-    puertas: 4,
-    caja: "Manual",
-    plazas: 5,
-    image: "/images2/toyotahilux.webp"
-  },
-  {
-    id: "xsdfi3",
-    name: "Peugeot 208 Like",
-    group: "B",
-    price: 47235.50,
-    combustible: "Nafta",
-    maletas: 2,
-    puertas: 5,
-    caja: "Manual",
-    plazas: 5,
-    image: "/images2/peugeot208.webp"
-  },
-  {
-    id: "sdafi3",
-    name: "Toyota Etios",
-    group: "B",
-    price: 47235.50,
-    combustible: "Nafta",
-    maletas: 2,
-    puertas: 5,
-    caja: "Manual",
-    plazas: 5,
-    image: "/images2/toyotaetios.webp"
-  },
-  {
-    id: "sdfia3",
-    name: "Nissaan Versa",
-    group: "H",
-    price: 74260.50,
-    combustible: "Nafta",
-    maletas: 4,
-    puertas: 4,
-    caja: "Automática",
-    plazas: 5,
-    image: "/images2/nissanversa.webp"
-  },
-  {
-    id: "asdfi3",
-    name: "Toyota Hilux 4x4",
-    group: "X",
-    price: 185532.50,
-    combustible: "Diesel",
-    maletas: 6,
-    puertas: 4,
-    caja: "Manual",
-    plazas: 5,
-    image: "/images2/toyotahilux.webp"
-  },
-]
+type Brand = {
+  id: number;
+  name: string;
+  image: string;
+  description: string;
+  created_at: Date;
+  updated_at: Date;
+  deleted_at: Date | null;
+}
+
+type Branch = {
+  id: number;
+  name: string;
+  address_id: number; // o number
+  deleted_at: Date | null;
+  created_at: Date;
+  updated_at: Date;
+}
+
+type Group = {
+  id: number;
+  name: string;
+  description: string;
+  rate: string;
+  image: string;
+  insurances: string;
+  deleted_at: Date | null;
+  created_at: Date;
+  updated_at: Date;
+}
