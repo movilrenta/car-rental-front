@@ -3,10 +3,10 @@ import { NextResponse } from "next/server";
 
 const URL = process.env.NEXT_PUBLIC_URL_BACK
 
-type Check_Availability = {
-  startDate: string,
-  endDate: string
-}
+// type Check_Availability = {
+//   startDate: string,
+//   endDate: string
+// }
 
 type errorType = {
   response: {

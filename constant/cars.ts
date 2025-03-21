@@ -11,6 +11,7 @@ export type VehicleType = {
   branch_id: number;
   image: string;
   description: string;
+  plate: string;
   created_at: Date;
   updated_at: Date;
   deleted_at: Date | null;
@@ -32,6 +33,7 @@ type Brand = {
 type Branch = {
   id: number;
   name: string;
+  address_id: number; // o number
   deleted_at: Date | null;
   created_at: Date;
   updated_at: Date;

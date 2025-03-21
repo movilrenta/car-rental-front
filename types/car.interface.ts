@@ -11,6 +11,7 @@ export interface CarResponse {
   fuel_type:    string;
   image:        string;
   description:  string;
+  plate:        string;
   created_at:   Date;
   updated_at:   Date;
   deleted_at:   null;

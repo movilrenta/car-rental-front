@@ -33,7 +33,7 @@ export const getUserReservation = async ({code}:FormMiReserva) => {
     const start_branch = branches.find((item) => item.id === reserva.start_branch_id)?.name
     const end_branch = branches.find((item) => item.id === reserva.end_branch_id)?.name
 
-    console.log(start_branch, end_branch, "ramas")
+    //console.log(start_branch, end_branch, "ramas")
 
     return {
       ok:true,

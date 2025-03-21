@@ -51,17 +51,20 @@ export default function CRUD_Branch_Form({
     defaultValues: {
       name: branch?.name || "",
       address_id: branch?.address_id || "",
+      distance_to_main_branch: branch?.distance_to_main_branch || ""
     },
   });
+//mostrar errores del form
 
   const onSubmit = async (values: z.infer<typeof BranchFormSchema>) => {
-    event?.preventDefault();
+    //event?.preventDefault();
     setIsLoading(true);
     if (branch) {
       const editBranch = {
         id: branch.id,
         name: values.name,
         address_id: Number(values.address_id),
+        distance_to_main_branch: Number(values.distance_to_main_branch)
       };
 
       try {
@@ -73,7 +76,7 @@ export default function CRUD_Branch_Form({
             title: `Sucursal editada con exito`,
           });
           setIsLoading(false);
-          window.location.reload();
+          //window.location.reload();
         }
       } catch (error) {
         console.log(error, "error");
@@ -85,6 +88,7 @@ export default function CRUD_Branch_Form({
     } else {
       const newBranch: any = values;
       newBranch.address_id = Number(newBranch.address_id);
+      newBranch.distance_to_main_branch = Number(newBranch.distance_to_main_branch);
       
 
       try {
@@ -96,7 +100,7 @@ export default function CRUD_Branch_Form({
             title: `Sucursal creada con exito`,
           });
           setIsLoading(false);
-          window.location.reload();
+          //window.location.reload();
         }
       } catch (error) {
         toast({
@@ -170,6 +174,19 @@ export default function CRUD_Branch_Form({
                         ))}
                     </SelectContent>
                   </Select>
+                  <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="distance_to_main_branch"
+              render={({ field }) => (
+                <FormItem className="col-span-12 flex flex-col justify-end">
+                  <FormLabel>Distancia a la sucursal principal en KMs</FormLabel>
+                  <FormControl>
+                    <Input className="form-input w-full" {...field} />
+                  </FormControl>
                   <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
                 </FormItem>
               )}
