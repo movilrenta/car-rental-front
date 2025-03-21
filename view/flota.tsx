@@ -47,11 +47,8 @@ export const Flota = ({ cars }: Props) => {
           // const totalCars = total(cars)[name];
 
           return firstCar ? (
-            <div className="col-span-12 md:col-span-4">
-              <div
-                key={firstCar.id}
-                className="relative grid col-span-full sm:col-span-6 md:col-span-4 xl:col-span-3"
-              >
+            <div className="col-span-12 md:col-span-4" key={firstCar.id}>
+              <div className="relative grid col-span-full sm:col-span-6 md:col-span-4 xl:col-span-3">
                 <SimpleCardCar key={firstCar.id} car={firstCar} />
               </div>
             </div>

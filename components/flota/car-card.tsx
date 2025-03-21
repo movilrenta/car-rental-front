@@ -12,7 +12,7 @@ export default function SimpleCardCar({ car }: { car: VehicleType }) {
     <div className="col-span-full sm:col-span-6 group border border-transparent hover:border-zinc-500 dark:hover:border-zinc-700 hover:bg-black/5 duration-200 xl:col-span-3 bg-white dark:bg-gray-800 shadow-sm rounded-xl overflow-hidden">
       <div className="flex flex-col h-full">
         <Image
-          className="w-full duration-200"
+          className="w-full duration-200 object-cover h-full md:h-40 lg:h-56 object-center"
           src={car?.image}
           width={286}
           height={160}
