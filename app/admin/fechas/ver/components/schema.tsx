@@ -5,4 +5,5 @@ export const FechaFormSchema = z.object({
   reason: z.string().trim(),
   multiplier: z.coerce.number(),
   start_date: z.string().trim(),
+  end_date: z.string().trim(),
 });

@@ -34,6 +34,7 @@ export default function CRUD_Fecha_Form({
     reason: string;
     multiplier: number;
     start_date: string;
+    end_date: string;
   };
 }) {
   const { toast } = useToast();
@@ -49,15 +50,16 @@ export default function CRUD_Fecha_Form({
     resolver: zodResolver(FechaFormSchema),
     defaultValues: {
       reason: fecha?.reason || "",
-      multiplier: percentaje || 0,
+      multiplier: Math.round(percentaje || 0),
       start_date: fecha?.start_date || "",
+      end_date: fecha?.end_date || "",
     },
   });
 
   const onSubmit = async (values: z.infer<typeof FechaFormSchema>) => {
     setIsLoading(true);
     const division = values.multiplier / 100;
-    console.log(division, "division");
+
     if (fecha) {
       const editFecha = {
         id: fecha.id,
@@ -68,7 +70,7 @@ export default function CRUD_Fecha_Form({
 
       try {
         const res = await PutFechasAction(editFecha);
-        console.log(res, "1");
+
         if (res.status === 200) {
           toast({
             variant: "default",
@@ -153,27 +155,48 @@ export default function CRUD_Fecha_Form({
                 </FormItem>
               )}
             />
-
-            <FormField
-              control={form.control}
-              name="start_date"
-              render={({ field }) => (
-                <FormItem className="col-span-12 flex flex-col">
-                  <FormLabel>Fecha (Día/Mes/Año)</FormLabel>
-                  <div className="w-full flex flex-col">
-                    <FormControl>
-                      {/* <Input className="placeholder:text-zinc-300 dark:placeholder:text-zinc-600 dark:text-white" placeholder="correo.ejemplo@mail.com" {...field} /> */}
-                      <input
-                        type="date"
-                        className="w-full p-1 border rounded-md bg-transparent text-zinc-500 dark:text-zinc-600 dark:border-zinc-600"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
-                  </div>
-                </FormItem>
-              )}
-            />
+            <div className="gap-4 col-span-full w-full grid grid-cols-2">
+              <FormField
+                control={form.control}
+                name="start_date"
+                render={({ field }) => (
+                  <FormItem className="col-span-1 flex flex-col">
+                    <FormLabel>Fecha desde</FormLabel>
+                    <div className="w-full flex flex-col">
+                      <FormControl>
+                        {/* <Input className="placeholder:text-zinc-300 dark:placeholder:text-zinc-600 dark:text-white" placeholder="correo.ejemplo@mail.com" {...field} /> */}
+                        <input
+                          type="date"
+                          className="w-full p-1 border rounded-md bg-transparent text-zinc-500 dark:text-zinc-600 dark:border-zinc-600"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
+                    </div>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="end_date"
+                render={({ field }) => (
+                  <FormItem className="col-span-1 flex flex-col">
+                    <FormLabel>Fecha hasta</FormLabel>
+                    <div className="w-full flex flex-col">
+                      <FormControl>
+                        {/* <Input className="placeholder:text-zinc-300 dark:placeholder:text-zinc-600 dark:text-white" placeholder="correo.ejemplo@mail.com" {...field} /> */}
+                        <input
+                          type="date"
+                          className="w-full p-1 border rounded-md bg-transparent text-zinc-500 dark:text-zinc-600 dark:border-zinc-600"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
+                    </div>
+                  </FormItem>
+                )}
+              />
+            </div>
           </form>
         </Form>
       </SheetHeader>

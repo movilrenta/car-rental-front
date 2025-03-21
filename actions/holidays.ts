@@ -34,15 +34,19 @@ export const getMaxIncrement = async (
   const end = normalizeDate(endDate);
 
   const specialDates = await GetFechasAction();
-  //console.log(specialDates);
+  console.log(specialDates, "po");
 
   //const maxIncrement = specialDates.reduce((maxValue: number, { start_date, multiplier, reason }: any) => {
   const maxIncrement = specialDates.reduce(
-    (maxValue: number, { start_date, multiplier }: any) => {
+    (maxValue: number, { start_date, end_date, multiplier }: any) => {
       const [year, month, day] = start_date.split("-").map(Number);
-      const specialDate = normalizeDate(new Date(year, month - 1, day));
-      //console.log(specialDate, reason);
-      return specialDate >= start && specialDate <= end
+      const [year2, month2, day2] = end_date.split("-").map(Number);
+      const startDate = normalizeDate(new Date(year, month - 1, day));
+      const endDate = normalizeDate(new Date(year2, month2 - 1, day2));
+      console.log(startDate, start, end, "startDate, endDate");
+
+      return (startDate >= start && startDate <= end) ||
+        (endDate >= start && endDate <= end)
         ? multiplier > 1
           ? Math.max(maxValue, Number(multiplier))
           : maxValue * Number(multiplier)
@@ -50,5 +54,6 @@ export const getMaxIncrement = async (
     },
     1
   );
+
   return maxIncrement;
 };

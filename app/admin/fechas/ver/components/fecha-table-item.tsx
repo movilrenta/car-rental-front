@@ -10,7 +10,13 @@ import DeleteFecha from "./delete-fecha";
 import clsx from "clsx";
 
 interface FechasTableItemProps {
-  fecha: { id: number; reason: string; multiplier: string; start_date: string };
+  fecha: {
+    id: number;
+    reason: string;
+    multiplier: string;
+    start_date: string;
+    end_date: string;
+  };
 }
 
 export default function FechasTableItem({ fecha }: FechasTableItemProps) {
@@ -63,6 +69,9 @@ export default function FechasTableItem({ fecha }: FechasTableItemProps) {
       </td>
       <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
         <div className="text-left">{fecha?.start_date}</div>
+      </td>
+      <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+        <div className="text-left">{fecha?.end_date}</div>
       </td>
 
       <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">

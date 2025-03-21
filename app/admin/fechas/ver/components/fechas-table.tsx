@@ -10,6 +10,7 @@ export const FechasTable = ({
     reason: string;
     multiplier: string;
     start_date: string;
+    end_date: string;
   }[];
 }) => {
   return (
@@ -49,11 +50,11 @@ export const FechasTable = ({
                   </div>
                 </th>
                 <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                  <div className="font-semibold text-left">
-                    Día (Año/Mes/Día)
-                  </div>
+                  <div className="font-semibold text-left">Desde</div>
                 </th>
-
+                <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                  <div className="font-semibold text-left">Hasta</div>
+                </th>
                 <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                   <div className="font-semibold">Opciones</div>
                 </th>
