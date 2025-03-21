@@ -2,22 +2,6 @@
 
 import { GetFechasAction } from "./fechas";
 
-//TODO: AUMENTAR COSTO DE RESERVA POR DIA ESPECIAL
-
-// const specialDates = [
-//   { date: "2025-03-17", value: 2, name: "1" },
-//   { date: "2025-03-25", value: 2, name: "2" },
-//   { date: "2025-04-05", value: 1.5, name: "3" },
-//   { date: "2025-04-17", value: 7, name: "4" },
-//   { date: "2025-08-07", value: 1.2, name: "5" },
-//   { date: "2025-08-16", value: 1.2, name: "6" },
-//   { date: "2025-10-12", value: 1.2, name: "7" },
-//   { date: "2025-11-01", value: 1.2, name: "8" },
-//   { date: "2025-11-11", value: 1.2, name: "9" },
-//   { date: "2025-12-08", value: 1.2, name: "10" },
-//   { date: "2025-12-25", value: 1.2, name: "11" }
-// ]
-
 const normalizeDate = (date: Date): number => {
   const normalized = new Date(date);
   normalized.setHours(0, 0, 0, 0); // Ajustamos la fecha a medianoche local
@@ -34,7 +18,6 @@ export const getMaxIncrement = async (
   const end = normalizeDate(endDate);
 
   const specialDates = await GetFechasAction();
-  console.log(specialDates, "po");
 
   //const maxIncrement = specialDates.reduce((maxValue: number, { start_date, multiplier, reason }: any) => {
   const maxIncrement = specialDates.reduce(

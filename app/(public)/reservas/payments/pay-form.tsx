@@ -85,7 +85,7 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
     //   card_number: "",
     //   card_expiration_month: "12",
     //   card_expiration_year: "30",
-    //   security_code: "124",
+    //   security_code: "123",
     //   card_holder_birthday: "07/05/1964",
     //   card_holder_door_number: "2473",
     //   card_holder_identification: {
@@ -124,7 +124,7 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
 
   async function consulta() {
     const datos = await getReservaPrice(reserva);
-    console.log(datos, "DATOS");
+    // console.log(datos, "DATOS");
     setTotales(datos);
     setIsClient(true);
     return datos;
@@ -182,7 +182,7 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
         amount_aditionals,
         dropOff
       );
-      console.log(resp);
+      // console.log(resp);
       if (!resp?.ok) {
         toast({
           variant: "default",
