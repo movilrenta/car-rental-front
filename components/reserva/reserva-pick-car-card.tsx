@@ -28,7 +28,7 @@ export default function CardCar({
       <div className="flex flex-col h-full">
         {/* Image */}
         <Image
-          className="w-full duration-200"
+          className="w-full object-cover duration-200 h-3/4"
           src={car?.image}
           width={286}
           height={160}
