@@ -23,34 +23,31 @@ import { useToast } from "@/hooks/use-toast";
 
 import { generarCodigoReserva } from "@/components/utils/utils";
 
-
 type ReservationType = {
-  car_id: number,
-  code: string,
-  start_date : string, //"2024-12-20 15:30",
-  end_date: string,
-  start_branch_id : number,
-  end_branch_id: number
-  firstname: string,
-  lastname: string,
-  email: string,
-  phone: string,
+  car_id: number;
+  code: string;
+  start_date: string; //"2024-12-20 15:30",
+  end_date: string;
+  start_branch_id: number;
+  end_branch_id: number;
+  firstname: string;
+  lastname: string;
+  email: string;
+  phone: string;
 
+  document_type: "DNI" | "Pasaporte";
+  document_number: string;
+  license_number: string;
+  license_expiration_date: string;
+  drivers_address: string;
+  drivers_city: string;
+  flight_number: string;
 
-  document_type: "DNI" | "Pasaporte",
-  document_number: string,
-  license_number: string,
-  license_expiration_date: string,
-  drivers_address: string,
-  drivers_city: string,
-  flight_number: string,
-
-  aditionals_array: {id: number, amount: number}[],
-  observation?: string
-}
+  aditionals_array: { id: number; amount: number }[];
+  observation?: string;
+};
 
 export const FormConfirm = () => {
-
   const { toast } = useToast();
 
   const router = useRouter();
@@ -76,13 +73,17 @@ export const FormConfirm = () => {
     },
   });
   const onsubmit = async (values: z.infer<typeof reservasSchema>) => {
-    const reserveToConfirm:ReservationType = {
+    const reserveToConfirm: ReservationType = {
       car_id: reservaGet?.car?.id!,
       code: generarCodigoReserva(),
-      start_date: `${new Date(reservaGet?.startDay!).toISOString().split('T')[0]} ${reservaGet?.startTime}`,
-      end_date: `${new Date(reservaGet?.endDay!).toISOString().split('T')[0]} ${reservaGet?.endTime}`,
-      start_branch_id: +(reservaGet?.startLocation!),
-      end_branch_id: +(reservaGet?.endLocation!),
+      start_date: `${
+        new Date(reservaGet?.startDay!).toISOString().split("T")[0]
+      } ${reservaGet?.startTime}`,
+      end_date: `${new Date(reservaGet?.endDay!).toISOString().split("T")[0]} ${
+        reservaGet?.endTime
+      }`,
+      start_branch_id: +reservaGet?.startLocation!,
+      end_branch_id: +reservaGet?.endLocation!,
       firstname: values.firstName,
       lastname: values.lastName,
       email: values.email,
@@ -102,41 +103,44 @@ export const FormConfirm = () => {
     //console.log(reserveToConfirm, "DATOS");
     try {
       const response = await axios.post("/api/reservation", reserveToConfirm);
-     
-      if(response.status === 201) {
-        const data = response.data.response
+
+      if (response.status === 201) {
+        const data = response.data.response;
         const dataUserMail = {
           firstName: `${values.firstName} ${values.lastName}`,
-          userEmail: values.email
-        }
-        sessionStorage.setItem("movil_renta_code", data.code)
-        sessionStorage.setItem("movil_renta_reservation_id", data.id)
-        sessionStorage.setItem("movil_renta_user_data_mail", JSON.stringify(dataUserMail))
+          userEmail: values.email,
+        };
+        sessionStorage.setItem("movil_renta_code", data.code);
+        sessionStorage.setItem("movil_renta_reservation_id", data.id);
+        sessionStorage.setItem(
+          "movil_renta_user_data_mail",
+          JSON.stringify(dataUserMail)
+        );
         //console.log(sessionStorage.getItem("movil_renta_code"), "ELCODIGO");
         toast({
           variant: "default",
           title: `Reserva creada con exito, realizar el pago para confirmar`,
         });
-      router.push("/reservas/payments");
-
+        router.push("/reservas/payments");
+      }
+    } catch (error: any) {
+      if (error.response) {
+        toast({
+          variant: "destructive",
+          title: `Error al reservar: ${
+            error.response.data.response.error ||
+            "No se puede reservar el auto."
+          }`,
+        });
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Ocurrió un error inesperado.",
+        });
+      }
+      return;
     }
-  } catch (error: any) {
-    if (error.response) {
-      toast({
-        variant: "destructive",
-        title: `Error al reservar: ${error.response.data.response.error || "No se puede reservar el auto."}`,
-      });
-    } else {
-      toast({
-        variant: "destructive",
-        title: "Ocurrió un error inesperado.",
-      });
-    }
-    return;
-  }
-};
-
-  
+  };
 
   return (
     <Form {...form}>
@@ -152,12 +156,16 @@ export const FormConfirm = () => {
               <FormLabel className="-mb-1 line-clamp-1 truncate">
                 Nombre
               </FormLabel>
-            <div className="w-full flex flex-col">
-            <FormControl>
-                <Input className="placeholder:text-zinc-300 dark:placeholder:text-zinc-600 dark:text-white" placeholder="Nombre" {...field} />
-              </FormControl>
-              <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
-            </div>
+              <div className="w-full flex flex-col">
+                <FormControl>
+                  <Input
+                    className="placeholder:text-zinc-300 dark:placeholder:text-zinc-600 dark:text-white"
+                    placeholder="Nombre"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
+              </div>
             </FormItem>
           )}
         />
@@ -169,12 +177,16 @@ export const FormConfirm = () => {
               <FormLabel className="-mb-1 line-clamp-1 truncate">
                 Apellido
               </FormLabel>
-            <div className="w-full flex flex-col">
-            <FormControl>
-              <Input className="placeholder:text-zinc-300 dark:placeholder:text-zinc-600 dark:text-white" placeholder="Apellido" {...field} />
-            </FormControl>
-            <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
-            </div>
+              <div className="w-full flex flex-col">
+                <FormControl>
+                  <Input
+                    className="placeholder:text-zinc-300 dark:placeholder:text-zinc-600 dark:text-white"
+                    placeholder="Apellido"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
+              </div>
             </FormItem>
           )}
         />
@@ -214,7 +226,11 @@ export const FormConfirm = () => {
               </FormLabel>
               <div className="w-full flex flex-col">
                 <FormControl>
-                  <Input className="placeholder:text-zinc-300 dark:placeholder:text-zinc-600 dark:text-white" placeholder="" {...field} />
+                  <Input
+                    className="placeholder:text-zinc-300 dark:placeholder:text-zinc-600 dark:text-white"
+                    placeholder=""
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
               </div>
@@ -231,7 +247,11 @@ export const FormConfirm = () => {
               </FormLabel>
               <div className="w-full flex flex-col">
                 <FormControl>
-                  <Input className="placeholder:text-zinc-300 dark:placeholder:text-zinc-600 dark:text-white" placeholder="correo.ejemplo@mail.com" {...field} />
+                  <Input
+                    className="placeholder:text-zinc-300 dark:placeholder:text-zinc-600 dark:text-white"
+                    placeholder="correo.ejemplo@mail.com"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
               </div>
@@ -248,14 +268,14 @@ export const FormConfirm = () => {
               </FormLabel>
               <div className="w-full flex flex-col">
                 <FormControl>
-                  <Input 
-                    className="placeholder:text-zinc-300 dark:placeholder:text-zinc-600 dark:text-white" 
-                    placeholder="3814112233" 
+                  <Input
+                    className="placeholder:text-zinc-300 dark:placeholder:text-zinc-600 dark:text-white"
+                    placeholder="3814112233"
                     value={field.value}
                     onChange={(e) => {
                       const input = e.target.value.replace(/\D/g, ""); // Remueve cualquier carácter no numérico
                       field.onChange(input); // Actualiza el estado del campo
-                      }} 
+                    }}
                   />
                 </FormControl>
                 <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
@@ -263,11 +283,6 @@ export const FormConfirm = () => {
             </FormItem>
           )}
         />
-
-
-
-
-
 
         <FormField
           control={form.control}
@@ -279,7 +294,10 @@ export const FormConfirm = () => {
               </FormLabel>
               <div className="w-full flex flex-col">
                 <FormControl>
-                  <Input className="placeholder:text-zinc-300 dark:placeholder:text-zinc-600 dark:text-white" {...field} />
+                  <Input
+                    className="placeholder:text-zinc-300 dark:placeholder:text-zinc-600 dark:text-white"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
               </div>
@@ -297,7 +315,11 @@ export const FormConfirm = () => {
               <div className="w-full flex flex-col">
                 <FormControl>
                   {/* <Input className="placeholder:text-zinc-300 dark:placeholder:text-zinc-600 dark:text-white" placeholder="correo.ejemplo@mail.com" {...field} /> */}
-                  <input type="date" className="w-full p-1 border rounded-md bg-transparent text-zinc-500 dark:text-zinc-600 dark:border-zinc-600" {...field} />
+                  <input
+                    type="date"
+                    className="w-full p-1 border rounded-md bg-transparent text-zinc-500 dark:text-zinc-600 dark:border-zinc-600"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
               </div>
@@ -314,7 +336,10 @@ export const FormConfirm = () => {
               </FormLabel>
               <div className="w-full flex flex-col">
                 <FormControl>
-                  <Input className="placeholder:text-zinc-300 dark:placeholder:text-zinc-600 dark:text-white" {...field} />
+                  <Input
+                    className="placeholder:text-zinc-300 dark:placeholder:text-zinc-600 dark:text-white"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
               </div>
@@ -331,7 +356,10 @@ export const FormConfirm = () => {
               </FormLabel>
               <div className="w-full flex flex-col">
                 <FormControl>
-                  <Input className="placeholder:text-zinc-300 dark:placeholder:text-zinc-600 dark:text-white" {...field} />
+                  <Input
+                    className="placeholder:text-zinc-300 dark:placeholder:text-zinc-600 dark:text-white"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
               </div>
@@ -348,18 +376,17 @@ export const FormConfirm = () => {
               </FormLabel>
               <div className="w-full flex flex-col">
                 <FormControl>
-                  <Input className="placeholder:text-zinc-300 dark:placeholder:text-zinc-600 dark:text-white" placeholder="" {...field} />
+                  <Input
+                    className="placeholder:text-zinc-300 dark:placeholder:text-zinc-600 dark:text-white"
+                    placeholder=""
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
               </div>
             </FormItem>
           )}
         />
-
-
-
-
-
 
         <FormField
           control={form.control}
@@ -373,11 +400,10 @@ export const FormConfirm = () => {
                 <FormControl>
                   {/* <Texta className="placeholder:text-zinc-300 dark:placeholder:text-zinc-600 dark:text-white" placeholder="Mi vuelo llega a las 17..." {...field} /> */}
                   <Textarea
-                    className="placeholder:text-zinc-300 dark:placeholder:text-zinc-600 dark:text-white" 
+                    className="placeholder:text-zinc-300 dark:placeholder:text-zinc-600 dark:text-white"
                     placeholder="Mi vuelo llega a las 17:00..."
-                      
-                  {...field}
-                />
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
               </div>
@@ -386,42 +412,51 @@ export const FormConfirm = () => {
         />
         <hr className="col-span-6 w-full h-[2px] my-2 bg-gray-500 dark:bg-slate-100" />
         <div className="col-span-6 flex flex-col gap-1">
-        <FormField
-          control={form.control}
-          name="termyCond"
-          render={({ field }) => (
-            <FormItem className="flex items-center gap-3">
-              <FormControl>
-                <Checkbox
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-                  required
-                  className="border-red-700 text-zinc-800 dark:text-white h-5 w-5"
-                />
-              </FormControl>
-              <FormLabel className="h-6 p-1 cursor-pointer !m-0 flex items-center">Acepto términos y condciones.</FormLabel>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="mayor25"
-          render={({ field }) => (
-            <FormItem className="flex items-center gap-3">
-              <FormControl>
-                <Checkbox
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-                  required
-                  className="border-red-700 text-zinc-800 dark:text-white h-5 w-5"
-                />
-              </FormControl>
-              <FormLabel className="h-6 p-1 cursor-pointer !m-0 flex items-center">Soy mayor de 25 años.</FormLabel>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+          <FormField
+            control={form.control}
+            name="termyCond"
+            render={({ field }) => (
+              <FormItem className="flex items-center gap-3">
+                <FormControl>
+                  <Checkbox
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                    required
+                    className="border-red-700 text-zinc-800 dark:text-white h-5 w-5"
+                  />
+                </FormControl>
+                <FormLabel className="h-6 p-1 cursor-pointer !m-0 flex items-center">
+                  Acepto términos y condciones.
+                </FormLabel>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="mayor25"
+            render={({ field }) => (
+              <FormItem className="flex items-center gap-3">
+                <FormControl>
+                  <Checkbox
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                    required
+                    className="border-red-700 text-zinc-800 dark:text-white h-5 w-5"
+                  />
+                </FormControl>
+                <FormLabel className="h-6 p-1 cursor-pointer !m-0 flex items-center">
+                  Soy mayor de 25 años.
+                </FormLabel>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <div className="col-span-full text-center">
+        <Link href={"/ayuda/terminos-y-condiciones"} className="text-xs text-gray-800 dark:text-white hover:text-blue-600">
+            Ver términos y condiciones.
+          </Link>
         </div>
         <div className="col-span-6 flex flex-col md:flex-row items-center gap-4 mt-2">
           <Link
