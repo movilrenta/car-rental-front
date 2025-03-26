@@ -42,7 +42,7 @@ const footerInfo = [
       },
       {
         label: "Términos y condiciones",
-        link: "/ayuda"
+        link: "/ayuda/terminos-y-condiciones"
       },
     ]
   },
