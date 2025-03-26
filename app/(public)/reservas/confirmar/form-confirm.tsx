@@ -203,7 +203,7 @@ export const FormConfirm = () => {
               <div className="w-full flex flex-col">
                 <FormControl>
                   <select
-                    className="w-full p-1 border rounded-md bg-transparent text-zinc-500 dark:text-zinc-600 dark:border-zinc-600"
+                    className="w-full p-1 px-3 border rounded-md bg-transparent text-zinc-500 dark:text-zinc-600 dark:border-zinc-600"
                     {...field}
                   >
                     <option value="DNI">DNI</option>
@@ -317,7 +317,7 @@ export const FormConfirm = () => {
                   {/* <Input className="placeholder:text-zinc-300 dark:placeholder:text-zinc-600 dark:text-white" placeholder="correo.ejemplo@mail.com" {...field} /> */}
                   <input
                     type="date"
-                    className="w-full p-1 border rounded-md bg-transparent text-zinc-500 dark:text-zinc-600 dark:border-zinc-600"
+                    className="w-full p-1 ps-3 border rounded-md bg-transparent text-zinc-500 dark:text-zinc-600 dark:border-zinc-600"
                     {...field}
                   />
                 </FormControl>
@@ -453,11 +453,11 @@ export const FormConfirm = () => {
             )}
           />
         </div>
-        <div className="col-span-full text-center">
+        {/* <div className="col-span-full text-center">
         <Link href={"/ayuda/terminos-y-condiciones"} className="text-xs text-gray-800 dark:text-white hover:text-blue-600">
             Ver términos y condiciones.
           </Link>
-        </div>
+        </div> */}
         <div className="col-span-6 flex flex-col md:flex-row items-center gap-4 mt-2">
           <Link
             href={"/reservas"}
