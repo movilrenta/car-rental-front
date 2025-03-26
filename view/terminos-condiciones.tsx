@@ -86,7 +86,7 @@ const termsAndConditions: ListItem[] = [
 
 export const TerminosCondiciones = () => {
   return (
-    <div className="min-h-screen container mx-auto md:p-4 my-4 space-y-2 md:space-y-6 text-gray-900 dark:text-white">
+    <div className="min-h-screen container mx-auto fade-in md:p-4 my-4 space-y-2 md:space-y-6 text-gray-900 dark:text-white">
       <h1 className="text-xl lg:text-2xl font-bold">Términos y condiciones.</h1>
       <ListRender items={termsAndConditions} />
     </div>

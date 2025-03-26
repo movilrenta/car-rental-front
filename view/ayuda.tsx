@@ -25,7 +25,7 @@ const consejosSeguridad = [
 
 export const Ayuda = () => {
   return (
-    <div className="min-h-screen container mx-auto md:p-4 my-4 space-y-2 md:space-y-6 text-gray-900 dark:text-white">
+    <div className="min-h-screen container fade-in mx-auto max-w-7xl md:p-4 my-4 space-y-2 md:space-y-6 text-gray-900 dark:text-white">
       <h1 className="text-xl lg:text-2xl font-bold">Ayuda</h1>
       <ListRender items={consejosSeguridad} />
     </div>

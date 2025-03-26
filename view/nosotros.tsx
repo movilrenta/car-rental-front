@@ -72,55 +72,55 @@ const nosotrosText: NosotrosText[] = [
 
 export const Nosotros = () => {
   return (
-    <div className="min-h-screen container mx-auto my-6 text-gray-800 dark:text-white">
-      <h1>Nosotros</h1>
-      <div className="grid grid-cols-12 gap-4">
-        <div className="col-span-full">
+    <div className="min-h-screen container max-w-7xl fade-in mx-auto my-6 md:px-4 text-gray-800 dark:text-white space-y-2">
+      <h1 className="text-xl lg:text-2xl font-bold mb-6">Nosotros</h1>
+      <div className="grid grid-cols-12 gap-4 lg:gap-6">
+        <div className="col-span-full lg:col-span-8 flex flex-col gap-4">
           <Image
             src={ImgAbout}
             width={400}
             height={300}
             alt="Imagen nosotros"
-            className="h-auto"
+            className="h-auto object-contain w-full rounded-md"
           />
-          <h3>
+          <h3 className="text-lg md:text-xl lg:text-2xl text-red-700 dark:text-red-500 font-light">
             Nuestra misión es brindar una experiencia de alquiler satisfactoria
             a nuestros clientes, proporcionando servicios convenientes para sus
-            necesidades
+            necesidades.
           </h3>
           <p>
             Nuestro inicio de actividad en el rubro se remonta al año 1971, por
             lo que nos ubicamos entre los pioneros de la actividad a nivel
-            nacional. Nuestra experiencia nos permitió entender las necesidades
+            nacional.<br/> Nuestra experiencia nos permitió entender las necesidades
             de nuestros clientes para brindar un servicio de seguridad y calidad
             superior.
           </p>
-          <p>
+          <p className="text-lg font-semibold">
             Cuando hablamos de niveles de seguridad y calidad, nos referimos a:
           </p>
-          <ul>
+          <ul className="space-y-2 dark:text-gray-300">
             <li>
-              <span>Servicio:</span> Atención especializada por parte de nuestro
+              <span className="text-gray-800 dark:text-white font-semibold">Servicio:</span> Atención especializada por parte de nuestro
               personal, reemplazo inmediato de unidades por daños o services.
               Contamos con el servicio de NACIÓN SEGUROS Emergencia mecánicas
               las 24 hs.
             </li>
             <li>
-              <span>Mantenimiento:</span> a nuestro cargo, con services
+              <span className="text-gray-800 dark:text-white font-semibold">Mantenimiento:</span> a nuestro cargo, con services
               preventivos programados.
             </li>
             <li>
-              <span>Seguros:</span> Contratados en Nación Seguros compañía de
+              <span className="text-gray-800 dark:text-white font-semibold">Seguros:</span> Contratados en Nación Seguros compañía de
               seguros.
             </li>
             <li>
-              <span>Documentación:</span> entregamos los vehículos con la
+              <span className="text-gray-800 dark:text-white font-semibold">Documentación:</span> entregamos los vehículos con la
               documentación en regla, lo que evita eventuales demoras en
               controles camineros.
             </li>
           </ul>
         </div>
-        <div className="col-span-full">
+        <div className="col-span-full md:col-span-4">
           {nosotrosText.map((item, index) => (
             <div key={index} className="flex flex-col gap-2 mt-2">
               <h4 className="text-lg text-red-600 font-semibold">
