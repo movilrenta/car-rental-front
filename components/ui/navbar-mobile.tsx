@@ -81,16 +81,22 @@ export const NavbarMobile = () => {
           </ul>
         </div>
         <SheetFooter className="flex !flex-col items-center w-full gap-2">
-          <div className="flex justify-center items-center gap-2 text-nowrap">
+          <Link
+            href="tel:08007777368"
+            className="flex justify-center items-center gap-2 text-nowrap"
+          >
             <FaPhoneAlt /> 0800 777 7368
-          </div>
+          </Link>
           <div className="flex justify-center items-center gap-2 text-nowrap">
             <FaLocationDot /> San Lorenzo 370
           </div>
-          <div className="flex justify-center items-center gap-2 text-nowrap">
-            {/* <MdGTranslate /> */}
-            <MdEmail />informes@movilrenta.com.ar
-          </div>
+          <Link
+            href="mailto:informes@movilrenta.com.ar"
+            className="flex justify-center items-center gap-2 text-nowrap"
+          >
+            <MdEmail />
+            informes@movilrenta.com.ar
+          </Link>
         </SheetFooter>
       </SheetContent>
     </Sheet>

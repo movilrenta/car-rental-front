@@ -1,5 +1,7 @@
-import Image from "next/image";
-import ImgAbout from "@/public/images2/mr-about.jpg";
+// import Image from "next/image";
+// import ImgAbout from "@/public/images2/mr-about.jpg";
+import { PageUnderConstruction } from "@/components/page-under-construction";
+import BannerPage from "./banner-page";
 
 interface NosotrosText {
   title: string;
@@ -72,9 +74,10 @@ const nosotrosText: NosotrosText[] = [
 
 export const Nosotros = () => {
   return (
-    <div className="min-h-screen container max-w-7xl fade-in mx-auto my-6 md:px-4 text-gray-800 dark:text-white space-y-2">
-      <h1 className="text-xl lg:text-2xl font-bold mb-6">Nosotros</h1>
-      <div className="grid grid-cols-12 gap-4 lg:gap-6">
+    <div className="min-h-screen fade-in mx-auto my-4 space-y-2 md:space-y-6 text-gray-900 dark:text-white">
+      <BannerPage title="Nosotros" image="/images2/carBanner.webp" />
+      <PageUnderConstruction />
+      {/* <div className="grid grid-cols-12 gap-4 lg:gap-6">
         <div className="col-span-full lg:col-span-8 flex flex-col gap-4">
           <Image
             src={ImgAbout}
@@ -137,7 +140,7 @@ export const Nosotros = () => {
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

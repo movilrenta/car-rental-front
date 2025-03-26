@@ -426,7 +426,7 @@ export const FormConfirm = () => {
                   />
                 </FormControl>
                 <FormLabel className="h-6 p-1 cursor-pointer !m-0 flex items-center">
-                  Acepto términos y condciones.
+                  Acepto términos y condiciones.
                 </FormLabel>
                 <FormMessage />
               </FormItem>

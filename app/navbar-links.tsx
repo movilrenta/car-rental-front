@@ -18,7 +18,7 @@ export default function NavbarLinks({ burger = false }: { burger?: boolean }) {
   const LinksNavbar = [
     { label: "Reservas", link: "reservas" },
     { label: "Empresas", link: "empresas" },
-    { label: "Flota de vehículos", link: "flota" },
+    { label: "Flota", link: "flota" },
     { label: "Nosotros", link: "nosotros" },
     { label: "Mi reserva", link: "mi-reserva" },
   ];
@@ -30,7 +30,7 @@ export default function NavbarLinks({ burger = false }: { burger?: boolean }) {
           <li key={index} className="m-1">
             <Link
               href={`/${item.link}`}
-              className={`inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 
+              className={`inline-flex items-center justify-center text-base font-semibold leading-5 rounded-full px-3 py-1 w-32 truncate line-clamp-1
                 ${item.label === "Mi reserva" ? "!border-black dark:!border-white uppercase !text-zinc-400 dark:!text-zinc-400 font-semibold" : ""}
                 ${
                 pathNoSlash === item.link

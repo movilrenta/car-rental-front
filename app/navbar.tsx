@@ -17,10 +17,11 @@ export default function Navbar() {
           <Image
             src={"/images2/brand.png"}
             alt="logo"
-            width={300}
-            height={200}
+            width={450}
+            height={300}
+            quality={100}
             priority={true}
-            className="w-auto py-0 sm:py-2"
+            className="w-auto md:h-24 py-0 sm:py-2"
           />
           {/* <h1 className="text-2xl md:text-3xl text-gray-800 dark:text-gray-100 font-bold">Discover Meetups</h1> */}
         </Link>
@@ -29,17 +30,20 @@ export default function Navbar() {
         <div className="hidden lg:flex sm:auto-cols-max justify-start sm:justify-end items-center gap-2 relative w-full sm:w-fit z-10 h-12">
         <ThemeToggle />
           <div className="flex gap-8 w-full sm:w-fit justify-center items-center bg-red-800 text-white px-6 h-12 sm:rounded-es-3xl text-sm font-medium py-2">
-            <div className="flex justify-center items-center gap-2 text-nowrap">
+            <Link href="tel:08007777368" className="flex justify-center items-center gap-2 text-nowrap">
               <FaPhoneAlt /> 0800 777 7368
-            </div>
+            </Link>
             <div className="flex justify-center items-center gap-2 text-nowrap">
               <FaLocationDot /> San Lorenzo 370
             </div>
-            <div className="flex justify-center items-center gap-2 text-nowrap">
-              {/* <MdGTranslate /> */}
-              <MdEmail />
-              <span className="hidden md:block">informes@movilrenta.com.ar</span>
-            </div>
+           
+            <Link
+            href="mailto:informes@movilrenta.com.ar"
+            className="flex justify-center items-center gap-2 text-nowrap"
+          >
+            <MdEmail />
+            informes@movilrenta.com.ar
+          </Link>
           </div>
         </div>
         <div className="flex lg:hidden absolute inset-y-0 right-4">

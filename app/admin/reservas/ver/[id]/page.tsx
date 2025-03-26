@@ -25,11 +25,14 @@ export default async function ReservationByIdPage({ params }: Params) {
 
   return (
     <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-[96rem] mx-auto text-gray-800 dark:text-gray-100">
-      <h1 className="text-2xl md:text-3xl font-bold mb-2">
+      <h1 className="text-2xl md:text-3xl font-bold">
         Detalles de reserva:{" "}
         <span className="font-light">{data?.reservation.id}</span>
       </h1>
-      <div className="flex flex-col items-start gap-4">
+      <h4 className="font-semibold">
+        Código: {data?.reservation?.code}
+      </h4>
+      <div className="flex flex-col items-start gap-4 mt-2">
         <h2 className="text-lg md:text-xl font-semibold">Datos:</h2>
         <hr className="w-full h-[1px] border-none bg-gray-700 dark:bg-gray-100" />
         <ul className="flex flex-col gap-1">
