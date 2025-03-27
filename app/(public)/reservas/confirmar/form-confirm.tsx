@@ -412,27 +412,7 @@ export const FormConfirm = () => {
         />
         <hr className="col-span-6 w-full h-[2px] my-2 bg-gray-500 dark:bg-slate-100" />
         <div className="col-span-6 flex flex-col gap-1">
-          <FormField
-            control={form.control}
-            name="termyCond"
-            render={({ field }) => (
-              <FormItem className="flex items-center gap-3">
-                <FormControl>
-                  <Checkbox
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                    required
-                    className="border-red-700 text-zinc-800 dark:text-white h-5 w-5"
-                  />
-                </FormControl>
-                <FormLabel className="h-6 p-1 cursor-pointer !m-0 flex items-center">
-                  Acepto términos y condiciones.
-                </FormLabel>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
+        <FormField
             control={form.control}
             name="mayor25"
             render={({ field }) => (
@@ -452,12 +432,35 @@ export const FormConfirm = () => {
               </FormItem>
             )}
           />
-        </div>
-        {/* <div className="col-span-full text-center">
-        <Link href={"/ayuda/terminos-y-condiciones"} className="text-xs text-gray-800 dark:text-white hover:text-blue-600">
-            Ver términos y condiciones.
+          <FormField
+            control={form.control}
+            name="termyCond"
+            render={({ field }) => (
+              <FormItem className="flex items-center gap-3 pt-2">
+                <FormControl>
+                  <Checkbox
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                    required
+                    className="border-red-700 text-zinc-800 dark:text-white h-5 w-5"
+                  />
+                </FormControl>
+                <FormLabel className="h-6 p-1 cursor-pointer !m-0 flex items-center">
+                  Acepto términos y condiciones.
+                
+                </FormLabel>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Link href={"/ayuda/terminos-y-condiciones"} target="_blank" className="text-sm ps-9 !m-0 text-blue-600">
+            Ver términos y condiciones
           </Link>
-        </div> */}
+          
+        </div>
+        <div className="col-span-full text-center">
+        
+        </div>
         <div className="col-span-6 flex flex-col md:flex-row items-center gap-4 mt-2">
           <Link
             href={"/reservas"}

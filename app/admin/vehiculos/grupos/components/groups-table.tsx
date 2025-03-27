@@ -33,14 +33,17 @@ export const GroupTable = ({Groups}:GroupsTableProps) => {
           {/* Table header */}
           <thead className="text-xs font-semibold uppercase text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-900/20 border-t border-b border-gray-100 dark:border-gray-700/60">
             <tr>
-              <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+              {/* <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                 <div className="font-semibold text-left">Id</div>
-              </th>
+              </th> */}
               <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                 <div className="font-semibold text-left">Nombre</div>
               </th>
               <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                <div className="font-semibold text-left">Agregado</div>
+                <div className="font-semibold text-left">Tarifa</div>
+              </th>
+              <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                <div className="font-semibold text-left">Seguro</div>
               </th>
               <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                 <div className="font-semibold">Opciones</div>

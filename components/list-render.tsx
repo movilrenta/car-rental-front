@@ -8,7 +8,7 @@ interface ListItem {
 
 export const ListRender: React.FC<{ items: ListItem[] }> = ({ items }) => {
   return (
-    <ol className="flex flex-col gap-2">
+    <ol className="flex flex-col gap-2 p-4">
       {items.map((item, index) => (
         <li key={index} className="flex flex-col gap-2 md:gap-4">
           <h3 className="font-semibold text-lg"><span className="mr-2">{index + 1}.</span>{item.title}</h3>

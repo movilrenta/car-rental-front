@@ -27,7 +27,7 @@ import BannerPage from './banner-page';
 
 export const Ayuda = () => {
   return (
-    <div className="min-h-screen fade-in mx-auto my-4 space-y-2 md:space-y-6 text-gray-900 dark:text-white">
+    <div className="min-h-screen fade-in mx-auto space-y-2 md:space-y-6 text-gray-900 dark:text-white">
       <BannerPage title="Ayuda" image="/images2/carBanner.webp" />
       <PageUnderConstruction />
       {/* <ListRender items={consejosSeguridad} /> */}
