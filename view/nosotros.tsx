@@ -1,83 +1,83 @@
-// import Image from "next/image";
-// import ImgAbout from "@/public/images2/mr-about.jpg";
-import { PageUnderConstruction } from "@/components/page-under-construction";
+import Image from "next/image";
+import ImgAbout from "@/public/images2/mr-about.jpg";
+// import { PageUnderConstruction } from "@/components/page-under-construction";
 import BannerPage from "./banner-page";
 
-// interface NosotrosText {
-//   title: string;
-//   listItem: {
-//     item: string;
-//     content: string;
-//   }[];
-// }
+interface NosotrosText {
+  title: string;
+  listItem: {
+    item: string;
+    content: string;
+  }[];
+}
 
-// const nosotrosText: NosotrosText[] = [
-//   {
-//     title: "Integridad",
-//     listItem: [
-//       {
-//         item: "Respeto por los demás:",
-//         content:
-//           "Trataremos a todas las personas con las que trabajamos con respeto y cordialidad.",
-//       },
-//       {
-//         item: "Responsabilidad:",
-//         content:
-//           "Cumpliremos todos nuestros compromisos con nuestros clientes y empleados.",
-//       },
-//       {
-//         item: "Honestidad:",
-//         content:
-//           "Nos comunicaremos de manera abierta y honesta para ganar la confianza de nuestros clientes.",
-//       },
-//     ],
-//   },
-//   {
-//     title: "Trabajo en equipo",
-//     listItem: [
-//       {
-//         item: "Compañerismo y Solidaridad:",
-//         content:
-//           "Mantendremos una atmósfera de trabajo de compañerismo y solidaridad",
-//       },
-//       {
-//         item: "Respeto y confianza:",
-//         content:
-//           "Nos comunicaremos con respeto y confianza para trabajar de manera adecuada.",
-//       },
-//     ],
-//   },
-//   {
-//     title: "Calidad",
-//     listItem: [
-//       {
-//         item: "Esfuerzo y constancia:",
-//         content: "Nos esforzamos constantemente en dar nuestra mejor versión para que nuestros clientes puedan disfrutar de su experiencia con nosotros",
-//       },
-//       {
-//         item: "Experiencia:",
-//         content:
-//           "Nos comprometemos a brindar un servicio efectivo y conveniente, ya que contamos con la suficiente experiencia en el rubro.",
-//       },
-//       {
-//         item: "Efectividad en el servicio:",
-//         content: "Fácil, rápido, seguro, económico (mejor precio garantizado).",
-//       },
-//       {
-//         item: "Crecimiento e innovación:",
-//         content:
-//           "Nos comprometemos en el mantenimiento de nuestra flota de vehículos. Renovamos nuestra flota constantemente para poder disponer siempre de autos nuevos para nuestros clientes. Constantemente motivamos y capacitamos a nuestro equipo de trabajo para que puedan crecer y lograr sus metas, tanto profesionales como personales.",
-//       },
-//     ],
-//   },
-// ];
+const nosotrosText: NosotrosText[] = [
+  {
+    title: "Integridad",
+    listItem: [
+      {
+        item: "Respeto por los demás:",
+        content:
+          "Trataremos a todas las personas con las que trabajamos con respeto y cordialidad.",
+      },
+      {
+        item: "Responsabilidad:",
+        content:
+          "Cumpliremos todos nuestros compromisos con nuestros clientes y empleados.",
+      },
+      {
+        item: "Honestidad:",
+        content:
+          "Nos comunicaremos de manera abierta y honesta para ganar la confianza de nuestros clientes.",
+      },
+    ],
+  },
+  {
+    title: "Trabajo en equipo",
+    listItem: [
+      {
+        item: "Compañerismo y Solidaridad:",
+        content:
+          "Mantendremos una atmósfera de trabajo de compañerismo y solidaridad",
+      },
+      {
+        item: "Respeto y confianza:",
+        content:
+          "Nos comunicaremos con respeto y confianza para trabajar de manera adecuada.",
+      },
+    ],
+  },
+  {
+    title: "Calidad",
+    listItem: [
+      {
+        item: "Esfuerzo y constancia:",
+        content: "Nos esforzamos constantemente en dar nuestra mejor versión para que nuestros clientes puedan disfrutar de su experiencia con nosotros",
+      },
+      {
+        item: "Experiencia:",
+        content:
+          "Nos comprometemos a brindar un servicio efectivo y conveniente, ya que contamos con la suficiente experiencia en el rubro.",
+      },
+      {
+        item: "Efectividad en el servicio:",
+        content: "Fácil, rápido, seguro, económico (mejor precio garantizado).",
+      },
+      {
+        item: "Crecimiento e innovación:",
+        content:
+          "Nos comprometemos en el mantenimiento de nuestra flota de vehículos. Renovamos nuestra flota constantemente para poder disponer siempre de autos nuevos para nuestros clientes. Constantemente motivamos y capacitamos a nuestro equipo de trabajo para que puedan crecer y lograr sus metas, tanto profesionales como personales.",
+      },
+    ],
+  },
+];
 
 export const Nosotros = () => {
   return (
-    <div className="w-full min-h-screen fade-in mx-auto space-y-2 md:space-y-6 text-gray-900 dark:text-white">
+    <div className="w-full min-h-screen fade-in mx-auto space-y-2 md:space-y-6 text-gray-900 dark:text-white mb-6">
       <BannerPage title="Nosotros" image="/images2/carBanner.webp" />
-      <PageUnderConstruction />
-      {/* <div className="grid grid-cols-12 gap-4 lg:gap-6 max-w-7xl">
+      {/* <PageUnderConstruction /> */}
+      <div className="grid grid-cols-12 gap-4 lg:gap-6 max-w-7xl mx-auto px-4">
         <div className="col-span-full lg:col-span-8 flex flex-col gap-4">
           <Image
             src={ImgAbout}
@@ -140,7 +140,7 @@ export const Nosotros = () => {
             </div>
           ))}
         </div>
-      </div> */}
+      </div>
     </div>
   );
 };
