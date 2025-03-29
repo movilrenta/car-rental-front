@@ -12,6 +12,7 @@ export type VehicleType = {
   image: string;
   description: string;
   plate: string;
+  vehicle_type: "car" | "van" | "utility";
   created_at: Date;
   updated_at: Date;
   deleted_at: Date | null;

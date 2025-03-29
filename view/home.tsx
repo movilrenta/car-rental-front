@@ -57,17 +57,17 @@ const carTipes = [
   {
     name: "Autos",
     image: "/images2/cars.webp",
-    link: "#"
+    link: "/flota?filter=car"
   },
   {
     name: "Utilitarios",
     image: "/images2/vans.webp",
-    link: "#"
+    link: "/flota?filter=utility"
   },
   {
     name: "Camionetas",
     image: "/images2/trucks.webp",
-    link: "#"
+    link: "/flota?filter=van"
   },
 ]
 
