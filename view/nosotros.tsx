@@ -74,7 +74,7 @@ const nosotrosText: NosotrosText[] = [
 
 export const Nosotros = () => {
   return (
-    <div className="w-full min-h-screen fade-in mx-auto space-y-2 md:space-y-6 text-gray-900 dark:text-white mb-6">
+    <div className="w-full min-h-screen fade-in space-y-2 md:space-y-6 text-gray-900 dark:text-white mb-7">
       <BannerPage title="Nosotros" image="/images2/carBanner.webp" />
       {/* <PageUnderConstruction /> */}
       <div className="grid grid-cols-12 gap-4 lg:gap-6 max-w-7xl mx-auto px-4">

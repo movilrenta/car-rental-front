@@ -5,7 +5,7 @@ import { ListRender } from "@/components/list-render";
 
 interface ListItem {
   title: string;
-  content?: string; 
+  content?: string;
   subItems?: ListItem[];
 }
 
@@ -88,9 +88,14 @@ const termsAndConditions: ListItem[] = [
 
 export const TerminosCondiciones = () => {
   return (
-    <div className="min-h-screen fade-in mx-auto space-y-2 md:space-y-6 text-gray-900 dark:text-white">
-    <BannerPage title="Términos y condiciones" image="/images2/carBanner.webp" />
-    <ListRender items={termsAndConditions} />
+    <div className="min-h-screen mb-7 fade-in space-y-2 md:space-y-6 text-gray-900 dark:text-white">
+      <BannerPage
+        title="Términos y condiciones"
+        image="/images2/carBanner.webp"
+      />
+      <div className="max-w-7xl mx-auto">
+        <ListRender items={termsAndConditions} />
+      </div>
     </div>
   );
 };

@@ -11,7 +11,7 @@ export const ListRender: React.FC<{ items: ListItem[], counterItem?:boolean }> =
   return (
     <ol className="flex flex-col gap-2 p-4 max-w-7xl mx-auto">
       {items.map((item, index) => (
-        <li key={index} className="flex flex-col pb-2">
+        <li key={index} className="flex flex-col space-y-2">
           <h3 className="font-semibold text-lg"><span className={clsx("mr-1",{
             "hidden":!counterItem,
             "visible": counterItem
