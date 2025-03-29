@@ -2,6 +2,7 @@ import BannerPage from "./banner-page";
 import { CarResponse } from "@/types/car.interface";
 import SimpleCardCar from "@/components/flota/car-card";
 import { BannerEmpresa } from "@/components/home/banner-empresa";
+import FlotaFilter from "./flota-filter";
 
 interface Props {
   cars: CarResponse[];
@@ -41,8 +42,9 @@ export const Flota = ({ cars }: Props) => {
         Contamos con la más amplia y moderna flota del Norte de Argentina. Con
         más de 350 unidades, último modelo, ofrecemos disponibilidad inmediata.
       </h3>
-      <div className="max-w-7xl mx-auto mt-6 px-4 grid grid-cols-12 gap-6">
-        {Object.entries(groupByName).map(([name, Cars]: any, index) => {
+      {/* <div className="max-w-7xl mx-auto mt-6 px-4 grid grid-cols-12 gap-6"> */}
+        <FlotaFilter agrupedCars={groupByName} />
+        {/* {Object.entries(groupByName).map(([name, Cars]: any, index) => {
           const firstCar = Cars[0];
           // const totalCars = total(cars)[name];
 
@@ -53,8 +55,8 @@ export const Flota = ({ cars }: Props) => {
               </div>
             </div>
           ) : null;
-        })}
-      </div>
+        })} */}
+      {/* </div> */}
       <BannerEmpresa />
     </section>
   );

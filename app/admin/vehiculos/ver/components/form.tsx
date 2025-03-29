@@ -104,6 +104,7 @@ export default function CRUD_Form({
       image: car ? car.image : "",
       description: car ? car.description : "",
       plate: car ? car.plate ? car.plate : "" : "",
+      vehicle_type: car ? car.vehicle_type : "",
     },
   });
 
@@ -122,6 +123,7 @@ export default function CRUD_Form({
         image: values.image,
         description: values.description,
         plate: values.plate,
+        vehicle_type: values.vehicle_type,
         brand_id: Number(values.brand_id),
         group_id: Number(values.group_id),
         branch_id: Number(values.branch_id),
@@ -133,7 +135,7 @@ export default function CRUD_Form({
         if (res.status === 200) {
           toast({
             variant: "default",
-            title: `Auto editado con exito`,
+            title: `Vehículo editado con exito`,
           });
           setIsLoading(false);
           //window.location.reload();
@@ -150,14 +152,14 @@ export default function CRUD_Form({
       newCar.branch_id = Number(newCar.branch_id);
       newCar.brand_id = Number(newCar.brand_id);
       newCar.group_id = Number(newCar.group_id);
-
+      console.log(newCar);
       try {
         const res = await PostCarAction(newCar);
-        //console.log(res);
+        console.log(res);
         if (res.status === 200) {
           toast({
             variant: "default",
-            title: `Auto creado con exito`,
+            title: `Vehículo creado con exito`,
           });
           setIsLoading(false);
           //window.location.reload();
@@ -195,11 +197,53 @@ export default function CRUD_Form({
               control={form.control}
               name="name"
               render={({ field }) => (
-                <FormItem className="col-span-12 flex flex-col justify-end">
+                <FormItem className="col-span-8 flex flex-col justify-end">
                   <FormLabel>Nombre</FormLabel>
                   <FormControl>
                     <Input className="form-input w-full" {...field} />
                   </FormControl>
+                  <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="vehicle_type"
+              render={({ field }) => (
+                <FormItem className="col-span-4 flex flex-col justify-end">
+                  <FormLabel>Tipo</FormLabel>
+                  <Select
+                    onValueChange={(value) => field.onChange(value)} // Actualiza el estado del formulario
+                    value={field.value?.toString() || ""} // Asegúrate de convertir el valor a cadena
+                  >
+                    <FormControl>
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Selecciona una opción" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      
+                        <SelectItem
+                          value="car"
+                          className="hover:bg-red-700 hover:text-white duration-200"
+                        >
+                          Auto
+                        </SelectItem>
+                        <SelectItem
+                          value="van"
+                          className="hover:bg-red-700 hover:text-white duration-200"
+                        >
+                          Camioneta
+                        </SelectItem>
+                        <SelectItem
+                          value="utility"
+                          className="hover:bg-red-700 hover:text-white duration-200"
+                        >
+                          Utilitario
+                        </SelectItem>
+                      
+                    </SelectContent>
+                  </Select>
                   <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
                 </FormItem>
               )}

@@ -22,6 +22,10 @@ import { Textarea } from "@/components/textarea";
 import { useToast } from "@/hooks/use-toast";
 
 import { generarCodigoReserva } from "@/components/utils/utils";
+//import { Dialog, DialogDescription, DialogHeader, DialogTrigger, DialogContent, DialogTitle, DialogClose, DialogFooter } from "@/components/ui/dialog";
+//import { Button } from "@/components/ui/button";
+//import { Loader } from "lucide-react";
+
 
 type ReservationType = {
   car_id: number;
@@ -72,7 +76,8 @@ export const FormConfirm = () => {
       //aditionals_array: []
     },
   });
-  const onsubmit = async (values: z.infer<typeof reservasSchema>) => {
+
+  const onSubmit = async (values: z.infer<typeof reservasSchema>) => {
     const reserveToConfirm: ReservationType = {
       car_id: reservaGet?.car?.id!,
       code: generarCodigoReserva(),
@@ -145,7 +150,7 @@ export const FormConfirm = () => {
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(onsubmit)}
+        onSubmit={form.handleSubmit(onSubmit)}
         className="grid grid-cols-6 gap-4"
       >
         <FormField
@@ -468,6 +473,54 @@ export const FormConfirm = () => {
           >
             Volver y editar
           </Link>
+          {/* <Dialog>
+          <DialogTrigger asChild>
+            <Button 
+              type="button"
+              disabled={!form.formState.isValid || !form.getValues("mayor25") || !form.getValues("termyCond")}
+              className={`text-slate-100 flex-1 hover:shadow-lg transition-all font-semibold border-0 rounded-md line-clamp-1 px-4 py-2
+                ${form.formState.isValid ? "bg-red-700" : "bg-gray-600 cursor-not-allowed"}
+              `}
+            >
+              Confirmar
+            </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px] gap-0 p-0 border-red-700 bg-red-700 text-black">
+              <DialogHeader className="p-0 border-none">
+                <DialogTitle className="text-white text-center p-4">Datos personales</DialogTitle>
+                <DialogDescription className="text-neutral-700 underline px-4 pt-2 rounded-t-xl bg-white dark:bg-[rgb(17_24_39_)] dark:text-white text-center">
+                  Confirme sus datos para proceder con el pago
+                </DialogDescription>
+              </DialogHeader>
+              <div className="grid gap-2 p-4 text-sm bg-white dark:bg-[rgb(17_24_39_)] dark:text-white">
+                <p><strong>Nombre:</strong> {form.getValues("firstName")} {form.getValues("lastName")}</p>
+                <p><strong>Email:</strong> {form.getValues("email")}</p>
+                <p><strong>Teléfono:</strong> {form.getValues("phone")}</p>
+                <p><strong>{form.getValues("document_type")} :</strong> {form.getValues("document_number")}</p>
+                <p><strong>Número de Licencia:</strong> {form.getValues("license_number")}</p>
+                <p><strong>Vto Licencia (AA-MM-DD):</strong> {form.getValues("license_expiration_date")}</p>
+                <p><strong>Domicilio:</strong> {form.getValues("drivers_address")}</p>
+                <p><strong>Localidad:</strong> {form.getValues("drivers_city")}</p>
+                <p><strong>Número de Vuelo:</strong> {form.getValues("flight_number") || "Ninguno"}</p>
+                <p><strong>Observaciones:</strong> {form.getValues("observation") || "Ninguna"}</p>
+              </div>
+              <DialogFooter className="rounded-b-xl bg-white dark:bg-blue95 dark:bg-[rgb(17_24_39_)] dark:text-white grid grid-cols-2 p-4">
+
+              <DialogClose>
+                Cancelar
+              </DialogClose>
+              <button
+              onClick={form.handleSubmit(onSubmit)}
+              disabled={!form.formState.isValid || !form.getValues("mayor25") || !form.getValues("termyCond") || form.formState.isSubmitting}
+            type="submit"
+            className="bg-red-700 text-slate-100 flex-1 hover:shadow-lg transition-all font-semibold border-0 rounded-md line-clamp-1 px-4 py-2"
+            >
+            {form.formState.isSubmitting ? <Loader className="mx-auto animate-spin"/> : "Confirmar"}
+          </button>
+            </DialogFooter>
+                  
+          </DialogContent>
+          </Dialog> */}
           <button
             type="submit"
             className="bg-red-700 text-slate-100 flex-1 hover:shadow-lg transition-all font-semibold border-0 rounded-md line-clamp-1 px-4 py-2"
