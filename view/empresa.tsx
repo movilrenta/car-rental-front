@@ -3,7 +3,7 @@ import Image from "next/image";
 import BannerPage from "./banner-page";
 import ImageCompany from "@/public/images2/mr-company.jpg";
 import { ListRender } from "@/components/list-render";
-// import { FormContact } from "@/components/empresa/form-contact";
+import { FormContact } from "@/components/empresa/form-contact";
 
 const EmpresaText = {
   title: "Leasing operativo o renting de vehículos y utilitarios a largo plazo",
@@ -60,33 +60,34 @@ const EmpresaText = {
     "Complete el siguiente formulario para cotizar una solución a medida de las necesidades concretas de su empresa.",
 };
 
-// const EmpresaFormText = {
-//   name: {
-//     label: "Nombre y Apellido",
-//     placeholder: "José Perez",
-//   },
-//   email: {
-//     label: "Correo Electrónico",
-//     placeholder: "joseperez@email.com",
-//   },
-//   phone: {
-//     label: "Teléfono",
-//     placeholder: "(+54)1122334455",
-//   },
-//   company: {
-//     label: "Empresa",
-//     placeholder: "Empresa S.A.",
-//   },
-//   description: {
-//     label: "Detalle sus necesidades",
-//     placeholder: "Detalle",
-//   },
-//   buttonConfirmText: "Finalizar consulta",
-// };
+export const EmpresaFormText = {
+  name: {
+    label: "Nombre y Apellido",
+    placeholder: "José Perez",
+  },
+  email: {
+    label: "Correo Electrónico",
+    placeholder: "joseperez@email.com",
+  },
+  phone: {
+    label: "Teléfono",
+    placeholder: "(+54)1122334455",
+  },
+  company: {
+    label: "Empresa",
+    placeholder: "Empresa S.A.",
+  },
+  description: {
+    label: "Detalle sus necesidades",
+    placeholder: "Detalle",
+  },
+  buttonConfirmText: "Finalizar consulta",
+  buttonSendingText: "Enviando consulta"
+};
 
 export const Empresa = () => {
   return (
-    <div className="min-h-screen fade-in space-y-2 mb-7 md:space-y-6 text-gray-900 dark:text-white">
+    <div className="min-h-screen animate-fade-in space-y-2 mb-7 md:space-y-6 text-gray-900 dark:text-white">
       <BannerPage title="Empresas" image="/images2/carBanner.webp" />
       {/* <PageUnderConstruction /> */}
       <div className="grid grid-cols-12 md:px-4 lg:px-0 gap-4 lg:gap-x-2 max-w-7xl lg:mx-auto">
@@ -99,7 +100,7 @@ export const Empresa = () => {
             alt="Hombre en el interior de un vehiculo"
             width={400}
             height={300}
-            className="h-auto object-contain w-full rounded-sm"
+            className="h-auto object-contain w-full rounded-md"
           />
           <h2 className="text-red-700 dark:text-red-600 font-light lg:text-xl">
             {EmpresaText.subtitle}
@@ -110,7 +111,7 @@ export const Empresa = () => {
           <ListRender items={EmpresaText.listItems} counterItem={false} />
         </div>
         {/* Formulario de contacto */}
-        {/* <hr className="border-t border-gray-300 rounded-full col-span-full my-2 px-4" />
+        <hr className="border-t border-gray-300 rounded-full col-span-full my-2 px-4" />
         <div className="col-span-full p-4">
           <h2 className="text-center text-red-700 mb-4 dark:text-red-600 text-xl font-semibold lg:text-2xl">
             {EmpresaText.subtitleForm}
@@ -119,7 +120,7 @@ export const Empresa = () => {
             {EmpresaText.descriptionForm}
           </h3>
           <FormContact text={EmpresaFormText} />
-        </div> */}
+        </div>
       </div>
     </div>
   );

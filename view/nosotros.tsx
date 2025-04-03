@@ -74,18 +74,20 @@ const nosotrosText: NosotrosText[] = [
 
 export const Nosotros = () => {
   return (
-    <div className="w-full min-h-screen fade-in space-y-2 md:space-y-6 text-gray-900 dark:text-white mb-7">
+    <div className="w-full min-h-screen animate-fade-in space-y-2 md:space-y-6 text-gray-900 dark:text-white mb-7">
       <BannerPage title="Nosotros" image="/images2/carBanner.webp" />
       {/* <PageUnderConstruction /> */}
-      <div className="grid grid-cols-12 gap-4 lg:gap-6 max-w-7xl mx-auto px-4">
+      <div className="grid grid-cols-12 gap-4 lg:gap-6 max-w-7xl mx-auto px-4 md:px-6 lg:px-0">
         <div className="col-span-full lg:col-span-8 flex flex-col gap-4">
-          <Image
+         <div className="w-full overflow-hidden rounded-md">
+         <Image
             src={ImgAbout}
             width={400}
             height={300}
             alt="Imagen nosotros"
-            className="h-auto object-contain w-full rounded-md fade-in-5"
+            className="h-auto object-contain w-full hover:scale-105 transition-all duration-300"
           />
+         </div>
           <h3 className="text-lg md:text-xl lg:text-2xl text-red-700 dark:text-red-500 font-light">
             Nuestra misión es brindar una experiencia de alquiler satisfactoria
             a nuestros clientes, proporcionando servicios convenientes para sus
@@ -123,7 +125,7 @@ export const Nosotros = () => {
             </li>
           </ul>
         </div>
-        <div className="col-span-full md:col-span-4">
+        <div className="col-span-full lg:col-span-4">
           {nosotrosText.map((item, index) => (
             <div key={index} className="flex flex-col gap-2 mt-2">
               <h4 className="text-lg text-red-600 font-semibold">
