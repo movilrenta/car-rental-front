@@ -78,7 +78,7 @@ export const Contacto = () => {
           </ul>
         </div>
         <hr className="border-t border-gray-300 rounded-full col-span-full my-2 px-4" />
-        <div className="col-span-full space-y-4 md:space-y-6">
+        <div className="col-span-full space-y-4 md:space-y-6 max-w-3xl mx-auto">
           <h2 className="text-center text-red-700 mb-4 dark:text-red-600 text-xl font-semibold lg:text-2xl">
             {contactTitleForm.title}
           </h2>
