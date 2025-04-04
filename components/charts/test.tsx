@@ -358,7 +358,7 @@ export const Chart = ({ data }: any) => {
           </CSVLink>
         </CardHeader>
         <CardContent>
-          <BarChart width={300} height={300} data={branchData}>
+          <BarChart width={350} height={300} data={branchData}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="branch" />
             <YAxis />
