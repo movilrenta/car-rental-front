@@ -1,6 +1,8 @@
 "use client";
 
 import clsx from "clsx";
+import { FaUser, FaPhoneAlt, FaIndustry, FaPencilAlt } from "react-icons/fa";
+import { IoIosMail } from "react-icons/io";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -42,6 +44,7 @@ interface EmpresasFormText {
     placeholder: string;
   };
   buttonConfirmText: string;
+  buttonSendingText: string;
 }
 
 export const FormContact: React.FC<{ text: EmpresasFormText }> = ({ text }) => {
@@ -59,7 +62,6 @@ export const FormContact: React.FC<{ text: EmpresasFormText }> = ({ text }) => {
   });
 
   async function onSubmit(values: z.infer<typeof companySchema>) {
-    console.log(values);
     try {
       const resp = await sendEmailCompany(values);
       if (!resp.ok) {
@@ -73,6 +75,7 @@ export const FormContact: React.FC<{ text: EmpresasFormText }> = ({ text }) => {
           title: resp.message,
           description: resp.description,
         });
+        form.reset()
       }
     } catch (error) {
       toast({
@@ -87,14 +90,14 @@ export const FormContact: React.FC<{ text: EmpresasFormText }> = ({ text }) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="grid grid-cols-12 gap-2 md:gap-4 lg:gap-6 max-w-3xl mx-auto"
+        className="grid grid-cols-12 gap-4 lg:gap-6 max-w-3xl mx-auto"
       >
         <FormField
           name="name"
           control={form.control}
           render={({ field }) => (
             <FormItem className="col-span-full md:col-span-6">
-              <FormLabel>{text.name.label}</FormLabel>
+              <FormLabel className="flex items-center gap-x-2"><FaUser className="hidden md:block"/>{text.name.label}</FormLabel>
               <FormControl>
                 <Input placeholder={text.name.placeholder} {...field} />
               </FormControl>
@@ -107,7 +110,7 @@ export const FormContact: React.FC<{ text: EmpresasFormText }> = ({ text }) => {
           control={form.control}
           render={({ field }) => (
             <FormItem className="col-span-full md:col-span-6">
-              <FormLabel>{text.email.label}</FormLabel>
+              <FormLabel className="flex items-center gap-x-2"><IoIosMail className="hidden md:block"/>{text.email.label}</FormLabel>
               <FormControl>
                 <Input placeholder={text.email.placeholder} {...field} />
               </FormControl>
@@ -120,7 +123,7 @@ export const FormContact: React.FC<{ text: EmpresasFormText }> = ({ text }) => {
           control={form.control}
           render={({ field }) => (
             <FormItem className="col-span-full md:col-span-6">
-              <FormLabel>{text.phone.label}</FormLabel>
+              <FormLabel className="flex items-center gap-x-2"><FaPhoneAlt className="hidden md:block"/>{text.phone.label}</FormLabel>
               <FormControl>
                 <Input placeholder={text.phone.placeholder} {...field} />
               </FormControl>
@@ -133,7 +136,7 @@ export const FormContact: React.FC<{ text: EmpresasFormText }> = ({ text }) => {
           control={form.control}
           render={({ field }) => (
             <FormItem className="col-span-full md:col-span-6">
-              <FormLabel>{text.company.label}</FormLabel>
+              <FormLabel className="flex items-center gap-x-2"><FaIndustry className="hidden md:block"/>{text.company.label}</FormLabel>
               <FormControl>
                 <Input placeholder={text.company.placeholder} {...field} />
               </FormControl>
@@ -146,7 +149,7 @@ export const FormContact: React.FC<{ text: EmpresasFormText }> = ({ text }) => {
           control={form.control}
           render={({ field }) => (
             <FormItem className="col-span-full">
-              <FormLabel>{text.description.label}</FormLabel>
+              <FormLabel className="flex items-center gap-x-2"><FaPencilAlt className="hidden md:block"/>{text.description.label}</FormLabel>
               <FormControl>
                 <Textarea
                   placeholder={text.description.placeholder}
@@ -158,7 +161,7 @@ export const FormContact: React.FC<{ text: EmpresasFormText }> = ({ text }) => {
             </FormItem>
           )}
         />
-        <div className="col-span-full flex justify-end">
+         <div className="col-span-full flex justify-end mt-2 md:mt-0">
           <button
             type="submit"
             className={clsx(
@@ -169,7 +172,7 @@ export const FormContact: React.FC<{ text: EmpresasFormText }> = ({ text }) => {
             )}
             disabled={form.formState.isSubmitting}
           >
-            {text.buttonConfirmText}
+            {form.formState.isSubmitting ? text.buttonSendingText :text.buttonConfirmText}
           </button>
         </div>
       </form>
