@@ -10,7 +10,13 @@ export const reservasSchema = z.object({
     document_type: z.enum(["DNI", "Pasaporte"]),
     document_number:z.string().trim().min(7, "El campo es obligatorio"),
     license_number:z.string().trim().min(6, "El campo es obligatorio"),
-    license_expiration_date:z.string().trim().min(1, "El campo es obigatorio"),
+    // una fecha que tenga que ser mayor a la fecha actual
+    license_expiration_date: z.string().refine((date) => {
+      const today = new Date();
+      const expirationDate = new Date(date);
+      return expirationDate > today;
+    }, { message: "La fecha de expiración debe ser mayor a la fecha actual" }),
+    //license_expiration_date:z.string().trim().min(1, "El campo es obigatorio"),
     drivers_address:z.string().trim().min(1, "El campo es obigatorio"),
     drivers_city:z.string().trim().min(1, "El campo es obigatorio"),
     flight_number:z.string().trim().optional(),
