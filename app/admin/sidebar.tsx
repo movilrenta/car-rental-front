@@ -10,7 +10,8 @@ import SidebarLink from '@/components/ui/sidebar-link'
 import Image from 'next/image'
 import Link from 'next/link'
 import { LuCar } from 'react-icons/lu'
-import { Calendar, CalendarDays, Map, Plus, Settings } from 'lucide-react'
+import { BookIcon, Calendar, CalendarDays, Map, Plus, Settings } from 'lucide-react'
+import { BiCarousel } from 'react-icons/bi'
 
 export default function Sidebar({
   variant = 'default',
@@ -31,7 +32,7 @@ export default function Sidebar({
     },
     {
     value: "reservas",
-    icon: <Calendar className='min-h-4 min-w-4 h-4 w-4 stroke-2'/>,
+    icon: <BookIcon className='min-h-4 min-w-4 h-4 w-4 stroke-2'/>,
     options: [
       {
         value: "ver",
@@ -88,7 +89,16 @@ export default function Sidebar({
         value: "direcciones",
       }
   ]
-    }
+    },
+    {
+      value: "carousel",
+      icon: <BiCarousel className='min-h-4 min-w-4 h-4 w-4'/>,
+      options: [
+        {
+          value: "ver",
+        }
+    ]
+      }
 ]
 
   // close on click outside

@@ -12,26 +12,28 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { useToast } from "@/hooks/use-toast";
-import { DeleteRatesAction } from "@/actions/rates";
+import { destroyImage } from "@/actions/upload-image";
 
-export default function DeleteRate({children, id} : {children: React.ReactNode, id: number}) {
+export default function DeleteCarousel({children, path} : {children: React.ReactNode, path: string}) {
   const { toast } = useToast();
   async function handleDelete() {
     try {
-      const response = await DeleteRatesAction(id)
+      const response = await destroyImage(path)
+      //const response = {status: 200, message: path}
       console.log(response)
       if(response.status === 200) {
           toast({
-          title: "Tarifa eliminada",
-          description: "La tarifa ha sido eliminada correctamente",
+          title: "Imagen eliminado",
+          description: "La imagen ha sido eliminada correctamente",
         })
-        return window.location.reload();
+        //window.location.reload();
+        return 
       }
       } catch (error) {
         console.log(error)
         toast({
         title: "Error",
-        description: "Ha ocurrido un error al eliminar la tarifa",
+        description: "Ha ocurrido un error al eliminar la imagen",
         variant: "destructive",
       })
     }

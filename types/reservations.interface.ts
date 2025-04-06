@@ -12,6 +12,7 @@ export interface ReservationsDB {
   updated_at:         Date;
   status:             string;
   aditionals:         Aditional[];
+  origin?:            string;
   reservation_detail: ReservationDetail;
   payment:            Payment;
 }

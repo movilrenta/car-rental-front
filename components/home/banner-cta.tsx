@@ -11,7 +11,7 @@ export const BannerCta = async ({ branches }: { branches: any }) => {
     {
       url: "/images2/images-banner2.jpg",
       h3: "Disfrutá, conocé, compartí",
-      h4: "movete con libertad",
+      h4: "Movete con libertad",
     },
   ];
   return (
