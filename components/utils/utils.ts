@@ -72,7 +72,7 @@ export function calcularDiasEntreFechas(fechaInicio: Date | string, fechaFin: Da
 
   // Calcular el tiempo restante después de contar los días completos
   const tiempoRestante = diferenciaEnMilisegundos % unDiaEnMilisegundos;
-  console.log(tiempoRestante);
+  //console.log(tiempoRestante);
 
   let totalDias
   totalDias =

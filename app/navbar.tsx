@@ -33,9 +33,15 @@ export default function Navbar() {
             <Link href="tel:08007777368" className="flex justify-center items-center gap-2 text-nowrap">
               <FaPhoneAlt /> 0800 777 7368
             </Link>
-            <div className="flex justify-center items-center gap-2 text-nowrap">
-              <FaLocationDot /> San Lorenzo 370
-            </div>
+            <Link
+            href="https://maps.app.goo.gl/xi1a76ER778BHCCQA"
+            className="flex justify-center items-center gap-2 text-nowrap"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaLocationDot /> San Lorenzo 370
+            
+          </Link>
            
             <Link
             href="mailto:informes@movilrenta.com.ar"

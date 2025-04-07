@@ -49,7 +49,10 @@ export default function OrdersTable({ orders, totalOrders  }: { orders: Reservat
                 <th className="px-2 py-3 whitespace-nowrap">
                   Total
                 </th>
-                <th className="px-2 py-3 whitespace-nowrap">
+                <th className="px-2 py-3 whitespace-nowrap text-right">
+                  Origen
+                </th>
+                <th className="px-2 py-3 whitespace-nowrap text-right">
                   Estado
                 </th>
                 <th className="px-2 py-3 whitespace-nowrap">

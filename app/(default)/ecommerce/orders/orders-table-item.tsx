@@ -1,12 +1,4 @@
 import Link from "next/link";
-// import {
-//   Select,
-//   SelectContent,
-//   SelectGroup,
-//   SelectItem,
-//   SelectTrigger,
-//   SelectValue,
-// } from "@/components/select";
 import { ReservationsDB } from "@/types";
 import { formatDate, formatDateShort } from "@/components/utils/utils";
 //import { changeStatusPayment } from "@/actions/change-status-payment";
@@ -22,6 +14,7 @@ export default function OrdersTableItem({
   order,
   branches,
 }: OrdersTableItemProps) {
+
   return (
     <tbody className="text-sm">
       {/* Row */}
@@ -44,7 +37,15 @@ export default function OrdersTableItem({
           $ {useFormatNumber(+(order.payment?.amount) || 0) ?? 0}
         </td>
         <td
-          className={`px-2 py-3 whitespace-nowrap text-left  ${
+          className={`px-2 py-3 whitespace-nowrap text-right
+            `}
+            
+        >
+          {order?.origin !== "offline_agent" ? <span className="text-blue-500">Web</span> : <span className="text-neutral-500">Otro</span> }
+          
+        </td>
+        <td
+          className={`px-2 py-3 whitespace-nowrap text-right  ${
             order.status === "approved"
               ? "!text-green-600"
               : order.status === "rejected"
@@ -70,23 +71,3 @@ export default function OrdersTableItem({
     </tbody>
   );
 }
-          {/* <Select defaultValue={order.status} onValueChange={ () => changeStatusPayment(order.status)}>
-            <SelectTrigger className="w-[180px]">
-              <SelectValue
-              placeholder={
-                  order.status === "approved"
-                    ? "Aprobada"
-                    : order.status === "rejected"
-                    ? "Rechazada"
-                    : "Pendiente"
-                }
-              />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectItem value="approved">Aprobada</SelectItem>
-                <SelectItem value="rejected">Rechazada</SelectItem>
-                <SelectItem value="pending">Pendiente</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select> */}

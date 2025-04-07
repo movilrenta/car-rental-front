@@ -20,11 +20,10 @@ import { Input } from "@/components/input";
 import { Checkbox } from "@/components/checkbox";
 import { Textarea } from "@/components/textarea";
 import { useToast } from "@/hooks/use-toast";
-
 import { generarCodigoReserva } from "@/components/utils/utils";
-//import { Dialog, DialogDescription, DialogHeader, DialogTrigger, DialogContent, DialogTitle, DialogClose, DialogFooter } from "@/components/ui/dialog";
-//import { Button } from "@/components/ui/button";
-//import { Loader } from "lucide-react";
+import { Dialog, DialogDescription, DialogHeader, DialogTrigger, DialogContent, DialogTitle, DialogClose, DialogFooter } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Loader } from "lucide-react";
 
 
 type ReservationType = {
@@ -105,7 +104,7 @@ export const FormConfirm = () => {
       observation: values?.observation,
       aditionals_array: reservaGet?.aditionals_array || [],
     };
-    //console.log(reserveToConfirm, "DATOS");
+    
     try {
       const response = await axios.post("/api/reservation", reserveToConfirm);
 
@@ -146,6 +145,7 @@ export const FormConfirm = () => {
       return;
     }
   };
+  const { firstName, lastName, email, phone, document_type, document_number, license_number, license_expiration_date, drivers_address, drivers_city, flight_number, observation, mayor25, termyCond } = form.watch();
 
   return (
     <Form {...form}>
@@ -159,7 +159,7 @@ export const FormConfirm = () => {
           render={({ field }) => (
             <FormItem className="col-span-3 flex flex-col">
               <FormLabel className="-mb-1 line-clamp-1 truncate">
-                Nombre
+                Nombre*
               </FormLabel>
               <div className="w-full flex flex-col">
                 <FormControl>
@@ -180,7 +180,7 @@ export const FormConfirm = () => {
           render={({ field }) => (
             <FormItem className="col-span-3 flex flex-col">
               <FormLabel className="-mb-1 line-clamp-1 truncate">
-                Apellido
+                Apellido*
               </FormLabel>
               <div className="w-full flex flex-col">
                 <FormControl>
@@ -203,12 +203,12 @@ export const FormConfirm = () => {
           render={({ field }) => (
             <FormItem className="col-span-3 flex flex-col">
               <FormLabel className="-mb-1 line-clamp-1 truncate">
-                Tipo de documento
+                Tipo de documento*
               </FormLabel>
               <div className="w-full flex flex-col">
                 <FormControl>
                   <select
-                    className="w-full p-1 px-3 border rounded-md bg-transparent text-zinc-500 dark:text-zinc-600 dark:border-zinc-600"
+                    className="w-full p-1 px-3 border rounded-md bg-transparent dark:bg-[rgb(17_24_39_)] text-zinc-500 dark:text-zinc-100 dark:border-zinc-600"
                     {...field}
                   >
                     <option value="DNI">DNI</option>
@@ -227,7 +227,7 @@ export const FormConfirm = () => {
           render={({ field }) => (
             <FormItem className="col-span-3 flex flex-col">
               <FormLabel className="-mb-1 line-clamp-1 truncate">
-                N° DNI / N° Pasaporte
+                N° DNI / N° Pasaporte*
               </FormLabel>
               <div className="w-full flex flex-col">
                 <FormControl>
@@ -248,7 +248,7 @@ export const FormConfirm = () => {
           render={({ field }) => (
             <FormItem className="col-span-6 flex flex-col">
               <FormLabel className="-mb-1 line-clamp-1 truncate">
-                Correo electrónico
+                Correo electrónico*
               </FormLabel>
               <div className="w-full flex flex-col">
                 <FormControl>
@@ -269,7 +269,7 @@ export const FormConfirm = () => {
           render={({ field }) => (
             <FormItem className="col-span-6 flex flex-col">
               <FormLabel className="-mb-1 line-clamp-1 truncate">
-                Teléfono
+                Teléfono*
               </FormLabel>
               <div className="w-full flex flex-col">
                 <FormControl>
@@ -295,7 +295,7 @@ export const FormConfirm = () => {
           render={({ field }) => (
             <FormItem className="col-span-3 flex flex-col">
               <FormLabel className="-mb-1 line-clamp-1 truncate">
-                N° de Licencia
+                N° de Licencia*
               </FormLabel>
               <div className="w-full flex flex-col">
                 <FormControl>
@@ -315,7 +315,7 @@ export const FormConfirm = () => {
           render={({ field }) => (
             <FormItem className="col-span-3 flex flex-col">
               <FormLabel className="-mb-1 line-clamp-1 truncate">
-                Vencimiento Licencia
+                Vencimiento Licencia*
               </FormLabel>
               <div className="w-full flex flex-col">
                 <FormControl>
@@ -337,7 +337,7 @@ export const FormConfirm = () => {
           render={({ field }) => (
             <FormItem className="col-span-6 flex flex-col">
               <FormLabel className="-mb-1 line-clamp-1 truncate">
-                Domicilio
+                Domicilio*
               </FormLabel>
               <div className="w-full flex flex-col">
                 <FormControl>
@@ -357,7 +357,7 @@ export const FormConfirm = () => {
           render={({ field }) => (
             <FormItem className="col-span-6 flex flex-col">
               <FormLabel className="-mb-1 line-clamp-1 truncate">
-                Localidad
+                Localidad*
               </FormLabel>
               <div className="w-full flex flex-col">
                 <FormControl>
@@ -431,7 +431,7 @@ export const FormConfirm = () => {
                   />
                 </FormControl>
                 <FormLabel className="h-6 p-1 cursor-pointer !m-0 flex items-center">
-                  Soy mayor de 25 años.
+                  Soy mayor de 25 años.*
                 </FormLabel>
                 <FormMessage />
               </FormItem>
@@ -451,7 +451,7 @@ export const FormConfirm = () => {
                   />
                 </FormControl>
                 <FormLabel className="h-6 p-1 cursor-pointer !m-0 flex items-center">
-                  Acepto términos y condiciones.
+                  Acepto términos y condiciones.*
                 
                 </FormLabel>
                 <FormMessage />
@@ -473,60 +473,60 @@ export const FormConfirm = () => {
           >
             Volver y editar
           </Link>
-          {/* <Dialog>
-          <DialogTrigger asChild>
-            <Button 
-              type="button"
-              disabled={!form.formState.isValid || !form.getValues("mayor25") || !form.getValues("termyCond")}
-              className={`text-slate-100 flex-1 hover:shadow-lg transition-all font-semibold border-0 rounded-md line-clamp-1 px-4 py-2
-                ${form.formState.isValid ? "bg-red-700" : "bg-gray-600 cursor-not-allowed"}
-              `}
-            >
-              Confirmar
-            </Button>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px] gap-0 p-0 border-red-700 bg-red-700 text-black">
-              <DialogHeader className="p-0 border-none">
-                <DialogTitle className="text-white text-center p-4">Datos personales</DialogTitle>
-                <DialogDescription className="text-neutral-700 underline px-4 pt-2 rounded-t-xl bg-white dark:bg-[rgb(17_24_39_)] dark:text-white text-center">
-                  Confirme sus datos para proceder con el pago
-                </DialogDescription>
-              </DialogHeader>
-              <div className="grid gap-2 p-4 text-sm bg-white dark:bg-[rgb(17_24_39_)] dark:text-white">
-                <p><strong>Nombre:</strong> {form.getValues("firstName")} {form.getValues("lastName")}</p>
-                <p><strong>Email:</strong> {form.getValues("email")}</p>
-                <p><strong>Teléfono:</strong> {form.getValues("phone")}</p>
-                <p><strong>{form.getValues("document_type")} :</strong> {form.getValues("document_number")}</p>
-                <p><strong>Número de Licencia:</strong> {form.getValues("license_number")}</p>
-                <p><strong>Vto Licencia (AA-MM-DD):</strong> {form.getValues("license_expiration_date")}</p>
-                <p><strong>Domicilio:</strong> {form.getValues("drivers_address")}</p>
-                <p><strong>Localidad:</strong> {form.getValues("drivers_city")}</p>
-                <p><strong>Número de Vuelo:</strong> {form.getValues("flight_number") || "Ninguno"}</p>
-                <p><strong>Observaciones:</strong> {form.getValues("observation") || "Ninguna"}</p>
-              </div>
-              <DialogFooter className="rounded-b-xl bg-white dark:bg-blue95 dark:bg-[rgb(17_24_39_)] dark:text-white grid grid-cols-2 p-4">
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button 
+                type="button"
+                disabled={!form.formState.isValid || !mayor25 || !termyCond}
+                className={`text-slate-100 flex-1 hover:shadow-lg transition-all font-semibold border-0 rounded-md line-clamp-1 px-4 py-2
+                  ${form.formState.isValid ? "bg-red-700" : "bg-gray-600 cursor-not-allowed"}
+                `}
+              >
+                {(!form.formState.isValid || !mayor25 || !termyCond) ? "Complete los datos" : "Confirmar datos"}
+              </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[425px] gap-0 p-1 border-4 border-red-700 bg-red-700 text-white">
+                <DialogHeader className="p-0 border-none">
+                  <DialogTitle className="text-white text-center p-4 uppercase tracking-wider">Datos personales</DialogTitle>
+                  <DialogDescription className="text-neutral-700 text-base px-4 pt-2 rounded-t-md bg-white dark:bg-[rgb(17_24_39_)] dark:text-white text-center">
+                    Confirme sus datos
+                  </DialogDescription>
+                </DialogHeader>
+                <div className="grid gap-2 p-4 text-sm bg-white dark:bg-[rgb(17_24_39_)] text-black dark:text-white">
+                  <p><strong>Nombre:</strong> {firstName} {lastName}</p>
+                  <p><strong>Email:</strong> {email}</p>
+                  <p><strong>Teléfono:</strong> {phone}</p>
+                  <p><strong>{document_type} :</strong> {document_number}</p>
+                  <p><strong>N° de Licencia:</strong> {license_number}</p>
+                  <p><strong>Vto Licencia (AA-MM-DD):</strong> {license_expiration_date}</p>
+                  <p><strong>Domicilio:</strong> {drivers_address}</p>
+                  <p><strong>Localidad:</strong> {drivers_city}</p>
+                  {flight_number && <p><strong>N° de Vuelo:</strong> {flight_number}</p>}
+                  {observation && <p><strong>Observaciones:</strong> {observation}</p>}
+                </div>
 
-              <DialogClose>
-                Cancelar
-              </DialogClose>
-              <button
-              onClick={form.handleSubmit(onSubmit)}
-              disabled={!form.formState.isValid || !form.getValues("mayor25") || !form.getValues("termyCond") || form.formState.isSubmitting}
-            type="submit"
-            className="bg-red-700 text-slate-100 flex-1 hover:shadow-lg transition-all font-semibold border-0 rounded-md line-clamp-1 px-4 py-2"
-            >
-            {form.formState.isSubmitting ? <Loader className="mx-auto animate-spin"/> : "Confirmar"}
-          </button>
-            </DialogFooter>
-                  
-          </DialogContent>
-          </Dialog> */}
-          <button
+                <DialogFooter className="rounded-b-md bg-white dark:bg-blue95 dark:bg-[rgb(17_24_39_)] text-black dark:text-white grid grid-cols-2 p-4">
+                  <DialogClose>
+                    Cancelar
+                  </DialogClose>
+                <Button
+                  onClick={form.handleSubmit(onSubmit)}
+                  disabled={!form.formState.isValid || !mayor25 || !termyCond || form.formState.isSubmitting}
+                  type="submit"
+                  className="bg-red-700 text-slate-100 text-base !p-0 !my-0 flex-1 hover:shadow-lg transition-all font-semibold border-0 rounded-md line-clamp-1 px-4 py-2"
+                >
+                  {form.formState.isSubmitting ? <Loader className="mx-auto animate-spin"/> : "Confirmar"}
+                </Button>
+              </DialogFooter>
+
+            </DialogContent>
+          </Dialog>
+          {/* <button
             type="submit"
             className="bg-red-700 text-slate-100 flex-1 hover:shadow-lg transition-all font-semibold border-0 rounded-md line-clamp-1 px-4 py-2"
           >
             Ir a confirmar reserva
-          </button>
+          </button> */}
         </div>
       </form>
     </Form>
