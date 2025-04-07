@@ -28,7 +28,7 @@ export const NavbarMobile = () => {
     { label: "Reservas", link: "/reservas" },
     { label: "Empresas", link: "/empresas" },
     { label: "Flota de vehículos", link: "/flota" },
-    { label: "Contactanos", link: "/contacto" },
+    { label: "Contacto", link: "/contacto" },
     { label: "Nosotros", link: "/nosotros" },
     { label: "Mi reserva", link: "/mi-reserva" },
   ];
