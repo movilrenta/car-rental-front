@@ -40,15 +40,18 @@ export default function NotFound() {
             </div>
           </div> */}
            <div className="max-w-lg mx-auto mb-4">
-      <div className="flex flex-col items-center gap-2">
-        <Link href={"/"} className="cursor-pointer">
-          <Image
+      <div className="flex flex-col items-center gap-2 py-16 bg-gray-400">
+        <Image src="/images2/brand.png" alt="Imagen de error 404" width={350} height={350} className="w-auto" />
+        <p>Pagina no encontrada</p>
+        <Link href={"/"} className="cursor-pointer text-4xl underline">
+          {/* <Image
             src={imageConstruction}
             width={350}
             height={350}
             alt="Imagen sitio en construcción"
             className="w-auto"
-          />
+          /> */}
+          Volver
         </Link>
       </div>
     </div>

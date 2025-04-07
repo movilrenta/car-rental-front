@@ -8,34 +8,34 @@ import { IoLocationSharp } from "react-icons/io5";
 import { GiMechanicGarage } from "react-icons/gi";
 
 import imgContacto from "@/public/images2/mr-contacto.jpg";
-import { FormContact } from "@/components/empresa/form-contact";
-import { EmpresaFormText } from "./empresa";
+// import { FormContact } from "@/components/empresa/form-contact";
+// import { EmpresaFormText } from "./empresa";
 // import { PageUnderConstruction } from "@/components/page-under-construction";
 
 const contactText = [
   {
-    icon: <IoLocationSharp className="text-red-600 text-[1.2rem]" />,
+    icon: <IoLocationSharp className="text-red-600 text-[2rem] w-12 min-w-12" />,
     title: "Dirección:",
     content: "San Lorenzo 370, S.M. de Tucumán, Tucumán (T4000CAJ) Argentina.",
   },
   {
-    icon: <FaClock className="text-red-600 text-[1.2rem]" />,
+    icon: <FaClock className="text-red-600 text-[1.2rem] w-12 min-w-12" />,
     title: "Horarios de atención:",
     content:
       "Lunes a viernes de 8:00 a 20:00 hs/ Sábado 9:00 a 12:00 y de 17:00 a 19:00 hs.",
   },
   {
-    icon: <FaHeadphonesSimple className="text-red-600 text-[1.2rem]" />,
+    icon: <FaHeadphonesSimple className="text-red-600 text-[1.4rem] w-12 min-w-12" />,
     title: "Linea gratuita",
     content: "0800 777 7368",
   },
   {
-    icon: <FaPhoneAlt className="text-red-600 text-[1.2rem]" />,
+    icon: <FaPhoneAlt className="text-red-600 text-[1.3rem] w-12 min-w-12" />,
     title: "Atención al cliente",
     content: "+54 9 381 4310550",
   },
   {
-    icon: <GiMechanicGarage className="text-red-600 text-[1.2rem]" />,
+    icon: <GiMechanicGarage className="text-red-600 text-[1.6rem] w-12 min-w-12" />,
     title: "Servicio de emergencia mecánica 24hs",
     content: " +54 9 381 3648505",
   },
@@ -77,7 +77,7 @@ export const Contacto = () => {
             ))}
           </ul>
         </div>
-        <hr className="border-t border-gray-300 rounded-full col-span-full my-2 px-4" />
+        {/* <hr className="border-t border-gray-300 rounded-full col-span-full my-2 px-4" />
         <div className="col-span-full space-y-4 md:space-y-6 max-w-3xl mx-auto">
           <h2 className="text-center text-red-700 mb-4 dark:text-red-600 text-xl font-semibold lg:text-2xl">
             {contactTitleForm.title}
@@ -86,7 +86,7 @@ export const Contacto = () => {
             {contactTitleForm.subtitle}
           </h4>
           <FormContact text={EmpresaFormText} />
-        </div>
+        </div> */}
       </div>
     </div>
   );

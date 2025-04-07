@@ -21,7 +21,7 @@ export default function NavbarLinks({ burger = false }: { burger?: boolean }) {
     { label: "Flota", link: "flota" },
     { label: "Nosotros", link: "nosotros" },
     { label: "Contacto", link: "contacto" },
-    { label: "Mi reserva", link: "mi-reserva" },
+    // { label: "Mi reserva", link: "mi-reserva" },
   ];
 
   return (

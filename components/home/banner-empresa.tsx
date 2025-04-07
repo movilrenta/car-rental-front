@@ -28,7 +28,7 @@ export const BannerEmpresa = () => {
         </ul>
         <Link
           className="btn text-red-800 border border-red-800  hover:bg-red-800 hover:text-slate-50 dark:bg-gray-100 dark:text-gray-800 dark:hover:bg-white whitespace-nowrap"
-          href="/"
+          href="/empresas"
         >
           Más información
         </Link>

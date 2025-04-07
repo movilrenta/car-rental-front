@@ -30,7 +30,7 @@ export const NavbarMobile = () => {
     { label: "Flota de vehículos", link: "/flota" },
     { label: "Contacto", link: "/contacto" },
     { label: "Nosotros", link: "/nosotros" },
-    { label: "Mi reserva", link: "/mi-reserva" },
+    // { label: "Mi reserva", link: "/mi-reserva" },
   ];
 
   return (

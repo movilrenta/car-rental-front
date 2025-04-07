@@ -142,7 +142,8 @@ export default function CRUD_Carousel_Form({ item }: { item?: any }) {
     <SheetContent className="w-full !max-w-3xl min-h-screen overflow-y-auto">
       <SheetHeader>
         <SheetTitle>{item ? "Editar item" : "Agregar item"}</SheetTitle>
-        <SheetDescription>TODO: Recomendaciones</SheetDescription>
+        <SheetDescription>Feature no implementada</SheetDescription>
+        {/* <SheetDescription>TODO: Recomendaciones</SheetDescription> */}
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}

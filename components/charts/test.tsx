@@ -109,7 +109,7 @@ export const Chart = ({ data }: any) => {
       });
   };
 
-  console.log(data);
+  //console.log(data);
 
   const test = generateChartData(data, selectedYear);
   const availableYears = getAvailableYears(data);
@@ -203,7 +203,7 @@ export const Chart = ({ data }: any) => {
   return (
     <div className="grid grid-cols-12 m-5 gap-5">
       {/* Tiempo promedio de reserva */}
-      <Card className="col-span-4">
+      <Card className="col-span-12 md:col-span-6 xl:col-span-4">
         <CardHeader>
           <CardTitle>Tiempo Promedio de Reserva</CardTitle>
         </CardHeader>
@@ -211,7 +211,7 @@ export const Chart = ({ data }: any) => {
           <p className="text-2xl font-bold">{avgDays.toFixed(1)} días</p>
         </CardContent>
       </Card>
-      <Card className="col-span-4">
+      <Card className="col-span-12 md:col-span-6 xl:col-span-4">
         <CardHeader className="flex flex-row justify-between items-center">
           <CardTitle>Tipos de ventas</CardTitle>
           <CardDescription>
@@ -289,7 +289,7 @@ export const Chart = ({ data }: any) => {
           </div>
         </CardFooter>
       </Card>
-      <Card className="col-span-4 flex flex-col">
+      <Card className="col-span-12 md:col-span-6 xl:col-span-4 flex flex-col">
         <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle>Reservas por Estado</CardTitle>
           <CSVLink
@@ -346,7 +346,7 @@ export const Chart = ({ data }: any) => {
         </CardContent>
       </Card>
 
-      <Card className="col-span-4">
+      <Card className="col-span-12 md:col-span-6 xl:col-span-4">
         <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle>Reservas por Sucursal</CardTitle>
           <CSVLink
