@@ -28,7 +28,10 @@ export default function CarouselTableItem({
         <div className="text-left">{item?.name}</div>
       </td>
       <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-        <div className="text-left">{item?.location}</div>
+        <div className="text-left">{item?.location === "none" ? "No se muestra" : "Principal"}</div>
+      </td>
+      <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+        <div className="text-center">{item?.images[0]?.order}</div>
       </td>
       <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
         <div className="text-left">{item?.images[0]?.title}</div>
@@ -56,6 +59,7 @@ export default function CarouselTableItem({
                 <FaTrash className="text-red-500" size={20} />
               </div>
             }
+            id={item?.id}
             path={item?.images[0]?.path}
           />
         </div>

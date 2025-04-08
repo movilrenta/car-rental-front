@@ -17,47 +17,48 @@ const item = {
   ],
 };
 
-const imagenes = [
-  {
-    id: 1,
-    name: "Carousel 1",
-    location: "Principal",
-    images: [
-      {
-        path: "https://res.cloudinary.com/ditapddzx/image/upload/v1743981416/peqewlxmhfpi2hpplbqg.webp",
-        title: "Fácil, rápido y seguro",
-        description: "Precios Accesibles",
-        link: "un link!",
-        order: 1,
-      },
-    ],
-  },
-  {
-    id: 2,
-    name: "Carousel 2",
-    location: "Principal",
-    images: [
-      {
-        path: "https://res.cloudinary.com/ditapddzx/image/upload/v1743981416/lem19lftfhs1hhkritnc.webp",
-        title: "Disfrutá, conocé, compartíESte es el titulo",
-        description: "Movete con libertad",
-        link: "un link!",
-        order: 2,
-      },
-    ],
-  },
-];
+// const imagenes = [
+//   {
+//     id: 1,
+//     name: "Carousel 1",
+//     location: "Principal",
+//     images: [
+//       {
+//         path: "https://res.cloudinary.com/ditapddzx/image/upload/v1743981416/peqewlxmhfpi2hpplbqg.webp",
+//         title: "Fácil, rápido y seguro",
+//         description: "Precios Accesibles",
+//         link: "un link!",
+//         order: 1,
+//       },
+//     ],
+//   },
+//   {
+//     id: 2,
+//     name: "Carousel 2",
+//     location: "Principal",
+//     images: [
+//       {
+//         path: "https://res.cloudinary.com/ditapddzx/image/upload/v1743981416/lem19lftfhs1hhkritnc.webp",
+//         title: "Disfrutá, conocé, compartíESte es el titulo",
+//         description: "Movete con libertad",
+//         link: "un link!",
+//         order: 2,
+//       },
+//     ],
+//   },
+// ];
 
 export default async function CarouselsTable() {
   //   /api/
-  //const carousel_images = await axios.get(`${process.env.NEXT_PUBLIC_URL_BACK}/carousel`);
+  const {data: carousel_images} = await axios.get(`${process.env.NEXT_PUBLIC_URL_BACK}carousels`);
+  //console.log(carousel_images);
   return (
     <div className="bg-white dark:bg-gray-800 shadow-sm rounded-xl relative">
       <header className="flex justify-between items-center px-5 py-4">
         <h2 className="font-semibold flex justify-center items-center gap-2 text-gray-800 dark:text-gray-100">
           Todas las imagenes para carousel{" "}
           <span className="text-gray-400 dark:text-gray-500 font-medium">
-            {imagenes.length}
+            {carousel_images.length}
           </span>
         </h2>
         <CRUD_Carousel
@@ -84,6 +85,9 @@ export default async function CarouselsTable() {
                   <div className="font-semibold text-left">Lugar</div>
                 </th>
                 <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                  <div className="font-semibold text-center">Orden</div>
+                </th>
+                <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                   <div className="font-semibold text-left">Título</div>
                 </th>
                 <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -96,7 +100,7 @@ export default async function CarouselsTable() {
             </thead>
             {/* Table body */}
             <tbody className="text-sm divide-y divide-gray-100 dark:divide-gray-700/60">
-              {imagenes?.map((item) => (
+              {carousel_images?.map((item: any) => (
                 <CarouselTableItem key={item.id} item={item} />
               ))}
             </tbody>

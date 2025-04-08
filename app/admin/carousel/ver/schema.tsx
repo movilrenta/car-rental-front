@@ -4,9 +4,10 @@ export const ImageFormSchema = z.object({
   id: z.number().optional(),
   name: z.string().trim().min(1, "Debe ingresar un dato"),
   location: z.string().trim().min(1, "Debe ingresar un dato"),
-  title: z.string().trim().optional(),
-  description: z.string().trim().optional(),
-  link:z.string().trim().optional(),
+  title: z.string().trim(),
+  description: z.string().trim(),
+  link:z.string().trim(),
+  order: z.coerce.number(),
   image: z.any().optional().refine((file) => {
     if (!file || file.length === 0) return true; // Si no hay imagen, es válido (para edición)
     return (

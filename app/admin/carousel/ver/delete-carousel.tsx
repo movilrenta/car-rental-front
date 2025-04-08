@@ -12,16 +12,17 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { useToast } from "@/hooks/use-toast";
-import { destroyImage } from "@/actions/upload-image";
+import { deleteImageAction, destroyImage } from "@/actions/upload-image";
 
-export default function DeleteCarousel({children, path} : {children: React.ReactNode, path: string}) {
+export default function DeleteCarousel({children, id, path} : {children: React.ReactNode, id: number, path: string}) {
   const { toast } = useToast();
   async function handleDelete() {
     try {
       const response = await destroyImage(path)
+      const response_2 = await deleteImageAction(id)
       //const response = {status: 200, message: path}
-      console.log(response)
-      if(response.status === 200) {
+      
+      if(response.status === 200 && response_2.status === 200) {
           toast({
           title: "Imagen eliminado",
           description: "La imagen ha sido eliminada correctamente",

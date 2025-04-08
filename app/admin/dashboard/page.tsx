@@ -1,16 +1,16 @@
-// import brand from '@/public/images2/brand.png'
-// import Image from "next/image";
-
+import dynamic from "next/dynamic";
+import { GetBranchesAction } from "@/actions/branchs";
 import { getReservations } from "@/actions/get-reservations";
-import { Chart } from "@/components/charts/test";
+import LoadingSpinner from "@/components/loading";
 
-// export default function AdminPage() {
-//   return (
-//     <div className="h-full w-full flex flex-col p-6 items-center">
-//       <h1 className="text-xl">Administración de MOVIL RENTA</h1>
-//       "use client"
+const Chart = dynamic(() => import("@/components/charts/test"), {
+  ssr: false,
+  loading: () => <LoadingSpinner />,
+});
 
 export default async function AdminPage() {
-  const { data, branches } = await getReservations();
-  return <Chart data={data} />;
+  const { data } = await getReservations();
+  const branches = await GetBranchesAction();
+  const dataApproved = data.filter((res: any) => res.status === "approved");
+  return <Chart data={data} dataApproved={dataApproved} branches={branches} />
 }

@@ -39,8 +39,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/select";
+import { BranchesType } from "@/types/branches";
 
-export const Chart = ({ data }: any) => {
+const Chart = ({ data, dataApproved, branches }: {data: any, dataApproved: any, branches: BranchesType[]}) => {
   const [selectedYear, setSelectedYear] = React.useState(
     new Date().getFullYear().toString()
   );
@@ -57,6 +58,7 @@ export const Chart = ({ data }: any) => {
 
   const generateChartData = (reservations: any, year: string) => {
     // Filter reservations by selected year first
+    //const filterdReservationByApproved = reservations.filter((res: any) => res.status === "approved")
     const filteredReservations = reservations.filter((res: any) => {
       const resYear = new Date(res.start_date).getFullYear().toString();
       return resYear === year;
@@ -111,8 +113,9 @@ export const Chart = ({ data }: any) => {
 
   //console.log(data);
 
-  const test = generateChartData(data, selectedYear);
-  const availableYears = getAvailableYears(data);
+  const test = generateChartData(dataApproved, selectedYear);
+  //console.log(test, "TEST");
+  const availableYears = getAvailableYears(dataApproved);
 
   const chartConfig = {
     online: {
@@ -186,7 +189,7 @@ export const Chart = ({ data }: any) => {
     return acc;
   }, {});
   const branchData = Object.keys(reservationsByBranch).map((key) => ({
-    branch: `Sucursal ${key}`,
+    branch: `Sucursal ${branches.filter((branch: BranchesType) => branch.id === +key)[0].name}`,
     reservations: reservationsByBranch[key],
   }));
 
@@ -289,7 +292,7 @@ export const Chart = ({ data }: any) => {
           </div>
         </CardFooter>
       </Card>
-      <Card className="col-span-12 md:col-span-6 xl:col-span-4 flex flex-col">
+      <Card className="col-span-12 md:col-span-6 xl:col-span-4 flex flex-col h-full">
         <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle>Reservas por Estado</CardTitle>
           <CSVLink
@@ -300,8 +303,8 @@ export const Chart = ({ data }: any) => {
             Descargar
           </CSVLink>
         </CardHeader>
-        <CardContent className="flex justify-start items-center gap-6">
-          <PieChart width={200} height={200} className="mt-10 ml-6">
+        <CardContent className="grid grid-cols-4 gap-6 h-full">
+          <PieChart width={206} height={206} className="col-span-2 m-auto min-w-0 max-w-full">
             <Pie
               data={statusData}
               dataKey="value"
@@ -325,14 +328,14 @@ export const Chart = ({ data }: any) => {
             />
           </PieChart>
           {/* Columna de datos a la derecha */}
-          <div className="flex flex-col gap-2">
+          <div className="col-span-2 flex flex-col justify-center gap-2">
             {statusData.map((entry) => (
-              <div key={entry.name} className="flex items-center gap-2">
+              <div key={entry.name} className="flex items-center gap-2 text-sm sm:text-base">
                 <div
-                  className="w-3 h-3 rounded-full"
+                  className="w-3 min-w-3 h-3 min-h-3 rounded-full"
                   style={{ backgroundColor: entry.color }}
                 />
-                <span className="font-medium">
+                <span className="">
                   {entry.name === "pending"
                     ? "PENDIENTE"
                     : entry.name === "approved"
@@ -370,3 +373,5 @@ export const Chart = ({ data }: any) => {
     </div>
   );
 };
+
+export default Chart;

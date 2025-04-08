@@ -46,12 +46,13 @@ export default function CRUD_Carousel_Form({ item }: { item?: any }) {
   const form = useForm<z.infer<typeof ImageFormSchema>>({
     resolver: zodResolver(ImageFormSchema),
     defaultValues: {
-      name: item ? item.name : "",
-      location: item ? item.location : "",
-      title: item ? item.images[0].title : "",
-      description: item ? item.images[0].description : "",
-      link: item ? item.images[0].link : "",
-      //image: item ? item.images[0].path : "",
+      name: item ? item?.name : "",
+      location: item ? item?.location : "",
+      title: item ? item?.images[0]?.title : "",
+      description: item ? item?.images[0]?.description : "",
+      link: item ? item?.images[0]?.link : "",
+      order: item ? item?.images[0]?.order : 0,
+      //image: item ? item?.images[0].path : "",
     },
   });
 
@@ -74,7 +75,7 @@ export default function CRUD_Carousel_Form({ item }: { item?: any }) {
   };
 
   const onSubmit = async (data: z.infer<typeof ImageFormSchema>) => {
-    console.log("TEST");
+
     //setUploading(true);
     const formData = new FormData();
     
@@ -83,25 +84,24 @@ export default function CRUD_Carousel_Form({ item }: { item?: any }) {
     formData.append("title", data.title || "");
     formData.append("description", data.description || "");
     formData.append("link", data.link || "");
+    formData.append("order", data.order.toString() || "0");
 
     if (data.image && data.image.length > 0) {
       formData.append("image", data.image[0]);
     }
 
-
     try {
       if(!item) {
-        
         const result = await uploadImage(formData);
         if (result.success) {
           toast({ 
             variant: "default",
             title: result.message
           });
-          //console.log(result.message);
-          //console.log(result.payload);
           setImagePreview(null); // Limpiar la imagen después de subirla
           form.reset();
+          document.getElementById("close-sheet")?.click();
+          return 
         } else {
           toast({ 
             variant: "default",
@@ -111,7 +111,8 @@ export default function CRUD_Carousel_Form({ item }: { item?: any }) {
         }
       } else {
         formData.append("path", item.images[0].path);
-
+        formData.append("id", item.id.toString());
+        //console.log(formData);
         const result = await UpdateImage(formData);
         
         if (result.success) {
@@ -143,6 +144,7 @@ export default function CRUD_Carousel_Form({ item }: { item?: any }) {
       <SheetHeader>
         <SheetTitle>{item ? "Editar item" : "Agregar item"}</SheetTitle>
         <SheetDescription>Feature no implementada</SheetDescription>
+        <SheetClose id="close-sheet" className="hidden border border-transparent py-1 hover:border-red-500 duration-200 px-4 rounded-md"/>
         {/* <SheetDescription>TODO: Recomendaciones</SheetDescription> */}
         <Form {...form}>
           <form
@@ -225,7 +227,12 @@ export default function CRUD_Carousel_Form({ item }: { item?: any }) {
                       <SelectTrigger className="!m-0 col-span-3 border-zinc-500 dark:border-zinc-600 focus:ring-blue-700">
                         <SelectValue placeholder="Elija un lugar" />
                       </SelectTrigger>
-                      <SelectContent className="bg-neutral-100 dark:bg-neutral-900">
+                      <SelectContent 
+                      className="bg-neutral-100 dark:bg-neutral-900"
+                      onCloseAutoFocus={(e) => {
+                        // Previene que el foco vuelva a un elemento oculto (por ejemplo, un modal cerrado)
+                        e.preventDefault();
+                      }}>
                         <SelectGroup>
                           <SelectItem
                             value="none"
@@ -299,6 +306,26 @@ export default function CRUD_Carousel_Form({ item }: { item?: any }) {
                 </FormItem>
               )}
             />
+            
+            <FormField
+              control={form.control}
+              name="order"
+              render={({ field }) => (
+                <FormItem className="col-span-6">
+                  <FormLabel>Orden</FormLabel>
+                  <FormControl>
+                    <Input
+                      
+                      pattern="[0-9]*"
+                      inputMode="numeric"
+                      {...field}
+                      className="!m-0"
+                      placeholder="Orden de la imagen en Carousel"
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
 
             
             {/* <Button
@@ -324,9 +351,9 @@ export default function CRUD_Carousel_Form({ item }: { item?: any }) {
               {form.formState.isSubmitting ? (
                 <Loader className="animate-spin" />
               ) : item ? (
-                "Editar imagen"
+                "No disponible"
               ) : (
-                "Subir imagen"
+                "No disponible"
               )}
             </Button>
             <SheetClose className="col-span-6 min-w-24 border border-transparent py-1 hover:border-red-500 duration-200 px-4 rounded-md">

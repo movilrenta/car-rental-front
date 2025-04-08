@@ -7,9 +7,10 @@ import { Autoplay, FreeMode } from "swiper/modules";
 import "swiper/css/free-mode";
 import "swiper/css";
 import "./slide-images.css";
+import { Carousel_Type } from "@/types/carousel.schema";
 
 interface Props {
-  images: { url: string, h3: string, h4: string}[];
+  images: Carousel_Type[];
   description?: string;
   className?: string;
 }
@@ -25,17 +26,17 @@ export const SlideImages = ({ images, className }: Props) => {
         className="mySwiper2"
       >
         {images.map((image) => (
-          <SwiperSlide key={image.url}>
+          <SwiperSlide key={image?.images[0]?.path}>
             <Image
-              src={image.url}
+              src={image?.images[0]?.path}
               alt="imagen-swip"
               width={812}
               height={500}
               className="!h-full w-full object-cover"
             />
             <div className="absolute inset-0 text-3xl sm:text-5xl px-6 pb-6 h-full flex flex-col justify-end bg-gradient-to-tr from-black/60 to-transparent text-gray-100 dark:text-gray-100">
-              <h3 className="font-extralight">{image.h3}</h3>
-              <h4 className="font-semibold">{image.h4}</h4>
+              <h3 className="font-extralight">{image?.images[0]?.title}</h3>
+              <h4 className="font-semibold">{image?.images[0]?.description}</h4>
             </div>
           </SwiperSlide>
         ))}
