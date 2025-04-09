@@ -111,7 +111,7 @@ export const Empresa = () => {
           <ListRender items={EmpresaText.listItems} counterItem={false} />
         </div>
         {/* Formulario de contacto */}
-        {/* <hr className="border-t border-gray-300 rounded-full col-span-full my-2 px-4" />
+        <hr className="border-t border-gray-300 rounded-full col-span-full my-2 px-4" />
         <div className="col-span-full max-w-3xl mx-auto p-4">
           <h2 className="text-center text-red-700 mb-4 dark:text-red-600 text-xl font-semibold lg:text-2xl">
             {EmpresaText.subtitleForm}
@@ -120,7 +120,7 @@ export const Empresa = () => {
             {EmpresaText.descriptionForm}
           </h3>
           <FormContact text={EmpresaFormText} />
-        </div> */}
+        </div>
       </div>
     </div>
   );

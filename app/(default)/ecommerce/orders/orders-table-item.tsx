@@ -50,6 +50,8 @@ export default function OrdersTableItem({
               ? "!text-green-600"
               : order.status === "rejected"
               ? "text-red-600"
+              : order.status === "accredited" 
+              ? "text-blue-300"
               : "text-gray-300 dark:text-gray-500"
           }`}
         >
@@ -57,6 +59,8 @@ export default function OrdersTableItem({
             ? "Aprobada"
             : order.status === "rejected"
             ? "Rechazada"
+            : order.status === "accredited"
+            ? "Acreditada"
             : "Pendiente"}
         </td>
         <td className="px-2 py-3 whitespace-nowrap ">

@@ -51,6 +51,8 @@ type PaymentData = {
   card_data: string;
   token: string;
   authenticated_token: string | null;
+  tid: string |null;
+  emv_issuer_data: string | null;
 };
 
 
@@ -148,7 +150,7 @@ export const getTokenPay = async (values: z.infer<typeof formSchema>, code: stri
 
 
     const { data: response } = await axios.post(`${URL}api/process-payments`, payload);
-    if( response?.data?.status === "approved"){
+    if( response?.data?.status === "approved" || response?.data?.status === "accredited"){
       //console.log(response.data, "_________________10002!!!")
       const dataPago = response.data
 
@@ -162,8 +164,8 @@ export const getTokenPay = async (values: z.infer<typeof formSchema>, code: stri
       dataPago.confirmed = JSON.stringify(dataPago?.confirmed)
 
       //remmover el tid de dataPago
-      delete dataPago.tid
-      delete dataPago.emv_issuer_data
+      // delete dataPago.tid
+      // delete dataPago.emv_issuer_data
 
       const DataToSend: PaymentData = {
         reservation_id: dataPago?.reservation_id,
@@ -194,6 +196,8 @@ export const getTokenPay = async (values: z.infer<typeof formSchema>, code: stri
         card_data: dataPago?.card_data || null, //dataPago.card_data, // no viene en la respuesta
         token: dataPago?.token || null, //dataPago.token, // no viene en la respuesta
         authenticated_token: dataPago?.authenticated_token || null, //dataPago.authenticated_token, // no viene en la respuesta
+        tid: dataPago?.tid || null, //dataPago.tid, // no viene en la respuesta
+        emv_issuer_data: dataPago?.emv_issuer_data || null, //dataPago.emv_issuer_data, // no viene en la respuesta
       }
 
       //console.log(dataPago, "dataPago ___________________");
