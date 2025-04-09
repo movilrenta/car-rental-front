@@ -12,12 +12,14 @@ import ItinerarioPickDate from "./itinerario-pick-date";
 //import { Calendar } from "lucide-react";
 import { calcularDiasEntreFechas2 } from "@/components/utils/utils";
 import { BranchesType } from "@/types/branches";
+import { useTranslations } from "next-intl";
 
 export default function HomeItinerario({
   branches,
 }: {
   branches: BranchesType[];
 }) {
+  const t = useTranslations("HomePage");
   const itinerario = useItinerarioStore((state) => state.getItinerario());
   const nuevoItinerario = useItinerarioStore((state) => state.addItinerario);
   const [dias, setDias] = useState<number>(0);
@@ -71,11 +73,11 @@ export default function HomeItinerario({
   return (
     <div className="col-span-12 lg:col-span-5 flex flex-col items-center justify-center px-4 py-6 md:py-4">
       <h2 className="text-3xl text-gray-800 dark:text-gray-100 font-bold mb-6 capitalize">
-        Hace tu reserva
+        {t("reservation.title")}
       </h2>
       <div className="flex items-start pb-2 w-full max-w-[420px] ">
         <label
-          className="block text-lg font-bold mb-1 min-w-20 w-20 pe-4"
+          className="block text-lg font-bold mb-1 min-w-24 w-24 pe-4"
           htmlFor="asd"
         >
           {dias !== 0 ? (
@@ -103,11 +105,11 @@ export default function HomeItinerario({
         <div className="space-y-0">
           <div className="flex items-center w-full max-w-full ">
             <label
-              className="block text-lg font-bold mb-1 min-w-20 w-20"
+              className="block text-lg font-bold mb-1 min-w-28 w-28"
               htmlFor="city-start"
             >
               <GoArrowUpRight className="text-red-600 stroke-2 text-5xl" />
-              Partida
+              {t("reservation.start")}
             </label>
             <div className="w-full">
               <select
@@ -158,11 +160,11 @@ export default function HomeItinerario({
           </div>
           <div className="flex items-center w-full max-w-full ">
             <label
-              className="block text-lg font-bold mb-1 min-w-20 w-20"
+              className="block text-lg font-bold mb-1 min-w-28 w-28"
               htmlFor="city-back"
             >
               <GoArrowDownLeft className="text-red-600 stroke-2 text-5xl" />
-              Regreso
+              {t("reservation.end")}
             </label>
             <div className="w-full">
               <select

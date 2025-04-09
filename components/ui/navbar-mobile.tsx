@@ -19,6 +19,7 @@ import { useAuthstore } from "@/stores/auth-store/login.store";
 import ThemeToggle from "../theme-toggle";
 import { FaPhoneAlt } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
+import LanguageSwitcher from "@/app/[locale]/LocaleSwitcher";
 
 export const NavbarMobile = () => {
   const [toggle, setToggle] = React.useState<boolean>(false);
@@ -82,6 +83,7 @@ export const NavbarMobile = () => {
           </ul>
         </div>
         <SheetFooter className="flex !flex-col items-center w-full gap-4">
+          <LanguageSwitcher />
           <Link
             href="tel:08007777368"
             className="flex justify-center items-center gap-2 text-nowrap"

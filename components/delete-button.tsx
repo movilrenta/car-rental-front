@@ -1,6 +1,6 @@
 'use client'
 
-import { useSelectedItems } from '@/app/selected-items-context'
+import { useSelectedItems } from '@/app/[locale]/selected-items-context'
 
 export default function DeleteButton() {
   const { selectedItems } = useSelectedItems()
