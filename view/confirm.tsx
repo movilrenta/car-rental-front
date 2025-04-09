@@ -1,4 +1,4 @@
-import { FormConfirm, ListItems } from "@/app/(public)/reservas/confirmar";
+import { FormConfirm, ListItems } from "@/app/[locale]/(public)/reservas/confirmar";
 import BannerPage from "./banner-page";
 import axios from "axios";
 import { GetBranchesAction } from "@/actions/branchs";

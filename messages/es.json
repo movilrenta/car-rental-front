@@ -1,0 +1,55 @@
+{
+  "HomePage": {
+    "reservation": {
+      "title": "Hace tu reserva",
+      "start": "Recogida",
+      "end": "Devolución"
+    },
+    "title": "Hola",
+    "description": "Saludos desde la pagina de inicio",
+    "carTypes": {
+      "car": "Autos",
+      "utility": "Utilitarios",
+      "van": "Camionetas"
+    },
+    "quality": {
+      "title" : "Calidad de servicio",
+      "subtitle" : "Nuestra experiencia de más de 50 años, nos permite hoy ser la agencia de alquiler de vehículos sin chofer más importante de la región, ofreciendo un servicio de nivel internacional."
+    },
+    "usefulInfo": {
+      "experience": {
+        "title": "Experiencia",
+        "description": "Atención personalizada, puntualidad, seguridad y respaldo."
+      },
+      "ownFleet": {
+        "title": "Flota Propia",
+        "description": "Más de 350 unidades modernas, disponibilidad inmediata."
+      },
+      "insurance": {
+        "title": "Seguro",
+        "description": "Contamos con el respaldo de Federación Patronal Seguros para su total tranquilidad."
+      },
+      "maintenance": {
+        "title": "Mantenimiento",
+        "description": "A nuestro cargo, con services preventivos programados."
+      }
+    },
+    "Business": {
+      "title": "Soluciones para empresas",
+      "description": "Aproveche las ventajas de nuestro leasing operativo o renting de vehículos a largo plazo.",
+      "li_1": "Rentabilidad",
+      "li_2": "Importantes beneficios impositivos",
+      "li_3": "Despreocupese del mantenimiento e impuestos",
+      "li_4": "Renovación permanente de flota",
+      "button" : "Mas información",
+      "frame_1": "+350",
+      "frame_1B": " unidades último modelo",
+      "frame_2": "Cobertura",
+      "frame_2B": " en toda la región",
+      "frame_3": "Renovación",
+      "frame_3B": " permanente",
+      "frame_4": "Beneficios",
+      "frame_4B": " impositivos"
+    }
+  }
+}

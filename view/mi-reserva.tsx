@@ -26,8 +26,8 @@ import { GiCarDoor, GiGasPump } from "react-icons/gi";
 import { TbManualGearbox } from "react-icons/tb";
 import { GoArrowDownLeft, GoArrowUpRight } from "react-icons/go";
 import { useFormatNumber } from "@/components/utils/useFormatterNumber";
-import PageNotFound from "@/app/(alternative)/utility/404/page";
-import NotFound from "@/app/not-found";
+import PageNotFound from "@/app/[locale]/(alternative)/utility/404/page";
+import NotFound from "@/app/[locale]/not-found";
 
 export const MiReserva = () => {
   const [loading, setLoading] = React.useState<boolean>(false);

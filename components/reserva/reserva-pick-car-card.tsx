@@ -6,7 +6,7 @@ import { FaUser } from "react-icons/fa";
 import { GiCarDoor, GiGasPump } from "react-icons/gi";
 import { TbManualGearbox } from "react-icons/tb";
 import { useFormatNumber } from "../utils/useFormatterNumber";
-import BadgeOffer from "@/app/admin/fechas/ver/components/badge-offer";
+import BadgeOffer from "@/app/[locale]/admin/fechas/ver/components/badge-offer";
 import { Tag } from "lucide-react";
 
 export default function CardCar({

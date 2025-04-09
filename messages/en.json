@@ -1,0 +1,55 @@
+{
+  "HomePage": {
+    "reservation": {
+      "title": "Make a booking",
+      "start": "Pick up",
+      "end": "Return"
+    },
+    "title": "Hello",
+    "description": "Greetings from the home page",
+    "carTypes": {
+      "car": "Cars",
+      "utility": "Utilities",
+      "van": "Vans"
+    },
+    "quality": {
+      "title" : "Quality of service",
+      "subtitle" : "Our experience of more than 50 years allows us to be the most important car rental agency in the region, offering a service of international level."
+    },
+    "usefulInfo": {
+      "experience": {
+        "title": "Experience",
+        "description": "Personalized attention, punctuality, safety, and reliability."
+      },
+      "ownFleet": {
+        "title": "Own Fleet",
+        "description": "More than 350 modern units, immediate availability."
+      },
+      "insurance": {
+        "title": "Insurance",
+        "description": "We are backed by Federación Patronal Seguros for your complete peace of mind."
+      },
+      "maintenance": {
+        "title": "Maintenance",
+        "description": "Handled by us, with scheduled preventive services."
+      }
+    },
+    "Business": {
+      "title": "Solutions for Companies",
+      "description": "Take advantage of our operational leasing or long-term vehicle renting options.",
+      "li_1": "Profitability",
+      "li_2": "Significant tax benefits",
+      "li_3": "Forget about maintenance and taxes",
+      "li_4": "Constant fleet renewal",
+      "button": "More information",
+      "frame_1": "+350",
+      "frame_1B": " latest model units",
+      "frame_2": "Coverage",
+      "frame_2B": " throughout the region",
+      "frame_3": "Renewal",
+      "frame_3B": " on a regular basis",
+      "frame_4": "Tax",
+      "frame_4B": " benefits"
+    }
+  }
+}

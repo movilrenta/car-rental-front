@@ -1,6 +1,6 @@
 "use server";
 
-import { BrandForm } from "@/app/admin/vehiculos/marcas/components/schema";
+import { BrandForm } from "@/app/[locale]/admin/vehiculos/marcas/components/schema";
 import axios, { AxiosError } from "axios"
 import { revalidatePath } from "next/cache";
 
