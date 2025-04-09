@@ -8,8 +8,8 @@ import { IoLocationSharp } from "react-icons/io5";
 import { GiMechanicGarage } from "react-icons/gi";
 
 import imgContacto from "@/public/images2/mr-contacto.jpg";
-// import { FormContact } from "@/components/empresa/form-contact";
-// import { EmpresaFormText } from "./empresa";
+import { FormContact } from "@/components/empresa/form-contact";
+import { EmpresaFormText } from "./empresa";
 // import { PageUnderConstruction } from "@/components/page-under-construction";
 
 const contactText = [
@@ -77,7 +77,7 @@ export const Contacto = () => {
             ))}
           </ul>
         </div>
-        {/* <hr className="border-t border-gray-300 rounded-full col-span-full my-2 px-4" />
+        <hr className="border-t border-gray-300 rounded-full col-span-full my-2 px-4" />
         <div className="col-span-full space-y-4 md:space-y-6 max-w-3xl mx-auto">
           <h2 className="text-center text-red-700 mb-4 dark:text-red-600 text-xl font-semibold lg:text-2xl">
             {contactTitleForm.title}
@@ -86,7 +86,7 @@ export const Contacto = () => {
             {contactTitleForm.subtitle}
           </h4>
           <FormContact text={EmpresaFormText} />
-        </div> */}
+        </div>
       </div>
     </div>
   );

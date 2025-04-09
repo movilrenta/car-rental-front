@@ -81,6 +81,7 @@ export default function CarsTableItem({
       const patent = patentes_array[index]?.trim();
       return {
         name: car?.name || "",
+        vehicle_type: car?.vehicle_type || "car",
         brand_id: Number(car?.brand_id),
         group_id: Number(car?.group_id),
         doors: car?.doors || 0,
