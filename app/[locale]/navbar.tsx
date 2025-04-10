@@ -8,7 +8,7 @@ import ThemeToggle from "@/components/theme-toggle";
 import { NavbarMobile } from "@/components/ui/navbar-mobile";
 import LanguageSwitcher from "./LocaleSwitcher";
 
-export default function Navbar() {
+export default function Navbar({locale} : {locale: string}) {
 
   return (
     <>
@@ -55,10 +55,10 @@ export default function Navbar() {
           </div>
         </div>
         <div className="flex lg:hidden absolute inset-y-0 right-4">
-          <NavbarMobile/>
+          <NavbarMobile locale={locale}/>
         </div>
       </div>
-      <NavbarLinks />
+      <NavbarLinks locale={locale}/>
     </>
   );
 }
