@@ -120,5 +120,41 @@
     "confirm": {
       "btn": "Continuar"
     }
+  },
+  "PaymentsPage": {
+    "meta": {
+      "title":"Payments",
+      "description": "Payment page"
+    },
+    "subtitle": "Por favor complete los siguientes campos con los datos del",
+    "subtitle1": "titular",
+    "subtitle2": " de la tarjeta en el formulario de pago para finalizar su reserva",
+    "resume": "Resumen",
+    "vehicle": "Vehículo",
+    "additional": "Aditionales",
+    "dropoff": "Dropoff",
+    "form": {
+      "payMethod": "Seleccione un medio de pago",
+      "pickCard": "Seleccione su tarjeta",
+      "cardNumber": "Número de la tarjeta",
+      "cardMonth": "Mes",
+      "cardYear": "Año",
+      "documentType": "Tipo de documento",
+      "birthday": "Fecha de nacimiento",
+      "birthdayFormat": "DD/MM/AAAA",
+      "firstName": "Nombre",
+      "lastName": "Apellido",
+      "installments": "Cantidad de cuotas",
+      "installment1": "cuota de",
+      "installment2": "cuotas de",
+      "state": "Provincia",
+      "stateChose": "Seleccione una provincia",
+      "city": "Ciudad",
+      "postal" : "Código Postal",
+      "address": "Dirección",
+      "addressNumber": "Altura",
+      "pay": "Pagar con",
+      "confirmedLegend": "Una vez aprobado el pago la reserva será confirmada y se le enviará un email con el código de reserva"
+    }
   }
 }

@@ -1,17 +1,21 @@
-import axios from 'axios'
 import PayForm from './pay-form'
-import { GetAdditionalsAction } from '@/actions/additionals'
+import { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
 
-export const metadata = {
-  title: 'Payments',
-  description: 'Formulario de reservas',
+type Props = {
+  params: { locale: string };
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const t = await getTranslations({ locale: params.locale, namespace: "PaymentsPage.meta" });
+  return {
+    title: t("title"),
+    description: t("description")
+  };
 }
 
-//const BACK = process.env.NEXT_PUBLIC_URL_BACK
-
 export default async function Payments() {
-  const data = await GetAdditionalsAction()
   return (
-    <PayForm aditionals={data} />
+    <PayForm />
   )
 }

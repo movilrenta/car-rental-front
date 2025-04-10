@@ -40,8 +40,10 @@ import { CARDS } from "@/constant/cards";
 import { getReservaPrice } from "../confirmar/calculate-price";
 import { useFormatNumber } from "@/components/utils/useFormatterNumber";
 import PayWay from "./test/payway";
+import { useTranslations } from "next-intl";
 
-export default function PayForm({ aditionals }: { aditionals: any[] }) {
+export default function PayForm() {
+  const t = useTranslations("PaymentsPage")
   const router = useRouter();
   const [totales, setTotales] = useState<any>(null);
   const [loader, setLoader] = useState<boolean>(false);
@@ -80,31 +82,7 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
         state: "",
         street1: "",
       },
-    },
-    // defaultValues: {
-    //   card_number: "",
-    //   card_expiration_month: "12",
-    //   card_expiration_year: "30",
-    //   security_code: "123",
-    //   card_holder_birthday: "07/05/1964",
-    //   card_holder_door_number: "2473",
-    //   card_holder_identification: {
-    //     type: "DNI",
-    //     number: "25123456",
-    //   },
-    //   payment_method_id: "",
-    //   installments: "1",
-    //   bill_to: {
-    //     city: "Buenos Aires",
-    //     country: "AR",
-    //     customer_id: "xxxxx",
-    //     first_name: "martin",
-    //     last_name: "paoletta",
-    //     postal_code: "1427",
-    //     state: "BA",
-    //     street1: "GARCIA DEL RIO",
-    //   },
-    // },
+    }
   });
 
   useEffect(() => {
@@ -223,27 +201,28 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
               Movil Renta
             </h1>
             <div className="text-sm">
-              Por favor complete los siguientes campos con los datos del{" "}
-              <span className="font-semibold">titular</span> de la tarjeta en el
-              formulario de pago para finalizar su reserva.
+              {t("subtitle")}
+              <span className="font-bold"> {t("subtitle1")}</span> 
+              {t("subtitle2")}
+              
             </div>
             <div className="text-sm max-w-64 w-full mx-auto pt-2">
-              <div className="font-semibold text-base">Resumen</div>
+              <div className="font-semibold text-base">{t("resume")}</div>
               {totales?.totalAuto && (
                 <div className="flex justify-between text-start">
-                  <span>Vehículo</span>
+                  <span>{t("vehicle")}</span>
                   <span> {useFormatNumber(totales.totalAuto)}</span>
                 </div>
               )}
               {totales?.totalAdicionales > 0 && (
                 <div className="flex justify-between text-start">
-                  <span>Adicionales</span>
+                  <span>{t("additional")}</span>
                   <span> {useFormatNumber(totales.totalAdicionales)}</span>
                 </div>
               )}
               {totales?.totalDropOff > 0 && (
                 <div className="flex justify-between text-start">
-                  <span>Dropoff</span>
+                  <span>{t("dropoff")}</span>
                   <span> {useFormatNumber(totales.totalDropOff)}</span>
                 </div>
               )}
@@ -274,7 +253,7 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel className="block text-sm font-medium -mb-2">
-                          Seleccione un medio de pago
+                          {t("form.payMethod")}
                         </FormLabel>
                         <Select
                           onValueChange={field.onChange}
@@ -282,7 +261,7 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
                         >
                           <FormControl>
                             <SelectTrigger>
-                              <SelectValue placeholder="Seleccione su tarjeta" />
+                              <SelectValue placeholder={t("form.pickCard")} />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
@@ -323,7 +302,7 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="block text-sm font-medium -mb-2">
-                        Número de la tarjeta{" "}
+                        {t("form.cardNumber")}
                         <span className="text-red-500"> *</span>
                       </FormLabel>
                       <FormControl>
@@ -347,7 +326,7 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
                     render={({ field }) => (
                       <FormItem className="flex-1">
                         <FormLabel className="block text-sm font-medium -mb-2">
-                          Mes
+                          {t("form.cardMonth")}
                           <span className="text-red-500"> *</span>
                         </FormLabel>
                         <FormControl>
@@ -376,7 +355,7 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
                     render={({ field }) => (
                       <FormItem className="flex-1">
                         <FormLabel className="block text-sm font-medium -mb-2">
-                          Año
+                          {t("form.cardYear")}
                           <span className="text-red-500"> *</span>
                         </FormLabel>
                         <FormControl>
@@ -434,7 +413,7 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
                     render={({ field }) => (
                       <FormItem className="flex-1">
                         <FormLabel className="block text-sm font-medium -mb-2 line-clamp-1 text-ellipsis">
-                          Tipo de documento
+                          {t("form.documentType")}
                         </FormLabel>
                         <Select
                           onValueChange={field.onChange}
@@ -489,7 +468,7 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="block text-sm font-medium -mb-2">
-                        Fecha de nacimiento
+                        {t("form.birthday")}
                         <span className="text-red-500"> *</span>
                       </FormLabel>
                       <FormControl>
@@ -497,7 +476,7 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
                           className="form-input w-full"
                           type="text"
                           maxLength={10}
-                          placeholder="DD/MM/AAAA"
+                          placeholder={t("form.birthdayFormat")}
                           pattern="\d{2}/\d{2}/\d{4}"
                           value={field.value}
                           onChange={(e) => {
@@ -521,7 +500,7 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
                     render={({ field }) => (
                       <FormItem className="flex-1">
                         <FormLabel className="block text-sm font-medium -mb-2">
-                          Nombre
+                        {t("form.firstName")}
                           <span className="text-red-500"> *</span>
                         </FormLabel>
                         <FormControl>
@@ -543,7 +522,7 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
                     render={({ field }) => (
                       <FormItem className="flex-1">
                         <FormLabel className="block text-sm font-medium -mb-2">
-                          Apellido
+                        {t("form.lastName")}
                           <span className="text-red-500"> *</span>
                         </FormLabel>
                         <FormControl>
@@ -568,7 +547,7 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
                   render={({ field }) => (
                     <FormItem className="flex-1">
                       <FormLabel className="block text-sm font-medium -mb-2">
-                        Cantidad de cuotas
+                      {t("form.installments")}
                       </FormLabel>
                       <Select
                         onValueChange={field.onChange}
@@ -577,7 +556,7 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
                         <FormControl>
                           <SelectTrigger>
                             <SelectValue
-                              placeholder="Cantidad de cuotas"
+                              placeholder={t("form.installments")}
                               defaultValue={"1"}
                             />
                           </SelectTrigger>
@@ -587,21 +566,21 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
                             className="hover:bg-zinc-700 hover:text-white"
                             value="1"
                           >
-                            1 cuota de $
+                            1 {t("form.installment1")} $
                             {useFormatNumber(totales?.totalCompleto)}
                           </SelectItem>
                           <SelectItem
                             className="hover:bg-zinc-700 hover:text-white"
                             value="2"
                           >
-                            2 cuotas de $
+                            2 {t("form.installment2")} $
                             {useFormatNumber(totales?.totalCompleto / 2)}
                           </SelectItem>
                           <SelectItem
                             className="hover:bg-zinc-700 hover:text-white"
                             value="3"
                           >
-                            3 cuotas de $
+                            3 {t("form.installment2")} $
                             {useFormatNumber(totales?.totalCompleto / 3)}
                           </SelectItem>
                         </SelectContent>
@@ -616,7 +595,7 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="block text-sm font-medium -mb-2">
-                        Provincia
+                      {t("form.state")}
                       </FormLabel>
                       <Select
                         onValueChange={field.onChange}
@@ -624,7 +603,7 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
                       >
                         <FormControl>
                           <SelectTrigger>
-                            <SelectValue placeholder="Seleccione una provincia" />
+                            <SelectValue placeholder={t("form.stateChose")} />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
@@ -647,14 +626,14 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
                     render={({ field }) => (
                       <FormItem className="flex-1">
                         <FormLabel className="block text-sm font-medium -mb-2">
-                          Ciudad
+                        {t("form.city")}
                           <span className="text-red-500"> *</span>
                         </FormLabel>
                         <FormControl>
                           <Input
                             className="form-input w-full"
                             type="text"
-                            placeholder="Ciudad"
+                            placeholder="Tucumán"
                             maxLength={50}
                             {...field}
                           />
@@ -669,14 +648,14 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
                     render={({ field }) => (
                       <FormItem className="flex-1">
                         <FormLabel className="block text-sm font-medium -mb-2">
-                          Codigo Postal
+                          {t("form.postal")}
                           <span className="text-red-500"> *</span>
                         </FormLabel>
                         <FormControl>
                           <Input
                             className="form-input w-full"
                             type="text"
-                            placeholder="1234"
+                            placeholder="4000"
                             maxLength={50}
                             {...field}
                           />
@@ -693,14 +672,14 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
                     render={({ field }) => (
                       <FormItem className="flex-1">
                         <FormLabel className="block text-sm font-medium -mb-2">
-                          Dirección
+                        {t("form.address")}
                           <span className="text-red-500"> *</span>
                         </FormLabel>
                         <FormControl>
                           <Input
                             className="form-input w-full"
                             type="text"
-                            placeholder="Calle"
+                            //placeholder="Calle"
                             {...field}
                           />
                         </FormControl>
@@ -714,14 +693,14 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
                     render={({ field }) => (
                       <FormItem className="flex-1">
                         <FormLabel className="block text-sm font-medium -mb-2">
-                          Altura
+                        {t("form.addressNumber")}
                           <span className="text-red-500"> *</span>
                         </FormLabel>
                         <FormControl>
                           <Input
                             className="form-input w-full"
                             type="text"
-                            placeholder="123"
+                            //placeholder="123"
                             maxLength={6}
                             value={field.value}
                             onChange={(e) => {
@@ -753,14 +732,13 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
                       <LuLoader className="mr-2 h-4 w-4 animate-spin" />
                     ) : (
                       <div className="flex flex-nowrap gap-2 items-center">
-                        <span>Pagar con </span>
+                        <span>{t("form.pay")} </span>
                         <PayWay />
                       </div>
                     )}
                   </Button>
                   <div className="text-center text-xs leading-4 pt-2">
-                    Una vez aprobado el pago la reserva será confirmada y se le
-                    enviará un email con el código de reserva
+                    {t("form.confirmedLegend")}
                   </div>
                 </div>
               </form>

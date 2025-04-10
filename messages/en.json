@@ -120,5 +120,42 @@
     "confirm": {
       "btn": "Continue"
     }
+  },
+  "PaymentsPage": {
+    "meta": {
+      "title": "Payments",
+      "description": "Payment page"
+    },
+    "subtitle": "Please complete the following fields with the details of the",
+    "subtitle1": "cardholder",
+    "subtitle2": " in the payment form to complete your booking",
+    "resume": "Summary",
+    "vehicle": "Vehicle",
+    "additional": "Additionals",
+    "dropoff": "Dropoff",
+    "form": {
+      "payMethod": "Select a payment method",
+      "pickCard": "Select your card",
+      "cardNumber": "Card number",
+      "cardMonth": "Month",
+      "cardYear": "Year",
+      "documentType": "Document type",
+      "birthday": "Date of birth",
+      "birthdayFormat": "DD/MM/YYYY",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "installments": "Number of installments",
+      "installment1": "installment of",
+      "installment2": "installments of",
+      "state": "State",
+      "stateChose": "Select a state",
+      "city": "City",
+      "postal": "Postal code",
+      "address": "Address",
+      "addressNumber": "Street number",
+      "pay": "Pay with",
+      "confirmedLegend": "Once the payment is approved, your booking will be confirmed and an email with the booking code will be sent to you"
+    }
   }
+
 }

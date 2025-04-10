@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 
 export default function Footer({ locale }: { locale: string }) {
   const footerItems = footerInfo[locale as "es" | "en"];
@@ -16,7 +16,7 @@ export default function Footer({ locale }: { locale: string }) {
           {item.items.map((item, index_item) => (
             <Link
               key={index_item}
-              href={item.link}
+              href={item.link as any}
               className="py-1 hover:underline w-fit"
             >
               {item.label}

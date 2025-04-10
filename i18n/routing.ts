@@ -40,6 +40,14 @@ export const routing = defineRouting({
     '/contacto': {
       en: '/contact',
       es: '/contacto'
+    },
+    '/ayuda/terminos-y-condiciones': {
+      en: '/terms-and-conditions',
+      es: '/ayuda/terminos-y-condiciones'
+    },
+    '/ayuda': {
+      en: '/safety-tips',
+      es: '/ayuda'
     }
   }
 });
