@@ -17,6 +17,14 @@ export const routing = defineRouting({
       en: '/booking',
       es: '/reservas'
     },
+    '/reservas/confirmar': {
+      en: '/booking/confirm',
+      es: '/reservas/confirmar'
+    },
+    '/reservas/payments': {
+      en: '/booking/payments',
+      es: '/reservas/pagos'
+    },
     '/empresas': {
       en: '/companies',
       es: '/empresas'

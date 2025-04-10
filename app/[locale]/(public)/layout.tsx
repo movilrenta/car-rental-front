@@ -32,9 +32,9 @@ export default async function PublicLayout({
   return (
     
         <>
-            <Navbar locale={params.locale}/>
+            <Navbar locale={locale}/>
             {children}
-            <Footer />
+            <Footer locale={locale}/>
             <AdminButton />
             <Toaster/>
           </>

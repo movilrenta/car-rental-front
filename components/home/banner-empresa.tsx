@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from '@/i18n/navigation'; // si usás next-intl con configuración recomendada
 import { FaCheck } from "react-icons/fa";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import bannerEmpresa from "@/public/images2/banner-empresa.jpg";

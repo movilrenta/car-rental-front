@@ -1,4 +1,8 @@
 {
+  "Metadata": {
+    "fleetTitle": "Vehicle Fleet",
+    "bookingTitle" : "Bookings"
+  },
   "HomePage": {
     "reservation": {
       "title": "Make a booking",
@@ -50,6 +54,71 @@
       "frame_3B": " on a regular basis",
       "frame_4": "Tax",
       "frame_4B": " benefits"
+    }
+  },
+  "FleetPage": {
+    "banner": "Vehicle Fleet",
+    "title" : "We have the largest and most modern fleet in Northern Argentina. With over 350 latest-model vehicles, we offer immediate availability.",
+    "filter": {
+      "car": "Cars",
+      "utility": "Utilities",
+      "van": "Vans"
+    },
+    "cards": {
+      "luggage": "Luggage",
+      "doors": "Doors",
+      "seats": "Seats",
+      "similar": "or similar",
+      "group": "Group"
+    }
+  },
+  "BookingPage": {
+    "banner": "Your Booking",
+    "itinerary": {
+      "loading": "Fetching itinerary data...",
+      "preTitle": "Your",
+      "title": "Itinerary",
+      "day": "Day",
+      "days": "Days",
+      "choose": "Choose",
+      "pickUp": "Pick-up",
+      "selectPickUpPlace": "Select pick-up location",
+      "selectPickUpHour": "Select pick-up time",
+      "drop": "Drop-off",
+      "selectDropPlace": "Select drop-off location",
+      "selectDropHour": "Select drop-off time",
+      "extraDates": "Rates may vary depending on the selected date.",
+      "dropoff": "The selected city has an extra charge (Drop Off).",
+      "startHourDropoff": "The pick-up time has an extra charge as it is outside our office hours.",
+      "endHourDropoff": "The drop-off time has an extra charge as it is outside our office hours."
+    },
+    "pickCar": {
+      "btnSearch": "Search available vehicles",
+      "loading": "Updating fleet...",
+      "preTitle": "Select your",
+      "title": "vehicle",
+      "errorDates": "Please check the booking dates",
+      "dontFind": "Didn't find what you were looking for?",
+      "dontFindDescription": "Don't worry! Contact us so we can help you with your next booking.",
+      "talkAdviser": "Talk to an advisor",
+      "cards": {
+        "rate": "Base rate: 1 day",
+        "luggage": "Luggage",
+        "doors": "Doors",
+        "seats": "Seats",
+        "similar": "or similar",
+        "group": "Group",
+        "pick": "Select vehicle",
+        "unPick": "Choose another"
+      }
+    },
+    "pickAdditionals": {
+      "loading": "Fetching additional data...",
+      "preTitle": "Accessories",
+      "title": "Optional"
+    },
+    "confirm": {
+      "btn": "Continue"
     }
   }
 }

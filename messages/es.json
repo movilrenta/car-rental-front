@@ -1,4 +1,8 @@
 {
+  "Metadata": {
+    "fleetTitle": "Flota de vehículos",
+    "bookingTitle" : "Reservas"
+  },
   "HomePage": {
     "reservation": {
       "title": "Hace tu reserva",
@@ -50,6 +54,71 @@
       "frame_3B": " permanente",
       "frame_4": "Beneficios",
       "frame_4B": " impositivos"
+    }
+  },
+  "FleetPage": {
+    "banner": "Flota de vehículos",
+    "title" : "Contamos con la más amplia y moderna flota del Norte de Argentina. Con más de 350 unidades, último modelo, ofrecemos disponibilidad inmediata.",
+    "filter": {
+      "car": "Autos",
+      "utility": "Utilitarios",
+      "van": "Camionetas"
+    },
+    "cards": {
+      "luggage": "Maleta(s)",
+      "doors": "Puertas",
+      "seats": "Plazas",
+      "similar": "o similar",
+      "group": "Grupo"
+    }
+  },
+  "BookingPage": {
+    "banner": "Su reserva",
+    "itinerary": {
+      "loading": "Obteniendo datos del itinerario...",
+      "preTitle": "Su",
+      "title": "itinerario",
+      "day": "Día",
+      "days": "Días",
+      "choose": "Elija",
+      "pickUp": "Recogida",
+      "selectPickUpPlace": "Seleccione lugar de recogida",
+      "selectPickUpHour": "Seleccione horario de recogida",
+      "drop": "Devolución",
+      "selectDropPlace": "Seleccione lugar de devolución",
+      "selectDropHour": "Seleccione horario de devolución",
+      "extraDates": "Las tarifas pueden tener variantes segun la fecha seleccionada.",
+      "dropoff": "La ciudad seleccionada tiene un cargo extra (Drop Off).",
+      "startHourDropoff": "El horario de recogida tiene un cargo extra ya que está fuera de nuestros horarios de atención en oficina.",
+      "endHourDropoff": "El horario de devolución tiene un cargo extra ya que está fuera de nuestros horarios de atención en oficina."
+    },
+    "pickCar":{
+      "btnSearch": "Buscar vehículos disponibles",
+      "loading": "Actualizando flota...",
+      "preTitle": "Seleccione su",
+      "title": "vehículo",
+      "errorDates": "Verifique las fechas de reserva",
+      "dontFind": "No encontraste lo que buscabas?",
+      "dontFindDescription": "Tranquilo!, contactanos para que podamos ayudarte en tu próxima reserva.",
+      "talkAdviser": "Habla con un asesor",
+      "cards": {
+        "rate": "Tarifa base: 1 día",
+        "luggage": "Maleta(s)",
+        "doors": "Puertas",
+        "seats": "Plazas",
+        "similar": "o similar",
+        "group": "Grupo",
+        "pick": "Elegir vehículo",
+        "unPick": "Elegir otro"
+      }
+    },
+    "pickAdditionals": {
+      "loading": "Obteniendo datos adicionales...",
+      "preTitle": "Accesorios",
+      "title": "opcionales"
+    },
+    "confirm": {
+      "btn": "Continuar"
     }
   }
 }
