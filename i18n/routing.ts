@@ -32,6 +32,18 @@ export const routing = defineRouting({
     '/contacto': {
       en: '/contact',
       es: '/contacto'
+    },
+    '/ayuda': {
+      en:'/help',
+      es:'/ayuda'
+    },
+    '/ayuda/terminos-y-condiciones': {
+      en:'/help/terms-and-conditions',
+      es:'/ayuda/terminos-y-condiciones'
+    },
+    '/reservas/gracias': {
+      en:'/booking/thanks',
+      es:'/reservas/gracias'
     }
   }
 });
