@@ -24,7 +24,7 @@ export default function Footer({ locale }: { locale: string }) {
           ))}
         </div>
       ))}
-      <div className="col-span-4 my-12">
+      <Link href={"/home"} className="col-span-4 my-12">
         <Image
           src={"/images2/brandFoot.webp"}
           alt="logo"
@@ -32,7 +32,7 @@ export default function Footer({ locale }: { locale: string }) {
           height={200}
           className="w-auto mx-auto"
         />
-      </div>
+      </Link>
     </div>
   );
 }

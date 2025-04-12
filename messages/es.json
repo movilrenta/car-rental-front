@@ -126,6 +126,8 @@
       "title":"Payments",
       "description": "Payment page"
     },
+    "banner": "Realizar el pago",
+    "loading": "Obteniendo datos de su reserva...",
     "subtitle": "Por favor complete los siguientes campos con los datos del",
     "subtitle1": "titular",
     "subtitle2": " de la tarjeta en el formulario de pago para finalizar su reserva",
@@ -139,6 +141,7 @@
       "cardNumber": "Número de la tarjeta",
       "cardMonth": "Mes",
       "cardYear": "Año",
+      "cardYearPlaceholder": "AA",
       "documentType": "Tipo de documento",
       "birthday": "Fecha de nacimiento",
       "birthdayFormat": "DD/MM/AAAA",
@@ -154,7 +157,31 @@
       "address": "Dirección",
       "addressNumber": "Altura",
       "pay": "Pagar con",
-      "confirmedLegend": "Una vez aprobado el pago la reserva será confirmada y se le enviará un email con el código de reserva"
+      "confirmedLegend": "Una vez aprobado el pago la reserva será confirmada y se le enviará un email con el código de reserva",
+      "validations": {
+        "cardMin": "La tarjeta debe tener al menos 15 digitos",
+        "cardMax": "La tarjeta no debe tener más de 18 digitos",
+        "cardMonth": "2 dígitos",
+        "cardMonthTo": "01 al 12",
+        "cardYear": "Verificar",
+        "securityCode": "3 a 4 dígitos",
+        "birthday" : "La fecha no es válida",
+        "birthdayPlaceholder" : "Formato DD/MM/AAAA",
+        "cardHolderDoorNumber": "El número de puerta es demasiado extenso",
+        "cardHolderIdentificationMin": "Mínimo de 7 dígitos",
+        "cardHolderIdentificationMax": "Demasiado extenso",
+        "paymentMethod": "Debe seleccionar un metodo de pago",
+        "state": "Debe seleccionar una provincia",
+        "city": "Debe seleccionar una ciudad",
+        "firstNameMin": "Nombre obligatorio",
+        "firstNameMax": "Demasiado extenso",
+        "lastNameMin": "Apellido obligatorio",
+        "lastNameMax": "Demasiado extenso",
+        "postalCodeMin" : "Codigo Postal obligatorio",
+        "postalCodeMax" : "Demasiado extenso",
+        "addressMin": "Dirección obligatoria",
+        "addressMax": "Demasiado extenso"
+      }
     }
   }
 }
