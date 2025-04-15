@@ -52,6 +52,112 @@
       "frame_4B": " benefits"
     }
   },
+  "ReservaPage": {
+    "ConfirmarPage": {
+      "meta": {
+        "title": "Reservation confirmation"
+      },
+      "bannerTitle": "Your reservation",
+      "subtitleCheck": {
+        "title": "Review and",
+        "span": "confirm your reservation"
+      },
+      "listItems": {
+        "loader": "Retrieving your reservation data...",
+        "itinerary": {
+          "title": "Itinerary",
+          "days": "Days",
+          "from": "From",
+          "to": "To"
+        },
+        "car": {
+          "title": "Vehicle",
+          "group": "Group",
+          "insurance": {
+            "span1": "- Insurance: For damages or missing items ARS $",
+            "span2": "for rollovers or theft ARS $"
+          }
+        },
+        "dropOff": {
+          "title": "Additional",
+          "description": "Additional charge for pickup and/or drop-off outside Tucumán."
+        },
+        "accessories": {
+          "title": "Accessories"
+        },
+        "total": {
+          "estimatedRates": "- Estimated rates without and subject to change without prior notice.",
+          "taxes": "- VAT 21% and insurance with deductible included."
+        }
+      },
+      "subtitleForm": {
+        "title": "Driver",
+        "span": "information",
+        "mandatory": "* Mandatory fields"
+      },
+      "formConfirm": {
+        "selectors": {
+          "DNI": "DNI",
+          "Passport": "Passport"
+        },
+        "labels": {
+          "name": "First name *",
+          "lastname": "Last name *",
+          "typeDoc": "Document type *",
+          "numberDoc": "ID / Passport number *",
+          "email": "Email *",
+          "phone": "Phone number *",
+          "numberLic": "License number *",
+          "expLic": "License expiration date *",
+          "address": "Address *",
+          "city": "City *",
+          "flightNum": "Flight number",
+          "comments": "Comments",
+          "over25": "I am over 25 years old *",
+          "acceptTerms": "I accept the terms and conditions *"
+        },
+        "validations": {
+          "firstName": {
+            "min": "First name is required",
+            "max": "First name is too long"
+          },
+          "lastName": {
+            "min": "Last name must be at least 2 characters",
+            "max": "No more than 25 characters allowed"
+          },
+          "email": "Email is required",
+          "phone": "Phone number is required and must be at least 10 characters",
+          "document_number": "This field is required",
+          "license_number": "This field is required",
+          "license_expiration_date": "Expiration date must be later than the current date",
+          "drivers_address": "This field is required",
+          "drivers_city": "This field is required",
+          "observation": "No more than 200 characters allowed"
+        },
+        "buttons": {
+          "terms": "View terms and conditions",
+          "bBack": "Go back and edit",
+          "bConfirm": "Confirm your details",
+          "bCheck": "Complete your details",
+          "bPrevConfirm": "Confirm your details",
+          "bCancel": "Cancel",
+          "bConfirmDialog": "Confirm"
+        },
+        "dialogConfirm": {
+          "title": "Personal Data",
+          "name": "Name",
+          "email": "Email",
+          "phone": "Phone",
+          "numberLic": "License Number",
+          "expLic": "License expiration",
+          "address": "Address",
+          "city": "City",
+          "flightNum": "Flight Number",
+          "comments": "Comments"
+        }
+      }
+    }
+  },
   "EmpresaPage": {
     "meta": {
       "title": "Corporate vehicle leasing solutions",
@@ -220,7 +326,44 @@
     ],
     "form": {
       "title": "We look forward to hearing from you",
-      "subtitle": "Please fill out the form below to receive a custom quote tailored to your company's specific needs."
+      "subtitle": "Please fill out the form below to receive a custom quote tailored to your company's specific needs.",
+      "labels": {
+        "name": "Full Name",
+        "email": "Email",
+        "phone": "Phone",
+        "company": "Company",
+        "description": "Describe your needs"
+      },
+      "placeholders": {
+        "company": "Company Inc.",
+        "description": "Describe your needs"
+      },
+      "validations": {
+        "name": {
+          "min": "Name is required",
+          "max": "Name cannot exceed 40 characters"
+        },
+        "email": {
+          "min": "Email is required",
+          "max": "Email cannot exceed 60 characters"
+        },
+        "phone": {
+          "min": "Phone number must be at least 10 digits",
+          "max": "Phone number cannot exceed 21 digits"
+        },
+        "company": {
+          "min": "This field is required",
+          "max": "This field cannot exceed 40 characters"
+        },
+        "description": {
+          "min": "Description is too short",
+          "max": "Description is too long"
+        }
+      },
+      "buttons": {
+        "bConfirm": "Submit inquiry",
+        "bSending": "Sending inquiry..."
+      }
     }
   },
   "AyudaPage": {

@@ -43,7 +43,7 @@ export const Nosotros = async () => {
             {t("subtitle")}
           </p>
           <p className="text-lg font-semibold">
-            {t("discription")}
+            {t("description")}
           </p>
           <ul className="space-y-2 dark:text-gray-300">
             {listDescription.map((item, index) => (

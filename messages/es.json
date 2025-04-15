@@ -52,6 +52,112 @@
       "frame_4B": " impositivos"
     }
   },
+  "ReservaPage": {
+    "ConfirmarPage": {
+      "meta": {
+        "title": "Confirmación de reserva"
+      },
+      "bannerTitle": "Su reserva",
+      "subtitleCheck": {
+        "title": "Revise y",
+        "span": "confirme su reserva"
+      },
+      "listItems": {
+        "loader": "Obteniendo datos de su reserva...",
+        "itinerary": {
+          "title": "Itinerario",
+          "days":"Días",
+          "from": "Desde",
+          "to": "Hasta"
+        },
+        "car": {
+          "title": "Vehículo",
+          "group": "Grupo",
+          "insurance": {
+            "span1": "- Seguros: Por daños o faltantes $",
+            "span2": "por vuelcos o robo $"
+          }
+        },
+        "dropOff": {
+          "title": "Adicional",
+          "description": "Adicional por retiro y/o entrega fuera de Tucumán."
+        },
+        "accessories": {
+          "title": "Accesorios"
+        },
+        "total": {
+          "estimatedRates": "- Tarifas estimadas sin  y sujetas a modificación sin previo aviso.",
+          "taxes": "- IVA 21% y Seguro con franquicia incluídos."
+        }
+      },
+      "subtitleForm": {
+        "title": "Datos del",
+        "span": "conductor",
+        "mandatory": "* Datos obligatorios"
+      },
+      "formConfirm":{
+        "selectors": {
+          "DNI":"DNI",
+          "Passport": "Pasaporte"
+        },
+        "labels":{
+          "name": "Nombre *",
+          "lastname":"Apellido *",
+          "typeDoc": "Tipo de documento *",
+          "numberDoc": "Nº DNI / Nº Pasaporte *",
+          "email": "Correo electrónico *",
+          "phone": "Teléfono *",
+          "numberLic": "Nº de Licencia *",
+          "expLic": "Vencimiento Licencia *",
+          "address": "Domicilio *",
+          "city": "Localidad *",
+          "flightNum": "Nº de vuelo",
+          "comments": "Comentarios",
+          "over25": "Soy mayor de 25 años *",
+          "acceptTerms": "Acepto términos y condiciones *"
+        },
+        "validations": {
+          "firstName": {
+            "min": "El nombre es obligatorio",
+            "max": "Nombre demasiado extenso"
+          },
+          "lastName": {
+            "min":"El apellido debe contener al menos 2 caracteres",
+            "max": "No se admiten más de 25 caracteres"
+          },
+          "email": "El correo es obligatorio",
+          "phone": "El telefono es obligatorio y debe contener como minimo 10 caracteres",
+          "document_number": "El campo es obligatorio",
+          "license_number": "El campo es obligatorio",
+          "license_expiration_date": "La fecha de expiración debe ser mayor a la fecha actual",
+          "drivers_address": "El campo es obigatorio",
+          "drivers_city": "El campo es obigatorio",
+          "observation": "No se admiten más de 200 caracteres"
+        },
+        "buttons": {
+          "terms":"Ver términos y condiciones",
+          "bBack": "Volver y editar",
+          "bCheck": "Complete los datos",
+          "bPrevConfirm":"Confirmar datos",
+          "bConfirm": "Confirme sus datos",
+          "bCancel": "Cancelar",
+          "bConfirmDialog":"Confirmar"
+        },
+        "dialogConfirm": {
+          "title": "Datos Personales",
+          "name":"Nombre",
+          "email": "Correo Electrónico",
+          "phone": "Teléfono",
+          "numberLic":"Nº de Licencia",
+          "expLic":"Vto. Licencia",
+          "address": "Domicilio",
+          "city":"Localidad",
+          "flightNum": "Nº de vuelo",
+          "comments": "Observaciones"
+        }
+      }
+    }
+  },
   "EmpresaPage": {
     "meta": {
       "title": "Leasing operativo de vehículos para empresas",
@@ -218,7 +324,44 @@
     ],
     "form": {
       "title": "Esperamos su consulta",
-      "subtitle": "Complete el siguiente formulario para cotizar una solución a medida de las necesidades concretas de su empresa."
+      "subtitle": "Complete el siguiente formulario para cotizar una solución a medida de las necesidades concretas de su empresa.",
+      "labels": {
+        "name":"Nombre y Apellido",
+        "email": "Correo Electrónico",
+        "phone": "Teléfono",
+        "company": "Empresa",
+        "description": "Detalle sus necesidades"
+      },
+      "placeholders": {
+        "company":"Empresa S.A.",
+        "description": "Describa sus necesidades"
+      },
+      "validations": {
+        "name":{
+          "min": "El nombre es obligatorio",
+          "max": "El nombre no puede exceder los 40 caracteres"
+        },
+        "email": {
+          "min": "El correo electrónico es obligatorio",
+          "max":"El correo electrónico no puede exceder los 60 caracteres"
+        },
+        "phone": {
+          "min": "El teléfono debe tener al menos 10 dígitos",
+          "max": "El teléfono no puede tener más de 21 dígitos"
+        },
+        "company": {
+          "min": "El campo es obligatorio",
+          "max": "El campo no puede exceder los 40 caracteres"
+        },
+        "description": {
+          "min": "El detalle es demasiado corto",
+          "max": "El detalle es demasiado extenso"
+        }
+      },
+      "buttons": {
+        "bConfirm": "Finalizar consulta",
+        "bSending": "Enviando consulta..."
+      }
     }
   },
   "AyudaPage": {
