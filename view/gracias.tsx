@@ -1,10 +1,12 @@
 import Image from "next/image";
 import graciasImagen from "@/public/images2/icon-confirm.png";
-//import Link from "next/link";
+
 import { ButtonClipboard } from "@/components/ui/button-clipboard";
-export const Gracias = () => {
-  // console.log(sessionStorage.getItem("movil_renta_code") )
-  // const code = sessionStorage.getItem("movil_renta_code") ?? "CODIGOX";
+import { getTranslations } from "next-intl/server";
+
+export const Gracias = async () => {
+  const t = await getTranslations("GraciasPage");
+
   return (
     <div className="flex flex-col items-center gap-6 my-6 p-6 min-h-screen">
       <Image
@@ -15,10 +17,10 @@ export const Gracias = () => {
         className="h-auto w-auto mt-6"
       />
       <h2 className="text-red-700 font-semibold text-2xl">
-        Reserva realizada con éxito
+        {t("title")}
       </h2>
       <p className="md:w-1/2 text-gray-900 dark:text-slate-100 text-lg text-center">
-        Gracias por elegirnos, a continuación le brindamos su código de reserva a través del email que nos proporcionó.
+        {t("subtitle")}
         
         {/* <Link
           href={"/mi-reserva"}

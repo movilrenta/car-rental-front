@@ -1,9 +1,9 @@
-import {defineRouting} from 'next-intl/routing';
- 
+import { defineRouting } from 'next-intl/routing';
+
 export const routing = defineRouting({
   // A list of all locales that are supported
   locales: ['es', 'en'],
- 
+
   // Used when no locale matches
   defaultLocale: 'es',
 
@@ -45,13 +45,13 @@ export const routing = defineRouting({
       en: '/contact',
       es: '/contacto'
     },
-    '/ayuda/terminos-y-condiciones': {
-      en: '/terms-and-conditions',
-      es: '/ayuda/terminos-y-condiciones'
-    },
     '/ayuda': {
       en: '/safety-tips',
-      es: '/ayuda'
+      es: '/consejo-de-seguridad'
+    },
+    '/ayuda/terminos-y-condiciones': {
+      en: '/help/terms-and-conditions',
+      es: '/ayuda/terminos-y-condiciones'
     }
   }
 });

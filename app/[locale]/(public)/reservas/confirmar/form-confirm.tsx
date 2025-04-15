@@ -3,10 +3,9 @@
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { reservasSchema } from "@/components/schemas/reservas";
+import { getReservaSchema, ReservaFormValues } from "@/components/schemas/reservas";
 import { useReservaStore } from "@/stores/reservas/reserva.store";
 import {
   Form,
@@ -21,10 +20,20 @@ import { Checkbox } from "@/components/checkbox";
 import { Textarea } from "@/components/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { generarCodigoReserva } from "@/components/utils/utils";
-import { Dialog, DialogDescription, DialogHeader, DialogTrigger, DialogContent, DialogTitle, DialogClose, DialogFooter } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogDescription,
+  DialogHeader,
+  DialogTrigger,
+  DialogContent,
+  DialogTitle,
+  DialogClose,
+  DialogFooter,
+} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Loader } from "lucide-react";
-
+import { useLocale, useTranslations } from "next-intl";
+import { typeDocTranslate } from "@/constant/translated";
 
 type ReservationType = {
   car_id: number;
@@ -51,12 +60,17 @@ type ReservationType = {
 };
 
 export const FormConfirm = () => {
+
+  const locale = useLocale() as "en" | "es";
+  const t = useTranslations("ReservaPage.ConfirmarPage.formConfirm");
+  // const validationsSchema = useTranslations("ReservaPage.ConfirmarPage.formConfirm.validations");
+
   const { toast } = useToast();
 
   const router = useRouter();
   const reservaGet = useReservaStore((state) => state.getReserva());
-  const form = useForm<z.infer<typeof reservasSchema>>({
-    resolver: zodResolver(reservasSchema),
+  const form = useForm<ReservaFormValues>({
+    resolver: zodResolver(getReservaSchema(t)),
     defaultValues: {
       firstName: "",
       lastName: "",
@@ -76,7 +90,7 @@ export const FormConfirm = () => {
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof reservasSchema>) => {
+  const onSubmit = async (values: ReservaFormValues) => {
     const reserveToConfirm: ReservationType = {
       car_id: reservaGet?.car?.id!,
       code: generarCodigoReserva(),
@@ -104,7 +118,7 @@ export const FormConfirm = () => {
       observation: values?.observation,
       aditionals_array: reservaGet?.aditionals_array || [],
     };
-    
+
     try {
       const response = await axios.post("/api/reservation", reserveToConfirm);
 
@@ -145,8 +159,24 @@ export const FormConfirm = () => {
       return;
     }
   };
-  const { firstName, lastName, email, phone, document_type, document_number, license_number, license_expiration_date, drivers_address, drivers_city, flight_number, observation, mayor25, termyCond } = form.watch();
+  const {
+    firstName,
+    lastName,
+    email,
+    phone,
+    document_type,
+    document_number,
+    license_number,
+    license_expiration_date,
+    drivers_address,
+    drivers_city,
+    flight_number,
+    observation,
+    mayor25,
+    termyCond,
+  } = form.watch();
 
+  const preOnSubmit = () => {};
   return (
     <Form {...form}>
       <form
@@ -157,9 +187,9 @@ export const FormConfirm = () => {
           control={form.control}
           name="firstName"
           render={({ field }) => (
-            <FormItem className="col-span-3 flex flex-col">
+            <FormItem className="col-span-full md:col-span-3 flex flex-col">
               <FormLabel className="-mb-1 line-clamp-1 truncate">
-                Nombre*
+                {t("labels.name")}
               </FormLabel>
               <div className="w-full flex flex-col">
                 <FormControl>
@@ -178,9 +208,9 @@ export const FormConfirm = () => {
           control={form.control}
           name="lastName"
           render={({ field }) => (
-            <FormItem className="col-span-3 flex flex-col">
+            <FormItem className="col-span-full md:col-span-3 flex flex-col">
               <FormLabel className="-mb-1 line-clamp-1 truncate">
-                Apellido*
+                {t("labels.lastname")}
               </FormLabel>
               <div className="w-full flex flex-col">
                 <FormControl>
@@ -203,7 +233,7 @@ export const FormConfirm = () => {
           render={({ field }) => (
             <FormItem className="col-span-3 flex flex-col">
               <FormLabel className="-mb-1 line-clamp-1 truncate">
-                Tipo de documento*
+                {t("labels.typeDoc")}
               </FormLabel>
               <div className="w-full flex flex-col">
                 <FormControl>
@@ -211,8 +241,8 @@ export const FormConfirm = () => {
                     className="w-full p-1 px-3 border rounded-md bg-transparent dark:bg-[rgb(17_24_39_)] text-zinc-500 dark:text-zinc-100 dark:border-zinc-600"
                     {...field}
                   >
-                    <option value="DNI">DNI</option>
-                    <option value="Pasaporte">Pasaporte</option>
+                    <option value="DNI">{t("selectors.DNI")}</option>
+                    <option value="Pasaporte">{t("selectors.Passport")}</option>
                   </select>
                 </FormControl>
                 <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
@@ -227,7 +257,7 @@ export const FormConfirm = () => {
           render={({ field }) => (
             <FormItem className="col-span-3 flex flex-col">
               <FormLabel className="-mb-1 line-clamp-1 truncate">
-                N° DNI / N° Pasaporte*
+                {t("labels.numberDoc")}
               </FormLabel>
               <div className="w-full flex flex-col">
                 <FormControl>
@@ -248,7 +278,7 @@ export const FormConfirm = () => {
           render={({ field }) => (
             <FormItem className="col-span-6 flex flex-col">
               <FormLabel className="-mb-1 line-clamp-1 truncate">
-                Correo electrónico*
+                {t("labels.email")}
               </FormLabel>
               <div className="w-full flex flex-col">
                 <FormControl>
@@ -269,7 +299,7 @@ export const FormConfirm = () => {
           render={({ field }) => (
             <FormItem className="col-span-6 flex flex-col">
               <FormLabel className="-mb-1 line-clamp-1 truncate">
-                Teléfono*
+                {t("labels.phone")}
               </FormLabel>
               <div className="w-full flex flex-col">
                 <FormControl>
@@ -295,7 +325,7 @@ export const FormConfirm = () => {
           render={({ field }) => (
             <FormItem className="col-span-3 flex flex-col">
               <FormLabel className="-mb-1 line-clamp-1 truncate">
-                N° de Licencia*
+                {t("labels.numberLic")}
               </FormLabel>
               <div className="w-full flex flex-col">
                 <FormControl>
@@ -315,7 +345,7 @@ export const FormConfirm = () => {
           render={({ field }) => (
             <FormItem className="col-span-3 flex flex-col">
               <FormLabel className="-mb-1 line-clamp-1 truncate">
-                Vencimiento Licencia*
+                {t("labels.expLic")}
               </FormLabel>
               <div className="w-full flex flex-col">
                 <FormControl>
@@ -337,7 +367,7 @@ export const FormConfirm = () => {
           render={({ field }) => (
             <FormItem className="col-span-6 flex flex-col">
               <FormLabel className="-mb-1 line-clamp-1 truncate">
-                Domicilio*
+                {t("labels.address")}
               </FormLabel>
               <div className="w-full flex flex-col">
                 <FormControl>
@@ -357,7 +387,7 @@ export const FormConfirm = () => {
           render={({ field }) => (
             <FormItem className="col-span-6 flex flex-col">
               <FormLabel className="-mb-1 line-clamp-1 truncate">
-                Localidad*
+                {t("labels.city")}
               </FormLabel>
               <div className="w-full flex flex-col">
                 <FormControl>
@@ -377,7 +407,7 @@ export const FormConfirm = () => {
           render={({ field }) => (
             <FormItem className="col-span-6 flex flex-col">
               <FormLabel className="-mb-1 line-clamp-1 truncate">
-                N° de Vuelo
+                {t("labels.flightNum")}
               </FormLabel>
               <div className="w-full flex flex-col">
                 <FormControl>
@@ -399,7 +429,7 @@ export const FormConfirm = () => {
           render={({ field }) => (
             <FormItem className="col-span-6 flex flex-col">
               <FormLabel className="-mb-1 line-clamp-1 truncate">
-                Comentarios
+                {t("labels.comments")}
               </FormLabel>
               <div className="w-full flex flex-col">
                 <FormControl>
@@ -417,7 +447,7 @@ export const FormConfirm = () => {
         />
         <hr className="col-span-6 w-full h-[2px] my-2 bg-gray-500 dark:bg-slate-100" />
         <div className="col-span-6 flex flex-col gap-1">
-        <FormField
+          <FormField
             control={form.control}
             name="mayor25"
             render={({ field }) => (
@@ -431,7 +461,7 @@ export const FormConfirm = () => {
                   />
                 </FormControl>
                 <FormLabel className="h-6 p-1 cursor-pointer !m-0 flex items-center">
-                  Soy mayor de 25 años.*
+                  {t("labels.over25")}
                 </FormLabel>
                 <FormMessage />
               </FormItem>
@@ -451,76 +481,143 @@ export const FormConfirm = () => {
                   />
                 </FormControl>
                 <FormLabel className="h-6 p-1 cursor-pointer !m-0 flex items-center">
-                  Acepto términos y condiciones.*
-                
+                  {t("labels.acceptTerms")}
                 </FormLabel>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Link href={"/ayuda/terminos-y-condiciones"} target="_blank" className="text-sm ps-9 !m-0 text-blue-600">
-            Ver términos y condiciones
+          <Link
+            href={"/ayuda/terminos-y-condiciones"}
+            target="_blank"
+            className="text-sm ps-9 !m-0 text-blue-600"
+          >
+            {t("buttons.terms")}
           </Link>
-          
         </div>
-        <div className="col-span-full text-center">
-        
-        </div>
+        <div className="col-span-full text-center"></div>
         <div className="col-span-6 flex flex-col md:flex-row items-center gap-4 mt-2">
           <Link
             href={"/reservas"}
             className="text-red-700 flex-1 font-semibold text-center py-1 dark:text-slate-100 transition-all border-2 border-transparent hover:border-red-700 rounded-md duration-200"
           >
-            Volver y editar
+            {t("buttons.bBack")}
           </Link>
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button 
-                type="button"
-                disabled={!form.formState.isValid || !mayor25 || !termyCond}
-                className={`text-slate-100 flex-1 hover:shadow-lg transition-all font-semibold border-0 rounded-md line-clamp-1 px-4 py-2
-                  ${form.formState.isValid ? "bg-red-700" : "bg-gray-600 cursor-not-allowed"}
-                `}
-              >
-                {(!form.formState.isValid || !mayor25 || !termyCond) ? "Complete los datos" : "Confirmar datos"}
-              </Button>
+          {!form.formState.isValid ||
+          !mayor25 ||
+          !termyCond ||
+          form.formState.isSubmitting ? (
+            <Button
+              onClick={form.handleSubmit(preOnSubmit)}
+              disabled={
+                !mayor25 ||
+                !termyCond
+              }
+              type="submit"
+              className="w-full bg-red-700 text-slate-100 text-base md:!p-0 !my-0 flex-1 hover:shadow-lg transition-all font-semibold border-0 rounded-md line-clamp-1 px-4 py-2"
+            >
+              {t("buttons.bConfirmDialog")}
+            </Button>
+          ) : (
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button
+                  type="button"
+                  disabled={!form.formState.isValid || !mayor25 || !termyCond}
+                  className={`text-slate-100 flex-1 hover:shadow-lg transition-all font-semibold border-0 rounded-md line-clamp-1 px-4 py-2
+                    ${
+                      form.formState.isValid
+                        ? "bg-red-700"
+                        : "bg-gray-600 cursor-not-allowed"
+                    }
+                  `}
+                >
+                  {!form.formState.isValid || !mayor25 || !termyCond
+                    ? t("buttons.bCheck")
+                    : t("buttons.bPrevConfirm")}
+                </Button>
               </DialogTrigger>
               <DialogContent className="sm:max-w-[425px] gap-0 p-1 border-4 border-red-700 bg-red-700 text-white">
                 <DialogHeader className="p-0 border-none">
-                  <DialogTitle className="text-white text-center p-4 uppercase tracking-wider">Datos personales</DialogTitle>
+                  <DialogTitle className="text-white text-center p-4 uppercase tracking-wider">
+                    {t("dialogConfirm.title")}
+                  </DialogTitle>
                   <DialogDescription className="text-neutral-700 text-base px-4 pt-2 rounded-t-md bg-white dark:bg-[rgb(17_24_39_)] dark:text-white text-center">
-                    Confirme sus datos
+                    {t("buttons.bConfirm")}
                   </DialogDescription>
                 </DialogHeader>
                 <div className="grid gap-2 p-4 text-sm bg-white dark:bg-[rgb(17_24_39_)] text-black dark:text-white">
-                  <p><strong>Nombre:</strong> {firstName} {lastName}</p>
-                  <p><strong>Email:</strong> {email}</p>
-                  <p><strong>Teléfono:</strong> {phone}</p>
-                  <p><strong>{document_type} :</strong> {document_number}</p>
-                  <p><strong>N° de Licencia:</strong> {license_number}</p>
-                  <p><strong>Vto Licencia (AA-MM-DD):</strong> {license_expiration_date}</p>
-                  <p><strong>Domicilio:</strong> {drivers_address}</p>
-                  <p><strong>Localidad:</strong> {drivers_city}</p>
-                  {flight_number && <p><strong>N° de Vuelo:</strong> {flight_number}</p>}
-                  {observation && <p><strong>Observaciones:</strong> {observation}</p>}
+                  <p>
+                    <strong>{t("dialogConfirm.name")}:</strong> {firstName}{" "}
+                    {lastName}
+                  </p>
+                  <p>
+                    <strong>{t("dialogConfirm.email")}:</strong> {email}
+                  </p>
+                  <p>
+                    <strong>{t("dialogConfirm.phone")}:</strong> {phone}
+                  </p>
+                  <p>
+                    <strong>
+                      {typeDocTranslate[document_type]?.[locale] ??
+                        document_type}{" "}
+                      :
+                    </strong>{" "}
+                    {document_number}
+                  </p>
+                  <p>
+                    <strong>{t("dialogConfirm.numberLic")}:</strong>{" "}
+                    {license_number}
+                  </p>
+                  <p>
+                    <strong>{t("dialogConfirm.expLic")} (AA-MM-DD):</strong>{" "}
+                    {license_expiration_date}
+                  </p>
+                  <p>
+                    <strong>{t("dialogConfirm.address")}:</strong>{" "}
+                    {drivers_address}
+                  </p>
+                  <p>
+                    <strong>{t("dialogConfirm.city")}:</strong> {drivers_city}
+                  </p>
+                  {flight_number && (
+                    <p>
+                      <strong>{t("dialogConfirm.flightNum")}:</strong>{" "}
+                      {flight_number}
+                    </p>
+                  )}
+                  {observation && (
+                    <p>
+                      <strong>{t("dialogConfirm.comments")}:</strong>{" "}
+                      {observation}
+                    </p>
+                  )}
                 </div>
 
                 <DialogFooter className="rounded-b-md bg-white dark:bg-blue95 dark:bg-[rgb(17_24_39_)] text-black dark:text-white grid grid-cols-2 p-4">
-                  <DialogClose>
-                    Cancelar
-                  </DialogClose>
-                <Button
-                  onClick={form.handleSubmit(onSubmit)}
-                  disabled={!form.formState.isValid || !mayor25 || !termyCond || form.formState.isSubmitting}
-                  type="submit"
-                  className="bg-red-700 text-slate-100 text-base !p-0 !my-0 flex-1 hover:shadow-lg transition-all font-semibold border-0 rounded-md line-clamp-1 px-4 py-2"
-                >
-                  {form.formState.isSubmitting ? <Loader className="mx-auto animate-spin"/> : "Confirmar"}
-                </Button>
-              </DialogFooter>
+                  <DialogClose>{t("buttons.bCancel")}</DialogClose>
+                  <Button
+                    onClick={form.handleSubmit(onSubmit)}
+                    disabled={
+                      !form.formState.isValid ||
+                      !mayor25 ||
+                      !termyCond ||
+                      form.formState.isSubmitting
+                    }
+                    type="submit"
+                    className="bg-red-700 text-slate-100 text-base !p-0 !my-0 flex-1 hover:shadow-lg transition-all font-semibold border-0 rounded-md line-clamp-1 px-4 py-2"
+                  >
+                    {form.formState.isSubmitting ? (
+                      <Loader className="mx-auto animate-spin" />
+                    ) : (
+                      t("buttons.bConfirmDialog")
+                    )}
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+          )}
 
-            </DialogContent>
-          </Dialog>
           {/* <button
             type="submit"
             className="bg-red-700 text-slate-100 flex-1 hover:shadow-lg transition-all font-semibold border-0 rounded-md line-clamp-1 px-4 py-2"
