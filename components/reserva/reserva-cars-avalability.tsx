@@ -51,16 +51,16 @@ export default function RenderCarsAvailability({
     }, {} as Record<string, VehicleType[]>);
   };
   const [sortBy, setSortBy] = React.useState<"price" | "group" | null>(null);
-  const [priceOrder, setPriceOrder] = React.useState<string>("minor");
+  const [priceOrder, setPriceOrder] = React.useState<string>("");
   const groupByName = availableCars(Vehicles);
 
   const sortedEntries = React.useMemo(() => {
     if (!sortBy) return Object.entries(groupByName);
-    console.log(Object.entries(groupByName));
+    //console.log(Object.entries(groupByName));
 
     return Object.entries(groupByName).sort(
       ([nameA, carsA]: any, [nameB, carsB]: any) => {
-        console.log(nameA, nameB);
+        //console.log(nameA, nameB);
 
         if (sortBy === "group") {
           return carsA[0]?.brand.name.localeCompare(carsB[0]?.brand.name);
@@ -88,7 +88,7 @@ export default function RenderCarsAvailability({
             setSortBy("price");
             setPriceOrder(e.target.value);
           }}
-          className={`px-4 py-2 rounded-lg border text-sm cursor-pointer ${
+          className={`px-4 py-2 rounded-lg border text-sm cursor-pointer min-w-44 ${
             sortBy === "price"
               ? "bg-orange-600 !text-white"
               : "bg-white text-gray-800 border-gray-300"

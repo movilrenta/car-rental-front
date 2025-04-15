@@ -34,6 +34,7 @@ import {
   FormMessage,
 } from "@/components/form";
 import { useToast } from "@/hooks/use-toast";
+import Link from "next/link";
 
 export default function CRUD_Carousel_Form({ item }: { item?: any }) {
   const { toast } = useToast();
@@ -50,13 +51,12 @@ export default function CRUD_Carousel_Form({ item }: { item?: any }) {
       location: item ? item?.location : "",
       title: item ? item?.images[0]?.title : "",
       description: item ? item?.images[0]?.description : "",
-      link: item ? item?.images[0]?.link : "",
+      link: "",
+      // link: item ? item?.images[0]?.link : "",
       order: item ? item?.images[0]?.order : 0,
       //image: item ? item?.images[0].path : "",
     },
   });
-
-  //console.log(form.formState.errors);
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -75,15 +75,13 @@ export default function CRUD_Carousel_Form({ item }: { item?: any }) {
   };
 
   const onSubmit = async (data: z.infer<typeof ImageFormSchema>) => {
-
-    //setUploading(true);
     const formData = new FormData();
-    
     formData.append("name", data.name);
     formData.append("location", data.location);
     formData.append("title", data.title || "");
     formData.append("description", data.description || "");
-    formData.append("link", data.link || "");
+    // formData.append("link", data.link || "");
+    formData.append("link", "");
     formData.append("order", data.order.toString() || "0");
 
     if (data.image && data.image.length > 0) {
@@ -98,7 +96,7 @@ export default function CRUD_Carousel_Form({ item }: { item?: any }) {
             variant: "default",
             title: result.message
           });
-          setImagePreview(null); // Limpiar la imagen después de subirla
+          //setImagePreview(null); // Limpiar la imagen después de subirla
           form.reset();
           document.getElementById("close-sheet")?.click();
           return 
@@ -116,15 +114,13 @@ export default function CRUD_Carousel_Form({ item }: { item?: any }) {
         const result = await UpdateImage(formData);
         
         if (result.success) {
-          //Toast.fire({ icon: "success", title: result.message });
-          //console.log(result.message);
-          //console.log(result.payload);
           toast({ 
             variant: "default",
             title: result.message
           });
-          setImagePreview(null); // Limpiar la imagen después de subirla
+          //setImagePreview(null); // Limpiar la imagen después de subirla
           form.reset();
+          document.getElementById("close-sheet")?.click();
         } else {
           toast({ 
             variant: "default",
@@ -143,9 +139,12 @@ export default function CRUD_Carousel_Form({ item }: { item?: any }) {
     <SheetContent className="w-full !max-w-3xl min-h-screen overflow-y-auto">
       <SheetHeader>
         <SheetTitle>{item ? "Editar item" : "Agregar item"}</SheetTitle>
-        <SheetDescription>Feature no implementada</SheetDescription>
+        <SheetDescription className="flex flex-col">
+          <span>Recomendaciones:</span>
+          <span>Utilizar imagenes en formato WEBP, es un formato web que mantiene calidad y disminuye el peso de la imagen, lo que favorece una mejor experiencia al usuario.</span>
+          <Link href="https://squoosh.app/" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline hover:animate-pulse">{"->"} Conversor online de imagenes a formato WEBP {"<-"}</Link>
+          </SheetDescription>
         <SheetClose id="close-sheet" className="hidden border border-transparent py-1 hover:border-red-500 duration-200 px-4 rounded-md"/>
-        {/* <SheetDescription>TODO: Recomendaciones</SheetDescription> */}
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
@@ -238,7 +237,7 @@ export default function CRUD_Carousel_Form({ item }: { item?: any }) {
                             value="none"
                             className="hover:bg-blue-700 hover:text-white"
                           >
-                            No se muestra
+                            No mostrar
                           </SelectItem>
                           <SelectItem
                             value="home"
@@ -289,7 +288,7 @@ export default function CRUD_Carousel_Form({ item }: { item?: any }) {
                 </FormItem>
               )}
             />
-            <FormField
+            {/* <FormField
               control={form.control}
               name="link"
               render={({ field }) => (
@@ -305,14 +304,14 @@ export default function CRUD_Carousel_Form({ item }: { item?: any }) {
                   </FormControl>
                 </FormItem>
               )}
-            />
+            /> */}
             
             <FormField
               control={form.control}
               name="order"
               render={({ field }) => (
                 <FormItem className="col-span-6">
-                  <FormLabel>Orden</FormLabel>
+                  <FormLabel>Orden de aparición</FormLabel>
                   <FormControl>
                     <Input
                       
@@ -328,7 +327,7 @@ export default function CRUD_Carousel_Form({ item }: { item?: any }) {
             />
 
             
-            {/* <Button
+            <Button
               className="my-4 col-span-6 bg-red-700 text-white hover:bg-red-800 duration-200"
               variant="default"
               type="submit"
@@ -340,20 +339,6 @@ export default function CRUD_Carousel_Form({ item }: { item?: any }) {
                 "Editar imagen"
               ) : (
                 "Subir imagen"
-              )}
-            </Button>  */}
-            <Button
-              className="my-4 col-span-6 bg-red-700 text-white hover:bg-red-800 duration-200"
-              variant="default"
-              type="button"
-              onClick={() => alert("Función no disponible, en construcción")}
-            >
-              {form.formState.isSubmitting ? (
-                <Loader className="animate-spin" />
-              ) : item ? (
-                "No disponible"
-              ) : (
-                "No disponible"
               )}
             </Button>
             <SheetClose className="col-span-6 min-w-24 border border-transparent py-1 hover:border-red-500 duration-200 px-4 rounded-md">

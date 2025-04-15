@@ -3,55 +3,10 @@ import CRUD_Carousel from "./crud";
 import CarouselTableItem from "./carousel-table-item";
 import axios from "axios";
 
-const item = {
-  name: "nombre de la imagen",
-  location: "home",
-  images: [
-    {
-      path: "https://res.cloudinary.com/druaw8kla/image/upload/v1743338055/jukmvbiqfg0qjrijksfe.webp",
-      title: "ESte es el titulo",
-      description: "la descripcion",
-      link: "un link!",
-      order: 1,
-    },
-  ],
-};
-
-// const imagenes = [
-//   {
-//     id: 1,
-//     name: "Carousel 1",
-//     location: "Principal",
-//     images: [
-//       {
-//         path: "https://res.cloudinary.com/ditapddzx/image/upload/v1743981416/peqewlxmhfpi2hpplbqg.webp",
-//         title: "Fácil, rápido y seguro",
-//         description: "Precios Accesibles",
-//         link: "un link!",
-//         order: 1,
-//       },
-//     ],
-//   },
-//   {
-//     id: 2,
-//     name: "Carousel 2",
-//     location: "Principal",
-//     images: [
-//       {
-//         path: "https://res.cloudinary.com/ditapddzx/image/upload/v1743981416/lem19lftfhs1hhkritnc.webp",
-//         title: "Disfrutá, conocé, compartíESte es el titulo",
-//         description: "Movete con libertad",
-//         link: "un link!",
-//         order: 2,
-//       },
-//     ],
-//   },
-// ];
-
 export default async function CarouselsTable() {
-  //   /api/
+
   const {data: carousel_images} = await axios.get(`${process.env.NEXT_PUBLIC_URL_BACK}carousels`);
-  //console.log(carousel_images);
+
   return (
     <div className="bg-white dark:bg-gray-800 shadow-sm rounded-xl relative">
       <header className="flex justify-between items-center px-5 py-4">

@@ -31,7 +31,7 @@ export async function uploadImage(formData: FormData) {
         path: imagenSubida.data?.secure_url,
         title: formData.get("title"),
         description: formData.get("description"),
-        link: formData.get("link"),
+        link: "",//formData.get("link"),
         public_id: imagenSubida.data?.public_id,
         order: formData.get("order") || 1
       }
