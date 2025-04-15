@@ -182,7 +182,8 @@
         "addressMin": "Dirección obligatoria",
         "addressMax": "Demasiado extenso"
       }
-    },
+    }
+  },
   "ReservaPage": {
     "ConfirmarPage": {
       "meta": {
@@ -321,7 +322,9 @@
           {
             "title": "No necesita estructura propia o de terceros para el mantenimiento."
           },
-          { "title": "Evita personal administrativo para control de flota." },
+          { 
+            "title": "Evita personal administrativo para control de flota." 
+          },
           {
             "title": "No tiene unidades inmovilizadas o para absorver necesidades temporarias."
           },

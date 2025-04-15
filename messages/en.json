@@ -182,7 +182,8 @@
         "addressMin": "Address is required",
         "addressMax": "Too long"
       }
-    },
+    }
+  },
   "ReservaPage": {
     "ConfirmarPage": {
       "meta": {
