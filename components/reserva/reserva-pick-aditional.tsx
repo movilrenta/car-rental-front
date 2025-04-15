@@ -4,6 +4,7 @@ import { Loader2Icon } from "lucide-react";
 import { useEffect, useState } from "react";
 import AdditionalCard from "./reserva-pick-aditional-card";
 import { useReservaAutoStore } from "@/stores/reserva-auto/reserva-auto.store";
+import { useTranslations } from "next-intl";
 
 export type AditionalType = {
   id: number;
@@ -19,6 +20,7 @@ export type AditionalType = {
 }
 
 export default function PickAditional ({data} : {data: AditionalType[]}) {
+  const t = useTranslations("BookingPage.pickAdditionals")
   const [isClient, setIsClient] = useState(false)
   const car = useReservaAutoStore((state) => state.getReservaAuto())
 
@@ -30,7 +32,7 @@ export default function PickAditional ({data} : {data: AditionalType[]}) {
     return (
       <div className="flex flex-col justify-start items-center h-screen">
         <Loader2Icon className="w-12 h-12 animate-spin" />
-        <span>Obteniendo datos adicionales...</span>
+        <span>{t("loading")}</span>
       </div>
     );
   }
@@ -38,7 +40,7 @@ export default function PickAditional ({data} : {data: AditionalType[]}) {
   return (
     car && <div className="">
     <h2 className="text-2xl font-medium leading-snug text-gray-800 dark:text-gray-100 mb-5">
-      03. Accesorios <strong>opcionales</strong>
+      03. <strong>{t("preTitle")}</strong> {t("title")}
     </h2>
     <ul className="grid grid-cols-2 gap-4 mb-16">
       {data.map((item: AditionalType) => (

@@ -7,8 +7,10 @@ import { ReservaType, useReservaStore } from "@/stores/reservas/reserva.store";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { calcularDiasEntreFechas2 } from "../utils/utils";
+import { useTranslations } from "next-intl";
 
 export default function ReservaConfirm() {
+  const t = useTranslations("BookingPage.confirm")
   const router = useRouter();
   const reservaAuto = useReservaAutoStore((state) => state.getReservaAuto());
   const reservaAditional = useReservaAdicionalesStore((state) => state.getReservaAdicionales());
@@ -69,7 +71,7 @@ export default function ReservaConfirm() {
       onClick={handleGoBook}
       className={`${buttonDisabled ? "cursor-not-allowed opacity-25" : "cursor-pointer hover:!bg-red-700 hover:!text-white"} btn w-60 bg-red-700 text-gray-100 hover:bg-red-800 dark:bg-gray-100 dark:text-gray-800`}
     >
-      Continuar
+      {t("btn")}
     </button>
   </div>
   )

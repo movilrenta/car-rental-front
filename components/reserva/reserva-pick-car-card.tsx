@@ -8,6 +8,7 @@ import { TbManualGearbox } from "react-icons/tb";
 import { useFormatNumber } from "../utils/useFormatterNumber";
 import BadgeOffer from "@/app/[locale]/admin/fechas/ver/components/badge-offer";
 import { Tag } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export default function CardCar({
   car,
@@ -16,6 +17,7 @@ export default function CardCar({
   car: VehicleType;
   extra: number;
 }) {
+  const t = useTranslations("BookingPage.pickCar.cards")
   const addReservaCar = useReservaAutoStore((state) => state.addReservaAuto);
   const removeCar = useReservaAutoStore((state) => state.removeReservaAuto);
   const pickedCar = useReservaAutoStore((state) => state.getReservaAuto());
@@ -44,7 +46,7 @@ export default function CardCar({
                 {car?.brand?.name} {car?.name}
               </h3>
               <h5 className="text-sm line-clamp-1">
-                o similar <strong>Grupo {car?.group?.name}</strong>
+                {t("similar")} <strong>{t("group")} {car?.group?.name}</strong>
               </h5>
             </header>
             {/* Rating and price */}
@@ -129,7 +131,7 @@ export default function CardCar({
                   $ {useFormatNumber(+car?.group?.rate * extra)}
                 </div>
               </div>
-              <div className="text-xs text-end w-full">Tarifa base: 1 día</div>
+              <div className="text-xs text-end w-full">{t("rate")}</div>
             </div>
             {/* Features list */}
             <ul className="grid grid-cols-2 gap-y-3 text-nowrap mb-5 dark:text-gray-300">
@@ -142,13 +144,13 @@ export default function CardCar({
               <li className="flex gap-2 items-center w-full overflow-clip text-ellipsis">
                 <BsLuggageFill className="w-4 h-4 min-h-4 min-w-4" />
                 <span className="text-nowrap text-ellipsis overflow-clip">
-                  {car?.luggage} Maleta(s)
+                  {car?.luggage} {t("luggage")}
                 </span>
               </li>
               <li className="flex gap-2 items-center w-full overflow-clip text-ellipsis">
                 <GiCarDoor className="w-4 h-4 min-h-4 min-w-4" />
                 <span className="text-nowrap text-ellipsis overflow-clip">
-                  {car?.doors} Puertas
+                  {car?.doors} {t("doors")}
                 </span>
               </li>
               <li className="flex gap-2 items-center w-full overflow-clip text-ellipsis">
@@ -160,7 +162,7 @@ export default function CardCar({
               <li className="flex gap-2 items-center w-full overflow-clip text-ellipsis">
                 <FaUser className="w-4 h-4 min-h-4 min-w-4" />
                 <span className="text-nowrap text-ellipsis overflow-clip">
-                  {car?.seats} Plazas
+                  {car?.seats} {t("seats")}
                 </span>
               </li>
             </ul>
@@ -171,7 +173,7 @@ export default function CardCar({
               onClick={() => handleCar(car)}
               className="btn-sm w-full bg-red-700 hover:bg-red-900 text-gray-100 duration-200 cursor-pointer"
             >
-              {pickedCar?.id === car.id ? "Elegir otro" : "Elegir Vehículo"}
+              {pickedCar?.id === car.id ? t("unPick") : t("pick")}
             </div>
           </div>
         </div>

@@ -20,19 +20,23 @@ export const metadata = {
   },
 }
 
-export default function PublicLayout({
+export default async function PublicLayout({
   children,
+  params
 }: {
   children: React.ReactNode
+  params: { locale: string }
 }) {
+  const locale = params.locale
+
   return (
     
-        <div>
-            <Navbar />
+        <>
+            <Navbar locale={locale}/>
             {children}
-            <Footer />
+            <Footer locale={locale}/>
             <AdminButton />
             <Toaster/>
-          </div>
+          </>
   )
 }

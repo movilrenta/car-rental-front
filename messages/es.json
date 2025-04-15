@@ -1,4 +1,8 @@
 {
+  "Metadata": {
+    "fleetTitle": "Flota de vehículos",
+    "bookingTitle" : "Reservas"
+  },
   "HomePage": {
     "reservation": {
       "title": "Hace tu reserva",
@@ -52,6 +56,133 @@
       "frame_4B": " impositivos"
     }
   },
+  "FleetPage": {
+    "banner": "Flota de vehículos",
+    "title" : "Contamos con la más amplia y moderna flota del Norte de Argentina. Con más de 350 unidades, último modelo, ofrecemos disponibilidad inmediata.",
+    "filter": {
+      "car": "Autos",
+      "utility": "Utilitarios",
+      "van": "Camionetas"
+    },
+    "cards": {
+      "luggage": "Maleta(s)",
+      "doors": "Puertas",
+      "seats": "Plazas",
+      "similar": "o similar",
+      "group": "Grupo"
+    }
+  },
+  "BookingPage": {
+    "banner": "Su reserva",
+    "itinerary": {
+      "loading": "Obteniendo datos del itinerario...",
+      "preTitle": "Su",
+      "title": "itinerario",
+      "day": "Día",
+      "days": "Días",
+      "choose": "Elija",
+      "pickUp": "Recogida",
+      "selectPickUpPlace": "Seleccione lugar de recogida",
+      "selectPickUpHour": "Seleccione horario de recogida",
+      "drop": "Devolución",
+      "selectDropPlace": "Seleccione lugar de devolución",
+      "selectDropHour": "Seleccione horario de devolución",
+      "extraDates": "Las tarifas pueden tener variantes segun la fecha seleccionada.",
+      "dropoff": "La ciudad seleccionada tiene un cargo extra (Drop Off).",
+      "startHourDropoff": "El horario de recogida tiene un cargo extra ya que está fuera de nuestros horarios de atención en oficina.",
+      "endHourDropoff": "El horario de devolución tiene un cargo extra ya que está fuera de nuestros horarios de atención en oficina."
+    },
+    "pickCar":{
+      "btnSearch": "Buscar vehículos disponibles",
+      "loading": "Actualizando flota...",
+      "preTitle": "Seleccione su",
+      "title": "vehículo",
+      "errorDates": "Verifique las fechas de reserva",
+      "dontFind": "No encontraste lo que buscabas?",
+      "dontFindDescription": "Tranquilo!, contactanos para que podamos ayudarte en tu próxima reserva.",
+      "talkAdviser": "Habla con un asesor",
+      "cards": {
+        "rate": "Tarifa base: 1 día",
+        "luggage": "Maleta(s)",
+        "doors": "Puertas",
+        "seats": "Plazas",
+        "similar": "o similar",
+        "group": "Grupo",
+        "pick": "Elegir vehículo",
+        "unPick": "Elegir otro"
+      }
+    },
+    "pickAdditionals": {
+      "loading": "Obteniendo datos adicionales...",
+      "preTitle": "Accesorios",
+      "title": "opcionales"
+    },
+    "confirm": {
+      "btn": "Continuar"
+    }
+  },
+  "PaymentsPage": {
+    "meta": {
+      "title":"Payments",
+      "description": "Payment page"
+    },
+    "banner": "Realizar el pago",
+    "loading": "Obteniendo datos de su reserva...",
+    "subtitle": "Por favor complete los siguientes campos con los datos del",
+    "subtitle1": "titular",
+    "subtitle2": " de la tarjeta en el formulario de pago para finalizar su reserva",
+    "resume": "Resumen",
+    "vehicle": "Vehículo",
+    "additional": "Aditionales",
+    "dropoff": "Dropoff",
+    "form": {
+      "payMethod": "Seleccione un medio de pago",
+      "pickCard": "Seleccione su tarjeta",
+      "cardNumber": "Número de la tarjeta",
+      "cardMonth": "Mes",
+      "cardYear": "Año",
+      "cardYearPlaceholder": "AA",
+      "documentType": "Tipo de documento",
+      "birthday": "Fecha de nacimiento",
+      "birthdayFormat": "DD/MM/AAAA",
+      "firstName": "Nombre",
+      "lastName": "Apellido",
+      "installments": "Cantidad de cuotas",
+      "installment1": "cuota de",
+      "installment2": "cuotas de",
+      "state": "Provincia",
+      "stateChose": "Seleccione una provincia",
+      "city": "Ciudad",
+      "postal" : "Código Postal",
+      "address": "Dirección",
+      "addressNumber": "Altura",
+      "pay": "Pagar con",
+      "confirmedLegend": "Una vez aprobado el pago la reserva será confirmada y se le enviará un email con el código de reserva",
+      "validations": {
+        "cardMin": "La tarjeta debe tener al menos 15 digitos",
+        "cardMax": "La tarjeta no debe tener más de 18 digitos",
+        "cardMonth": "2 dígitos",
+        "cardMonthTo": "01 al 12",
+        "cardYear": "Verificar",
+        "securityCode": "3 a 4 dígitos",
+        "birthday" : "La fecha no es válida",
+        "birthdayPlaceholder" : "Formato DD/MM/AAAA",
+        "cardHolderDoorNumber": "El número de puerta es demasiado extenso",
+        "cardHolderIdentificationMin": "Mínimo de 7 dígitos",
+        "cardHolderIdentificationMax": "Demasiado extenso",
+        "paymentMethod": "Debe seleccionar un metodo de pago",
+        "state": "Debe seleccionar una provincia",
+        "city": "Debe seleccionar una ciudad",
+        "firstNameMin": "Nombre obligatorio",
+        "firstNameMax": "Demasiado extenso",
+        "lastNameMin": "Apellido obligatorio",
+        "lastNameMax": "Demasiado extenso",
+        "postalCodeMin" : "Codigo Postal obligatorio",
+        "postalCodeMax" : "Demasiado extenso",
+        "addressMin": "Dirección obligatoria",
+        "addressMax": "Demasiado extenso"
+      }
+    },
   "ReservaPage": {
     "ConfirmarPage": {
       "meta": {

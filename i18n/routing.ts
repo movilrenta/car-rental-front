@@ -1,9 +1,9 @@
-import {defineRouting} from 'next-intl/routing';
- 
+import { defineRouting } from 'next-intl/routing';
+
 export const routing = defineRouting({
   // A list of all locales that are supported
   locales: ['es', 'en'],
- 
+
   // Used when no locale matches
   defaultLocale: 'es',
 
@@ -16,6 +16,18 @@ export const routing = defineRouting({
     '/reservas': {
       en: '/booking',
       es: '/reservas'
+    },
+    '/reservas/confirmar': {
+      en: '/booking/confirm',
+      es: '/reservas/confirmar'
+    },
+    '/reservas/payments': {
+      en: '/booking/payments',
+      es: '/reservas/pagos'
+    },
+    '/reservas/gracias': {
+      en: '/booking/thanks',
+      es: '/reservas/gracias'
     },
     '/empresas': {
       en: '/companies',
@@ -34,16 +46,12 @@ export const routing = defineRouting({
       es: '/contacto'
     },
     '/ayuda': {
-      en:'/help',
-      es:'/ayuda'
+      en: '/safety-tips',
+      es: '/consejo-de-seguridad'
     },
     '/ayuda/terminos-y-condiciones': {
-      en:'/help/terms-and-conditions',
-      es:'/ayuda/terminos-y-condiciones'
-    },
-    '/reservas/gracias': {
-      en:'/booking/thanks',
-      es:'/reservas/gracias'
+      en: '/help/terms-and-conditions',
+      es: '/ayuda/terminos-y-condiciones'
     }
   }
 });

@@ -1,50 +1,45 @@
-"use client";
-
-import { useAuthstore } from "@/stores/auth-store/login.store";
+'use client'
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React from "react";
 
-export default function NavbarLinks({ burger = false }: { burger?: boolean }) {
-  const isLogged = useAuthstore((state) => state.getLog());
-  const [isClient, setIsClient] = React.useState(false);
-  const path = usePathname();
-  const pathNoSlash = path.replace("/", "");
-
-  React.useEffect(() => {
-    setIsClient(true);
-  }, []);
+export default function NavbarLinks({locale}:{locale : string}) {
+  const pathname = usePathname()
 
   const LinksNavbar = [
-    { label: "Reservas", link: "reservas" },
-    { label: "Empresas", link: "empresas" },
-    { label: "Flota", link: "flota" },
-    { label: "Nosotros", link: "nosotros" },
-    { label: "Contacto", link: "contacto" },
-    // { label: "Mi reserva", link: "mi-reserva" },
-  ];
+    { label: "Booking", label_es: "Reservas", path: "booking", path_es: "reservas" },
+    { label: "Companies", label_es: "Empresas", path: "companies", path_es: "empresas" },
+    { label: "Fleet", label_es: "Flota", path: "fleet", path_es: "flota" },
+    { label: "About", label_es: "Nosotros", path: "about", path_es: "nosotros" },
+    { label: "Contact", label_es: "Contacto", path: "contact", path_es: "contacto" },
+  ]
 
   return (
     <div className="hidden lg:block my-6 mx-4">
       <ul className="flex flex-wrap -m-1">
-        {LinksNavbar.map((item, index) => (
-          <li key={index} className="m-1">
-            <Link
-              href={`/${item.link}`}
-              className={`inline-flex items-center justify-center text-base font-semibold leading-5 rounded-full px-3 py-1 w-32 truncate line-clamp-1
-                ${item.label === "Mi reserva" ? "!border-black dark:!border-white uppercase !text-zinc-400 dark:!text-zinc-400 font-semibold" : ""}
-                ${
-                pathNoSlash === item.link
-                  ? "border border-transparent shadow-sm bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-800"
-                  : "border hover:!bg-red-700 hover:!text-white border-gray-200 dark:border-gray-700/60 hover:border-gray-300 dark:hover:border-gray-600 shadow-sm bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400"
-              } transition`}
-            >
-              {item.label}
-            </Link>
-          </li>
-        ))}
-        
+        {LinksNavbar.map((item, index) => {
+          const localizedPath = locale === "es" ? item.path_es : item.path
+          const localizedLabel = locale === "es" ? item.label_es : item.label
+          const fullPath = `/${locale}/${localizedPath}`;
+          const isActive = pathname === fullPath;
+          return (
+            <li key={index} className="m-1">
+              <Link
+                href={fullPath}
+                className={`
+                  inline-flex items-center justify-center text-base font-semibold leading-5 rounded-full px-3 py-1 w-32 truncate line-clamp-1
+                  border transition
+                  ${isActive
+                    ? "bg-red-700 text-white border-red-700"
+                    : "bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400 border-gray-200 dark:border-gray-700/60 hover:bg-red-700 hover:text-white"
+                  }
+                `}
+              >
+                {localizedLabel}
+              </Link>
+            </li>
+          )
+        })}
       </ul>
     </div>
-  );
+  )
 }

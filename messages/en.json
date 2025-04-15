@@ -1,4 +1,8 @@
 {
+  "Metadata": {
+    "fleetTitle": "Vehicle Fleet",
+    "bookingTitle" : "Bookings"
+  },
   "HomePage": {
     "reservation": {
       "title": "Make a booking",
@@ -52,6 +56,133 @@
       "frame_4B": " benefits"
     }
   },
+  "FleetPage": {
+    "banner": "Vehicle Fleet",
+    "title" : "We have the largest and most modern fleet in Northern Argentina. With over 350 latest-model vehicles, we offer immediate availability.",
+    "filter": {
+      "car": "Cars",
+      "utility": "Utilities",
+      "van": "Vans"
+    },
+    "cards": {
+      "luggage": "Luggage",
+      "doors": "Doors",
+      "seats": "Seats",
+      "similar": "or similar",
+      "group": "Group"
+    }
+  },
+  "BookingPage": {
+    "banner": "Your Booking",
+    "itinerary": {
+      "loading": "Fetching itinerary data...",
+      "preTitle": "Your",
+      "title": "Itinerary",
+      "day": "Day",
+      "days": "Days",
+      "choose": "Choose",
+      "pickUp": "Pick-up",
+      "selectPickUpPlace": "Select pick-up location",
+      "selectPickUpHour": "Select pick-up time",
+      "drop": "Drop-off",
+      "selectDropPlace": "Select drop-off location",
+      "selectDropHour": "Select drop-off time",
+      "extraDates": "Rates may vary depending on the selected date.",
+      "dropoff": "The selected city has an extra charge (Drop Off).",
+      "startHourDropoff": "The pick-up time has an extra charge as it is outside our office hours.",
+      "endHourDropoff": "The drop-off time has an extra charge as it is outside our office hours."
+    },
+    "pickCar": {
+      "btnSearch": "Search available vehicles",
+      "loading": "Updating fleet...",
+      "preTitle": "Select your",
+      "title": "vehicle",
+      "errorDates": "Please check the booking dates",
+      "dontFind": "Didn't find what you were looking for?",
+      "dontFindDescription": "Don't worry! Contact us so we can help you with your next booking.",
+      "talkAdviser": "Talk to an advisor",
+      "cards": {
+        "rate": "Base rate: 1 day",
+        "luggage": "Luggage",
+        "doors": "Doors",
+        "seats": "Seats",
+        "similar": "or similar",
+        "group": "Group",
+        "pick": "Select vehicle",
+        "unPick": "Choose another"
+      }
+    },
+    "pickAdditionals": {
+      "loading": "Fetching additional data...",
+      "preTitle": "Accessories",
+      "title": "Optional"
+    },
+    "confirm": {
+      "btn": "Continue"
+    }
+  },
+  "PaymentsPage": {
+    "meta": {
+      "title": "Payments",
+      "description": "Payment page"
+    },
+    "banner": "Make the payment",
+    "loading": "Fetching booking data...",
+    "subtitle": "Please complete the following fields with the details of the",
+    "subtitle1": "cardholder",
+    "subtitle2": " in the payment form to complete your booking",
+    "resume": "Summary",
+    "vehicle": "Vehicle",
+    "additional": "Additionals",
+    "dropoff": "Dropoff",
+    "form": {
+      "payMethod": "Select a payment method",
+      "pickCard": "Select your card",
+      "cardNumber": "Card number",
+      "cardMonth": "Month",
+      "cardYear": "Year",
+      "cardYearPlaceholder": "YY",
+      "documentType": "Document type",
+      "birthday": "Date of birth",
+      "birthdayFormat": "DD/MM/YYYY",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "installments": "Number of installments",
+      "installment1": "installment of",
+      "installment2": "installments of",
+      "state": "State",
+      "stateChose": "Select a state",
+      "city": "City",
+      "postal": "Postal code",
+      "address": "Address",
+      "addressNumber": "Street number",
+      "pay": "Pay with",
+      "confirmedLegend": "Once the payment is approved, your booking will be confirmed and an email with the booking code will be sent to you",
+      "validations": {
+        "cardMin": "The card must have at least 15 digits",
+        "cardMax": "The card must not have more than 18 digits",
+        "cardMonth": "2 digits",
+        "cardMonthTo": "01 to 12",
+        "cardYear": "Please verify",
+        "securityCode": "3 to 4 digits",
+        "birthday": "Invalid date",
+        "birthdayPlaceholder": "Format DD/MM/YYYY",
+        "cardHolderDoorNumber": "The door number is too long",
+        "cardHolderIdentificationMin": "Minimum of 7 digits",
+        "cardHolderIdentificationMax": "Too long",
+        "paymentMethod": "You must select a payment method",
+        "state": "You must select a province",
+        "city": "You must select a city",
+        "firstNameMin": "First name is required",
+        "firstNameMax": "Too long",
+        "lastNameMin": "Last name is required",
+        "lastNameMax": "Too long",
+        "postalCodeMin": "Postal code is required",
+        "postalCodeMax": "Too long",
+        "addressMin": "Address is required",
+        "addressMax": "Too long"
+      }
+    },
   "ReservaPage": {
     "ConfirmarPage": {
       "meta": {

@@ -8,13 +8,15 @@ import { Button } from "@/components/ui/button";
 import RenderCarsAvailability from "./reserva-cars-avalability";
 import { useItinerarioStore } from "@/stores/reserva-itinerario/reserva-itinerario.store";
 import { getMaxIncrement } from "@/actions/holidays";
+import { useTranslations } from "next-intl";
 
 export default function PickCar() {
+  const t = useTranslations("BookingPage.pickCar")
   const removeCar = useReservaAutoStore((state) => state.removeReservaAuto);
   const itinerario = useItinerarioStore((state) => state.getItinerario());
   const car = useReservaAutoStore((state) => state.getReservaAuto());
   const [contentButton, setContentButton] = useState(
-    <span>Buscar vehículos disponibles</span>
+    <span>{t("btnSearch")}</span>
   );
   const firstMount = useRef(true);
   const [data, setData] = useState<VehicleType[]>([]);
@@ -55,7 +57,7 @@ export default function PickCar() {
     }
   }, []);
   useEffect(() => {
-    setContentButton(<span>Buscar vehículos disponibles</span>);
+    setContentButton(<span>{t("btnSearch")}</span>);
     setShowCars(false);
     removeCar();
   }, [itinerario]);
@@ -76,7 +78,7 @@ export default function PickCar() {
     setContentButton(
       <>
         <Loader2Icon className="w-12 h-12 animate-spin" />
-        <span>Actualizando flota...</span>
+        <span>{t("loading")}</span>
       </>
     );
     handlerSubmit();
@@ -89,7 +91,7 @@ export default function PickCar() {
       {showCars ? (
         <>
           <h2 className="text-2xl font-medium col-span-12 leading-snug text-gray-800 dark:text-gray-100 mb-3">
-            02. Seleccione su <strong>vehículo</strong>
+            02. {t("preTitle")} <strong>{t("title")}</strong>
           </h2>
           {!car ? (
             <RenderCarsAvailability
@@ -124,7 +126,7 @@ export default function PickCar() {
           </Button>
           {!isStartDayValid && (
             <span className="col-span-12 text-center mx-auto text-red-600 -mt-6 text-xs">
-              Verifique las fechas de reserva
+              {t("errorDates")}
             </span>
           )}
         </>

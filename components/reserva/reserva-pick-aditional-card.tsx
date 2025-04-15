@@ -3,8 +3,10 @@ import Image from "next/image";
 import { AditionalType } from "./reserva-pick-aditional";
 import { useReservaAdicionalesStore } from "@/stores/reserva-adicionales/reserva-adicionales.store";
 import { BiCheck } from "react-icons/bi";
+//import { useTranslations } from "next-intl";
 
 export default function AdditionalCard({ item }: { item: AditionalType }) {
+  //const t = useTranslations("BookingPage.pickAdditionals")
   const reservaAdicionales = useReservaAdicionalesStore((state) => state.getReservaAdicionales());
   const addAdditionals = useReservaAdicionalesStore((state) => state.addReservaAdicional);
 
@@ -19,7 +21,7 @@ export default function AdditionalCard({ item }: { item: AditionalType }) {
         //src={item.image}
         width={200}
         height={200}
-        alt="Product 01"
+        alt={item.name}
       />
       <div className="grow ps-4 pt-4 sm:pt-0">
         <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-1">
