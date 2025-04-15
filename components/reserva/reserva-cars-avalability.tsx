@@ -4,6 +4,7 @@ import { BiCheck } from "react-icons/bi";
 import { useReservaAutoStore } from "@/stores/reserva-auto/reserva-auto.store";
 import Link from "next/link";
 import { FaWhatsapp } from "react-icons/fa";
+import React from "react";
 
 export default function RenderCarsAvailability({
   Vehicles,
@@ -49,12 +50,74 @@ export default function RenderCarsAvailability({
       return acc;
     }, {} as Record<string, VehicleType[]>);
   };
-
+  const [sortBy, setSortBy] = React.useState<"price" | "group" | null>(null);
+  const [priceOrder, setPriceOrder] = React.useState<string>("minor");
   const groupByName = availableCars(Vehicles);
+
+  const sortedEntries = React.useMemo(() => {
+    if (!sortBy) return Object.entries(groupByName);
+    console.log(Object.entries(groupByName));
+
+    return Object.entries(groupByName).sort(
+      ([nameA, carsA]: any, [nameB, carsB]: any) => {
+        console.log(nameA, nameB);
+
+        if (sortBy === "group") {
+          return carsA[0]?.brand.name.localeCompare(carsB[0]?.brand.name);
+        } else if (sortBy === "price") {
+          const priceA = carsA[0]?.group.rate ?? 0;
+          const priceB = carsB[0]?.group.rate ?? 0;
+          if (priceOrder === "minor") {
+            return priceA - priceB;
+          } else {
+            return priceB - priceA;
+          }
+        }
+        return 0;
+      }
+    );
+  }, [groupByName, sortBy, priceOrder]);
 
   return (
     <div className="grid grid-cols-12 gap-4 col-span-full">
-      {Object.entries(groupByName).map(([name, cars]: any) => {
+      <div className="col-span-full space-x-2">
+        <select
+          required
+          value={priceOrder}
+          onChange={(e) => {
+            setSortBy("price");
+            setPriceOrder(e.target.value);
+          }}
+          className={`px-4 py-2 rounded-lg border text-sm cursor-pointer ${
+            sortBy === "price"
+              ? "bg-orange-600 !text-white"
+              : "bg-white text-gray-800 border-gray-300"
+          }`}
+        >
+          <option value="" disabled>
+            Ordenar por precio
+          </option>
+          <option value="minor" className="dark:text-gray-950 cursor-pointer">
+            Menor precio
+          </option>
+          <option value="major" className="dark:text-gray-950 cursor-pointer">
+            Mayor precio
+          </option>
+        </select>
+
+        <button
+          onClick={() => setSortBy("group")}
+          className={`px-4 py-2 rounded-lg border text-sm cursor-pointer ${
+            sortBy === "group"
+              ? "bg-orange-600 text-white"
+              : "bg-white text-gray-800 border-gray-300"
+          }`}
+        >
+          Ordenar A-Z
+        </button>
+      </div>
+
+      {sortedEntries.map(([name, cars]: any) => {
         const firstCar = cars[0];
 
         return firstCar ? (

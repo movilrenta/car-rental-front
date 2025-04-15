@@ -27,7 +27,7 @@ const termsAndConditions: ListItem[] = [
       },
       {
         title:
-          "Seguros de Responsabilidad Civil para terceros transportados y/o no transportados, daños a cosas y/o a personas hasta $ 8.000.000.-",
+          "Seguros de Responsabilidad Civil para terceros transportados y/o no transportados, daños a cosas y/o a personas hasta $ 80.000.000.-",
       },
       { title: "Asistencia mecánica, sanitaria y remolque las 24 horas." },
     ],

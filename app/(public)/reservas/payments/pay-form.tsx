@@ -592,17 +592,17 @@ export default function PayForm({ aditionals }: { aditionals: any[] }) {
                           </SelectItem>
                           <SelectItem
                             className="hover:bg-zinc-700 hover:text-white"
-                            value="2"
+                            value="13"
                           >
-                            2 cuotas de $
-                            {useFormatNumber(totales?.totalCompleto / 2)}
+                            3 cuotas SIMPLE de $
+                            {useFormatNumber(totales?.totalCompleto / 3)}
                           </SelectItem>
                           <SelectItem
                             className="hover:bg-zinc-700 hover:text-white"
-                            value="3"
+                            value="16"
                           >
-                            3 cuotas de $
-                            {useFormatNumber(totales?.totalCompleto / 3)}
+                            6 cuotas SIMPLE de $
+                            {useFormatNumber(totales?.totalCompleto / 6)}
                           </SelectItem>
                         </SelectContent>
                       </Select>
