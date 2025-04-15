@@ -1,9 +1,14 @@
 import { Metadata } from "next";
 import { Contacto } from "@/view";
+import { getTranslations } from "next-intl/server";
 
-export const metadata:Metadata = {
-  title: "Contacto",
-  description: "Contactenos para un asesoramiento o cualquier tipo de consulta."
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations('ContactoPage');
+
+  return {
+    title: t('meta.title'),
+    description: t('meta.description'),
+  };
 }
 export default function ContactoPage() {
   return (

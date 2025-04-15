@@ -1,4 +1,4 @@
-import { companySchema } from '@/types';
+import { CompanyFormValues } from '@/types';
 import emailjs, { EmailJSResponseStatus } from '@emailjs/browser';
 import { z } from "zod";
 
@@ -6,7 +6,7 @@ const SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
 const TEMPLATE_ID_COMPANY = process.env.NEXT_PUBLIC_TEMPLATE_ID_COMPANY;
 const PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_KEY;
 
-export const sendEmailCompany = async (values:z.infer<typeof companySchema>) => {
+export const sendEmailCompany = async (values:CompanyFormValues) => {
  
     try {
       await emailjs.send(

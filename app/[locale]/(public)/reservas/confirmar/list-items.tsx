@@ -13,6 +13,9 @@ import {
 } from "react-icons/io5";
 import { getReservaPrice } from "./calculate-price";
 import { Plus } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
+import { accessoriesTranslate } from "@/constant/translated";
+
 
 export const ListItems = ({
   data,
@@ -21,6 +24,8 @@ export const ListItems = ({
   data: any;
   branches: BranchesType[];
 }) => {
+  const locale = useLocale() as "es" | "en";
+  const t = useTranslations("ReservaPage.ConfirmarPage");
   const [isClient, setIsClient] = useState<boolean>(false);
   const reservas = useReservaStore((state) => state.getReserva());
   const [totales, setTotales] = useState<any>(null);
@@ -31,7 +36,6 @@ export const ListItems = ({
     reservas?.endDay!,
     reservas?.endTime!
   );
-
 
   useEffect(() => {
     setIsClient(true);
@@ -45,7 +49,7 @@ export const ListItems = ({
     return (
       <div className="flex flex-col justify-start items-center h-screen min-w-full">
         <div className="animate-spin rounded-full h-28 w-28 border-b-2 border-gray-900 mt-52 my-4"></div>
-        <div>Obteniendo datos de su reserva...</div>
+        <div>{t("listItems.loader")}</div>
       </div>
     );
   }
@@ -59,13 +63,10 @@ export const ListItems = ({
 
   //console.log(totales, "TOTALES");
 
-
-
   const selectedCity = (id: string) => {
     const label = branches.find((sucursal) => sucursal.id.toString() === id);
     return label?.name;
   };
-
 
   return (
     <div className="flex flex-col gap-y-6">
@@ -74,21 +75,22 @@ export const ListItems = ({
         <div className="w-full flex flex-col gap-y-2">
           <div className="flex justify-between">
             <h2 className="text-md md:text-lg font-semibold  text-red-700">
-              Itinerario
+              {t("listItems.itinerary.title")}
             </h2>
             <span className="text-md md:text-lg font-semibold text-gray-900 dark:text-slate-100">
-              {dias} Días
+              {dias} {t("listItems.itinerary.days")}
             </span>
           </div>
           <div className="text-xs md:text-base text-gray-900 dark:text-slate-100">
             <div>
               <h3 className="flex gap-x-1">
-                Desde: {formatDate(reservas!.startDay)}, {reservas!.startTime}{" "}
-                Hs, {selectedCity(reservas!.startLocation)}
+                {t("listItems.itinerary.from")}:{" "}
+                {formatDate(reservas!.startDay, locale)}, {reservas!.startTime} Hs,{" "}
+                {selectedCity(reservas!.startLocation)}
               </h3>
               <h3 className="flex gap-2">
-                Hasta: {formatDate(reservas!.endDay)}, {reservas!.endTime} Hs,{" "}
-                {selectedCity(reservas!.endLocation)}
+                {t("listItems.itinerary.to")}: {formatDate(reservas!.endDay, locale)},{" "}
+                {reservas!.endTime} Hs, {selectedCity(reservas!.endLocation)}
               </h3>
             </div>
           </div>
@@ -100,7 +102,7 @@ export const ListItems = ({
         <div className="w-full flex flex-col gap-y-2">
           <div className="flex justify-between">
             <h2 className="text-md md:text-lg font-semibold  text-red-700">
-              Vehículo
+              {t("listItems.car.title")}
             </h2>
             <span className="text-md md:text-lg font-semibold text-gray-900 dark:text-slate-100">
               {/* ARS { useFormatNumber((+(reservas?.car?.group?.rate!) * dias * maxIncrement)) || "--"} */}
@@ -110,13 +112,13 @@ export const ListItems = ({
           <div className="text-xs md:text-base text-gray-900 dark:text-slate-100">
             <p className="flex flex-col">
               <span className="font-semibold">
-                Grupo: {reservas?.car?.group?.name}
+                {t("listItems.car.group")}: {reservas?.car?.group?.name}
               </span>{" "}
               - {reservas?.car?.brand?.name} {reservas?.car?.name}.
               <span>
-                - Seguros: Por daños o faltantes $
-                {useFormatNumber(+(reservas?.car?.group?.insurances || 0))}, por
-                vuelcos o robo $
+                {t("listItems.car.insurance.span1")}{" "}
+                {useFormatNumber(+(reservas?.car?.group?.insurances || 0))},{" "}
+                {t("listItems.car.insurance.span2")}
                 {useFormatNumber(
                   Number(reservas?.car?.group?.insurances || 0) * 3
                 )}
@@ -134,7 +136,7 @@ export const ListItems = ({
             <div className="w-full flex flex-col gap-y-2">
               <div className="flex justify-between">
                 <h2 className="text-md md:text-lg font-semibold  text-red-700">
-                  Adicional
+                  {t("listItems.dropOff.title")}
                 </h2>
                 <span className="text-md md:text-lg font-semibold text-gray-900 dark:text-slate-100">
                   {/* ARS { useFormatNumber((+(reservas?.car?.group?.rate!) * dias * maxIncrement)) || "--"} */}
@@ -143,9 +145,7 @@ export const ListItems = ({
               </div>
               <div className="text-xs md:text-base text-gray-900 dark:text-slate-100">
                 <p className="flex flex-col">
-                  <span>
-                    Adicional por retiro y/o entrega fuera de Tucumán.
-                  </span>
+                  <span>{t("listItems.dropOff.description")}</span>
                 </p>
               </div>
             </div>
@@ -161,7 +161,7 @@ export const ListItems = ({
             <div className="w-full flex flex-col gap-y-2">
               <div className="flex justify-between">
                 <h2 className="text-md md:text-lg font-semibold  text-red-700">
-                  Accesorios
+                  {t("listItems.accessories.title")}
                 </h2>
                 <span className="text-md md:text-lg font-semibold text-gray-900 dark:text-slate-100">
                   ARS {useFormatNumber(totales?.totalAdicionales)}
@@ -170,13 +170,13 @@ export const ListItems = ({
               </div>
               <div className="text-xs md:text-base text-gray-900 dark:text-slate-100">
                 {reservas?.aditionals_array.map((aditional) => {
-                  const adicional = data.find(
+                  const adicional:{ name:string} = data.find(
                     (item: any) => item.id === aditional.id
                   );
                   if (adicional) {
                     return (
                       <p key={aditional.id} className="">
-                        {adicional.name}
+                        {accessoriesTranslate[adicional.name]?.[locale] ?? adicional.name}
                       </p>
                     );
                   }
@@ -202,11 +202,10 @@ export const ListItems = ({
           </div>
           <div className="text-xs md:text-base text-gray-900 dark:text-slate-100">
             <p className="italic">
-              - Tarifas estimadas sin promociones y sujetas a modificación sin
-              previo aviso.
+             {t("listItems.total.estimatedRates")}
             </p>
             <p className="italic">
-              - IVA 21% y Seguro con franquicia incluídos.
+              {t("listItems.total.taxes")}
             </p>
           </div>
         </div>

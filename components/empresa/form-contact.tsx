@@ -5,10 +5,9 @@ import { FaUser, FaPhoneAlt, FaIndustry, FaPencilAlt } from "react-icons/fa";
 import { IoIosMail } from "react-icons/io";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { companySchema } from "@/types";
+import { CompanyFormValues, getCompanySchema } from "@/types";
 import {
   Form,
   FormControl,
@@ -21,6 +20,7 @@ import { Input } from "../input";
 import { Textarea } from "../textarea";
 import { useToast } from "@/hooks/use-toast";
 import { sendEmailCompany } from "@/actions";
+import { useTranslations } from "next-intl";
 
 interface EmpresasFormText {
   name: {
@@ -49,9 +49,10 @@ interface EmpresasFormText {
 
 export const FormContact: React.FC<{ text: EmpresasFormText }> = ({ text }) => {
   const { toast } = useToast();
+  const t = useTranslations("ContactoPage.form");
 
-  const form = useForm<z.infer<typeof companySchema>>({
-    resolver: zodResolver(companySchema),
+  const form = useForm<CompanyFormValues>({
+    resolver: zodResolver(getCompanySchema(t)),
     defaultValues: {
       name: "",
       email: "",
@@ -61,7 +62,7 @@ export const FormContact: React.FC<{ text: EmpresasFormText }> = ({ text }) => {
     },
   });
 
-  async function onSubmit(values: z.infer<typeof companySchema>) {
+  async function onSubmit(values: CompanyFormValues) {
     try {
       const resp = await sendEmailCompany(values);
       if (!resp.ok) {
@@ -97,11 +98,11 @@ export const FormContact: React.FC<{ text: EmpresasFormText }> = ({ text }) => {
           control={form.control}
           render={({ field }) => (
             <FormItem className="col-span-full md:col-span-6">
-              <FormLabel className="flex items-center gap-x-2"><FaUser className="hidden md:block"/>{text.name.label}</FormLabel>
+              <FormLabel className="flex items-center gap-x-2"><FaUser className="hidden md:block"/>{t("labels.name")}</FormLabel>
               <FormControl>
                 <Input placeholder={text.name.placeholder} {...field} />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis"/>
             </FormItem>
           )}
         />
@@ -110,11 +111,11 @@ export const FormContact: React.FC<{ text: EmpresasFormText }> = ({ text }) => {
           control={form.control}
           render={({ field }) => (
             <FormItem className="col-span-full md:col-span-6">
-              <FormLabel className="flex items-center gap-x-2"><IoIosMail className="hidden md:block"/>{text.email.label}</FormLabel>
+              <FormLabel className="flex items-center gap-x-2"><IoIosMail className="hidden md:block"/>{t("labels.email")}</FormLabel>
               <FormControl>
                 <Input placeholder={text.email.placeholder} {...field} />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
             </FormItem>
           )}
         />
@@ -123,11 +124,11 @@ export const FormContact: React.FC<{ text: EmpresasFormText }> = ({ text }) => {
           control={form.control}
           render={({ field }) => (
             <FormItem className="col-span-full md:col-span-6">
-              <FormLabel className="flex items-center gap-x-2"><FaPhoneAlt className="hidden md:block"/>{text.phone.label}</FormLabel>
+              <FormLabel className="flex items-center gap-x-2"><FaPhoneAlt className="hidden md:block"/>{t("labels.phone")}</FormLabel>
               <FormControl>
                 <Input placeholder={text.phone.placeholder} {...field} />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
             </FormItem>
           )}
         />
@@ -136,11 +137,11 @@ export const FormContact: React.FC<{ text: EmpresasFormText }> = ({ text }) => {
           control={form.control}
           render={({ field }) => (
             <FormItem className="col-span-full md:col-span-6">
-              <FormLabel className="flex items-center gap-x-2"><FaIndustry className="hidden md:block"/>{text.company.label}</FormLabel>
+              <FormLabel className="flex items-center gap-x-2"><FaIndustry className="hidden md:block"/>{t("labels.company")}</FormLabel>
               <FormControl>
-                <Input placeholder={text.company.placeholder} {...field} />
+                  <Input placeholder={t("placeholders.company")} {...field} />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
             </FormItem>
           )}
         />
@@ -149,15 +150,15 @@ export const FormContact: React.FC<{ text: EmpresasFormText }> = ({ text }) => {
           control={form.control}
           render={({ field }) => (
             <FormItem className="col-span-full">
-              <FormLabel className="flex items-center gap-x-2"><FaPencilAlt className="hidden md:block"/>{text.description.label}</FormLabel>
+              <FormLabel className="flex items-center gap-x-2"><FaPencilAlt className="hidden md:block"/>{t("labels.description")}</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder={text.description.placeholder}
+                  placeholder={t("placeholders.description")}
                   className="resize-none"
                   {...field}
                 />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
             </FormItem>
           )}
         />
@@ -172,7 +173,7 @@ export const FormContact: React.FC<{ text: EmpresasFormText }> = ({ text }) => {
             )}
             disabled={form.formState.isSubmitting}
           >
-            {form.formState.isSubmitting ? text.buttonSendingText :text.buttonConfirmText}
+            {form.formState.isSubmitting ? t("buttons.bSending") : t("buttons.bConfirm")}
           </button>
         </div>
       </form>
