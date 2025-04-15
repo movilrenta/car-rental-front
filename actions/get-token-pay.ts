@@ -1,9 +1,9 @@
 "use server";
 
-import { formSchema } from "@/types/payway-form.schema";
+import { formSchema, PaymentsFormValues } from "@/types/payway-form.schema"; // Ensure this is a Zod schema object, not a function
 import { ReservationDetail } from "@/types/reservation.interface";
 import axios, { AxiosError } from "axios";
-import { z } from "zod";
+//import { z } from "zod";
 import { getMaxIncrement } from "./holidays";
 
 const URL = process.env.NEXT_PUBLIC_URL_MOVILRENTA;
@@ -56,9 +56,9 @@ type PaymentData = {
 };
 
 
-export const getTokenPay = async (values: z.infer<typeof formSchema>, code: string, reserva_id: number, group_id: number, dias: number, amount_aditionals: number, dropoff: number) => {
+export const getTokenPay = async (values: PaymentsFormValues, code: string, reserva_id: number, group_id: number, dias: number, amount_aditionals: number, dropoff: number) => {
   try {
-    const resultParse = await formSchema.safeParseAsync(values);
+    const resultParse = formSchema().safeParse(values); // Call formSchema if it is a function returning a schema
     if (!resultParse.success) {
       resultParse.error.issues.forEach((err) => {console.log(`Error en ${err.path} - ${err.message}`);});
       return {ok: false, message: "Hubo un problema al intentar realizar el pago", status: 403 };

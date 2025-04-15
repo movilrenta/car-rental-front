@@ -9,12 +9,11 @@ import { IoCarSportOutline } from 'react-icons/io5';
 import ButtonWhatsapp from './button-whatsapp';
 import { getTranslations } from 'next-intl/server';
 
-export const Home = async ({branches}:{branches:any}) => {
+export const Home = async ({branches, params}:{branches:any, params: {locale: string}}) => {
   const t = await getTranslations('HomePage');
-
   return (
     <div className="flex flex-col gap-12 animate-fade-in mb-12">
-      <BannerCta branches={branches}/>
+      <BannerCta branches={branches} locale={params?.locale}/>
       <div className="mx-4 sm:mx-16 overflow-clip">
         <div className="flex flex-wrap justify-center gap-x-12 gap-y-5 items-center text-4xl font-semibold text-red-700 dark:text-red-200">
           {carTipes.map((item, index) => (
