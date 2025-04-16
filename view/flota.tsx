@@ -1,8 +1,9 @@
 import BannerPage from "./banner-page";
 import { CarResponse } from "@/types/car.interface";
-import SimpleCardCar from "@/components/flota/car-card";
+//import SimpleCardCar from "@/components/flota/car-card";
 import { BannerEmpresa } from "@/components/home/banner-empresa";
 import FlotaFilter from "./flota-filter";
+import { VehicleType } from "@/constant/cars";
 
 interface Props {
   cars: CarResponse[];
@@ -11,24 +12,23 @@ interface Props {
 export const Flota = ({ cars }: Props) => {
   const availableCars = (array: any[]) => {
     return array.reduce((acc, item) => {
-      // Solo pushea si el status es true
-      if (!acc[item.name]) {
-        acc[item.name] = [];
+      const key = `${item.name}-${item.group_id}`; // Clave compuesta por nombre y grupo
+      if (!acc[key]) {
+        acc[key] = [];
       }
-      acc[item.name].push(item);
-
+      acc[key].push(item);
       return acc;
-    }, {} as Record<string, any[]>);
+    }, {} as Record<string, VehicleType[]>);
   };
-  const total = (array: any[]) => {
-    return array.reduce((acc, item) => {
-      if (!acc[item.name]) {
-        acc[item.name] = [];
-      }
-      acc[item.name].push(item);
-      return acc;
-    }, {} as Record<string, any[]>);
-  };
+  // const total = (array: any[]) => {
+  //   return array.reduce((acc, item) => {
+  //     if (!acc[item.name]) {
+  //       acc[item.name] = [];
+  //     }
+  //     acc[item.name].push(item);
+  //     return acc;
+  //   }, {} as Record<string, any[]>);
+  // };
   //console.log(cars, "cas");
 
   const groupByName = availableCars(cars);

@@ -40,13 +40,11 @@ export default function RenderCarsAvailability({
 
   const availableCars = (array: any[]) => {
     return array.reduce((acc, item) => {
-      //if (!item.status) {
-      // Solo pushea si el status es true
-      if (!acc[item.name]) {
-        acc[item.name] = [];
+      const key = `${item.name}-${item.group_id}`; // Clave compuesta por nombre y grupo
+      if (!acc[key]) {
+        acc[key] = [];
       }
-      acc[item.name].push(item);
-      //}
+      acc[key].push(item);
       return acc;
     }, {} as Record<string, VehicleType[]>);
   };
