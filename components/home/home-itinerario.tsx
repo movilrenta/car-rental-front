@@ -101,15 +101,15 @@ export default function HomeItinerario({
               </div>
           } */}
       </div>
-      <form onSubmit={goReserva} className="max-w-[420px] w-full">
-        <div className="space-y-0">
-          <div className="flex items-center w-full max-w-full ">
+      <form onSubmit={goReserva} className="max-w-[420px] w-full max-h-[450px]">
+        <div className="w-full grid grid-cols-12 space-y-4">
+          <div className="col-span-full">
             <label
-              className="block text-lg font-bold mb-1 min-w-28 w-28"
+              className="flex items-center justify-center gap-x-4 text-2xl font-bold mb-1 min-w-28"
               htmlFor="city-start"
             >
-              <GoArrowUpRight className="text-red-600 stroke-2 text-5xl" />
-              {t("reservation.start")}
+              <GoArrowUpRight className="text-red-600 stroke-2 text-5xl md:text-2xl" />
+              <span>{t("reservation.start")}</span>
             </label>
             <div className="w-full">
               <select
@@ -120,7 +120,7 @@ export default function HomeItinerario({
                 className="form-select !w-full !max-w-full !text-ellipsis h-12"
               >
                 <option value="" disabled>
-                  Selecciona lugar de retiro
+                  {t("reservation.locPickup")}
                 </option>
                 {branches?.map((city, index) => (
                   <option
@@ -141,7 +141,7 @@ export default function HomeItinerario({
                   className="form-select min-w-20 w-full h-12"
                 >
                   <option value="" disabled>
-                    Horario
+                    {t("reservation.schedule")}
                   </option>
                   {hours.map((item, index) =>
                     item.work ? (
@@ -158,13 +158,13 @@ export default function HomeItinerario({
               </div>
             </div>
           </div>
-          <div className="flex items-center w-full max-w-full ">
+          <div className="col-span-full ">
             <label
-              className="block text-lg font-bold mb-1 min-w-28 w-28"
+              className="flex items-center justify-center gap-x-4 text-2xl font-bold mb-1 min-w-28"
               htmlFor="city-back"
             >
-              <GoArrowDownLeft className="text-red-600 stroke-2 text-5xl" />
-              {t("reservation.end")}
+              <GoArrowDownLeft className="text-red-600 stroke-2 text-5xl md:text-2xl" />
+              <span>{t("reservation.end")}</span>
             </label>
             <div className="w-full">
               <select
@@ -175,7 +175,7 @@ export default function HomeItinerario({
                 className="form-select w-full h-12"
               >
                 <option value="" disabled>
-                  Seleccione lugar de entrega
+                  {t("reservation.locReturn")}
                 </option>
                 {branches?.map((city, index) => (
                   <option
@@ -196,7 +196,7 @@ export default function HomeItinerario({
                   className="form-select w-full h-12"
                 >
                   <option value="" disabled>
-                    Horario
+                    {t("reservation.schedule")}
                   </option>
                   {hours.map((item, index) =>
                     item.work ? (
@@ -221,7 +221,7 @@ export default function HomeItinerario({
             className="form-checkbox cursor-pointer dark:group-hover:border-white group-hover:border-black duration-200"
           />
           <span className="text-sm ml-2 cursor-pointer">
-            Tengo más de 25 años de edad.
+            {t("reservation.over25")}
           </span>
         </label>
         <div className="flex justify-end my-2 gap-3">
@@ -229,7 +229,7 @@ export default function HomeItinerario({
             type="submit"
             className="btn bg-red-700 text-gray-100 hover:bg-red-800 dark:bg-gray-100 dark:text-gray-800 dark:hover:bg-red-800 dark:hover:text-white ml-3 whitespace-nowrap duration-200"
           >
-            Continuar
+            {t("reservation.bContinue")}
           </button>
         </div>
         <div className="mr-1 my-4"></div>

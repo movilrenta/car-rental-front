@@ -7,7 +7,12 @@
     "reservation": {
       "title": "Make a booking",
       "start": "Pick up",
-      "end": "Return"
+      "locPickup": "Select pickup location",
+      "end": "Return",
+      "locReturn": "Select delivery location",
+      "schedule": "schedule",
+      "over25": "I am over 25 years old.",
+      "bContinue": "Continue"
     },
     "title": "Hello",
     "description": "Greetings from the home page",

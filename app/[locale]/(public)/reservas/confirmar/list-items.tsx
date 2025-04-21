@@ -15,6 +15,7 @@ import { getReservaPrice } from "./calculate-price";
 import { Plus } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { accessoriesTranslate } from "@/constant/translated";
+import { SkeletonList } from "./skeleton-list";
 
 
 export const ListItems = ({
@@ -47,10 +48,11 @@ export const ListItems = ({
 
   if (!isClient || !reservas || !totales) {
     return (
-      <div className="flex flex-col justify-start items-center h-screen min-w-full">
-        <div className="animate-spin rounded-full h-28 w-28 border-b-2 border-gray-900 mt-52 my-4"></div>
-        <div>{t("listItems.loader")}</div>
-      </div>
+      // <div className="flex flex-col justify-start items-center h-screen min-w-full">
+      //   <div className="animate-spin rounded-full h-28 w-28 border-b-2 border-gray-900 mt-52 my-4"></div>
+      //   <div>{t("listItems.loader")}</div>
+      // </div>
+      <SkeletonList/>
     );
   }
 
