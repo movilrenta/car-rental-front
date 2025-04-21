@@ -7,7 +7,12 @@
     "reservation": {
       "title": "Hace tu reserva",
       "start": "Recogida",
-      "end": "Devolución"
+      "locPickup": "Selecciona lugar de retiro",
+      "end": "Devolución",
+      "locReturn": "Selecciona lugar de entrega",
+      "schedule": "Horario",
+      "over25":"Tengo más de 25 años de edad.",
+      "bContinue": "Continuar"
     },
     "title": "Hola",
     "description": "Saludos desde la pagina de inicio",
