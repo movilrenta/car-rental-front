@@ -14,8 +14,8 @@ import {
 import { getReservaPrice } from "./calculate-price";
 import { Plus } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import { accessoriesTranslate } from "@/constant/translated";
 import { SkeletonList } from "./skeleton-list";
+import { accessoriesTranslate } from "@/constant/translated";
 
 
 export const ListItems = ({
@@ -48,22 +48,16 @@ export const ListItems = ({
 
   if (!isClient || !reservas || !totales) {
     return (
-      // <div className="flex flex-col justify-start items-center h-screen min-w-full">
-      //   <div className="animate-spin rounded-full h-28 w-28 border-b-2 border-gray-900 mt-52 my-4"></div>
-      //   <div>{t("listItems.loader")}</div>
-      // </div>
       <SkeletonList/>
     );
   }
 
   async function consulta() {
     const datos = await getReservaPrice(reservas);
-    //console.log(datos, "DATOS");
     setTotales(datos);
     return datos;
   }
 
-  //console.log(totales, "TOTALES");
 
   const selectedCity = (id: string) => {
     const label = branches.find((sucursal) => sucursal.id.toString() === id);
@@ -71,6 +65,10 @@ export const ListItems = ({
   };
 
   return (
+    <div className="w-full mb-6 md:mb-0 md:px-4">
+    <h2 className="text-xl md:text-2xl text-gray-900 dark:text-slate-100 mb-5">
+      {t("subtitleCheck.title")}<span className="font-semibold">{" "}{t("subtitleCheck.span")}</span>
+    </h2>
     <div className="flex flex-col gap-y-6">
       <div className="flex items-center gap-4">
         <IoCalendarOutline size={50} className="text-red-700" />
@@ -212,6 +210,7 @@ export const ListItems = ({
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 };

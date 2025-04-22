@@ -29,8 +29,8 @@ export default function NavbarLinks({locale}:{locale : string}) {
                   inline-flex items-center justify-center text-base font-semibold leading-5 rounded-full px-3 py-1 w-32 truncate line-clamp-1
                   border transition
                   ${isActive
-                    ? "bg-red-700 text-white border-red-700"
-                    : "bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400 border-gray-200 dark:border-gray-700/60 hover:bg-red-700 hover:text-white"
+                    ? " bg-red-700 text-white border-red-700 hover:bg-red-500"
+                    : " bg-white dark:bg-gray-800 text-gray-500  dark:text-gray-400 border-gray-200 dark:border-gray-700/60 hover:bg-red-700 hover:text-white dark:hover:bg-red-700 dark:hover:text-white"
                   }
                 `}
               >

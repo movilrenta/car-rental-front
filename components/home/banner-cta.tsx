@@ -15,10 +15,7 @@ export const BannerCta = async ({ branches, locale }: { branches: any, locale: s
 
   return (
     <div className="h-full grid grid-cols-12 z-0 dark:bg-gray-800">
-      <SlideImages
-        images={sorted}
-        className="relative col-span-12 lg:col-span-7"
-      />
+      <SlideImages images={sorted} />
       <HomeItinerario branches={branches} />
     </div>
   );

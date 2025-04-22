@@ -24,6 +24,10 @@ export default function HomeItinerario({
   const nuevoItinerario = useItinerarioStore((state) => state.addItinerario);
   const [dias, setDias] = useState<number>(0);
   const [isClient, setIsClient] = useState(false);
+  const [checked, setChecked] = useState(false);
+  const [hideCheckbox, setHideCheckbox] = useState(false);
+
+ 
 
   useEffect(() => {
     setIsClient(true);
@@ -40,6 +44,11 @@ export default function HomeItinerario({
       setDias(dias);
     }
   }, [itinerario]);
+
+  const handleCheckboxChange = () => {
+    setChecked(true);
+    setHideCheckbox(true);
+  };
 
   const handleChange = (field: keyof ItinerarioType, value: any) => {
     itinerario![field] = value;
@@ -72,12 +81,13 @@ export default function HomeItinerario({
 
   return (
     <div className="col-span-12 lg:col-span-5 flex flex-col items-center justify-center px-4 py-6 md:py-4">
-      <h2 className="text-3xl text-gray-800 dark:text-gray-100 font-bold mb-6 capitalize">
+      <h2 className="text-3xl text-gray-800 dark:text-gray-100 font-bold mb-0 capitalize">
         {t("reservation.title")}
       </h2>
       <div className="flex items-start pb-2 w-full max-w-[420px] ">
+        <ItinerarioPickDate />
         <label
-          className="block text-lg font-bold mb-1 min-w-24 w-24 pe-4"
+          className="block text-lg font-bold mb-1 min-w-24 w-24 ps-4"
           htmlFor="asd"
         >
           {dias !== 0 ? (
@@ -91,7 +101,7 @@ export default function HomeItinerario({
           )}
         </label>
 
-        <ItinerarioPickDate />
+        
         {/* {dias !== 0 
             ? <div className="flex gap-0 text-start text-lg text-nowrap items-center justify-start font-extrabold h-12 rounded-md px-3 w-full bg-red-50 dark:bg-red-800 text-red-800 dark:text-red-50">
                 {dias === 1 ? `${dias} Día` : `${dias} Días`}
@@ -105,7 +115,7 @@ export default function HomeItinerario({
         <div className="w-full grid grid-cols-12 space-y-4">
           <div className="col-span-full">
             <label
-              className="flex items-center justify-center gap-x-4 text-2xl font-bold mb-1 min-w-28"
+              className="flex items-center justify-start gap-x-4 text-2xl font-bold mb-1 min-w-28"
               htmlFor="city-start"
             >
               <GoArrowUpRight className="text-red-600 stroke-2 text-5xl md:text-2xl" />
@@ -160,7 +170,7 @@ export default function HomeItinerario({
           </div>
           <div className="col-span-full ">
             <label
-              className="flex items-center justify-center gap-x-4 text-2xl font-bold mb-1 min-w-28"
+              className="flex items-center justify-start gap-x-4 text-2xl font-bold mb-1 min-w-28"
               htmlFor="city-back"
             >
               <GoArrowDownLeft className="text-red-600 stroke-2 text-5xl md:text-2xl" />
@@ -214,25 +224,27 @@ export default function HomeItinerario({
             </div>
           </div>
         </div>
-        <label className="flex items-center mt-6 group">
+        
+        {!checked
+        ?<label className="flex flex-row-reverse justify-start items-center my-4 h-8 group">
           <input
             type="checkbox"
+            onChange={handleCheckboxChange}
             required
             className="form-checkbox cursor-pointer dark:group-hover:border-white group-hover:border-black duration-200"
           />
-          <span className="text-sm ml-2 cursor-pointer">
+          <span className="text-sm mr-2 cursor-pointer border-b border-transparent hover:border-neutral-400">
             {t("reservation.over25")}
           </span>
         </label>
-        <div className="flex justify-end my-2 gap-3">
+        :<div className="flex justify-end my-4 h-8 gap-3 animate-fade-in">
           <button
             type="submit"
             className="btn bg-red-700 text-gray-100 hover:bg-red-800 dark:bg-gray-100 dark:text-gray-800 dark:hover:bg-red-800 dark:hover:text-white ml-3 whitespace-nowrap duration-200"
           >
             {t("reservation.bContinue")}
           </button>
-        </div>
-        <div className="mr-1 my-4"></div>
+        </div>}
       </form>
     </div>
   );

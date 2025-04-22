@@ -4,14 +4,18 @@
     "bookingTitle" : "Bookings"
   },
   "HomePage": {
+    "meta": {
+      "title" : "Rent a car",
+      "description" : "Welcome to Movil Renta, the best car rental service."
+    },
     "reservation": {
       "title": "Make a booking",
-      "start": "Pick up",
+      "start": "Pick up location",
       "locPickup": "Select pickup location",
-      "end": "Return",
+      "end": "Return location",
       "locReturn": "Select delivery location",
       "schedule": "schedule",
-      "over25": "I am over 25 years old.",
+      "over25": "I am over 25 years old",
       "bContinue": "Continue"
     },
     "title": "Hello",

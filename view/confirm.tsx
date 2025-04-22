@@ -11,22 +11,13 @@ export const Confirm = async () => {
   const t = await getTranslations("ReservaPage.ConfirmarPage")
 
   return (
-    <div className="w-full flex flex-col items-center overflow-clip animate-fade-in mb-14">
-      <BannerPage title={t("bannerTitle")} image="/images2/carBanner.webp"/>
-      <div className="px-4 sm:px-14 py-8 lg:mx-auto flex flex-col lg:flex-row gap-12 mt-4">
-        <div className="w-full mb-6 md:mb-0 md:px-4">
-          <h2 className="text-xl md:text-2xl text-gray-900 dark:text-slate-100 mb-5">
-            {t("subtitleCheck.title")}<span className="font-semibold">{" "}{t("subtitleCheck.span")}</span>
-          </h2>
-          <ListItems data={data} branches={branches}/>
-        </div>
-        <div className="w-full md:px-4">
-          <h2 className="text-xl md:text-2xl text-gray-900 dark:text-slate-100">
-            {t("subtitleForm.title")}<span className="font-bold">{" "}{t("subtitleForm.span")}</span>
-          </h2>
-          <div className="-mt-1 mb-4 text-xs">{t("subtitleForm.mandatory")}</div>
-					<FormConfirm/>
-        </div>
+    <div className="w-full grid grid-cols-2 overflow-clip animate-fade-in mb-14">
+      <div className="col-span-2">
+      <BannerPage title={t("bannerTitle")} image="/images2/carBanner.webp" />
+      </div>
+      <div className="col-span-2 w-full grid grid-cols-1 lg:grid-cols-2 gap-12 mt-4 max-w-7xl mx-auto p-4">
+        <ListItems data={data} branches={branches}/>
+				<FormConfirm/>
       </div>
     </div>
   );

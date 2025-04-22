@@ -4,14 +4,18 @@
     "bookingTitle" : "Reservas"
   },
   "HomePage": {
+    "meta": {
+      "title" : "Alquiler de autos",
+      "description" : "Bienvenido a Movil Renta, el mejor servicio de alquiler de vehículos."
+    },
     "reservation": {
       "title": "Hace tu reserva",
-      "start": "Recogida",
+      "start": "Lugar de recogida",
       "locPickup": "Selecciona lugar de retiro",
-      "end": "Devolución",
+      "end": "Lugar de devolución",
       "locReturn": "Selecciona lugar de entrega",
       "schedule": "Horario",
-      "over25":"Tengo más de 25 años de edad.",
+      "over25":"Tengo más de 25 años de edad",
       "bContinue": "Continuar"
     },
     "title": "Hola",
