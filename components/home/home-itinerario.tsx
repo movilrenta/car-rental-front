@@ -84,7 +84,7 @@ export default function HomeItinerario({
       <h2 className="text-3xl text-gray-800 dark:text-gray-100 font-bold mb-2 capitalize">
         {t("reservation.title")}
       </h2>
-      <div className="flex items-start pb-2 w-full max-w-[420px] ">
+      <div className="flex items-start pb-4 w-full max-w-[420px] ">
         <ItinerarioPickDate />
         <label
           className="block text-lg font-bold mb-1 min-w-24 w-24 ps-4"
@@ -101,15 +101,7 @@ export default function HomeItinerario({
           )}
         </label>
 
-        
-        {/* {dias !== 0 
-            ? <div className="flex gap-0 text-start text-lg text-nowrap items-center justify-start font-extrabold h-12 rounded-md px-3 w-full bg-red-50 dark:bg-red-800 text-red-800 dark:text-red-50">
-                {dias === 1 ? `${dias} Día` : `${dias} Días`}
-              </div>
-            : <div className="flex items-center justify-center text-lg font-extrabold  gap-0 text-center rounded-md px-3 w-full h-12 bg-red-50 dark:bg-red-800 text-red-800 dark:text-red-50">
-                Elija
-              </div>
-          } */}
+
       </div>
       <form onSubmit={goReserva} className="max-w-[420px] w-full max-h-[450px]">
         <div className="w-full grid grid-cols-12 space-y-4">
@@ -224,12 +216,10 @@ export default function HomeItinerario({
             </div>
           </div>
         </div>
-        
-        {!checked
-        ?<label className="flex flex-row-reverse justify-start items-center my-4 h-8 group">
+        <div className="flex justify-end items-center my-4 h-8 gap-3 animate-fade-in">
+        <label className="flex flex-row-reverse justify-start items-center my-4 h-8 group">
           <input
             type="checkbox"
-            onChange={handleCheckboxChange}
             required
             className="form-checkbox cursor-pointer dark:group-hover:border-white group-hover:border-black duration-200"
           />
@@ -237,14 +227,14 @@ export default function HomeItinerario({
             {t("reservation.over25")}
           </span>
         </label>
-        :<div className="flex justify-end my-4 h-8 gap-3 animate-fade-in">
+        
           <button
             type="submit"
             className="btn bg-red-700 text-gray-100 hover:bg-red-800 dark:bg-gray-100 dark:text-gray-800 dark:hover:bg-red-800 dark:hover:text-white ml-3 whitespace-nowrap duration-200"
           >
             {t("reservation.bContinue")}
           </button>
-        </div>}
+        </div>
       </form>
     </div>
   );
