@@ -158,7 +158,7 @@
       "lastName": "Last name",
       "installments": "Number of installments",
       "installment1": "installment of",
-      "installment2": "installments of",
+      "installment2": "simple installments of",
       "state": "State",
       "stateChose": "Select a state",
       "city": "City",

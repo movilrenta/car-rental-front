@@ -502,17 +502,17 @@ export default function PayForm() {
                         </SelectItem>
                         <SelectItem
                           className="hover:bg-zinc-700 hover:text-white"
-                          value="2"
-                        >
-                          2 {t("form.installment2")} $
-                          {useFormatNumber(totales?.totalCompleto / 2)} ARS
-                        </SelectItem>
-                        <SelectItem
-                          className="hover:bg-zinc-700 hover:text-white"
-                          value="3"
+                          value="13"
                         >
                           3 {t("form.installment2")} $
                           {useFormatNumber(totales?.totalCompleto / 3)} ARS
+                        </SelectItem>
+                        <SelectItem
+                          className="hover:bg-zinc-700 hover:text-white"
+                          value="16"
+                        >
+                          6 {t("form.installment2")} $
+                          {useFormatNumber(totales?.totalCompleto / 6)} ARS
                         </SelectItem>
                       </SelectContent>
                     </Select>

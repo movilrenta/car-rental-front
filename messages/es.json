@@ -158,7 +158,7 @@
       "lastName": "Apellido",
       "installments": "Cantidad de cuotas",
       "installment1": "cuota de",
-      "installment2": "cuotas de",
+      "installment2": "cuotas simples de",
       "state": "Provincia",
       "stateChose": "Seleccione una provincia",
       "city": "Ciudad",

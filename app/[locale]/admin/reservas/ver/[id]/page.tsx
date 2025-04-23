@@ -3,6 +3,7 @@ import { calcularDiasEntreFechas, formatDateComplete } from "@/components/utils/
 import { Aditional } from "@/types";
 import { Branch } from "@/types/car.interface";
 import { redirect } from "next/navigation";
+import DataPayway from "./data-payway";
 
 interface Params {
   params: Promise<{ id: string }>;
@@ -23,6 +24,16 @@ export default async function ReservationByIdPage({ params }: Params) {
     data?.reservation?.payment?.status_details || "{}"
   );
 
+  function getInstallments(cuotas: number) {
+    switch(cuotas){
+      case 13: return 3
+      case 16: return 6
+      default: return cuotas
+      
+    }
+  }
+  const installments = getInstallments(data?.reservation?.payment?.installments)
+  
   return (
     <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-[96rem] mx-auto text-gray-800 dark:text-gray-100">
       <h1 className="text-2xl md:text-3xl font-bold">
@@ -32,6 +43,7 @@ export default async function ReservationByIdPage({ params }: Params) {
       <h4 className="font-semibold">
         Código: {data?.reservation?.code}
       </h4>
+      <DataPayway siteOperationId={data?.reservation?.code}/>
       <div className="flex flex-col items-start gap-4 mt-2">
         <h2 className="text-lg md:text-xl font-semibold">Datos:</h2>
         <hr className="w-full h-[1px] border-none bg-gray-700 dark:bg-gray-100" />
@@ -229,7 +241,7 @@ export default async function ReservationByIdPage({ params }: Params) {
             <li>
               <div className="flex items-center gap-x-2">
                 <span className="w-[6px] h-[6px] rounded-full bg-red-500"></span>
-                <p>Cuotas: {data?.reservation?.payment?.installments}</p>
+                <p>Cuotas: {installments}</p>
               </div>
             </li>
             <li>

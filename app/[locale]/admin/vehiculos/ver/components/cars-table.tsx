@@ -30,12 +30,14 @@ export const CarsTable = ({
   //console.log(Cars, "v");
   // Agrupar los autos por nombre
   const groupedCars = newCars.reduce((acc, car) => {
-    if (!acc[car.name]) {
-      acc[car.name] = [];
+    const key = `${car.name}-${car.group_id}`; // Clave compuesta por nombre y grupo
+    if (!acc[key]) {
+      acc[key] = [];
     }
-    acc[car.name].push(car);
+    acc[key].push(car);
     return acc;
   }, {} as Record<string, any[]>);
+  
 
   const toggleExpand = (name: string) => {
     setExpandedGroups((prev) => ({ ...prev, [name]: !prev[name] }));
