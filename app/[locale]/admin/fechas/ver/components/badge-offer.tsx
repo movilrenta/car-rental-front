@@ -52,7 +52,7 @@ export default function BadgeOffer({
     <Badge
       variant={variant === "special" ? "outline" : variant}
       className={cn(
-        "font-medium text-xs text-white px-2.5 py-1 rounded-full",
+        " text-xs text-white px-2 py-1 rounded-full text-nowrap",
         variant === "special" && "bg-red-500",
         className
       )}
