@@ -119,7 +119,7 @@ export default function EnviarReciboPorEmail() {
 
   return (
     <div className="max-w-7xl mx-auto h-screen flex flex-col gap-4 p-4">
-      <Button onClick={handleEnviar} disabled={enviando} variant="outline">
+      {/* <Button onClick={handleEnviar} disabled={enviando} variant="outline">
         {enviando ? 'Enviando...' : 'Enviar Recibo por Email'}
       </Button>
       <Button onClick={handleVerPDF} variant="secondary">
@@ -127,7 +127,7 @@ export default function EnviarReciboPorEmail() {
       </Button>
       <Button onClick={handleDescargarPDF} variant="default">
         Descargar PDF
-      </Button>
+      </Button> */}
     </div>
   );
 }
