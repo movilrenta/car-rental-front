@@ -6,8 +6,9 @@ import { FaUser } from "react-icons/fa";
 import { GiCarDoor, GiGasPump } from "react-icons/gi";
 import { TbManualGearbox } from "react-icons/tb";
 import { useFormatNumber } from "../utils/useFormatterNumber";
-import BadgeOffer from "@/app/admin/fechas/ver/components/badge-offer";
+import BadgeOffer from "@/app/[locale]/admin/fechas/ver/components/badge-offer";
 import { Tag } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export default function CardCar({
   car,
@@ -16,6 +17,7 @@ export default function CardCar({
   car: VehicleType;
   extra: number;
 }) {
+  const t = useTranslations("BookingPage.pickCar.cards")
   const addReservaCar = useReservaAutoStore((state) => state.addReservaAuto);
   const removeCar = useReservaAutoStore((state) => state.removeReservaAuto);
   const pickedCar = useReservaAutoStore((state) => state.getReservaAuto());
@@ -27,13 +29,24 @@ export default function CardCar({
     <div className="col-span-full sm:col-span-6 group border border-transparent hover:border-zinc-500 dark:hover:border-zinc-700 hover:bg-black/10 duration-200 xl:col-span-3 bg-white dark:bg-gray-800 shadow-sm rounded-xl overflow-hidden">
       <div className="flex flex-col h-full">
         {/* Image */}
+        <div className="w-full h-full max-h-[40%]">
+
         <Image
-          className="w-full object-cover duration-200 h-3/4"
+          className="w-full h-full object-cover duration-200"
           src={car?.image}
           width={286}
           height={160}
           alt={car?.name}
-        />
+          />
+          {extra < 1 && extra !== 0 && (
+                  <BadgeOffer
+                    variant="special"
+                    className="absolute top-0 right-0 z-10 -mt-2 flex justify-center items-center flex-nowrap"
+                    text={`${(extra * 100 - 100) * -1}% off`}
+                    icon={<Tag className="h-3.5 w-3.5" />}
+                  />
+                )}    
+          </div>
         {/* Card Content */}
         <div className="grow flex flex-col p-5">
           {/* Card body */}
@@ -44,7 +57,7 @@ export default function CardCar({
                 {car?.brand?.name} {car?.name}
               </h3>
               <h5 className="text-sm line-clamp-1">
-                o similar <strong>Grupo {car?.group?.name}</strong>
+                {t("similar")} <strong>{t("group")} {car?.group?.name}</strong>
               </h5>
             </header>
             {/* Rating and price */}
@@ -116,20 +129,20 @@ export default function CardCar({
                 </div>
               </div> */}
               {/* Price */}
-              <div className="flex items-center gap-2">
-                {extra < 1 && extra !== 0 && (
-                  <BadgeOffer
-                    variant="special"
-                    text={`${extra * 100 - 100}% off`}
-                    icon={<Tag className="h-3.5 w-3.5" />}
-                  />
-                )}
-
-                <div className="inline-flex text-sm font-medium bg-green-500/20 text-green-700 rounded-full text-center px-2 py-0.5">
-                  $ {useFormatNumber(+car?.group?.rate * extra)}
+              <div className="relative flex items-center justify-end gap-2 w-full"> 
+                <div className="flex flex-col">
+                
+                  <div className="text-xs start">{t("rate")}</div>     
+                </div>
+                <div className="relative flex flex-col text-sm font-medium">
+                {extra < 1 && <div className="absolute -top-6 left-0 line-through text-nowrap flex flex-nowrap text-sm font-medium ">
+                  $ {useFormatNumber(+car?.group?.rate)}
+                </div>}
+                  <span className="text-nowrap  inline-flex text-sm font-medium bg-green-500/20 text-green-700 rounded-full text-center px-2 py-0.5">$ {useFormatNumber(+car?.group?.rate * extra)}</span>
+                  
                 </div>
               </div>
-              <div className="text-xs text-end w-full">Tarifa base: 1 día</div>
+              
             </div>
             {/* Features list */}
             <ul className="grid grid-cols-2 gap-y-3 text-nowrap mb-5 dark:text-gray-300">
@@ -142,13 +155,13 @@ export default function CardCar({
               <li className="flex gap-2 items-center w-full overflow-clip text-ellipsis">
                 <BsLuggageFill className="w-4 h-4 min-h-4 min-w-4" />
                 <span className="text-nowrap text-ellipsis overflow-clip">
-                  {car?.luggage} Maleta(s)
+                  {car?.luggage} {t("luggage")}
                 </span>
               </li>
               <li className="flex gap-2 items-center w-full overflow-clip text-ellipsis">
                 <GiCarDoor className="w-4 h-4 min-h-4 min-w-4" />
                 <span className="text-nowrap text-ellipsis overflow-clip">
-                  {car?.doors} Puertas
+                  {car?.doors} {t("doors")}
                 </span>
               </li>
               <li className="flex gap-2 items-center w-full overflow-clip text-ellipsis">
@@ -160,7 +173,7 @@ export default function CardCar({
               <li className="flex gap-2 items-center w-full overflow-clip text-ellipsis">
                 <FaUser className="w-4 h-4 min-h-4 min-w-4" />
                 <span className="text-nowrap text-ellipsis overflow-clip">
-                  {car?.seats} Plazas
+                  {car?.seats} {t("seats")}
                 </span>
               </li>
             </ul>
@@ -171,7 +184,7 @@ export default function CardCar({
               onClick={() => handleCar(car)}
               className="btn-sm w-full bg-red-700 hover:bg-red-900 text-gray-100 duration-200 cursor-pointer"
             >
-              {pickedCar?.id === car.id ? "Elegir otro" : "Elegir Vehículo"}
+              {pickedCar?.id === car.id ? t("unPick") : t("pick")}
             </div>
           </div>
         </div>

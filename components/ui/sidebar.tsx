@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { useAppProvider } from '@/app/app-provider'
+import { useAppProvider } from '@/app/[locale]/app-provider'
 import { useSelectedLayoutSegments } from 'next/navigation'
 import { Transition } from '@headlessui/react'
 import { getBreakpoint } from '../utils/utils'

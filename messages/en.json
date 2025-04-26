@@ -1,0 +1,650 @@
+{
+  "Metadata": {
+    "fleetTitle": "Vehicle Fleet",
+    "bookingTitle" : "Bookings"
+  },
+  "HomePage": {
+    "meta": {
+      "title" : "Rent a car",
+      "description" : "Welcome to Movil Renta, the best car rental service."
+    },
+    "reservation": {
+      "title": "Make a booking",
+      "start": "Pick up location",
+      "locPickup": "Select pickup location",
+      "end": "Return location",
+      "locReturn": "Select delivery location",
+      "schedule": "schedule",
+      "over25": "I am over 25 years old",
+      "bContinue": "Continue"
+    },
+    "title": "Hello",
+    "description": "Greetings from the home page",
+    "carTypes": {
+      "car": "Cars",
+      "utility": "Utilities",
+      "van": "Vans"
+    },
+    "quality": {
+      "title": "Quality of service",
+      "subtitle": "Our experience of more than 50 years allows us to be the most important car rental agency in the region, offering a service of international level."
+    },
+    "usefulInfo": {
+      "experience": {
+        "title": "Experience",
+        "description": "Personalized attention, punctuality, safety, and reliability."
+      },
+      "ownFleet": {
+        "title": "Own Fleet",
+        "description": "More than 350 modern units, immediate availability."
+      },
+      "insurance": {
+        "title": "Insurance",
+        "description": "We are backed by Federación Patronal Seguros for your complete peace of mind."
+      },
+      "maintenance": {
+        "title": "Maintenance",
+        "description": "Handled by us, with scheduled preventive services."
+      }
+    },
+    "Business": {
+      "title": "Solutions for Companies",
+      "description": "Take advantage of our operational leasing or long-term vehicle renting options.",
+      "li_1": "Profitability",
+      "li_2": "Significant tax benefits",
+      "li_3": "Forget about maintenance and taxes",
+      "li_4": "Constant fleet renewal",
+      "button": "More information for companies and corporate rentals",
+      "frame_1": "+350",
+      "frame_1B": " latest model units",
+      "frame_2": "Coverage",
+      "frame_2B": " throughout the region",
+      "frame_3": "Renewal",
+      "frame_3B": " on a regular basis",
+      "frame_4": "Tax",
+      "frame_4B": " benefits"
+    }
+  },
+  "FleetPage": {
+    "banner": "Vehicle Fleet",
+    "title" : "We have the largest and most modern fleet in Northern Argentina. With over 350 latest-model vehicles, we offer immediate availability.",
+    "filter": {
+      "car": "Cars",
+      "utility": "Utilities",
+      "van": "Vans"
+    },
+    "cards": {
+      "luggage": "Luggage",
+      "doors": "Doors",
+      "seats": "Seats",
+      "similar": "or similar",
+      "group": "Group"
+    }
+  },
+  "BookingPage": {
+    "banner": "Your Booking",
+    "itinerary": {
+      "loading": "Fetching itinerary data...",
+      "preTitle": "Your",
+      "title": "Itinerary",
+      "day": "Day",
+      "days": "Days",
+      "choose": "Choose",
+      "pickUp": "Pick-up",
+      "selectPickUpPlace": "Select pick-up location",
+      "selectPickUpHour": "Select pick-up time",
+      "drop": "Drop-off",
+      "selectDropPlace": "Select drop-off location",
+      "selectDropHour": "Select drop-off time",
+      "extraDates": "Rates may vary depending on the selected date.",
+      "dropoff": "The selected city has an extra charge (Drop Off).",
+      "startHourDropoff": "The pick-up time has an extra charge as it is outside our office hours.",
+      "endHourDropoff": "The drop-off time has an extra charge as it is outside our office hours."
+    },
+    "pickCar": {
+      "btnSearch": "Search available vehicles",
+      "loading": "Updating fleet...",
+      "preTitle": "Select your",
+      "title": "vehicle",
+      "errorDates": "Please check the booking dates",
+      "dontFind": "Didn't find what you were looking for?",
+      "dontFindDescription": "Don't worry! Contact us so we can help you with your next booking.",
+      "talkAdviser": "Talk to an advisor",
+      "cards": {
+        "rate": "Base rate: 1 day",
+        "luggage": "Luggage",
+        "doors": "Doors",
+        "seats": "Seats",
+        "similar": "or similar",
+        "group": "Group",
+        "pick": "Select vehicle",
+        "unPick": "Choose another"
+      }
+    },
+    "pickAdditionals": {
+      "loading": "Fetching additional data...",
+      "preTitle": "Accessories",
+      "title": "Optional"
+    },
+    "confirm": {
+      "btn": "Continue"
+    }
+  },
+  "PaymentsPage": {
+    "meta": {
+      "title": "Payments",
+      "description": "Payment page"
+    },
+    "banner": "Make the payment",
+    "loading": "Fetching booking data...",
+    "subtitle": "Please complete the following fields with the details of the",
+    "subtitle1": "cardholder",
+    "subtitle2": " in the payment form to complete your booking",
+    "resume": "Summary",
+    "vehicle": "Vehicle",
+    "additional": "Additionals",
+    "dropoff": "Dropoff",
+    "form": {
+      "payMethod": "Select a payment method",
+      "pickCard": "Select your card",
+      "cardNumber": "Card number",
+      "cardMonth": "Month",
+      "cardYear": "Year",
+      "cardYearPlaceholder": "YY",
+      "documentType": "Document type",
+      "birthday": "Date of birth",
+      "birthdayFormat": "DD/MM/YYYY",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "installments": "Number of installments",
+      "installment1": "installment of",
+      "installment2": "simple installments of",
+      "state": "State",
+      "stateChose": "Select a state",
+      "city": "City",
+      "postal": "Postal code",
+      "address": "Address",
+      "addressNumber": "Street number",
+      "pay": "Pay with",
+      "confirmedLegend": "Once the payment is approved, your booking will be confirmed and an email with the booking code will be sent to you",
+      "validations": {
+        "cardMin": "The card must have at least 15 digits",
+        "cardMax": "The card must not have more than 18 digits",
+        "cardMonth": "2 digits",
+        "cardMonthTo": "01 to 12",
+        "cardYear": "Please verify",
+        "securityCode": "3 to 4 digits",
+        "birthday": "Invalid date",
+        "birthdayPlaceholder": "Format DD/MM/YYYY",
+        "cardHolderDoorNumber": "The door number is too long",
+        "cardHolderIdentificationMin": "Minimum of 7 digits",
+        "cardHolderIdentificationMax": "Too long",
+        "paymentMethod": "You must select a payment method",
+        "state": "You must select a province",
+        "city": "You must select a city",
+        "firstNameMin": "First name is required",
+        "firstNameMax": "Too long",
+        "lastNameMin": "Last name is required",
+        "lastNameMax": "Too long",
+        "postalCodeMin": "Postal code is required",
+        "postalCodeMax": "Too long",
+        "addressMin": "Address is required",
+        "addressMax": "Too long"
+      }
+    }
+  },
+  "ReservaPage": {
+    "ConfirmarPage": {
+      "meta": {
+        "title": "Reservation confirmation"
+      },
+      "bannerTitle": "Your reservation",
+      "subtitleCheck": {
+        "title": "Review and",
+        "span": "confirm your reservation"
+      },
+      "listItems": {
+        "loader": "Retrieving your reservation data...",
+        "itinerary": {
+          "title": "Itinerary",
+          "days": "Days",
+          "from": "From",
+          "to": "To"
+        },
+        "car": {
+          "title": "Vehicle",
+          "group": "Group",
+          "insurance": {
+            "span1": "- Insurance: For damages or missing items ARS $",
+            "span2": "for rollovers or theft ARS $"
+          }
+        },
+        "dropOff": {
+          "title": "Additional",
+          "description": "Additional charge for pickup and/or drop-off outside Tucumán."
+        },
+        "accessories": {
+          "title": "Accessories"
+        },
+        "total": {
+          "estimatedRates": "- Estimated rates without and subject to change without prior notice.",
+          "taxes": "- VAT 21% and insurance with deductible included."
+        }
+      },
+      "subtitleForm": {
+        "title": "Driver",
+        "span": "information",
+        "mandatory": "* Mandatory fields"
+      },
+      "formConfirm": {
+        "selectors": {
+          "DNI": "DNI",
+          "Passport": "Passport"
+        },
+        "labels": {
+          "name": "First name *",
+          "lastname": "Last name *",
+          "typeDoc": "Document type *",
+          "numberDoc": "ID / Passport number *",
+          "email": "Email *",
+          "phone": "Phone number *",
+          "numberLic": "License number *",
+          "expLic": "License expiration date *",
+          "address": "Address *",
+          "city": "City *",
+          "flightNum": "Flight number",
+          "comments": "Comments",
+          "over25": "I am over 25 years old *",
+          "acceptTerms": "I accept the terms and conditions *"
+        },
+        "validations": {
+          "firstName": {
+            "min": "First name is required",
+            "max": "First name is too long"
+          },
+          "lastName": {
+            "min": "Last name must be at least 2 characters",
+            "max": "No more than 25 characters allowed"
+          },
+          "email": "Email is required",
+          "phone": "Phone number is required and must be at least 10 characters",
+          "document_number": "This field is required",
+          "license_number": "This field is required",
+          "license_expiration_date": "Expiration date must be later than the current date",
+          "drivers_address": "This field is required",
+          "drivers_city": "This field is required",
+          "observation": "No more than 200 characters allowed"
+        },
+        "buttons": {
+          "terms": "View terms and conditions",
+          "bBack": "Go back and edit",
+          "bConfirm": "Confirm your details",
+          "bCheck": "Complete your details",
+          "bPrevConfirm": "Confirm your details",
+          "bCancel": "Cancel",
+          "bConfirmDialog": "Confirm"
+        },
+        "dialogConfirm": {
+          "title": "Personal Data",
+          "name": "Name",
+          "email": "Email",
+          "phone": "Phone",
+          "numberLic": "License Number",
+          "expLic": "License expiration",
+          "address": "Address",
+          "city": "City",
+          "flightNum": "Flight Number",
+          "comments": "Comments"
+        }
+      }
+    }
+  },
+  "EmpresaPage": {
+    "meta": {
+      "title": "Corporate vehicle leasing solutions",
+      "description": "Optimize your fleet management with Movil Renta’s operational leasing system. Tailored solutions, tax benefits, and specialized service for companies across the country."
+    },
+    "bannerTitle": "Companies",
+    "title": "Operational leasing or long-term rental of vehicles and utility vehicles",
+    "subtitle": "A system that will allow your company to obtain tax, financial, cost, and service level advantages.",
+    "description": "We are the first car rental company created for businesses and formed by people who understand their specific needs. If you are thinking about renewing your fleet, entering into a temporary work contract, participating in a bidding process, forming a joint venture for a project, etc., feel free to contact us.",
+    "imageAlt": "Man inside a car",
+    "benefits": [
+      {
+        "title": "Advantages and benefits",
+        "subItems": [
+          {
+            "title": "Better capital utilization, avoiding immobilization or freeing up credit capacity."
+          },
+          {
+            "title": "Offers significant tax benefits: monthly tax credit for the lease payment, reductions in assets, liabilities, and income tax payments."
+          },
+          {
+            "title": "Forget about paying: Registration, Insurance, Transfers, Maintenance, and Taxes."
+          },
+          {
+            "title": "Provides a fixed budget, avoiding confusing and scattered accounting expenses."
+          },
+          {
+            "title": "Simplifies cost calculations by eliminating unforeseen expenses: Backup fleet, etc."
+          },
+          {
+            "title": "No need for your own or third-party maintenance infrastructure."
+          },
+          {
+            "title": "Eliminates the need for administrative staff for fleet management."
+          },
+          {
+            "title": "No immobilized vehicles or the need to cover temporary demands."
+          },
+          {
+            "title": "Always have a fleet less than 12 months old, in line with your company’s image."
+          },
+          {
+            "title": "Immediate replacement of vehicles due to service, breakdowns, or accidents. Assistance available in major cities across the country through a network of rental agencies."
+          }
+        ]
+      }
+    ],
+    "form": {
+      "title": "Request a quote",
+      "subtitle": "Complete the following form to get a tailored solution based on your company’s specific needs."
+    }
+  },
+  "NosotrosPage": {
+    "meta": {
+      "title": "About Us",
+      "description": "Learn about Movil Renta’s history, values, and mission. Providing mobility solutions to businesses nationwide since 1971, with quality, commitment, and personalized service."
+    },
+    "bannerTitle": "About Us",
+    "title": "Our mission is to provide a satisfactory rental experience to our clients, offering convenient services for their needs.",
+    "subtitle": "We started our activity in the industry back in 1971, positioning ourselves among the pioneers at the national level. Our experience has allowed us to understand our clients' needs and deliver a service with superior safety and quality.",
+    "description": "When we talk about levels of safety and quality, we refer to:",
+    "listDescription": [
+      {
+        "title": "Service:",
+        "content": "Specialized attention from our staff, immediate vehicle replacement in case of damage or service needs. We offer NACIÓN SEGUROS 24/7 mechanical emergency service."
+      },
+      {
+        "title": "Maintenance:",
+        "content": "Handled by us, with scheduled preventive services."
+      },
+      {
+        "title": "Insurance:",
+        "content": "Contracted through Nación Seguros insurance company."
+      },
+      {
+        "title": "Documentation:",
+        "content": "We deliver vehicles with all necessary documents in order, avoiding potential delays at road checkpoints."
+      }
+    ],
+    "principales": [
+      {
+        "title": "Integrity",
+        "listItem": [
+          {
+            "item": "Respect for others:",
+            "content": "We will treat everyone we work with respectfully and kindly."
+          },
+          {
+            "item": "Responsibility:",
+            "content": "We will fulfill all our commitments with our clients and employees."
+          },
+          {
+            "item": "Honesty:",
+            "content": "We will communicate openly and honestly to earn the trust of our clients."
+          }
+        ]
+      },
+      {
+        "title": "Teamwork",
+        "listItem": [
+          {
+            "item": "Fellowship and Solidarity:",
+            "content": "We will maintain a work environment based on fellowship and solidarity."
+          },
+          {
+            "item": "Respect and Trust:",
+            "content": "We will communicate with respect and trust to work effectively."
+          }
+        ]
+      },
+      {
+        "title": "Quality",
+        "listItem": [
+          {
+            "item": "Effort and perseverance:",
+            "content": "We constantly strive to give our best so that our clients enjoy their experience with us."
+          },
+          {
+            "item": "Experience:",
+            "content": "We are committed to providing effective and convenient service, as we have extensive experience in the field."
+          },
+          {
+            "item": "Service efficiency:",
+            "content": "Easy, fast, safe, and affordable (best price guaranteed)."
+          },
+          {
+            "item": "Growth and innovation:",
+            "content": "We are committed to maintaining our vehicle fleet. We constantly renew it to always have new cars available for our clients. We also continuously train and motivate our team so they can grow and achieve their professional and personal goals."
+          }
+        ]
+      }
+    ]
+  },
+  "ContactoPage": {
+    "meta": {
+      "title": "Contact Us",
+      "description": "Get in touch with Movil Renta for personalized assistance. Find out about our services, business hours, and direct contact lines."
+    },
+    "bannerTitle": "Contact",
+    "contactText": [
+      {
+        "icon": "location",
+        "title": "Address:",
+        "content": "San Lorenzo 370, S.M. de Tucumán, Tucumán (T4000CAJ), Argentina."
+      },
+      {
+        "icon": "clock",
+        "title": "Business hours:",
+        "content": "Monday to Friday from 8:00 AM to 8:00 PM / Saturday from 9:00 AM to 12:00 PM and 5:00 PM to 7:00 PM."
+      },
+      {
+        "icon": "headphones",
+        "title": "Toll-free line:",
+        "content": "0800 777 7368"
+      },
+      {
+        "icon": "phone",
+        "title": "Customer service:",
+        "content": "+54 9 381 4310550"
+      },
+      {
+        "icon": "garage",
+        "title": "24-hour mechanical emergency service:",
+        "content": "+54 9 381 3648505"
+      }
+    ],
+    "form": {
+      "title": "We look forward to hearing from you",
+      "subtitle": "Please fill out the form below to receive a custom quote tailored to your company's specific needs.",
+      "labels": {
+        "name": "Full Name",
+        "email": "Email",
+        "phone": "Phone",
+        "company": "Company",
+        "description": "Describe your needs"
+      },
+      "placeholders": {
+        "company": "Company Inc.",
+        "description": "Describe your needs"
+      },
+      "validations": {
+        "name": {
+          "min": "Name is required",
+          "max": "Name cannot exceed 40 characters"
+        },
+        "email": {
+          "min": "Email is required",
+          "max": "Email cannot exceed 60 characters"
+        },
+        "phone": {
+          "min": "Phone number must be at least 10 digits",
+          "max": "Phone number cannot exceed 21 digits"
+        },
+        "company": {
+          "min": "This field is required",
+          "max": "This field cannot exceed 40 characters"
+        },
+        "description": {
+          "min": "Description is too short",
+          "max": "Description is too long"
+        }
+      },
+      "buttons": {
+        "bConfirm": "Submit inquiry",
+        "bSending": "Sending inquiry..."
+      }
+    }
+  },
+  "AyudaPage": {
+    "terminosYCondiciones": {
+      "meta": {
+        "title": "Terms and Conditions",
+        "description": "Please read the terms and conditions carefully before hiring our vehicle rental services."
+      },
+      "bannerTitle": "Terms and Conditions",
+      "termsAndConditions": [
+        {
+          "title": "Covered by Movil Renta:",
+          "subItems": [
+            { "title": "Maintenance" },
+            {
+              "title": "Vehicle replacement in case of breakdown or accident:",
+              "subItems": [
+                { "title": "Immediate replacement at our office" },
+                { "title": "Within 24 hours outside our office" },
+                {
+                  "title": "Replacement vehicles may have the same or similar characteristics as the originally rented one."
+                }
+              ]
+            },
+            {
+              "title": "Civil liability insurance for transported and/or non-transported third parties, property and/or persons up to ARS $80,000,000."
+            },
+            {
+              "title": "24-hour mechanical, health assistance, and towing service."
+            }
+          ]
+        },
+        {
+          "title": "Customer responsibilities:",
+          "subItems": [
+            { "title": "Fuel" },
+            { "title": "Traffic fines" },
+            { "title": "Overages" },
+            { "title": "Tolls" },
+            { "title": "Drop-off charges" },
+            {
+              "title": "Franchise fees for shortages, damages, theft and/or rollover of the vehicle."
+            }
+          ]
+        },
+        {
+          "title": "Franchise reduction:",
+          "content": "The customer may reduce their franchise responsibility by paying an additional insurance fee. To reduce the franchise for monthly rentals, the customer must pay the equivalent of 18 days of additional insurance according to the assigned vehicle category. The customer is solely responsible for any damage caused by misuse, negligence, or failure to observe the vehicle’s preventive mechanisms (audible or light signals), river crossings, and/or driving on dirt, gravel, sand, or other unpaved roads, even if the cost exceeds the franchise. Movil Renta is exempt from any responsibility for delays, losses, costs, or vehicle replacement due to these causes. This coverage includes any damage or infringement caused by anyone using the vehicle during the rental period."
+        },
+        {
+          "title": "Driver requirements:",
+          "subItems": [
+            {
+              "title": "Drivers must be over 25 years old, have a valid driver’s license and up-to-date identification."
+            },
+            {
+              "title": "To pick up a vehicle, a credit card must be presented (Visa, American Express, Diners, Mastercard, etc.)."
+            }
+          ]
+        },
+        {
+          "title": "Fuel shortage:",
+          "content": "Movil Renta will charge a service fee if the vehicle is not returned with the same amount of fuel as delivered."
+        },
+        {
+          "title": "Vehicle return:",
+          "content": "The customer assumes responsibility for the content and charges detailed in the return document when the vehicle is returned outside of business hours, or during business hours without waiting for that document and vehicle inspection."
+        },
+        {
+          "title": "Confirmed reservation cancellation notice:",
+          "content": "If the customer needs to cancel a confirmed reservation, it is important to notify Movil Renta as far in advance as possible."
+        },
+        {
+          "title": "Airport fee:",
+          "content": "Rentals taken at airports will NOT have an additional airport fee."
+        }
+      ]
+    },
+    "consejosDeSeguridad": {
+      "meta": {
+        "title": "Safety Tips",
+        "description": "Essential recommendations for responsible and safe driving during vehicle use."
+      },
+      "bannerTitle": "Help",
+      "items": [
+        {
+          "title": "Safety Tips",
+          "subItems": [
+            {
+              "title": "Before setting off, adjust the driver’s seat and rear-view mirrors to achieve the ideal driving position."
+            },
+            {
+              "title": "All vehicle occupants must wear seat belts."
+            },
+            {
+              "title": "Children under 10 years old must be seated in the rear seats with seat belts fastened."
+            },
+            {
+              "title": "Children over 1 year old, until their weight and height allow otherwise, must use child safety seats. Always in the rear seat."
+            },
+            {
+              "title": "Children under 1 year must be placed in rear-facing child safety seats, in the back seat of the vehicle."
+            },
+            {
+              "title": "DO NOT use a cell phone while driving."
+            },
+            {
+              "title": "Signal all maneuvers using turn signals."
+            },
+            {
+              "title": "Keep to the right lane."
+            },
+            {
+              "title": "Observe and respect road signs."
+            },
+            {
+              "title": "Do not drive after consuming alcohol. Even one glass or a beer is enough to impair reaction time, perception, and create a false sense of security. Remember that Tucumán has adopted Law No. 6.082 of 'zero' tolerance."
+            },
+            {
+              "title": "Respect speed limits. Excessive speed, especially combined with alcohol consumption, is a factor in most serious accidents, even if seat belts are properly used. It's important to moderate your speed."
+            },
+            {
+              "title": "Gradually reduce speed when visibility decreases due to fog or smoke."
+            },
+            {
+              "title": "Use the vehicle’s hazard lights only when stopping or during roadside stops. Do not stop abruptly on the road or shoulder."
+            },
+            {
+              "title": "Distractions while driving are another major cause of accidents. At a speed of 80 km/h, a 2-second distraction means driving 44.4 meters without paying attention to the road, during which anything can happen."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "GraciasPage": {
+    "meta": {
+      "title": "Thank you for choosing us"
+    },
+    "title": "Booking successfully completed",
+    "subtitle": "Thank you for choosing us. We’ve sent your booking code to the email address you provided."
+  }
+}
