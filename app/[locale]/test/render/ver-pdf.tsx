@@ -1,24 +1,24 @@
-"use client";
+// "use client";
 
-import dynamic from "next/dynamic";
-import { ReciboPDF } from "./PDF";
-import { numeroATextoCompleto } from "../util";
+// import dynamic from "next/dynamic";
+// import { ReciboPDF } from "./PDF";
+// import { numeroATextoCompleto } from "../util";
 
-const PDFViewer = dynamic(
-  async () => {
-    const mod = await import("@react-pdf/renderer");
-    return mod.PDFViewer;
-  },
-  { ssr: false } // Importante para que lo cargue sólo en cliente
-);
+// const PDFViewer = dynamic(
+//   async () => {
+//     const mod = await import("@react-pdf/renderer");
+//     return mod.PDFViewer;
+//   },
+//   { ssr: false } // Importante para que lo cargue sólo en cliente
+// );
 
-export default function PreviewPDF() {
-  return (
-    <PDFViewer width="100%" height="100vh">
-      <ReciboPDF importeImputado="415000" montoTexto={numeroATextoCompleto(415000)} />
-    </PDFViewer>
-  );
-}
+// export default function PreviewPDF() {
+//   return (
+//     <PDFViewer width="100%" height="100vh">
+//       <ReciboPDF importeImputado="415000" montoTexto={numeroATextoCompleto(415000)} />
+//     </PDFViewer>
+//   );
+// }
 
 
 
