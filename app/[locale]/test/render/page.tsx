@@ -1,4 +1,3 @@
-'use client'
 import PreviewPDF from "./ver-pdf";
 
 export default function Page() {
