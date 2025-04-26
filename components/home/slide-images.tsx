@@ -31,6 +31,7 @@ export const SlideImages = ({ images, className }: Props) => {
               alt={image.name}
               width={920}
               height={550}
+              priority={true}
               className="h-auto w-full object-fill"
             />
             <div className="absolute inset-0 text-3xl sm:text-5xl px-6 pb-6 h-full flex flex-col justify-end bg-gradient-to-tr from-black/60 to-transparent text-gray-100 dark:text-gray-100">

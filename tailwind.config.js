@@ -112,6 +112,8 @@ module.exports = {
       animation: {
         'fade-in': 'fade-in 0.2s ease-in-out',
         'fade-out': 'fade-out 0.2s ease-in-out',
+        'growth-button': 'growth-button 2s linear infinite',
+        'ring': 'ring 1s linear infinite',
       },
       keyframes: {
         'fade-in': {
@@ -122,6 +124,18 @@ module.exports = {
           '0%': { opacity: '1' },
           '100%': { opacity: '0' },
         },
+        'growth-button': {
+          '0%' : {scale: '1', opacity: '1'},
+          '80%' : {scale: '1.5', opacity: '0'},
+          '100%' : {scale: '1.5', opacity: '0'}
+        },
+        'ring': {
+          '0%': { transform: 'rotate(0deg)' },
+          '25%': { transform: 'rotate(10deg)' },
+          '50%': { transform: 'rotate(0deg)' },
+          '75%': { transform: 'rotate(-10deg)' },
+          '100%': { transform: 'rotate(0deg)' }
+        }
       },
       screens: {
         xs: '480px',

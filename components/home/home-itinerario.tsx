@@ -24,10 +24,6 @@ export default function HomeItinerario({
   const nuevoItinerario = useItinerarioStore((state) => state.addItinerario);
   const [dias, setDias] = useState<number>(0);
   const [isClient, setIsClient] = useState(false);
-  const [checked, setChecked] = useState(false);
-  const [hideCheckbox, setHideCheckbox] = useState(false);
-
- 
 
   useEffect(() => {
     setIsClient(true);
@@ -45,10 +41,6 @@ export default function HomeItinerario({
     }
   }, [itinerario]);
 
-  const handleCheckboxChange = () => {
-    setChecked(true);
-    setHideCheckbox(true);
-  };
 
   const handleChange = (field: keyof ItinerarioType, value: any) => {
     itinerario![field] = value;
@@ -81,6 +73,7 @@ export default function HomeItinerario({
 
   return (
     <div className="col-span-12 lg:col-span-5 flex flex-col items-center justify-center px-4 py-6 md:py-4">
+      <h1 className="sr-only">Alquiler de autos | Movil Renta</h1>
       <h2 className="text-3xl text-gray-800 dark:text-gray-100 font-bold mb-2 capitalize">
         {t("reservation.title")}
       </h2>
@@ -116,6 +109,7 @@ export default function HomeItinerario({
             <div className="w-full">
               <select
                 id="city-start"
+                aria-label="city-start"
                 required
                 value={itinerario?.startLocation || ""}
                 onChange={(e) => handleChange("startLocation", e.target.value)}
@@ -138,6 +132,7 @@ export default function HomeItinerario({
                 <select
                   id="hour-start"
                   required
+                  aria-label="hour-start"
                   value={itinerario?.startTime || ""}
                   onChange={(e) => handleChange("startTime", e.target.value)}
                   className="form-select min-w-20 w-full h-12"
@@ -171,6 +166,7 @@ export default function HomeItinerario({
             <div className="w-full">
               <select
                 id="city-back"
+                aria-label="city-back"
                 required
                 value={itinerario?.endLocation || ""}
                 onChange={(e) => handleChange("endLocation", e.target.value)}
@@ -192,6 +188,7 @@ export default function HomeItinerario({
               <div className="flex flex-wrap xxs:flex-nowrap">
                 <select
                   id="hour-back"
+                  aria-label="hour-back"
                   required
                   value={itinerario?.endTime || ""}
                   onChange={(e) => handleChange("endTime", e.target.value)}
@@ -239,59 +236,3 @@ export default function HomeItinerario({
     </div>
   );
 }
-
-/*
-  const handleStartChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    nuevoItinerario({
-      startLocation: event.target.value,
-      endLocation: itinerario?.endLocation || "",
-      startDay: itinerario?.startDay || null,
-      endDay: itinerario?.endDay || null,
-      startTime: itinerario?.startTime || undefined,
-      endTime: itinerario?.endTime || undefined,
-    });
-  };
-
-  const handleEndChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    nuevoItinerario({
-      startLocation: itinerario?.startLocation || "",
-      endLocation: event.target.value,
-      startDay: itinerario?.startDay || null,
-      endDay: itinerario?.endDay || null,
-      startTime: itinerario?.startTime || undefined,
-      endTime: itinerario?.endTime || undefined,
-    });
-  };
-
-  const handleStartTimeChange = (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    nuevoItinerario({
-      startLocation: itinerario?.startLocation || "",
-      endLocation: itinerario?.endLocation || "",
-      startDay: itinerario?.startDay || null,
-      endDay: itinerario?.endDay || null,
-      startTime: event.target.value,
-      endTime: itinerario?.endTime || undefined,
-    });
-  };
-  const handleEndTimeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    //setEndLocation(event.target.value);
-    nuevoItinerario({
-      startLocation: itinerario?.startLocation || "",
-      endLocation: itinerario?.endLocation || "",
-      startDay: itinerario?.startDay || null,
-      endDay: itinerario?.endDay || null,
-      startTime: itinerario?.startTime || undefined,
-      endTime: event.target.value,
-    });
-  };
-
-                  <Datepicker
-                  mode="single"
-                  onDatesChange={handleDatesStart}
-                  defaultStart={itinerario?.startDay! || new Date()}
-                  minDate={itinerario?.startDay! || new Date()}
-                  maxDate={new Date(new Date().getFullYear() + 1, new Date().getMonth(), new Date().getDate())}
-                />
-*/

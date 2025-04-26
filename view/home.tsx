@@ -19,12 +19,12 @@ export const Home = async ({branches, params}:{branches:any, params: {locale: st
           {carTipes.map((item, index) => (
             <Link href={item.link} key={index} className="flex flex-col items-center justify-center gap-6 group w-full md:w-80">
               <div className="w-fit relative">
-                <h4>{t(`carTypes.${item.nameKey}`)}</h4>
+                <div>{t(`carTypes.${item.nameKey}`)}</div>
                 <span className="absolute mx-auto inset-0 border-b-red-700 dark:border-b-red-200 border-b-4 w-0 group-hover:w-full duration-200"></span>
               </div>
               <Image
                 src={item.image}
-                alt={t(`carTypes.${item.nameKey}`)}
+                alt={item?.alt}
                 width={400}
                 height={300}
                 className="w-full min-w-40 md:w-80 group-hover:scale-105 duration-200"
@@ -35,9 +35,9 @@ export const Home = async ({branches, params}:{branches:any, params: {locale: st
       </div>
 
       <div className="mx-2 sm:mx-16">
-        <h4 className="text-center text-3xl sm:text-5xl font-light pt-12 pb-8 font-inter">
+        <div className="text-center text-3xl sm:text-5xl font-light pt-12 pb-8 font-inter">
           {t("quality.title")}
-          </h4>
+          </div>
         <p className="text-center text-lg max-w-[820px] mx-auto">{t("quality.subtitle")}</p>
       </div>
 
@@ -47,7 +47,7 @@ export const Home = async ({branches, params}:{branches:any, params: {locale: st
             <div className="flex lg:flex-col items-center gap-x-4 h-20 md:h-28 lg:h-52 gap-y-4 col-span-4 text-red-700 dark:text-red-200">
               {item.icon}
               <div className='flex flex-col justify-center lg:items-center lg:px-4 lg:gap-y-4'>
-                <h4 className="py-0 uppercase font-semibold text-start lg:text-xl"> {t(`usefulInfo.${item.nameKey}.title`)}</h4>
+                <p className="py-0 uppercase font-semibold text-start lg:text-xl"> {t(`usefulInfo.${item.nameKey}.title`)}</p>
                 <p className="text-sm md:text-base text-start font-light lg:text-center"> {t(`usefulInfo.${item.nameKey}.description`)}</p>
               </div>
             </div>
@@ -64,16 +64,19 @@ export const Home = async ({branches, params}:{branches:any, params: {locale: st
 const carTipes = [
   {
     nameKey: "car", // clave que se usará para traducir
+    alt: "imagen de un auto",
     image: "/images2/cars.webp",
     link: "/flota?filter=car"
   },
   {
     nameKey: "utility",
+    alt: "imagen de un vehiculo utilitario",
     image: "/images2/vans.webp",
     link: "/flota?filter=utility"
   },
   {
     nameKey: "van",
+    alt: "imagen de una camioneta",
     image: "/images2/trucks.webp",
     link: "/flota?filter=van"
   },
