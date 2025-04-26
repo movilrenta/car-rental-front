@@ -86,18 +86,18 @@ const carTipes = [
 const InfoUtil = [
   {
     nameKey: "experience",
-    icon: <GrUserExpert className="text-red-700 w-12 h-12 min-w-12 md:w-16 md:h-16 md:min-w-16"/>
+    icon: <GrUserExpert aria-hidden="true" className="text-red-700 w-12 h-12 min-w-12 md:w-16 md:h-16 md:min-w-16"/>
   },
   {
     nameKey: "ownFleet",
-    icon: <IoCarSportOutline className="text-red-700 w-12 h-12 min-w-12 md:w-16 md:h-16 md:min-w-16"/>
+    icon: <IoCarSportOutline aria-hidden="true" className="text-red-700 w-12 h-12 min-w-12 md:w-16 md:h-16 md:min-w-16"/>
   },
   {
     nameKey: "insurance",
-    icon: <AiOutlineSafety className="text-red-700 w-12 h-12 min-w-12 md:w-16 md:h-16 md:min-w-16"/>
+    icon: <AiOutlineSafety aria-hidden="true" className="text-red-700 w-12 h-12 min-w-12 md:w-16 md:h-16 md:min-w-16"/>
   },
   {
     nameKey: "maintenance",
-    icon: <BiSolidCarMechanic className="text-red-700 w-12 h-12 min-w-12 md:w-16 md:h-16 md:min-w-16"/>
+    icon: <BiSolidCarMechanic aria-hidden="true" className="text-red-700 w-12 h-12 min-w-12 md:w-16 md:h-16 md:min-w-16"/>
   }
 ]
