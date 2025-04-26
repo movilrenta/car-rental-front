@@ -35,7 +35,7 @@ export const NavbarMobile = ({locale}:{locale: string}) => {
 
   return (
     <Sheet open={toggle} onOpenChange={(open) => setToggle(open)}>
-      <SheetTrigger>
+      <SheetTrigger aria-label="boton para abrir menu">
         <FaBars size={25} />
       </SheetTrigger>
       <SheetContent className="flex flex-col justify-between bg-neutral-200">

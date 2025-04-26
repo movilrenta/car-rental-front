@@ -79,7 +79,7 @@ export default async function RootLayout({
     notFound();
   }
   return (
-    <html lang={locale} className={`${inter.variable}`} >{/* suppressHydrationWarning: https://github.com/vercel/next.js/issues/44343 */}
+    <html lang={locale} className={`${inter.variable}`} suppressHydrationWarning>{/* suppressHydrationWarning: https://github.com/vercel/next.js/issues/44343 */}
       <body className="font-inter antialiased bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-400">
         <Theme>
           <AppProvider>

@@ -10,12 +10,13 @@ export default function Footer({ locale }: { locale: string }) {
           key={index}
           className="col-span-4 sm:col-span-2 lg:col-span-1 flex flex-col"
         >
-          <h5 className="py-1 font-semibold text-xl text-red-200">
+          <div className="py-1 font-semibold text-xl text-red-200">
             {item.title}
-          </h5>
+          </div>
           {item.items.map((item, index_item) => (
             <Link
               key={index_item}
+              aria-label={item.label}
               href={item.link as any}
               className="py-1 hover:underline w-fit"
             >
@@ -24,10 +25,10 @@ export default function Footer({ locale }: { locale: string }) {
           ))}
         </div>
       ))}
-      <Link href={"/home"} className="col-span-4 my-12">
+      <Link href={"/home"} aria-label="enlace que redirige al inicio de la pagina" className="col-span-4 my-12">
         <Image
           src={"/images2/brandFoot.webp"}
-          alt="logo"
+          alt="logo de la empresa Movil Renta en gris"
           width={300}
           height={200}
           className="w-auto mx-auto"

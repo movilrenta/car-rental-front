@@ -22,14 +22,15 @@ export const BannerEmpresa = async () => {
         {t("description")}
         </h3>
         <ul className="flex flex-col h-48 lg:h-1/2 justify-evenly">
-          <li className="flex items-center gap-2"><FaLongArrowAltRight/>{t("li_1")}</li>
-          <li className="flex items-center gap-2"><FaLongArrowAltRight/>{t("li_2")}</li>
-          <li className="flex items-center gap-2"><FaLongArrowAltRight/>{t("li_3")}</li>
-          <li className="flex items-center gap-2"><FaLongArrowAltRight/>{t("li_4")}</li>
+          <li className="flex items-center gap-2"><span aria-hidden="true"><FaLongArrowAltRight/></span>{t("li_1")}</li>
+          <li className="flex items-center gap-2"><span aria-hidden="true"><FaLongArrowAltRight/></span>{t("li_2")}</li>
+          <li className="flex items-center gap-2"><span aria-hidden="true"><FaLongArrowAltRight/></span>{t("li_3")}</li>
+          <li className="flex items-center gap-2"><span aria-hidden="true"><FaLongArrowAltRight/></span>{t("li_4")}</li>
         </ul>
         <Link
-          className="btn text-red-800 border border-red-800  hover:bg-red-800 hover:text-slate-50 dark:bg-gray-100 dark:text-gray-800 dark:hover:bg-white whitespace-nowrap"
+          className="btn border border-red-800  hover:bg-red-800 dark:hover:bg-red-800 hover:text-slate-50 dark:bg-transparent whitespace-nowrap text-wrap text-center"
           href="/empresas"
+          aria-label="mas informacion sobre vehiculos de empresas"
         >
           {t("button")}
         </Link>
@@ -39,19 +40,19 @@ export const BannerEmpresa = async () => {
           <div className="bg-red-800 bg-opacity-80 w-full py-6 px-10" >
             <ul className="h-full flex flex-col gap-6 text-sm sm:text-lg lg:text-xl justify-evenly">
               <li className="flex items-center gap-2 text-slate-50">
-                <FaCheck /><span className="font-bold">{t("frame_1")}</span>{t("frame_1B")}
+                <span aria-hidden="true"><FaCheck /></span><span className="font-bold">{t("frame_1")}</span>{t("frame_1B")}
               </li>
-							<hr className="bg-slate-50 w-full" />
+							<hr aria-hidden="true" className="bg-slate-50 w-full" />
               <li className="flex items-center gap-2 text-slate-50">
-                <FaCheck /><span className="font-bold">{t("frame_2")}</span>{t("frame_2B")}
+                <span aria-hidden="true"><FaCheck /></span><span className="font-bold">{t("frame_2")}</span>{t("frame_2B")}
               </li>
-							<hr className="bg-slate-50 w-full" />
+							<hr aria-hidden="true" className="bg-slate-50 w-full" />
               <li className="flex items-center gap-2 text-slate-50">
-                <FaCheck /><span className="font-bold">{t("frame_3")}</span>{t("frame_3B")}
+                <span aria-hidden="true"><FaCheck /></span><span className="font-bold">{t("frame_3")}</span>{t("frame_3B")}
               </li>
-							<hr className="bg-slate-50 w-full" />
+							<hr aria-hidden="true" className="bg-slate-50 w-full" />
               <li className="flex items-center gap-2 text-slate-50">
-                <FaCheck /><span className="font-bold">{t("frame_4")}</span>{t("frame_4B")}
+                <span aria-hidden="true"><FaCheck /></span><span className="font-bold">{t("frame_4")}</span>{t("frame_4B")}
               </li>
             </ul>
           </div>
