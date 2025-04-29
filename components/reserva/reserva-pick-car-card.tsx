@@ -131,7 +131,7 @@ export default function CardCar({
               </div>
             <button
               onClick={() => handleCar(car)}
-              className="btn-sm p-2 bg-red-700 min-w-24 hover:bg-red-900 text-gray-100 duration-200 cursor-pointer text-nowrap"
+              className="btn-sm p-2 bg-red-700 min-w-28 hover:bg-red-900 text-gray-100 duration-200 cursor-pointer text-nowrap"
             >
               {pickedCar?.id === car.id ? t("unPick") : t("pick")}
             </button>
