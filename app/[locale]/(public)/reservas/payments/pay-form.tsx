@@ -114,7 +114,7 @@ export default function PayForm() {
       if (!resp?.ok) {
         toast({
           variant: "default",
-          title: "Pago rechazado",
+          title: t("form.toast"),
           description: `${resp?.message}`,
         });
       } else {

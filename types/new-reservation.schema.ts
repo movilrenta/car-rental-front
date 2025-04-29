@@ -18,7 +18,7 @@ export const newReservationSchema = z.object({
   firstname: z.string().trim().min(1, "El nombre es obligatorio"),
   lastname: z.string().trim().min(1, "El apellido es obligatorio"),
   observation: z.string().max(200, "No se admiten más de 200 caracteres").optional(),
-  email: z.string().email("El email no es válido").min(1, "El email es obligatorio"),
+  email: z.string().trim().email("El email no es válido").min(1, "El email es obligatorio"),
   phone: z.string().min(10, "El teléfono es obligatorio"),
   document_type: z.enum(documentType).default("DNI"),
   document_number: z.string().min(7, "El campo es obligatorio"),
