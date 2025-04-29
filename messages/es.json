@@ -1,12 +1,12 @@
 {
   "Metadata": {
     "fleetTitle": "Flota de vehículos",
-    "bookingTitle" : "Reservas"
+    "bookingTitle": "Reservas"
   },
   "HomePage": {
     "meta": {
-      "title" : "Alquiler de autos",
-      "description" : "Bienvenido a Movil Renta, el mejor servicio de alquiler de vehículos."
+      "title": "Alquiler de autos",
+      "description": "Bienvenido a Movil Renta, el mejor servicio de alquiler de vehículos."
     },
     "reservation": {
       "title": "Hace tu reserva",
@@ -15,7 +15,7 @@
       "end": "Lugar de devolución",
       "locReturn": "Selecciona lugar de entrega",
       "schedule": "Horario",
-      "over25":"Tengo más de 25 años de edad",
+      "over25": "Tengo más de 25 años de edad",
       "bContinue": "Continuar"
     },
     "title": "Hola",
@@ -67,7 +67,7 @@
   },
   "FleetPage": {
     "banner": "Flota de vehículos",
-    "title" : "Contamos con la más amplia y moderna flota del Norte de Argentina. Con más de 350 unidades, último modelo, ofrecemos disponibilidad inmediata.",
+    "title": "Contamos con la más amplia y moderna flota del Norte de Argentina. Con más de 350 unidades, último modelo, ofrecemos disponibilidad inmediata.",
     "filter": {
       "car": "Autos",
       "utility": "Utilitarios",
@@ -101,7 +101,7 @@
       "startHourDropoff": "El horario de recogida tiene un cargo extra ya que está fuera de nuestros horarios de atención en oficina.",
       "endHourDropoff": "El horario de devolución tiene un cargo extra ya que está fuera de nuestros horarios de atención en oficina."
     },
-    "pickCar":{
+    "pickCar": {
       "btnSearch": "Buscar vehículos disponibles",
       "loading": "Actualizando flota...",
       "preTitle": "Seleccione su",
@@ -132,7 +132,7 @@
   },
   "PaymentsPage": {
     "meta": {
-      "title":"Payments",
+      "title": "Payments",
       "description": "Payment page"
     },
     "banner": "Realizar el pago",
@@ -162,7 +162,7 @@
       "state": "Provincia",
       "stateChose": "Seleccione una provincia",
       "city": "Ciudad",
-      "postal" : "Código Postal",
+      "postal": "Código Postal",
       "address": "Dirección",
       "addressNumber": "Altura",
       "pay": "Pagar con",
@@ -174,8 +174,8 @@
         "cardMonthTo": "01 al 12",
         "cardYear": "Verificar",
         "securityCode": "3 a 4 dígitos",
-        "birthday" : "La fecha no es válida",
-        "birthdayPlaceholder" : "Formato DD/MM/AAAA",
+        "birthday": "La fecha no es válida",
+        "birthdayPlaceholder": "Formato DD/MM/AAAA",
         "cardHolderDoorNumber": "El número de puerta es demasiado extenso",
         "cardHolderIdentificationMin": "Mínimo de 7 dígitos",
         "cardHolderIdentificationMax": "Demasiado extenso",
@@ -186,10 +186,20 @@
         "firstNameMax": "Demasiado extenso",
         "lastNameMin": "Apellido obligatorio",
         "lastNameMax": "Demasiado extenso",
-        "postalCodeMin" : "Codigo Postal obligatorio",
-        "postalCodeMax" : "Demasiado extenso",
+        "postalCodeMin": "Codigo Postal obligatorio",
+        "postalCodeMax": "Demasiado extenso",
         "addressMin": "Dirección obligatoria",
         "addressMax": "Demasiado extenso"
+      },
+      "toast": "Pago rechazado"
+    },
+    "sendEmail": {
+      "success": {
+        "message": "Reserva confirmada con éxito",
+        "description": "Se ha enviado un email con su código de reserva. Por favor revise su bandeja de entrada"
+      },
+      "error": {
+        "message": "Hubo un problema al enviar el mensaje!"
       }
     }
   },
@@ -207,7 +217,7 @@
         "loader": "Obteniendo datos de su reserva...",
         "itinerary": {
           "title": "Itinerario",
-          "days":"Días",
+          "days": "Días",
           "from": "Desde",
           "to": "Hasta"
         },
@@ -236,14 +246,14 @@
         "span": "conductor",
         "mandatory": "* Datos obligatorios"
       },
-      "formConfirm":{
+      "formConfirm": {
         "selectors": {
-          "DNI":"DNI",
+          "DNI": "DNI",
           "Passport": "Pasaporte"
         },
-        "labels":{
+        "labels": {
           "name": "Nombre *",
-          "lastname":"Apellido *",
+          "lastname": "Apellido *",
           "typeDoc": "Tipo de documento *",
           "numberDoc": "Nº DNI / Nº Pasaporte *",
           "email": "Correo electrónico *",
@@ -263,7 +273,7 @@
             "max": "Nombre demasiado extenso"
           },
           "lastName": {
-            "min":"El apellido debe contener al menos 2 caracteres",
+            "min": "El apellido debe contener al menos 2 caracteres",
             "max": "No se admiten más de 25 caracteres"
           },
           "email": "El correo es obligatorio",
@@ -276,23 +286,23 @@
           "observation": "No se admiten más de 200 caracteres"
         },
         "buttons": {
-          "terms":"Ver términos y condiciones",
+          "terms": "Ver términos y condiciones",
           "bBack": "Volver y editar",
           "bCheck": "Complete los datos",
-          "bPrevConfirm":"Confirmar datos",
+          "bPrevConfirm": "Confirmar datos",
           "bConfirm": "Confirme sus datos",
           "bCancel": "Cancelar",
-          "bConfirmDialog":"Confirmar"
+          "bConfirmDialog": "Confirmar"
         },
         "dialogConfirm": {
           "title": "Datos Personales",
-          "name":"Nombre",
+          "name": "Nombre",
           "email": "Correo Electrónico",
           "phone": "Teléfono",
-          "numberLic":"Nº de Licencia",
-          "expLic":"Vto. Licencia",
+          "numberLic": "Nº de Licencia",
+          "expLic": "Vto. Licencia",
           "address": "Domicilio",
-          "city":"Localidad",
+          "city": "Localidad",
           "flightNum": "Nº de vuelo",
           "comments": "Observaciones"
         }
@@ -331,8 +341,8 @@
           {
             "title": "No necesita estructura propia o de terceros para el mantenimiento."
           },
-          { 
-            "title": "Evita personal administrativo para control de flota." 
+          {
+            "title": "Evita personal administrativo para control de flota."
           },
           {
             "title": "No tiene unidades inmovilizadas o para absorver necesidades temporarias."
@@ -469,24 +479,24 @@
       "title": "Esperamos su consulta",
       "subtitle": "Complete el siguiente formulario para cotizar una solución a medida de las necesidades concretas de su empresa.",
       "labels": {
-        "name":"Nombre y Apellido",
+        "name": "Nombre y Apellido",
         "email": "Correo Electrónico",
         "phone": "Teléfono",
         "company": "Empresa",
         "description": "Detalle sus necesidades"
       },
       "placeholders": {
-        "company":"Empresa S.A.",
+        "company": "Empresa S.A.",
         "description": "Describa sus necesidades"
       },
       "validations": {
-        "name":{
+        "name": {
           "min": "El nombre es obligatorio",
           "max": "El nombre no puede exceder los 40 caracteres"
         },
         "email": {
           "min": "El correo electrónico es obligatorio",
-          "max":"El correo electrónico no puede exceder los 60 caracteres"
+          "max": "El correo electrónico no puede exceder los 60 caracteres"
         },
         "phone": {
           "min": "El teléfono debe tener al menos 10 dígitos",

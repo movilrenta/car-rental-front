@@ -190,8 +190,18 @@
         "postalCodeMax": "Too long",
         "addressMin": "Address is required",
         "addressMax": "Too long"
+      },
+      "toast": "Rejected payment"
+    },
+    "sendEmail":{
+      "success": {
+        "message": "Reservation successfully confirmed",
+       "description": "An email with your reservation code has been sent. Please check your inbox."
+      },
+      "error": {
+       "message": "There was a problem sending the message!"
       }
-    }
+     }
   },
   "ReservaPage": {
     "ConfirmarPage": {
