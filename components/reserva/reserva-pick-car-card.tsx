@@ -57,9 +57,32 @@ export default function CardCar({
               <h5 className="text-xs line-clamp-1 -mt-1">
                 {t("similar")} <strong>{t("group")} {car?.group?.name}</strong>
               </h5>
+              <p className="text-xs -mt-1">{car?.fuel_type}</p>
             </header>
             {/* Features list */}
-            <ul className="grid grid-cols-2 gap-y-1 py-2 text-nowrap text-neutral-400 dark:text-gray-500/90">
+            <ul className="grid grid-cols-4 text-sm pt-3 pb-2 mt-2 opacity-70 border-y border-y-neutral-300 dark:border-y -neutral-600 ">
+              <li className="flex flex-col items-center ">
+                <FaUser className="w-6 h-6 min-h-6 min-w-6" />
+                <span className="text-xs">{t("seats")}</span>
+                <p>{car?.seats}</p>
+              </li>
+              <li className="flex flex-col items-center ">
+                <BsLuggageFill className="w-6 h-6 min-h-6 min-w-6" />
+                <span className="text-xs">{t("luggage")}</span>
+                <p>{car?.luggage}</p>
+              </li>
+              <li className="flex flex-col items-center ">
+                <GiCarDoor className="w-6 h-6 min-h-6 min-w-6" />
+                <span className="text-xs">{t("doors")}</span>
+                <p>{car?.doors}</p>
+              </li>
+              <li className="flex flex-col items-center ">
+                <TbManualGearbox className="w-6 h-6 min-h-6 min-w-6" />
+                <span className="text-xs">{t("box")}</span>
+                <p>{car?.transmission[0]}</p>
+              </li>
+            </ul>
+            {/* <ul className="grid grid-cols-2 gap-y-1 py-2 text-nowrap text-neutral-400 dark:text-gray-500/90">
               <li className="flex gap-2 items-center w-full overflow-clip text-ellipsis">
                 <GiGasPump className="w-4 h-4 min-h-4 min-w-4" />
                 <span className="text-nowrap text-ellipsis overflow-clip capitalize">
@@ -90,11 +113,11 @@ export default function CardCar({
                   {car?.seats} {t("seats")}
                 </span>
               </li>
-            </ul>
+            </ul> */}
           </div>
           {/* Card footer */}
           <div>
-          <div className="flex flex-row border-t border-t-neutral-300 dark:border-t-neutral-600 pt-5 flex-nowrap justify-between items-center mb-2">
+          <div className="flex flex-row pt-5 flex-nowrap justify-between items-center mb-2">
               {/* Price */}
               <div className="relative flex items-center justify-between gap-2 w-full"> 
                   {/* <div className="text-xs start">{t("rate")}</div>      */}
