@@ -84,7 +84,7 @@ export default function PickCar() {
     handlerSubmit();
   }
 
-  console.log("Incremento máximo encontrado:", maxIncrement);
+  //console.log("Incremento máximo encontrado:", maxIncrement);
 
   return (
     <div className="grid grid-cols-12 col-span-12 gap-6 mt-8 min-h-96 w-full place-content-start">

@@ -7,6 +7,7 @@ import { useLocale } from "next-intl";
 import {
   accesoriesAndDescriptionTranslate
 } from "@/constant/translated";
+import { Circle } from "lucide-react";
 //import { useTranslations } from "next-intl";
 
 export default function AdditionalCard({ item }: { item: AditionalType }) {
@@ -21,17 +22,17 @@ export default function AdditionalCard({ item }: { item: AditionalType }) {
   return (
     <label
       onClick={() => addAdditionals(item.id)}
-      className={`relative cursor-pointer col-span-2 lg:col-span-1 flex items-center pb-4 sm:py-6 border-2 border-zinc-200 dark:hover:border-zinc-600 hover:border-zinc-300 duration-200 group dark:border-gray-700/60  rounded-lg`}
+      className={`${reservaAdicionales?.find((i) => i.id === item.id) ? "dark:border-white border-black": "border-zinc-200 dark:border-gray-700/60"} relative cursor-pointer col-span-2 lg:col-span-1 grid grid-cols-6 p-0 border-2 duration-200 group  rounded-lg overflow-clip`}
     >
       <Image
-        className="max-w-40 sm:w-36 rounded-sm group-hover:scale-[1.01] duration-200"
+        className="col-span-6 xs:col-span-3 rounded-sm group-hover:scale-[1.01] h-full w-full duration-200 object-cover"
         src={item.name === "GPS" ? "/images2/gps.webp" : "/images2/silla.webp"}
         //src={item.image}
-        width={200}
-        height={200}
+        width={400}
+        height={400}
         alt={item.name}
       />
-      <div className="grow ps-4 pt-4 sm:pt-0">
+      <div className="col-span-6 xs:col-span-3 p-4">
         <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-1">
           {accesoriesAndDescriptionTranslate[item.name]?.[locale].title ?? item.name}
         </h3>
@@ -40,15 +41,16 @@ export default function AdditionalCard({ item }: { item: AditionalType }) {
             item.description}
         </div>
         <div className="flex flex-wrap justify-between items-center">
-          <div className="inline-flex text-sm font-medium bg-green-500/20 text-green-700 rounded-full text-center px-2 py-0.5">
-            ${item.price}
+          <div className="text-nowrap text-xl text-black dark:text-white font-semibold py-0.5 z-10">
+            $ {item.price.split(".")[0]}
           </div>
           <div className="text-xs w-full mt-1">{accesoriesAndDescriptionTranslate[item.name]?.[locale].rate ?? item.rate.description}</div>
         </div>
       </div>
-      {reservaAdicionales?.find((i) => i.id === item.id) && (
-        <BiCheck className="absolute bottom-1 right-1 text-3xl animate-fade-in text-slate-800 dark:text-slate-200" />
-      )}
+      {reservaAdicionales?.find((i) => i.id === item.id) ? 
+        <BiCheck className="absolute bottom-2 right-2 text-3xl animate-fade-in text-slate-800 dark:text-slate-200" />
+        :<Circle className="absolute bottom-2 right-2 text-3xl stroke-1" />
+      }
     </label>
     // <label
     //   onClick={() => addAdditionals(item.id)}

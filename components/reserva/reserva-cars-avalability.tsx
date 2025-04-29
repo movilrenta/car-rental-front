@@ -57,12 +57,12 @@ export default function RenderCarsAvailability({
   const sortedEntries = React.useMemo(() => {
     if (!sortBy) return Object.entries(groupByName);
     //console.log(Object.entries(groupByName));
-
     return Object.entries(groupByName).sort(
       ([nameA, carsA]: any, [nameB, carsB]: any) => {
         //console.log(nameA, nameB);
 
         if (sortBy === "group") {
+          //setPriceOrder("")
           return carsA[0]?.brand.name.localeCompare(carsB[0]?.brand.name);
         } else if (sortBy === "price") {
           const priceA = carsA[0]?.group.rate ?? 0;
@@ -123,10 +123,10 @@ export default function RenderCarsAvailability({
         return firstCar ? (
           <div
             key={firstCar.id}
-            className="relative grid col-span-full sm:col-span-6 md:col-span-4 xl:col-span-3"
+            className="relative grid col-span-full sm:col-span-6 lg:col-span-4 xl:col-span-3"
           >
             {reservaAuto?.id === firstCar.id && (
-              <span className="absolute inset-0 bg-black/40 rounded-md flex justify-center items-center animate-fade-in pointer-events-none">
+              <span className="absolute inset-0 bg-black/20 rounded-md flex justify-center items-center animate-fade-in pointer-events-none">
                 <BiCheck className="text-7xl text-white stroke-1 animate-fade-in duration-500" />
               </span>
             )}
