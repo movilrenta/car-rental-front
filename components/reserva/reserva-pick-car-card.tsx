@@ -60,7 +60,7 @@ export default function CardCar({
               <p className="text-xs -mt-1">{car?.fuel_type}</p>
             </header>
             {/* Features list */}
-            <ul className="grid grid-cols-4 text-sm pt-3 pb-2 mt-2 opacity-70 border-y border-y-neutral-300 dark:border-y -neutral-600 ">
+            <ul className="grid grid-cols-4 text-sm pt-3 pb-2 mt-2 opacity-70 border-y border-y-neutral-200 dark:border-y-neutral-700 ">
               <li className="flex flex-col items-center ">
                 <FaUser className="w-6 h-6 min-h-6 min-w-6" />
                 <span className="text-xs">{t("seats")}</span>
@@ -126,12 +126,12 @@ export default function CardCar({
                   {useFormatNumberNoDecimal(+car?.group?.rate)}
                 </div>}
                   <span className="text-nowrap text-xl text-black dark:text-white font-semibold py-0.5 z-10">{useFormatNumberNoDecimal(+car?.group?.rate * extra)}</span>
-                  <span className="text-base ps-0.5">/día</span>     
+                  <span className="text-base ps-0.5">/{t("rate")}</span>     
                 </div>
               </div>
             <button
               onClick={() => handleCar(car)}
-              className="btn-sm p-2 bg-red-700 min-w-28 hover:bg-red-900 text-gray-100 duration-200 cursor-pointer text-nowrap"
+              className="btn-sm p-2 bg-red-700 min-w-[118px] hover:bg-red-900 text-gray-100 duration-200 cursor-pointer text-nowrap"
             >
               {pickedCar?.id === car.id ? t("unPick") : t("pick")}
             </button>

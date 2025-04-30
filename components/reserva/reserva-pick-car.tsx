@@ -87,7 +87,7 @@ export default function PickCar() {
   //console.log("Incremento máximo encontrado:", maxIncrement);
 
   return (
-    <div className="grid grid-cols-12 col-span-12 gap-6 mt-8 min-h-96 w-full place-content-start">
+    <div className="grid grid-cols-12 col-span-12 gap-2 mt-8 min-h-96 w-full place-content-start">
       {showCars ? (
         <>
           <h2 className="text-2xl font-medium col-span-12 leading-snug text-gray-800 dark:text-gray-100 mb-3">
