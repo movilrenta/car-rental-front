@@ -75,7 +75,7 @@ export const getReservaSchema = (t?: (key: string) => string) => {
           ? t("validations.lastName.max")
           : "No se admiten más de 25 caracteres",
       }),
-    email: z.string().email({
+    email: z.string().trim().email({
       message: t ? t("validations.email") : "El correo es obligatorio",
     }),
     phone: z.string().min(10, {

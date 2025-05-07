@@ -106,18 +106,22 @@
       "loading": "Updating fleet...",
       "preTitle": "Select your",
       "title": "vehicle",
+      "selectOrder": "Order by",
+      "selectMinor": "Minimum price",
+      "selectMajor": "Maximum price", 
       "errorDates": "Please check the booking dates",
       "dontFind": "Didn't find what you were looking for?",
       "dontFindDescription": "Don't worry! Contact us so we can help you with your next booking.",
       "talkAdviser": "Talk to an advisor",
       "cards": {
-        "rate": "Base rate: 1 day",
+        "rate": "day",
+        "box": "Gearbox",
         "luggage": "Luggage",
         "doors": "Doors",
         "seats": "Seats",
         "similar": "or similar",
         "group": "Group",
-        "pick": "Select vehicle",
+        "pick": "Select",
         "unPick": "Choose another"
       }
     },
@@ -190,8 +194,18 @@
         "postalCodeMax": "Too long",
         "addressMin": "Address is required",
         "addressMax": "Too long"
+      },
+      "toast": "Rejected payment"
+    },
+    "sendEmail":{
+      "success": {
+        "message": "Reservation successfully confirmed",
+       "description": "An email with your reservation code has been sent. Please check your inbox."
+      },
+      "error": {
+       "message": "There was a problem sending the message!"
       }
-    }
+     }
   },
   "ReservaPage": {
     "ConfirmarPage": {
