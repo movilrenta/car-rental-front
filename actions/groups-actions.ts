@@ -1,6 +1,6 @@
 "use server";
 
-import { GroupForm } from "@/app/admin/vehiculos/grupos/components/groupSchema";
+import { GroupForm } from "@/app/[locale]/admin/vehiculos/grupos/components/groupSchema";
 import axios, { AxiosError } from "axios";
 import { revalidatePath } from "next/cache";
 

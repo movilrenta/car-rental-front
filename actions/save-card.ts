@@ -1,12 +1,13 @@
 "use server";
 
 import { z } from 'zod';
-import { formSchema } from '../types/payway-form.schema';
+import { formSchema, formSchemaGetToken } from '../types/payway-form.schema';
 import clientPromise from '@/lib/mongodb'
 
-export const saveCard = async (values:z.infer<typeof formSchema>) => {
+export const saveCard = async (values:z.infer<typeof formSchemaGetToken>) => {
   try {
-    const resultParsed = await formSchema.safeParseAsync(values)
+    const schema = formSchema();
+    const resultParsed = await schema.safeParseAsync(values);
     if(!resultParsed.success){
       return {
         ok:false,

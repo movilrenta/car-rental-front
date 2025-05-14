@@ -3,14 +3,15 @@ import * as React from "react";
 import { GoArrowDownLeft, GoArrowUpRight } from "react-icons/go";
 import { useEffect, useState } from "react";
 import { ItinerarioType, useItinerarioStore } from "@/stores/reserva-itinerario/reserva-itinerario.store";
-//import { cities } from "@/constant/cities";
 import { hours } from "@/constant/hours";
 import { calcularDiasEntreFechas2 } from "@/components/utils/utils";
 import ItinerarioPickDate from "@/components/home/itinerario-pick-date";
 import { Loader2Icon } from "lucide-react";
 import { BranchesType } from "@/types/branches";
+import { useTranslations } from "next-intl";
 
 export default function PickDate({branches}:{branches: BranchesType[]}) {
+  const t = useTranslations("BookingPage.itinerary")
   const itinerario = useItinerarioStore((state) => state.getItinerario());
   const nuevoItinerario = useItinerarioStore((state) => state.addItinerario);
   const [dias, setDias] = useState<number>(0);
@@ -32,7 +33,7 @@ export default function PickDate({branches}:{branches: BranchesType[]}) {
     return (
       <div className="flex flex-col items-center justify-center">
         <Loader2Icon className="w-12 h-12 animate-spin" />
-        <span>Obteniendo datos del itinerario...</span>
+        <span>{t("loading")}</span>
       </div>
     )
   }
@@ -55,7 +56,7 @@ export default function PickDate({branches}:{branches: BranchesType[]}) {
   return (
     <div className=" w-full max-w-full min-w-0">
     <h2 className="text-2xl font-medium col-span-12 leading-snug text-gray-800 dark:text-gray-100 mb-5">
-      01. Su <strong>itinerario</strong>
+      01. {t("preTitle")} <strong>{t("title")}</strong>
     </h2>
     
     <form className="grid grid-cols-12 w-full max-w-full gap-x-6 gap-y-6 min-w-0">
@@ -63,10 +64,10 @@ export default function PickDate({branches}:{branches: BranchesType[]}) {
     <div className="flex col-span-12 md:col-span-6 flex-col xs:flex-row gap-x-3 w-full max-w-full min-w-0">
       {dias !== 0 
         ? <div className="flex gap-0 text-center text-lg text-nowrap items-center justify-center font-extrabold h-12 rounded-md px-3  min-w-24 w-full xs:w-24 bg-red-50 dark:bg-red-800 text-red-800 dark:text-red-50">
-            {dias === 1 ? `${dias} Día` : `${dias} Días`}
+            {dias === 1 ? `${dias} ${t("day")}` : `${dias} ${t("days")}`}
           </div>
         : <div className="flex items-center justify-center text-lg font-extrabold  gap-0 text-center rounded-md px-3  min-w-24 w-full xs:w-24 h-12 bg-red-50 dark:bg-red-800 text-red-800 dark:text-red-50">
-            Elija
+            {t("choose")}
           </div>
       } 
       <ItinerarioPickDate />
@@ -78,7 +79,7 @@ export default function PickDate({branches}:{branches: BranchesType[]}) {
             htmlFor="city-start"
           >
             <GoArrowUpRight className="text-red-600 stroke-2 text-4xl sm:text-6xl" />
-            Partida
+            {t("pickUp")}
           </label>
           <div className="w-full">
               <select
@@ -89,7 +90,7 @@ export default function PickDate({branches}:{branches: BranchesType[]}) {
                 className="form-select !w-full !max-w-full !text-ellipsis h-12"
               >
                 <option value="" disabled>
-                  Selecciona lugar de retiro
+                  {t("selectPickUpPlace")}
                 </option>
                 {branches?.map((sucursal, index) => (
                   <option
@@ -110,7 +111,7 @@ export default function PickDate({branches}:{branches: BranchesType[]}) {
                   className="form-select min-w-32 w-full h-12"
                 >
                   <option value="" disabled>
-                    Horario
+                    {t("selectPickUpHour")}
                   </option>
                   {hours.map((item, index) => (
                     item.work ? <option
@@ -132,7 +133,7 @@ export default function PickDate({branches}:{branches: BranchesType[]}) {
             htmlFor="city-back"
           >
             <GoArrowDownLeft className="text-red-600 stroke-2 text-4xl sm:text-6xl" />
-            Regreso
+            {t("drop")}
           </label>
           <div className="w-full">
               <select
@@ -143,7 +144,7 @@ export default function PickDate({branches}:{branches: BranchesType[]}) {
                 className="form-select !w-full !max-w-full !text-ellipsis h-12"
               >
                 <option value="" disabled>
-                  Seleccione lugar de entrega
+                  {t("selectDropPlace")}
                 </option>
                 {branches?.map((sucursal, index) => (
                   <option
@@ -164,7 +165,7 @@ export default function PickDate({branches}:{branches: BranchesType[]}) {
                   className="form-select min-w-32 w-full h-12"
                 >
                   <option value="" disabled>
-                    Horario
+                    {t("selectDropHour")}
                   </option>
                   {hours.map((item, index) => (
                     item.work ? <option
@@ -184,22 +185,22 @@ export default function PickDate({branches}:{branches: BranchesType[]}) {
       </div>
     </form>
     <p className="text-blue-600 italic text-sm mt-8">
-      Las tarifas pueden tener variantes segun la fecha seleccionada.
+      {t("extraDates")}
     </p>
     {branches.some(
       (sucursal) =>
         (sucursal.id === Number(itinerario?.startLocation) && !sucursal.name.toLowerCase().includes("tuc")) || 
         (sucursal.id === Number(itinerario?.endLocation) && !sucursal.name.toLowerCase().includes("tuc"))
       ) 
-      && <p className="text-blue-600 italic text-sm">- La ciudad seleccionada tiene un cargo extra (Drop Off).</p>
+      && <p className="text-blue-600 italic text-sm">- {t("dropoff")}</p>
     }
 
     {Number(itinerario?.startTime?.slice(0,2)) <= 7 || Number(itinerario?.startTime?.slice(0,2)) > 19 
-      ? <p className="text-blue-600 italic text-sm">- El horario de salida tiene un cargo extra ya que está fuera de nuestros horarios de atención en oficina.</p> 
+      ? <p className="text-blue-600 italic text-sm">- {t("startHourDropoff")}</p> 
       : null
     }
     {Number(itinerario?.endTime?.slice(0,2)) <= 7 || Number(itinerario?.endTime?.slice(0,2)) > 19 
-      ? <p className="text-blue-600 italic text-sm">- El horario de regreso tiene un cargo extra ya que está fuera de nuestros horarios de atención en oficina.</p> 
+      ? <p className="text-blue-600 italic text-sm">- {t("endHourDropoff")}</p> 
       : null
     }
     

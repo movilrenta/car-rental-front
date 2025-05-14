@@ -26,7 +26,6 @@ export async function GetCarsAction() {
 
 export async function PostCarAction(car: any) {
   try {
-    //await setupCsrf();
     const res = await axios.post(`${URL}/api/cars`, car);
     revalidatePath("/admin/vehiculos/ver");
     return { data: res.data, status: res.status };
@@ -48,7 +47,6 @@ export async function PutCarAction(car: any) {
 }
 
 export async function StatusCarAction(car: any) {
-  //TODO:status
   car.is_active = !car.is_active;
   try {
     const res = await axios.patch(`${URL}/api/cars/${car.id}`, {is_active: car.is_active});

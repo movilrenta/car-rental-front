@@ -7,39 +7,40 @@ import { Autoplay, FreeMode } from "swiper/modules";
 import "swiper/css/free-mode";
 import "swiper/css";
 import "./slide-images.css";
+import { Carousel_Type } from "@/types/carousel.schema";
 
 interface Props {
-  images: { url: string, h3: string, h4: string}[];
+  images: Carousel_Type[];
   description?: string;
   className?: string;
 }
 export const SlideImages = ({ images, className }: Props) => {
   return (
-    <div className={`${className} h-full flex items-center justify-center p-0 m-0`}>
       <Swiper
         loop={true}
         autoplay={{
           delay: 3500,
         }}
         modules={[FreeMode, Autoplay]}
-        className="mySwiper2"
+        className="mySwiper2 col-span-12 lg:col-span-7 h-full m-auto"
       >
         {images.map((image) => (
-          <SwiperSlide key={image.url}>
+          <SwiperSlide key={image?.images[0]?.path}>
             <Image
-              src={image.url}
-              alt="imagen-swip"
-              width={812}
-              height={500}
-              className="!h-full w-full object-cover"
+              src={image?.images[0]?.path}
+              alt={image.name}
+              width={920}
+              height={550}
+              priority={true}
+              className="h-auto w-full object-fill"
             />
             <div className="absolute inset-0 text-3xl sm:text-5xl px-6 pb-6 h-full flex flex-col justify-end bg-gradient-to-tr from-black/60 to-transparent text-gray-100 dark:text-gray-100">
-              <h3 className="font-extralight">{image.h3}</h3>
-              <h4 className="font-semibold">{image.h4}</h4>
+              <div className="font-extralight">{image?.images[0]?.title}</div>
+              <div className="font-semibold">{image?.images[0]?.description}</div>
             </div>
           </SwiperSlide>
         ))}
       </Swiper>
-    </div>
+    
   );
 };
