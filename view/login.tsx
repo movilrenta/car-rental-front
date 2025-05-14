@@ -6,7 +6,7 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Input } from '@/components/input';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/form'
-import AuthImage from '@/app/(auth)/auth-image'
+import AuthImage from '@/app/[locale]/(auth)/auth-image'
 import { login } from '@/actions/auth/login'
 import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';

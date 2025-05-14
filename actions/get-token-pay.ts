@@ -1,17 +1,64 @@
 "use server";
 
-import { formSchema } from "@/types/payway-form.schema";
+import { formSchema, PaymentsFormValues } from "@/types/payway-form.schema"; // Ensure this is a Zod schema object, not a function
 import { ReservationDetail } from "@/types/reservation.interface";
 import axios, { AxiosError } from "axios";
-import { z } from "zod";
+//import { z } from "zod";
 import { getMaxIncrement } from "./holidays";
 
 const URL = process.env.NEXT_PUBLIC_URL_MOVILRENTA;
 const BACK = process.env.NEXT_PUBLIC_URL_BACK
 
-export const getTokenPay = async (values: z.infer<typeof formSchema>, code: string, reserva_id: number, group_id: number, dias: number, amount_aditionals: number, dropoff: number) => {
+type PaymentData = {
+  reservation_id: number;
+  id: number;
+  status_details: {
+    ticket: string;
+    card_authorization_code: string;
+    address_validation_code: string;
+    error: string | null;
+  };
+  sub_payments: any[]; // array vacío como string originalmente, se puede tipar mejor si sabés qué trae
+  date: string;
+  fraud_detection: {
+    status: {
+      decision: string;
+      request_id: string;
+      reason_code: number;
+      description: string;
+      review: string | null;
+    };
+  };
+  amount: number;
+  customer: any | null;
+  site_transaction_id: string;
+  payment_method_id: number;
+  card_brand: string;
+  currency: string;
+  status: string;
+  payment_mode: string | null;
+  bin: string;
+  installments: number;
+  first_installment_expiration_date: string | null;
+  payment_type: string;
+  site_id: string;
+  aggregate_data: any | null;
+  establishment_name: string;
+  spv: any | null;
+  confirmed: boolean | null;
+  pan: string | null;
+  customer_token: string | null;
+  card_data: string;
+  token: string;
+  authenticated_token: string | null;
+  tid: string |null;
+  emv_issuer_data: string | null;
+};
+
+
+export const getTokenPay = async (values: PaymentsFormValues, code: string, reserva_id: number, group_id: number, dias: number, amount_aditionals: number, dropoff: number) => {
   try {
-    const resultParse = await formSchema.safeParseAsync(values);
+    const resultParse = formSchema().safeParse(values); // Call formSchema if it is a function returning a schema
     if (!resultParse.success) {
       resultParse.error.issues.forEach((err) => {console.log(`Error en ${err.path} - ${err.message}`);});
       return {ok: false, message: "Hubo un problema al intentar realizar el pago", status: 403 };
@@ -103,9 +150,10 @@ export const getTokenPay = async (values: z.infer<typeof formSchema>, code: stri
 
 
     const { data: response } = await axios.post(`${URL}api/process-payments`, payload);
-    if( response?.data?.status === "approved"){
+    if( response?.data?.status === "approved" || response?.data?.status === "accredited"){
       //console.log(response.data, "_________________10002!!!")
       const dataPago = response.data
+
       dataPago.reservation_id = reservation_info.data.reservation_detail.id
       dataPago.status_details = JSON.stringify(dataPago.status_details)
       dataPago.sub_payments = JSON.stringify(dataPago.sub_payments)
@@ -114,8 +162,47 @@ export const getTokenPay = async (values: z.infer<typeof formSchema>, code: stri
       dataPago.amount = dataPago.amount/100
       dataPago.customer = JSON.stringify(dataPago?.customer)
       dataPago.confirmed = JSON.stringify(dataPago?.confirmed)
+
+      //remmover el tid de dataPago
+      // delete dataPago.tid
+      // delete dataPago.emv_issuer_data
+
+      const DataToSend: PaymentData = {
+        reservation_id: dataPago?.reservation_id,
+        id: dataPago?.id,
+        status_details: dataPago?.status_details,
+        sub_payments: dataPago?.sub_payments,
+        date: dataPago?.date,
+        fraud_detection: dataPago?.fraud_detection,
+        amount: dataPago?.amount,
+        customer: dataPago?.customer,
+        site_transaction_id: dataPago?.site_transaction_id,
+        payment_method_id: dataPago?.payment_method_id,
+        card_brand: dataPago?.card_brand,
+        currency: dataPago?.currency,
+        status: dataPago?.status,
+        payment_mode: dataPago?.payment_mode,
+        bin: dataPago?.bin,
+        installments: dataPago?.installments,
+        first_installment_expiration_date: dataPago?.first_installment_expiration_date,
+        payment_type: dataPago?.payment_type,
+        site_id: dataPago?.site_id,
+        aggregate_data: dataPago?.aggregate_data || null, //dataPago.aggregate_data, // no viene en la respuesta
+        establishment_name: dataPago?.establishment_name || "Movil Renta",
+        spv: dataPago?.spv || null, //dataPago.spv, // no viene en la respuesta
+        confirmed: dataPago?.confirmed || null, //dataPago.confirmed, // no viene en la respuesta
+        pan: dataPago?.pan || null, //dataPago.pan, // no viene en la respuesta
+        customer_token: dataPago?.customer_token || null, //dataPago.customer_token, // no viene en la respuesta
+        card_data: dataPago?.card_data || null, //dataPago.card_data, // no viene en la respuesta
+        token: dataPago?.token || null, //dataPago.token, // no viene en la respuesta
+        authenticated_token: dataPago?.authenticated_token || null, //dataPago.authenticated_token, // no viene en la respuesta
+        tid: dataPago?.tid || null, //dataPago.tid, // no viene en la respuesta
+        emv_issuer_data: dataPago?.emv_issuer_data || null, //dataPago.emv_issuer_data, // no viene en la respuesta
+      }
+
       //console.log(dataPago, "dataPago ___________________");
-      await axios.post(`${BACK}payments`, dataPago);
+      //await axios.post(`${BACK}payments`, dataPago);
+      await axios.post(`${BACK}payments`, DataToSend);
 
     }
     //console.log(response, "___________")

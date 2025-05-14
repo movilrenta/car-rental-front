@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useSelectedItems } from '@/app/selected-items-context'
+import { useSelectedItems } from '@/app/[locale]/selected-items-context'
 
 export const useItemSelection = (items: any[]) => {
   const { selectedItems, setSelectedItems } = useSelectedItems()

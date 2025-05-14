@@ -4,15 +4,17 @@ import { BsLuggageFill } from "react-icons/bs";
 import { FaUser } from "react-icons/fa";
 import { GiCarDoor, GiGasPump } from "react-icons/gi";
 import { TbManualGearbox } from "react-icons/tb";
+import { useTranslations } from "next-intl";
 
 
 export default function SimpleCardCar({ car }: { car: VehicleType }) {
+  const t = useTranslations("FleetPage.cards")
 
   return (
     <div className="col-span-full sm:col-span-6 group border border-transparent hover:border-zinc-500 dark:hover:border-zinc-700 hover:bg-black/5 duration-200 xl:col-span-3 bg-white dark:bg-gray-800 shadow-sm rounded-xl overflow-hidden">
       <div className="flex flex-col h-full">
         <Image
-          className="w-full duration-200"
+          className="w-full duration-200 object-cover h-full md:h-40 lg:h-56 object-center"
           src={car?.image}
           width={286}
           height={160}
@@ -28,7 +30,7 @@ export default function SimpleCardCar({ car }: { car: VehicleType }) {
                 {car?.brand?.name} {car?.name}
               </h3>
               <h5 className="text-sm line-clamp-1">
-                o similar <strong>Grupo {car?.group?.name}</strong>
+              {t("similar")} <strong>{t("group")} {car?.group?.name}</strong>
               </h5>
             </header>
             {/* Rating and price */}
@@ -41,11 +43,11 @@ export default function SimpleCardCar({ car }: { car: VehicleType }) {
               </li>
               <li className="flex gap-2 items-center w-full overflow-clip text-ellipsis">
                 <BsLuggageFill className="w-4 h-4 min-h-4 min-w-4"/>
-                <span className="text-nowrap text-ellipsis overflow-clip">{car?.luggage} Maleta(s)</span>
+                <span className="text-nowrap text-ellipsis overflow-clip">{car?.luggage} {t("luggage")}</span>
               </li>
               <li className="flex gap-2 items-center w-full overflow-clip text-ellipsis">
                 <GiCarDoor className="w-4 h-4 min-h-4 min-w-4"/>
-                <span className="text-nowrap text-ellipsis overflow-clip">{car?.doors} Puertas</span>
+                <span className="text-nowrap text-ellipsis overflow-clip">{car?.doors} {t("doors")}</span>
               </li>
               <li className="flex gap-2 items-center w-full overflow-clip text-ellipsis">
                 <TbManualGearbox className="w-4 h-4 min-h-4 min-w-4"/>
@@ -53,7 +55,7 @@ export default function SimpleCardCar({ car }: { car: VehicleType }) {
               </li>
               <li className="flex gap-2 items-center w-full overflow-clip text-ellipsis">
                 <FaUser className="w-4 h-4 min-h-4 min-w-4"/>
-                <span className="text-nowrap text-ellipsis overflow-clip">{car?.seats} Plazas</span>
+                <span className="text-nowrap text-ellipsis overflow-clip">{car?.seats} {t("seats")}</span>
               </li>
             </ul>
           </div>

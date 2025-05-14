@@ -26,6 +26,8 @@ import { GiCarDoor, GiGasPump } from "react-icons/gi";
 import { TbManualGearbox } from "react-icons/tb";
 import { GoArrowDownLeft, GoArrowUpRight } from "react-icons/go";
 import { useFormatNumber } from "@/components/utils/useFormatterNumber";
+import PageNotFound from "@/app/[locale]/(alternative)/utility/404/page";
+import NotFound from "@/app/[locale]/not-found";
 
 export const MiReserva = () => {
   const [loading, setLoading] = React.useState<boolean>(false);
@@ -45,7 +47,7 @@ export const MiReserva = () => {
     setLoading(true);
    
     const resp = await getUserReservation(values);
-    if (resp.ok) {
+    if (resp?.ok) {
       setMsgRender({message:"",success:false})
       setData(resp.data);
       form.reset()
@@ -59,11 +61,11 @@ export const MiReserva = () => {
     }
     setLoading(false);
   };
-console.log(data);
+//console.log(data);
   return (
     <section className="w-full min-h-screen animate-fade-in mb-14 dark:text-white">
-      <BannerPage title="Mi reserva" image="/images2/carBanner.webp" />
-      <div className="max-w-7xl mx-auto mt-6 px-4 grid grid-cols-12 gap-6">
+      {/* <BannerPage title="Mi reserva" image="/images2/carBanner.webp" /> */}
+      {/* <div className="max-w-7xl mx-auto mt-6 px-4 grid grid-cols-12 gap-6">
         <div className="flex flex-col justify-start gap-4 col-span-12 sm:col-span-3">
           <h2 className="font-semibold text-lg">
             Aquí podra revisar los datos de su reserva
@@ -191,7 +193,8 @@ console.log(data);
             )}
           </div>
         )}
-      </div>
+      </div> */}
+      <NotFound />
     </section>
   );
 };

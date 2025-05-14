@@ -1,0 +1,664 @@
+{
+  "Metadata": {
+    "fleetTitle": "Flota de vehículos",
+    "bookingTitle": "Reservas"
+  },
+  "HomePage": {
+    "meta": {
+      "title": "Alquiler de autos",
+      "description": "Bienvenido a Movil Renta, el mejor servicio de alquiler de vehículos."
+    },
+    "reservation": {
+      "title": "Hace tu reserva",
+      "start": "Lugar de recogida",
+      "locPickup": "Selecciona lugar de retiro",
+      "end": "Lugar de devolución",
+      "locReturn": "Selecciona lugar de entrega",
+      "schedule": "Horario",
+      "over25": "Tengo más de 25 años de edad",
+      "bContinue": "Continuar"
+    },
+    "title": "Hola",
+    "description": "Saludos desde la pagina de inicio",
+    "carTypes": {
+      "car": "Autos",
+      "utility": "Utilitarios",
+      "van": "Camionetas"
+    },
+    "quality": {
+      "title": "Calidad de servicio",
+      "subtitle": "Nuestra experiencia de más de 50 años, nos permite hoy ser la agencia de alquiler de vehículos sin chofer más importante de la región, ofreciendo un servicio de nivel internacional."
+    },
+    "usefulInfo": {
+      "experience": {
+        "title": "Experiencia",
+        "description": "Atención personalizada, puntualidad, seguridad y respaldo."
+      },
+      "ownFleet": {
+        "title": "Flota Propia",
+        "description": "Más de 350 unidades modernas, disponibilidad inmediata."
+      },
+      "insurance": {
+        "title": "Seguro",
+        "description": "Contamos con el respaldo de Federación Patronal Seguros para su total tranquilidad."
+      },
+      "maintenance": {
+        "title": "Mantenimiento",
+        "description": "A nuestro cargo, con services preventivos programados."
+      }
+    },
+    "Business": {
+      "title": "Soluciones para empresas",
+      "description": "Aproveche las ventajas de nuestro leasing operativo o renting de vehículos a largo plazo.",
+      "li_1": "Rentabilidad",
+      "li_2": "Importantes beneficios impositivos",
+      "li_3": "Despreocupese del mantenimiento e impuestos",
+      "li_4": "Renovación permanente de flota",
+      "button": "Más información sobre alquiler corporativo de vehículos",
+      "frame_1": "+350",
+      "frame_1B": " unidades último modelo",
+      "frame_2": "Cobertura",
+      "frame_2B": " en toda la región",
+      "frame_3": "Renovación",
+      "frame_3B": " permanente",
+      "frame_4": "Beneficios",
+      "frame_4B": " impositivos"
+    }
+  },
+  "FleetPage": {
+    "banner": "Flota de vehículos",
+    "title": "Contamos con la más amplia y moderna flota del Norte de Argentina. Con más de 350 unidades, último modelo, ofrecemos disponibilidad inmediata.",
+    "filter": {
+      "car": "Autos",
+      "utility": "Utilitarios",
+      "van": "Camionetas"
+    },
+    "cards": {
+      "luggage": "Maleta(s)",
+      "doors": "Puertas",
+      "seats": "Plazas",
+      "similar": "o similar",
+      "group": "Grupo"
+    }
+  },
+  "BookingPage": {
+    "banner": "Su reserva",
+    "itinerary": {
+      "loading": "Obteniendo datos del itinerario...",
+      "preTitle": "Su",
+      "title": "itinerario",
+      "day": "Día",
+      "days": "Días",
+      "choose": "Elija",
+      "pickUp": "Recogida",
+      "selectPickUpPlace": "Seleccione lugar de recogida",
+      "selectPickUpHour": "Seleccione horario de recogida",
+      "drop": "Devolución",
+      "selectDropPlace": "Seleccione lugar de devolución",
+      "selectDropHour": "Seleccione horario de devolución",
+      "extraDates": "Las tarifas pueden tener variantes segun la fecha seleccionada.",
+      "dropoff": "La ciudad seleccionada tiene un cargo extra (Drop Off).",
+      "startHourDropoff": "El horario de recogida tiene un cargo extra ya que está fuera de nuestros horarios de atención en oficina.",
+      "endHourDropoff": "El horario de devolución tiene un cargo extra ya que está fuera de nuestros horarios de atención en oficina."
+    },
+    "pickCar": {
+      "btnSearch": "Buscar vehículos disponibles",
+      "loading": "Actualizando flota...",
+      "preTitle": "Seleccione su",
+      "title": "vehículo",
+      "selectOrder": "Ordenar por",
+      "selectMinor": "Precio mínimo",
+      "selectMajor": "Precio máximo", 
+      "errorDates": "Verifique las fechas de reserva",
+      "dontFind": "No encontraste lo que buscabas?",
+      "dontFindDescription": "Tranquilo!, contactanos para que podamos ayudarte en tu próxima reserva.",
+      "talkAdviser": "Habla con un asesor",
+      "cards": {
+        "rate": "día",
+        "box": "Caja",
+        "luggage": "Maleta(s)",
+        "doors": "Puertas",
+        "seats": "Plazas",
+        "similar": "o similar",
+        "group": "Grupo",
+        "pick": "Seleccionar",
+        "unPick": "Elegir otro"
+      }
+    },
+    "pickAdditionals": {
+      "loading": "Obteniendo datos adicionales...",
+      "preTitle": "Accesorios",
+      "title": "opcionales"
+    },
+    "confirm": {
+      "btn": "Continuar"
+    }
+  },
+  "PaymentsPage": {
+    "meta": {
+      "title": "Payments",
+      "description": "Payment page"
+    },
+    "banner": "Realizar el pago",
+    "loading": "Obteniendo datos de su reserva...",
+    "subtitle": "Por favor complete los siguientes campos con los datos del",
+    "subtitle1": "titular",
+    "subtitle2": " de la tarjeta en el formulario de pago para finalizar su reserva",
+    "resume": "Resumen",
+    "vehicle": "Vehículo",
+    "additional": "Aditionales",
+    "dropoff": "Dropoff",
+    "form": {
+      "payMethod": "Seleccione un medio de pago",
+      "pickCard": "Seleccione su tarjeta",
+      "cardNumber": "Número de la tarjeta",
+      "cardMonth": "Mes",
+      "cardYear": "Año",
+      "cardYearPlaceholder": "AA",
+      "documentType": "Tipo de documento",
+      "birthday": "Fecha de nacimiento",
+      "birthdayFormat": "DD/MM/AAAA",
+      "firstName": "Nombre",
+      "lastName": "Apellido",
+      "installments": "Cantidad de cuotas",
+      "installment1": "cuota de",
+      "installment2": "cuotas simples de",
+      "state": "Provincia",
+      "stateChose": "Seleccione una provincia",
+      "city": "Ciudad",
+      "postal": "Código Postal",
+      "address": "Dirección",
+      "addressNumber": "Altura",
+      "pay": "Pagar con",
+      "confirmedLegend": "Una vez aprobado el pago la reserva será confirmada y se le enviará un email con el código de reserva",
+      "validations": {
+        "cardMin": "La tarjeta debe tener al menos 15 digitos",
+        "cardMax": "La tarjeta no debe tener más de 18 digitos",
+        "cardMonth": "2 dígitos",
+        "cardMonthTo": "01 al 12",
+        "cardYear": "Verificar",
+        "securityCode": "3 a 4 dígitos",
+        "birthday": "La fecha no es válida",
+        "birthdayPlaceholder": "Formato DD/MM/AAAA",
+        "cardHolderDoorNumber": "El número de puerta es demasiado extenso",
+        "cardHolderIdentificationMin": "Mínimo de 7 dígitos",
+        "cardHolderIdentificationMax": "Demasiado extenso",
+        "paymentMethod": "Debe seleccionar un metodo de pago",
+        "state": "Debe seleccionar una provincia",
+        "city": "Debe seleccionar una ciudad",
+        "firstNameMin": "Nombre obligatorio",
+        "firstNameMax": "Demasiado extenso",
+        "lastNameMin": "Apellido obligatorio",
+        "lastNameMax": "Demasiado extenso",
+        "postalCodeMin": "Codigo Postal obligatorio",
+        "postalCodeMax": "Demasiado extenso",
+        "addressMin": "Dirección obligatoria",
+        "addressMax": "Demasiado extenso"
+      },
+      "toast": "Pago rechazado"
+    },
+    "sendEmail": {
+      "success": {
+        "message": "Reserva confirmada con éxito",
+        "description": "Se ha enviado un email con su código de reserva. Por favor revise su bandeja de entrada"
+      },
+      "error": {
+        "message": "Hubo un problema al enviar el mensaje!"
+      }
+    }
+  },
+  "ReservaPage": {
+    "ConfirmarPage": {
+      "meta": {
+        "title": "Confirmación de reserva"
+      },
+      "bannerTitle": "Su reserva",
+      "subtitleCheck": {
+        "title": "Revise y",
+        "span": "confirme su reserva"
+      },
+      "listItems": {
+        "loader": "Obteniendo datos de su reserva...",
+        "itinerary": {
+          "title": "Itinerario",
+          "days": "Días",
+          "from": "Desde",
+          "to": "Hasta"
+        },
+        "car": {
+          "title": "Vehículo",
+          "group": "Grupo",
+          "insurance": {
+            "span1": "- Seguros: Por daños o faltantes $",
+            "span2": "por vuelcos o robo $"
+          }
+        },
+        "dropOff": {
+          "title": "Adicional",
+          "description": "Adicional por retiro y/o entrega fuera de Tucumán."
+        },
+        "accessories": {
+          "title": "Accesorios"
+        },
+        "total": {
+          "estimatedRates": "- Tarifas estimadas sin  y sujetas a modificación sin previo aviso.",
+          "taxes": "- IVA 21% y Seguro con franquicia incluídos."
+        }
+      },
+      "subtitleForm": {
+        "title": "Datos del",
+        "span": "conductor",
+        "mandatory": "* Datos obligatorios"
+      },
+      "formConfirm": {
+        "selectors": {
+          "DNI": "DNI",
+          "Passport": "Pasaporte"
+        },
+        "labels": {
+          "name": "Nombre *",
+          "lastname": "Apellido *",
+          "typeDoc": "Tipo de documento *",
+          "numberDoc": "Nº DNI / Nº Pasaporte *",
+          "email": "Correo electrónico *",
+          "phone": "Teléfono *",
+          "numberLic": "Nº de Licencia *",
+          "expLic": "Vencimiento Licencia *",
+          "address": "Domicilio *",
+          "city": "Localidad *",
+          "flightNum": "Nº de vuelo",
+          "comments": "Comentarios",
+          "over25": "Soy mayor de 25 años *",
+          "acceptTerms": "Acepto términos y condiciones *"
+        },
+        "validations": {
+          "firstName": {
+            "min": "El nombre es obligatorio",
+            "max": "Nombre demasiado extenso"
+          },
+          "lastName": {
+            "min": "El apellido debe contener al menos 2 caracteres",
+            "max": "No se admiten más de 25 caracteres"
+          },
+          "email": "El correo es obligatorio",
+          "phone": "El telefono es obligatorio y debe contener como minimo 10 caracteres",
+          "document_number": "El campo es obligatorio",
+          "license_number": "El campo es obligatorio",
+          "license_expiration_date": "La fecha de expiración debe ser mayor a la fecha actual",
+          "drivers_address": "El campo es obigatorio",
+          "drivers_city": "El campo es obigatorio",
+          "observation": "No se admiten más de 200 caracteres"
+        },
+        "buttons": {
+          "terms": "Ver términos y condiciones",
+          "bBack": "Volver y editar",
+          "bCheck": "Complete los datos",
+          "bPrevConfirm": "Confirmar datos",
+          "bConfirm": "Confirme sus datos",
+          "bCancel": "Cancelar",
+          "bConfirmDialog": "Confirmar"
+        },
+        "dialogConfirm": {
+          "title": "Datos Personales",
+          "name": "Nombre",
+          "email": "Correo Electrónico",
+          "phone": "Teléfono",
+          "numberLic": "Nº de Licencia",
+          "expLic": "Vto. Licencia",
+          "address": "Domicilio",
+          "city": "Localidad",
+          "flightNum": "Nº de vuelo",
+          "comments": "Observaciones"
+        }
+      }
+    }
+  },
+  "EmpresaPage": {
+    "meta": {
+      "title": "Leasing operativo de vehículos para empresas",
+      "description": "Optimizá la gestión de tu flota con el sistema de renting de Movil Renta. Soluciones personalizadas, beneficios fiscales y atención especializada para empresas de todo el país."
+    },
+    "bannerTitle": "Empresas",
+    "title": "Leasing operativo o renting de vehículos y utilitarios a largo plazo",
+    "subtitle": "Un sistema que le permitirá a su empresa obtener ventajas impositivas, financieras, en costos y nivel de servicio.",
+    "description": "Somos la primera empresa de alquiler de autos, creada para empresas y formada por gente que conoce las necesidades que las mismas tienen. Si usted está pensando en renovar su flota, realizar un contrato de trabajo por tiempo limitado, presentarse a una licitación, formar una UTE para realizar obras, etc., no dude en consultarnos",
+    "imageAlt": "Hombre en el interior de un automovil",
+    "benefits": [
+      {
+        "title": "Ventajas y beneficios",
+        "subItems": [
+          {
+            "title": "Mejor aprovechamiento del capital, evitando la inmovilizacion del mismo o la liberación de la capacidad crediticia."
+          },
+          {
+            "title": "Le ofrece importantes beneficios impositivos: crédito fiscal mensual por el pago de la cuota, disminuciones en el activo, en las deudas del pasivo y en el pago de impuesto a las ganancias."
+          },
+          {
+            "title": "Olvidese del pago de: Patentes, Seguro, Transferencia, Mantenimiento e Impuestos."
+          },
+          {
+            "title": "Le ofrece un presupuesto cerrado, evitando confusos gastos dispersos contablemente."
+          },
+          {
+            "title": "Facilita los cálculos de costo eliminando imprevistos: Flota reserva, etc."
+          },
+          {
+            "title": "No necesita estructura propia o de terceros para el mantenimiento."
+          },
+          {
+            "title": "Evita personal administrativo para control de flota."
+          },
+          {
+            "title": "No tiene unidades inmovilizadas o para absorver necesidades temporarias."
+          },
+          {
+            "title": "Tiene siempre una flota de no más de 12 meses, acorde con la imagen de su empresa."
+          },
+          {
+            "title": "Reemplazo inmediato de la unidad por services, desperfectos o siniestros.Le ofrece asistencia en las principales ciudades del país a través de una red de alquiladoras."
+          }
+        ]
+      }
+    ],
+    "form": {
+      "title": "Solicite presupuesto",
+      "subtitle": "Complete el siguiente formulario para cotizar una solución a medida de las necesidades concretas de su empresa."
+    }
+  },
+  "NosotrosPage": {
+    "meta": {
+      "title": "Quiénes somos - Líderes en leasing operativo de vehículos",
+      "description": "Conocé la historia, valores y misión de Movil Renta. Desde 1971 brindando soluciones de movilidad a empresas de todo el país con calidad, compromiso y atención personalizada."
+    },
+    "bannerTitle": "Nosotros",
+    "title": "Nuestra misión es brindar una experiencia de alquiler satisfactoria a nuestros clientes, proporcionando servicios convenientes para sus necesidades.",
+    "subtitle": "Nuestro inicio de actividad en el rubro se remonta al año 1971, por lo que nos ubicamos entre los pioneros de la actividad a nivel nacional. Nuestra experiencia nos permitió entender las necesidades de nuestros clientes para brindar un servicio de seguridad y calidad superior.",
+    "description": "Cuando hablamos de niveles de seguridad y calidad, nos referimos a:",
+    "listDescription": [
+      {
+        "title": "Servicio:",
+        "content": "Atención especializada por parte de nuestro personal, reemplazo inmediato de unidades por daños o services. Contamos con el servicio de NACIÓN SEGUROS Emergencia mecánicas las 24 hs."
+      },
+      {
+        "title": "Mantenimiento:",
+        "content": "a nuestro cargo, con services preventivos programados."
+      },
+      {
+        "title": "Seguros:",
+        "content": "Contratados en Nación Seguros compañía de seguros."
+      },
+      {
+        "title": "Documentación:",
+        "content": "Entregamos los vehículos con la documentación en regla, lo que evita eventuales demoras en controles camineros."
+      }
+    ],
+    "principales": [
+      {
+        "title": "Integridad",
+        "listItem": [
+          {
+            "item": "Respeto por los demás:",
+            "content": "Trataremos a todas las personas con las que trabajamos con respeto y cordialidad."
+          },
+          {
+            "item": "Responsabilidad:",
+            "content": "Cumpliremos todos nuestros compromisos con nuestros clientes y empleados."
+          },
+          {
+            "item": "Honestidad:",
+            "content": "Nos comunicaremos de manera abierta y honesta para ganar la confianza de nuestros clientes."
+          }
+        ]
+      },
+      {
+        "title": "Trabajo en equipo",
+        "listItem": [
+          {
+            "item": "Compañerismo y Solidaridad:",
+            "content": "Mantendremos una atmósfera de trabajo de compañerismo y solidaridad"
+          },
+          {
+            "item": "Respeto y confianza:",
+            "content": "Nos comunicaremos con respeto y confianza para trabajar de manera adecuada."
+          }
+        ]
+      },
+      {
+        "title": "Calidad",
+        "listItem": [
+          {
+            "item": "Esfuerzo y constancia:",
+            "content": "Nos esforzamos constantemente en dar nuestra mejor versión para que nuestros clientes puedan disfrutar de su experiencia con nosotros"
+          },
+          {
+            "item": "Experiencia:",
+            "content": "Nos comprometemos a brindar un servicio efectivo y conveniente, ya que contamos con la suficiente experiencia en el rubro."
+          },
+          {
+            "item": "Efectividad en el servicio:",
+            "content": "Fácil, rápido, seguro, económico (mejor precio garantizado)."
+          },
+          {
+            "item": "Crecimiento e innovación:",
+            "content": "Nos comprometemos en el mantenimiento de nuestra flota de vehículos. Renovamos nuestra flota constantemente para poder disponer siempre de autos nuevos para nuestros clientes. Constantemente motivamos y capacitamos a nuestro equipo de trabajo para que puedan crecer y lograr sus metas, tanto profesionales como personales."
+          }
+        ]
+      }
+    ]
+  },
+  "ContactoPage": {
+    "meta": {
+      "title": "Contactanos - Movil Renta",
+      "description": "Ponete en contacto con Movil Renta para obtener atención personalizada. Consultá por nuestros servicios, horarios de atención y líneas de contacto directo."
+    },
+    "bannerTitle": "Contacto",
+    "contactText": [
+      {
+        "icon": "location",
+        "title": "Dirección:",
+        "content": "San Lorenzo 370, S.M. de Tucumán, Tucumán (T4000CAJ) Argentina."
+      },
+      {
+        "icon": "clock",
+        "title": "Horarios de atención:",
+        "content": "Lunes a viernes de 8:00 a 20:00 hs/ Sábado 9:00 a 12:00 y de 17:00 a 19:00 hs."
+      },
+      {
+        "icon": "headphones",
+        "title": "Línea gratuita:",
+        "content": "0800 777 7368"
+      },
+      {
+        "icon": "phone",
+        "title": "Atención al cliente:",
+        "content": "+54 9 381 4310550"
+      },
+      {
+        "icon": "garage",
+        "title": "Servicio de emergencia mecánica 24hs:",
+        "content": "+54 9 381 3648505"
+      }
+    ],
+    "form": {
+      "title": "Esperamos su consulta",
+      "subtitle": "Complete el siguiente formulario para cotizar una solución a medida de las necesidades concretas de su empresa.",
+      "labels": {
+        "name": "Nombre y Apellido",
+        "email": "Correo Electrónico",
+        "phone": "Teléfono",
+        "company": "Empresa",
+        "description": "Detalle sus necesidades"
+      },
+      "placeholders": {
+        "company": "Empresa S.A.",
+        "description": "Describa sus necesidades"
+      },
+      "validations": {
+        "name": {
+          "min": "El nombre es obligatorio",
+          "max": "El nombre no puede exceder los 40 caracteres"
+        },
+        "email": {
+          "min": "El correo electrónico es obligatorio",
+          "max": "El correo electrónico no puede exceder los 60 caracteres"
+        },
+        "phone": {
+          "min": "El teléfono debe tener al menos 10 dígitos",
+          "max": "El teléfono no puede tener más de 21 dígitos"
+        },
+        "company": {
+          "min": "El campo es obligatorio",
+          "max": "El campo no puede exceder los 40 caracteres"
+        },
+        "description": {
+          "min": "El detalle es demasiado corto",
+          "max": "El detalle es demasiado extenso"
+        }
+      },
+      "buttons": {
+        "bConfirm": "Finalizar consulta",
+        "bSending": "Enviando consulta..."
+      }
+    }
+  },
+  "AyudaPage": {
+    "terminosYCondiciones": {
+      "meta": {
+        "title": "Términos y Condiciones",
+        "description": "Leé atentamente los términos y condiciones de contratación de nuestros servicios de alquiler de vehículos."
+      },
+      "bannerTitle": "Términos y condiciones",
+      "termsAndConditions": [
+        {
+          "title": "A cargo de Móvil Renta:",
+          "subItems": [
+            { "title": "Mantenimiento" },
+            {
+              "title": "Sustitución del auto por avería o accidente:",
+              "subItems": [
+                { "title": "En forma inmediata en nuestra oficina" },
+                { "title": "Dentro de las 24 horas fuera de nuestra oficina" },
+                {
+                  "title": "Los autos de reemplazo podrán tener iguales o similares características al original alquilado."
+                }
+              ]
+            },
+            {
+              "title": "Seguros de Responsabilidad Civil para terceros transportados y/o no transportados, daños a cosas y/o a personas hasta $ 80.000.000.-"
+            },
+            {
+              "title": "Asistencia mecánica, sanitaria y remolque las 24 horas."
+            }
+          ]
+        },
+        {
+          "title": "A cargo del cliente:",
+          "subItems": [
+            { "title": "Combustible" },
+            { "title": "Multas de tránsito" },
+            { "title": "Excedentes" },
+            { "title": "Peajes" },
+            { "title": "Cargos por drop-off" },
+            {
+              "title": "Franquicias por faltantes, daños, robo y/o vuelco del vehículo."
+            }
+          ]
+        },
+        {
+          "title": "Reducción de la franquicia:",
+          "content": "El cliente puede reducir su responsabilidad de la franquicia pagando un seguro adicional. Para reducir la franquicia de los alquileres mensuales el cliente deberá pagar el equivalente a 18 días de seguro adicional conforme a la categoría de auto asignado. Será de exclusiva responsabilidad del cliente todo daño al vehículo causado por uso indebido, negligencia, o la no observancia de los mecanismos preventivos de la unidad (señales sonoras o lumínicas), cruce de ríos, y/o por circular por caminos de tierra, ripio, arena o cualquier otro no pavimentado, aunque el costo exceda la franquicia, eximiendo a Móvil Renta de producirse la inmovilización del vehículo por estas causas, de toda responsabilidad por demoras, pérdidas, gastos y sustitución del vehículo. Esta garantía y obligación incluye todo daño o infracción cometida por cualquier persona, que utilice el vehículo durante la vigencia del contrato de alquiler"
+        },
+        {
+          "title": "Requisitos para el conductor:",
+          "subItems": [
+            {
+              "title": "Los conductores deberán ser mayores de 25 años de edad, tener licencia de conducir vigente y documento de identidad actualizado."
+            },
+            {
+              "title": "Para retirar un auto deberá presentarse una tarjeta de crédito (Visa, American Express, Diners, Mastercard, etc.)."
+            }
+          ]
+        },
+        {
+          "title": "Faltante de combustible:",
+          "content": "Móvil Renta cobrará al cliente un excedente por servicio en caso que éste no devuelva el vehículo alquilado con la misma cantidad de combustible como fue entregado originalmente."
+        },
+        {
+          "title": "Entrega del vehículo:",
+          "content": "El cliente asumirá la responsabilidad del contenido y los cargos detallados en el acta de devolución del vehículo, cuando entregara el mismo, fuera del horario de atención al público o dentro de ese horario cuando no esperase la devolución de dicho documento y la verificación del vehículo."
+        },
+        {
+          "title": "Aviso de cancelación de reserva confirmada:",
+          "content": "En caso que el cliente tenga una reserva confirmada y deba suspender ese alquiler es de suma importancia que lo informen a Móvil Renta con la mayor anticipación posible."
+        },
+        {
+          "title": "Tasa de aeropuertos:",
+          "content": "Los alquileres tomados en Aeropuertos NO tendrán recargo en concepto de tasa de aeropuerto."
+        }
+      ]
+    },
+    "consejosDeSeguridad": {
+      "meta": {
+        "title": "Consejos de Seguridad",
+        "description": "Recomendaciones esenciales para una conducción responsable y segura durante el uso del vehículo."
+      },
+      "bannerTitle": "Ayuda",
+      "items": [
+        {
+          "title": "Consejos para su seguridad",
+          "subItems": [
+            {
+              "title": "Antes de salir, ajustar asiento del conductor, así como espejos retrovisores, para lograr la posición idónea de manejo."
+            },
+            {
+              "title": "Utilizar el cinturón de seguridad, todos los ocupantes del vehículo."
+            },
+            {
+              "title": "Menores de 10 años ubicados en asientos traseros con el cinturón de seguridad colocado."
+            },
+            {
+              "title": "Niños mayores de 1 año y hasta que su peso y altura lo permitan en sillas adaptables. Siempre en el asiento trasero del vehículo."
+            },
+            {
+              "title": "Menores de 1 año ubicados en dispositivos adaptables, en asiento trasero y en sentido contrario a la circulación del vehículo."
+            },
+            {
+              "title": "NO usar el teléfono celular."
+            },
+            {
+              "title": "Anunciar maniobras con las luces de giro."
+            },
+            {
+              "title": "Mantener la derecha."
+            },
+            {
+              "title": "Observar y respetar las señales viales."
+            },
+            {
+              "title": "No conducir si se ha ingerido alcohol, una copa o una cerveza, es la cantidad suficiente para alterar la capacidad de reacción, deficiencias en la percepción y una falsa sensación de seguridad. Recordamos que Tucumán está adherida a la ley nº 6.082 de tolerancia 'cero'."
+            },
+            {
+              "title": "Respetar los límites de velocidad. La velocidad excesiva y la combinación de esta con el consumo de alcohol, está presente en la mayoría de los accidentes con lesionados y muertos, aun con el cinturón de seguridad bien colocado, por lo que es importante moderar nuestra velocidad."
+            },
+            {
+              "title": "Reducir la velocidad paulatinamente ante reducción de visibilidad por niebla o humo."
+            },
+            {
+              "title": "Utilizar luces de emergencia del vehículo (balizas) sólo para detenerse ó durante la detención al margen de la ruta. No detenerse bruscamente sobre la ruta o banquina."
+            },
+            {
+              "title": "Los distractores al conducir son otra causa de accidentes, ya que si se circula a una velocidad de 80 km/hr y se distrae 2 segundos, se circula sin poner atención al frente por 44.4 metros, distancia en la cual puede ocurrir cualquier imprevisto."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "GraciasPage": {
+    "meta": {
+      "title": "Gracias por elegirnos"
+    },
+    "title": "Reserva realizada con éxito",
+    "subtitle": "Gracias por elegirnos, a continuación le brindamos su código de reserva a través del email que nos proporcionó."
+  }
+}

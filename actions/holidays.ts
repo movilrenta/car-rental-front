@@ -2,22 +2,6 @@
 
 import { GetFechasAction } from "./fechas";
 
-//TODO: AUMENTAR COSTO DE RESERVA POR DIA ESPECIAL
-
-// const specialDates = [
-//   { date: "2025-03-17", value: 2, name: "1" },
-//   { date: "2025-03-25", value: 2, name: "2" },
-//   { date: "2025-04-05", value: 1.5, name: "3" },
-//   { date: "2025-04-17", value: 7, name: "4" },
-//   { date: "2025-08-07", value: 1.2, name: "5" },
-//   { date: "2025-08-16", value: 1.2, name: "6" },
-//   { date: "2025-10-12", value: 1.2, name: "7" },
-//   { date: "2025-11-01", value: 1.2, name: "8" },
-//   { date: "2025-11-11", value: 1.2, name: "9" },
-//   { date: "2025-12-08", value: 1.2, name: "10" },
-//   { date: "2025-12-25", value: 1.2, name: "11" }
-// ]
-
 const normalizeDate = (date: Date): number => {
   const normalized = new Date(date);
   normalized.setHours(0, 0, 0, 0); // Ajustamos la fecha a medianoche local
@@ -27,32 +11,39 @@ const normalizeDate = (date: Date): number => {
 export const getMaxIncrement = async (
   startDate: Date,
   endDate: Date
-  //specialDates: { date: string; value: number, name: string }[]
 ) => {
   if (!startDate || !endDate) return 1;
+
   const start = normalizeDate(startDate);
   const end = normalizeDate(endDate);
 
   const specialDates = await GetFechasAction();
-  console.log(specialDates, "po");
 
-  //const maxIncrement = specialDates.reduce((maxValue: number, { start_date, multiplier, reason }: any) => {
-  const maxIncrement = specialDates.reduce(
-    (maxValue: number, { start_date, end_date, multiplier }: any) => {
+  const relevantMultipliers = specialDates
+    .map(({ start_date, end_date, multiplier }: any) => {
       const [year, month, day] = start_date.split("-").map(Number);
       const [year2, month2, day2] = end_date.split("-").map(Number);
-      const startDate = normalizeDate(new Date(year, month - 1, day));
-      const endDate = normalizeDate(new Date(year2, month2 - 1, day2));
+      const specialStart = normalizeDate(new Date(year, month - 1, day));
+      const specialEnd = normalizeDate(new Date(year2, month2 - 1, day2));
+      const numberMultiplier = Number(multiplier);
 
-      return (start >= startDate && start <= endDate) ||
-        (end >= startDate && end <= endDate)
-        ? multiplier > 1
-          ? Math.max(maxValue, Number(multiplier))
-          : maxValue * Number(multiplier)
-        : maxValue;
-    },
-    1
-  );
+      const overlaps =
+        (start >= specialStart && start <= specialEnd) ||
+        (end >= specialStart && end <= specialEnd) ||
+        (start <= specialStart && end >= specialEnd); // cubre todo el rango
 
-  return maxIncrement;
+      return overlaps ? numberMultiplier : null;
+    })
+    .filter((m: any): m is number => m !== null);
+
+  const greaterThanOne = relevantMultipliers.filter((m: any) => m > 1);
+  if (greaterThanOne.length > 0) return Math.max(...greaterThanOne);
+
+  const lessThanOne = relevantMultipliers.filter((m: any) => m < 1);
+  if (lessThanOne.length > 0) return Math.min(...lessThanOne);
+
+  const equalToOne = relevantMultipliers.find((m: any) => m === 1);
+  if (equalToOne !== undefined) return 1;
+
+  return 1; // por defecto si no hay coincidencias
 };
