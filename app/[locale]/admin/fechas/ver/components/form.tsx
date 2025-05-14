@@ -28,6 +28,7 @@ import { PostFechasAction, PutFechasAction } from "@/actions/fechas";
 
 export default function CRUD_Fecha_Form({
   fecha,
+  role
 }: {
   fecha?: {
     id: number;
@@ -36,6 +37,7 @@ export default function CRUD_Fecha_Form({
     start_date: string;
     end_date: string;
   };
+  role?: string
 }) {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
@@ -69,8 +71,15 @@ export default function CRUD_Fecha_Form({
       };
 
       try {
-        const res = await PutFechasAction(editFecha);
-
+        const res = await PutFechasAction(editFecha, role);
+        if (res.status === 401) {
+          toast({
+            variant: "default",
+            title: res.message || "no autorizado 401",
+          });
+          setIsLoading(false);
+          //window.location.reload();
+        }
         if (res.status === 200) {
           toast({
             variant: "default",
@@ -90,8 +99,15 @@ export default function CRUD_Fecha_Form({
       const newFecha: any = values;
       newFecha.multiplier = 1 + division;
       try {
-        const res = await PostFechasAction(newFecha);
-
+        const res = await PostFechasAction(newFecha, role);
+        if (res.status === 401) {
+          toast({
+            variant: "default",
+            title: res.message || "no autorizado 401",
+          });
+          setIsLoading(false);
+          //window.location.reload();
+        }
         if (res.status === 200) {
           toast({
             variant: "default",

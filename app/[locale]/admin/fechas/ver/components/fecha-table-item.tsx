@@ -16,10 +16,11 @@ interface FechasTableItemProps {
     multiplier: string;
     start_date: string;
     end_date: string;
-  };
+  }
+  role: string;
 }
 
-export default function FechasTableItem({ fecha }: FechasTableItemProps) {
+export default function FechasTableItem({ fecha, role } : FechasTableItemProps) {
   const percentaje = Math.round(
     (fecha &&
       (+fecha?.multiplier < 1
@@ -77,6 +78,7 @@ export default function FechasTableItem({ fecha }: FechasTableItemProps) {
       <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
         <div className="flex items-center justify-center gap-4">
           <CRUD_Fechas
+          role={role}
             children={
               <div className="w-full h-full bg-cover bg-center">
                 <FaEdit className="text-blue-500" size={20} />

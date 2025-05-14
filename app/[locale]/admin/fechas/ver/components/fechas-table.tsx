@@ -4,6 +4,7 @@ import CRUD_Fechas from "./crud";
 
 export const FechasTable = ({
   Fechas,
+  role
 }: {
   Fechas: {
     id: number;
@@ -12,6 +13,7 @@ export const FechasTable = ({
     start_date: string;
     end_date: string;
   }[];
+  role: string
 }) => {
   return (
     <div className="bg-white dark:bg-gray-800 shadow-sm rounded-xl relative">
@@ -23,6 +25,7 @@ export const FechasTable = ({
           </span>
         </h2>
         <CRUD_Fechas
+          role={role}
           children={
             <div className="border group duration-200 rounded-md w-fit px-2 bg-red-700 flex gap-2 text-white items-center justify-center">
               <LuPlus className="text-3xl p-2 w-11 h-11" />
@@ -63,7 +66,7 @@ export const FechasTable = ({
             {/* Table body */}
             <tbody className="text-sm divide-y divide-gray-100 dark:divide-gray-700/60">
               {Fechas?.map((item) => (
-                <AdicionalesTableItem key={item.id} fecha={item} />
+                <AdicionalesTableItem key={item.id} fecha={item} role={role}/>
               ))}
             </tbody>
           </table>

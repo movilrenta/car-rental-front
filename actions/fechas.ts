@@ -1,5 +1,6 @@
 'use server';
 
+import { ROLES } from "@/constant/roles";
 import axios from "axios";
 import { revalidatePath } from "next/cache";
 
@@ -26,7 +27,8 @@ export async function GetFechasAction() {
   }
 }
 
-export async function PostFechasAction(fecha: any) {
+export async function PostFechasAction(fecha: any, role: string | undefined) {
+  if (role !== ROLES.SUPERADMIN && role !== ROLES.ADMIN) return {data: "No tenes permisos", status: 401}
   try {
     //await setupCsrf();
     const res = await axios.post(`${URL}api/date-based-price-multipliers`, fecha)
@@ -40,7 +42,8 @@ export async function PostFechasAction(fecha: any) {
 }
 
 
-export async function PutFechasAction(fecha: any) {
+export async function PutFechasAction(fecha: any, role: string | undefined) {
+  if (role !== ROLES.SUPERADMIN && role !== ROLES.ADMIN) return {data: "No tenes permisos", status: 401}
   try {
     //await setupCsrf();
     const res = await axios.put(`${URL}api/date-based-price-multipliers/${fecha.id}`, fecha)
