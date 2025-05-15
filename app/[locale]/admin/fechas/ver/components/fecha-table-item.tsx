@@ -8,6 +8,7 @@ import {
 import CRUD_Fechas from "./crud";
 import DeleteFecha from "./delete-fecha";
 import clsx from "clsx";
+import { UserRole } from "@/types";
 
 interface FechasTableItemProps {
   fecha: {
@@ -17,7 +18,7 @@ interface FechasTableItemProps {
     start_date: string;
     end_date: string;
   }
-  role: string;
+  role: UserRole;
 }
 
 export default function FechasTableItem({ fecha, role } : FechasTableItemProps) {

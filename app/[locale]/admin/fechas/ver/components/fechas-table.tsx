@@ -1,6 +1,7 @@
 import { LuPlus } from "react-icons/lu";
 import AdicionalesTableItem from "./fecha-table-item";
 import CRUD_Fechas from "./crud";
+import { UserRole } from "@/types";
 
 export const FechasTable = ({
   Fechas,
@@ -13,7 +14,7 @@ export const FechasTable = ({
     start_date: string;
     end_date: string;
   }[];
-  role: string
+  role: UserRole
 }) => {
   return (
     <div className="bg-white dark:bg-gray-800 shadow-sm rounded-xl relative">

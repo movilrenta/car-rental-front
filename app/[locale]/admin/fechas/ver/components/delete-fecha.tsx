@@ -27,13 +27,16 @@ export default function DeleteFecha({
       const response = await DeleteFechasAction(id);
 
       if (response.status === 200) {
-        toast({
+        return toast({
           title: "Fecha eliminada",
-          description: "La fecha ha sido eliminada correctamente",
+          description: response.message,
         });
         //return window.location.reload();
-        return;
       }
+        toast({
+          title: "Error",
+          description: response.message,
+        });
     } catch (error) {
       console.log(error);
       toast({
