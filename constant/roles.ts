@@ -1,6 +1,8 @@
-export const ROLES = {
-  SUPERADMIN: 'super_admin',
-  ADMIN: 'admin',
-  AUDITOR: 'auditor',
-  VENDEDOR: 'vendedor'
+import { UserRole } from "@/types";
+
+export const ROLES:Record<UserRole, string> = {
+  vendedor: "vendedor",
+  auditor:"auditor",
+  admin: "admin",
+  superadmin: "superadmin"
 }
