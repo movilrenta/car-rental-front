@@ -1,9 +1,10 @@
 'use server';
 
+import axios from "axios";
 import { RESPONSE } from "@/constant/handler-actions";
 import { ROLES } from "@/constant/roles";
-import { UserRole } from "@/types";
-import axios from "axios";
+import type { ActionResponse, UserRole } from "@/types";
+import { buildResponse } from "@/utils/build-response";
 import { revalidatePath } from "next/cache";
 
 
@@ -15,20 +16,6 @@ import { revalidatePath } from "next/cache";
 // const setupCsrf = async () => {
 //   await axiosInstance.get("/sanctum/csrf-cookie");
 // };
-
-type ActionResponse<T = any> = {
-  data: T | null;
-  message: string;
-  status: number;
-  error?: unknown;
-};
-
-const buildResponse = <T = any>(config: { message: string; code: number }, data: T | null = null, error?: unknown) => ({
-  data,
-  message: config.message,
-  status: config.code,
-  ...(error ? { error } : {})
-});
 
 const URL = process.env.NEXT_PUBLIC_URL_MOVILRENTA
 
