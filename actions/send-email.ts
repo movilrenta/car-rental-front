@@ -1,5 +1,4 @@
 import emailjs, { EmailJSResponseStatus } from '@emailjs/browser';
-import { getTranslations } from 'next-intl/server';
 import { z } from "zod";
 
 const SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
@@ -12,35 +11,34 @@ const formSchema = z.object({
   code: z.string().min(4, "El código de reserva es obligatorio")
 })
 
-export const sendEmail = async (values:z.infer<typeof formSchema>) => {
-  const t = await getTranslations("PaymentsPage.sendEmail")
+export const sendEmail = async (values:z.infer<typeof formSchema>, pdf: any) => {
     try {
       await emailjs.send(
         `${SERVICE_ID}`,
         `${TEMPLATE_ID}`,
-        values,
+        {...values, content: pdf},
         {
           publicKey: `${PUBLIC_KEY}`,
         },
       );
       return {
         ok:true,
-        message:t("success.message"),
-        description: t("success.description")
+        message:"Reserva confirmada con éxito",
+        description: "Se ha enviado un email con su código de reserva. Por favor revise su bandeja de entrada"
       }
     } catch (err) {
       if (err instanceof EmailJSResponseStatus) {
         console.log('EMAILJS FAILED...', err);
         return {
           ok:false,
-          message: t("error.message")
+          message: "Error en el envio de email"
         }
       }
     
       console.log('ERROR', err);
       return {
         ok:false,
-        message:t("error.message")
+        message:"error.message"
       }
     }
 }

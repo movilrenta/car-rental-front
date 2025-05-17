@@ -22,6 +22,9 @@ import { getReservaPrice } from "../confirmar/calculate-price";
 import { useFormatNumber } from "@/components/utils/useFormatterNumber";
 import PayWay from "./test/payway";
 import { useTranslations } from "next-intl";
+import { createPDF } from "@/app/[locale]/test/handler-send-pdf";
+import { PDFInfoType } from "@/types/pdf";
+
 
 export default function PayForm() {
   const router = useRouter();
@@ -34,6 +37,7 @@ export default function PayForm() {
   const reserva = useReservaStore((state) => state.getReserva());
   const userDataEmail = JSON.parse(sessionStorage.getItem("movil_renta_user_data_mail") as string);
 
+  
   const { toast } = useToast();
 
   const form = useForm<PaymentsFormValues>({
@@ -110,7 +114,7 @@ export default function PayForm() {
         amount_aditionals,
         dropOff
       );
-      // console.log(resp);
+      //console.log(resp, "resp-113");
       if (!resp?.ok) {
         toast({
           variant: "default",
@@ -118,11 +122,33 @@ export default function PayForm() {
           description: `${resp?.message}`,
         });
       } else {
+        const hoy = new Date();
+        const fechaFormateada = hoy.toLocaleDateString("es-AR", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+        });
+        const methodPay = paymentsMethods?.filter(method => method.idmediopago === values?.payment_method_id)[0]?.descripcion
+        //console.log(fechaFormateada); // Ejemplo: "17/05/2025"
+        const PDFInfo: PDFInfoType = {
+          numeroFactura: number_reserva_id,
+          cliente: userDataEmail.firstName,
+          direccion: userDataEmail.address,
+          fecha: fechaFormateada, //
+          monto: totales.totalCompleto, //
+          montoTexto: "", //
+          formaPago: methodPay,
+          detalles: userDataEmail.details,
+          codigoVenta: code
+        }
+        
+        const creationPDF = await createPDF(PDFInfo)
         const respEmail = await sendEmail({
           userEmail: userDataEmail.userEmail as string,
           firstName: userDataEmail.firstName as string,
           code,
-        });
+        }, creationPDF);
+        //console.log(respEmail, "respEmail 126");
         if (respEmail.ok) {
           toast({
             variant: "default",

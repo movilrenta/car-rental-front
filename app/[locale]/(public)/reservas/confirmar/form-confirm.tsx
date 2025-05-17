@@ -130,6 +130,9 @@ export const FormConfirm = () => {
         const dataUserMail = {
           firstName: `${values.firstName} ${values.lastName}`,
           userEmail: values.email,
+          code: reserveToConfirm.code,
+          address: reserveToConfirm.drivers_address,
+          details: "desde " + reserveToConfirm.start_date + " hasta " + reserveToConfirm.end_date
         };
         sessionStorage.setItem("movil_renta_code", data.code);
         sessionStorage.setItem("movil_renta_reservation_id", data.id);
