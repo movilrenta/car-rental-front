@@ -82,7 +82,7 @@ export async function StatusCarAction(
     return buildResponse(RESPONSE.CARS.PUT.SUCCESS, res.data);
   } catch (error) {
      if(error instanceof AxiosError){
-      return buildResponse({message:error.response?.data.error.message, code: error.status || 500 })
+      return buildResponse({message:error.response?.data.error.message || "Error status car action", code: error.status || 500 })
     }
     return buildResponse(RESPONSE.CARS.PUT.ERROR, null, error);
   }
