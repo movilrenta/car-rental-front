@@ -1,12 +1,12 @@
 {
   "Metadata": {
     "fleetTitle": "Vehicle Fleet",
-    "bookingTitle" : "Bookings"
+    "bookingTitle": "Bookings"
   },
   "HomePage": {
     "meta": {
-      "title" : "Rent a car",
-      "description" : "Welcome to Movil Renta, the best car rental service."
+      "title": "Rent a car",
+      "description": "Welcome to Movil Renta, the best car rental service."
     },
     "reservation": {
       "title": "Make a booking",
@@ -67,7 +67,7 @@
   },
   "FleetPage": {
     "banner": "Vehicle Fleet",
-    "title" : "We have the largest and most modern fleet in Northern Argentina. With over 350 latest-model vehicles, we offer immediate availability.",
+    "title": "We have the largest and most modern fleet in Northern Argentina. With over 350 latest-model vehicles, we offer immediate availability.",
     "filter": {
       "car": "Cars",
       "utility": "Utilities",
@@ -108,7 +108,7 @@
       "title": "vehicle",
       "selectOrder": "Order by",
       "selectMinor": "Minimum price",
-      "selectMajor": "Maximum price", 
+      "selectMajor": "Maximum price",
       "errorDates": "Please check the booking dates",
       "dontFind": "Didn't find what you were looking for?",
       "dontFindDescription": "Don't worry! Contact us so we can help you with your next booking.",
@@ -197,15 +197,16 @@
       },
       "toast": "Rejected payment"
     },
-    "sendEmail":{
+    "sendEmail": {
       "success": {
-        "message": "Reservation successfully confirmed",
-       "description": "An email with your reservation code has been sent. Please check your inbox."
+        "title": "Reservation successfully confirmed",
+        "description": "An email with your reservation code has been sent. Please check your inbox."
       },
       "error": {
-       "message": "There was a problem sending the message!"
+        "title": "There was a problem sending the message",
+        "description": "Check the reservation status through our contact channels"
       }
-     }
+    }
   },
   "ReservaPage": {
     "ConfirmarPage": {
@@ -513,6 +514,20 @@
         "description": {
           "min": "Description is too short",
           "max": "Description is too long"
+        }
+      },
+      "emailResponse": {
+        "success": {
+          "title": "Your message was sent successfully",
+          "description": "An advisor will be in touch soon."
+        },
+        "error": {
+          "title": "There was a problem sending the message.",
+          "description": "Please try again later"
+        },
+        "fatal": {
+          "title": "There was a problem sending the message.",
+          "description": "Please contact us through other available channels."
         }
       },
       "buttons": {

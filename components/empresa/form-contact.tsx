@@ -50,6 +50,7 @@ interface EmpresasFormText {
 export const FormContact: React.FC<{ text: EmpresasFormText }> = ({ text }) => {
   const { toast } = useToast();
   const t = useTranslations("ContactoPage.form");
+  const eResp = useTranslations("ContactoPage.form.emailResponse")
 
   const form = useForm<CompanyFormValues>({
     resolver: zodResolver(getCompanySchema(t)),
@@ -65,24 +66,25 @@ export const FormContact: React.FC<{ text: EmpresasFormText }> = ({ text }) => {
   async function onSubmit(values: CompanyFormValues) {
     try {
       const resp = await sendEmailCompany(values);
-      if (!resp.ok) {
+      if (!resp.success) {
         toast({
           variant: "default",
-          title: resp.message,
+          title: eResp('error.title'),
+          description: eResp('error.description') + ` Code: ${resp.status}`
         });
       } else {
         toast({
           variant: "default",
-          title: resp.message,
-          description: resp.description,
+          title: eResp('success.title'),
+          description: eResp('success.description')
         });
         form.reset()
       }
     } catch (error) {
       toast({
         variant:"destructive",
-        title: "No se pudo enviar el mensaje",
-        description:"Intente nuevamente más tarde"
+        title: eResp('fatal.title'),
+        description:eResp('fatal.description')
       })
     }
   }

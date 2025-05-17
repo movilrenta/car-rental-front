@@ -149,16 +149,17 @@ export default function PayForm() {
           code,
         }, creationPDF);
         //console.log(respEmail, "respEmail 126");
-        if (respEmail.ok) {
+        if (respEmail.success) {
           toast({
             variant: "default",
-            title: `${respEmail.message}`,
-            description: `${respEmail.description}`,
+            title: t('sendEmail.success.title'),
+            description: t('sendEmail.success.description'),
           });
         } else {
           toast({
             variant: "default",
-            title: `${resp.message}`,
+            title: t('sendEmail.error.title'),
+            description: t('sendEmail.error.description') + ` Code: ${respEmail.status}`
           });
         }
         router.replace("/reservas/gracias");
