@@ -20,7 +20,7 @@ import { Input } from "../input";
 import { Textarea } from "../textarea";
 import { useToast } from "@/hooks/use-toast";
 import { sendEmailCompany } from "@/actions";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 
 interface EmpresasFormText {
   name: {
@@ -50,7 +50,7 @@ interface EmpresasFormText {
 export const FormContact: React.FC<{ text: EmpresasFormText }> = ({ text }) => {
   const { toast } = useToast();
   const t = useTranslations("ContactoPage.form");
-  const locale = useLocale() as 'es' | 'en';
+  const eResp = useTranslations("ContactoPage.form.emailResponse")
 
   const form = useForm<CompanyFormValues>({
     resolver: zodResolver(getCompanySchema(t)),
@@ -65,26 +65,26 @@ export const FormContact: React.FC<{ text: EmpresasFormText }> = ({ text }) => {
 
   async function onSubmit(values: CompanyFormValues) {
     try {
-      const resp = await sendEmailCompany({values, locale});
-      if (!resp.ok) {
+      const resp = await sendEmailCompany(values);
+      if (!resp.success) {
         toast({
           variant: "default",
-          title: resp.title,
-          description: `${resp.description} + code: ${resp.status}`
+          title: eResp('error.title'),
+          description: eResp('error.description') + ` Code: ${resp.status}`
         });
       } else {
         toast({
           variant: "default",
-          title: resp.title,
-          description: resp.description,
+          title: eResp('success.title'),
+          description: eResp('success.description')
         });
         form.reset()
       }
     } catch (error) {
       toast({
         variant:"destructive",
-        title: "No se pudo enviar el mensaje",
-        description:"Intente nuevamente más tarde"
+        title: eResp('fatal.title'),
+        description:eResp('fatal.description')
       })
     }
   }
