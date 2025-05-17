@@ -25,6 +25,7 @@ import { PostCarAction, StatusCarAction } from "@/actions/car";
 import axios from "axios";
 import { LucideUnlock } from "lucide-react";
 import { LuLock } from "react-icons/lu";
+import { UserRole } from "@/types";
 //import axios from "axios";
 
 interface CarTipe extends VehicleType {
@@ -38,6 +39,7 @@ interface CarTableItemProps {
   Groups: Group[];
   Brands: Brand[];
   Branches: Branch[];
+  role: UserRole;
   //cars: any[];
 }
 
@@ -45,6 +47,7 @@ export default function CarsTableItem({
   car,
   Groups,
   Brands,
+  role,
   //cars,
   Branches,
 }: CarTableItemProps) {
@@ -53,11 +56,13 @@ export default function CarsTableItem({
 
   const handlerLockCar = async (car: CarTipe) => {
     try {
-      const res = await StatusCarAction(car)
+      const res = await StatusCarAction(car, role);
       if (res.status === 200) {
         toast({
           variant: "default",
-          title: `El auto ${car.name} fue ${res.data ? "bloqueado" : "desbloqueado"} con éxito`,
+          title: `El auto ${car.name} fue ${
+            res.data ? "bloqueado" : "desbloqueado"
+          } con éxito`,
         });
       } else {
         toast({
@@ -74,7 +79,7 @@ export default function CarsTableItem({
       console.log(error);
     }
   };
-  
+
   const handlerCopyCar = async () => {
     const patentes_array = patentes.split(",");
     const formData = Array.from({ length: copies }, (_, index) => {
@@ -98,7 +103,7 @@ export default function CarsTableItem({
 
     try {
       const requests = formData.map(async (newCar) => {
-        return PostCarAction(newCar);
+        return PostCarAction(newCar, role);
       });
 
       const responses = await Promise.all(requests);
@@ -184,8 +189,10 @@ export default function CarsTableItem({
             branches={Branches}
             brands={Brands}
             groups={Groups}
+            role={role}
           />
           <DeleteComponent
+            role={role}
             children={
               <div className="w-full">
                 <FaTrash className="text-red-500" size={20} />
@@ -208,7 +215,8 @@ export default function CarsTableItem({
             <DialogContent className="sm:max-w-[425px] bg-white">
               <DialogHeader>
                 <DialogTitle>
-                  Vas a {!car.is_active ? "desbloquear" : "bloquear"} el vehiculo
+                  Vas a {!car.is_active ? "desbloquear" : "bloquear"} el
+                  vehiculo
                 </DialogTitle>
                 <DialogDescription>
                   {!car.is_active
