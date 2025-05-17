@@ -20,7 +20,7 @@ import { Input } from "../input";
 import { Textarea } from "../textarea";
 import { useToast } from "@/hooks/use-toast";
 import { sendEmailCompany } from "@/actions";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 interface EmpresasFormText {
   name: {
@@ -50,6 +50,7 @@ interface EmpresasFormText {
 export const FormContact: React.FC<{ text: EmpresasFormText }> = ({ text }) => {
   const { toast } = useToast();
   const t = useTranslations("ContactoPage.form");
+  const locale = useLocale() as 'es' | 'en';
 
   const form = useForm<CompanyFormValues>({
     resolver: zodResolver(getCompanySchema(t)),
@@ -64,16 +65,17 @@ export const FormContact: React.FC<{ text: EmpresasFormText }> = ({ text }) => {
 
   async function onSubmit(values: CompanyFormValues) {
     try {
-      const resp = await sendEmailCompany(values);
+      const resp = await sendEmailCompany({values, locale});
       if (!resp.ok) {
         toast({
           variant: "default",
-          title: resp.message,
+          title: resp.title,
+          description: `${resp.description} + code: ${resp.status}`
         });
       } else {
         toast({
           variant: "default",
-          title: resp.message,
+          title: resp.title,
           description: resp.description,
         });
         form.reset()
