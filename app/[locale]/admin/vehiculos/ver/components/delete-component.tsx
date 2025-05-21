@@ -13,12 +13,13 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { useToast } from "@/hooks/use-toast";
+import { UserRole } from "@/types";
 
-export default function DeleteComponent({children, id} : {children: React.ReactNode, id: number}) {
+export default function DeleteComponent({children, id, role} : {children: React.ReactNode, id: number, role:UserRole}) {
   const { toast } = useToast();
   async function handleDelete() {
     try {
-      const response = await DeleteCarAction(id)
+      const response = await DeleteCarAction(id, role)
       console.log(response)
       if(response.status === 200) {
           toast({

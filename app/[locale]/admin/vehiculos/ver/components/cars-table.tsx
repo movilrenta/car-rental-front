@@ -11,17 +11,20 @@ import React, { useEffect, useState } from "react";
 import { FaChevronUp } from "react-icons/fa";
 import { FaChevronDown } from "react-icons/fa";
 import Image from "next/image";
+import { UserRole } from "@/types";
 
 export const CarsTable = ({
   Cars,
   Brands,
   Groups,
   Branches,
+  role
 }: {
   Cars: VehicleType[];
   Brands: Brand[];
   Groups: Group[];
   Branches: Branches[];
+  role: UserRole;
 }) => {
   const [newCars, setNewCars] = useState<any[]>([]);
   const [expandedGroups, setExpandedGroups] = useState<Record<string, boolean>>(
@@ -86,6 +89,7 @@ export const CarsTable = ({
           groups={Groups}
           brands={Brands}
           branches={Branches}
+          role={role}
         />
       </header>
       <div>
@@ -190,6 +194,7 @@ export const CarsTable = ({
                           Brands={Brands}
                           Branches={Branches}
                           Groups={Groups}
+                          role={role}
                           //cars={Cars}
                         />
                       ))}

@@ -35,6 +35,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
 import { LoaderIcon } from "lucide-react";
 import { Textarea } from "@/components/textarea";
+import { UserRole } from "@/types";
 
 const autos_pic = [
   "/images2/peugeot208.webp",
@@ -79,15 +80,18 @@ export default function CRUD_Form({
   brands,
   branches,
   car,
+  role,
+  onClose
 }: {
   groups: any;
   brands: any;
   branches: any;
   car?: VehicleType;
+  role: UserRole;
+  onClose: any;
 }) {
-
   const { toast } = useToast();
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<z.infer<typeof VehycleFormSchema>>({
     resolver: zodResolver(VehycleFormSchema),
@@ -103,14 +107,13 @@ export default function CRUD_Form({
       branch_id: car ? car.branch_id.toString() : "",
       image: car ? car.image : "",
       description: car ? car.description : "",
-      plate: car ? car.plate ? car.plate : "" : "",
+      plate: car ? (car.plate ? car.plate : "") : "",
       vehicle_type: car ? car.vehicle_type : "",
     },
   });
 
   const onSubmit = async (values: z.infer<typeof VehycleFormSchema>) => {
     event?.preventDefault();
-    setIsLoading(true);
     if (car) {
       const editCar = {
         id: car.id,
@@ -130,15 +133,14 @@ export default function CRUD_Form({
       };
 
       try {
-        const res = await PutCarAction(editCar);
+        const res = await PutCarAction(editCar, role);
         //console.log(res);
         if (res.status === 200) {
           toast({
             variant: "default",
-            title: `Vehículo editado con exito`,
+            title: res.message,
           });
-          setIsLoading(false);
-          //window.location.reload();
+          onClose();
         }
       } catch (error) {
         console.log(error);
@@ -154,22 +156,27 @@ export default function CRUD_Form({
       newCar.group_id = Number(newCar.group_id);
       console.log(newCar);
       try {
-        const res = await PostCarAction(newCar);
-        console.log(res);
-        if (res.status === 200) {
+        const res = await PostCarAction(newCar, role);
+        // console.log(res);
+        if (res.status === 201) {
           toast({
             variant: "default",
-            title: `Vehículo creado con exito`,
+            title: res.message,
           });
-          setIsLoading(false);
+          onClose();
           //window.location.reload();
-        }
+        }else{
+          toast({
+            variant:"default",
+            title: res.message,
+            description: `código: ${res.status}`
+          })
+       }
       } catch (error) {
         toast({
           variant: "default",
           title: `Hubo un error en la creación.`,
         });
-        setIsLoading(false);
         console.log(error);
       }
     }
@@ -222,26 +229,24 @@ export default function CRUD_Form({
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      
-                        <SelectItem
-                          value="car"
-                          className="hover:bg-red-700 hover:text-white duration-200"
-                        >
-                          Auto
-                        </SelectItem>
-                        <SelectItem
-                          value="van"
-                          className="hover:bg-red-700 hover:text-white duration-200"
-                        >
-                          Camioneta
-                        </SelectItem>
-                        <SelectItem
-                          value="utility"
-                          className="hover:bg-red-700 hover:text-white duration-200"
-                        >
-                          Utilitario
-                        </SelectItem>
-                      
+                      <SelectItem
+                        value="car"
+                        className="hover:bg-red-700 hover:text-white duration-200"
+                      >
+                        Auto
+                      </SelectItem>
+                      <SelectItem
+                        value="van"
+                        className="hover:bg-red-700 hover:text-white duration-200"
+                      >
+                        Camioneta
+                      </SelectItem>
+                      <SelectItem
+                        value="utility"
+                        className="hover:bg-red-700 hover:text-white duration-200"
+                      >
+                        Utilitario
+                      </SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
@@ -485,7 +490,11 @@ export default function CRUD_Form({
                               alt="2asd"
                               className="h-8 w-auto"
                             />
-                            <p>{url.replace("/images2/","").replace(".webp", "")}</p>
+                            <p>
+                              {url
+                                .replace("/images2/", "")
+                                .replace(".webp", "")}
+                            </p>
                           </div>
                         </SelectItem>
                       ))}
@@ -535,10 +544,10 @@ export default function CRUD_Form({
         <Button
           onClick={form.handleSubmit(onSubmit)}
           variant="default"
-          disabled={isLoading}
+          disabled={form.formState.isSubmitting}
           className="min-w-24 w-fit px-6 py-2 bg-red-700 text-white hover:bg-red-800 duration-200"
         >
-          {isLoading ? (
+          {form.formState.isSubmitting ? (
             <LoaderIcon className="w-4 h-4 animate-spin" />
           ) : car ? (
             "Editar"
