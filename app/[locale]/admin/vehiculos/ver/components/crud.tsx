@@ -1,6 +1,8 @@
+"use client";
+import React from "react";
+
 import { Sheet, SheetTrigger } from "@/components/sheet";
 import { VehicleType } from "@/constant/cars";
-import React from "react";
 import CRUD_Form from "./form";
 import { UserRole } from "@/types";
 import { ROLES } from "@/constant/roles";
@@ -20,9 +22,10 @@ export default function CRUD_Vehycle({
   branches: any;
   role: UserRole;
 }) {
+  const [open, setOpen] = React.useState<boolean>(false)
   return (
     (role === ROLES.superadmin || role === ROLES.admin) && (
-      <Sheet>
+      <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger>{children}</SheetTrigger>
         <CRUD_Form
           groups={groups}
@@ -30,6 +33,7 @@ export default function CRUD_Vehycle({
           branches={branches}
           car={car}
           role={role}
+          onClose={() => setOpen(false)}
         />
       </Sheet>
     )

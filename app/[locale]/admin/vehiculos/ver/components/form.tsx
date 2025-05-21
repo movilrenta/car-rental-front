@@ -81,12 +81,14 @@ export default function CRUD_Form({
   branches,
   car,
   role,
+  onClose
 }: {
   groups: any;
   brands: any;
   branches: any;
   car?: VehicleType;
   role: UserRole;
+  onClose: any;
 }) {
   const { toast } = useToast();
   // const [isLoading, setIsLoading] = useState(false);
@@ -138,7 +140,7 @@ export default function CRUD_Form({
             variant: "default",
             title: res.message,
           });
-          //window.location.reload();
+          onClose();
         }
       } catch (error) {
         console.log(error);
@@ -155,12 +157,13 @@ export default function CRUD_Form({
       console.log(newCar);
       try {
         const res = await PostCarAction(newCar, role);
-        console.log(res);
+        // console.log(res);
         if (res.status === 201) {
           toast({
             variant: "default",
             title: res.message,
           });
+          onClose();
           //window.location.reload();
         }else{
           toast({
