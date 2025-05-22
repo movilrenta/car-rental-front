@@ -19,25 +19,15 @@ import { Button } from "@/components/ui/button";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { Input } from "@/components/input";
-// import {
-//   Select,
-//   SelectContent,
-//   SelectItem,
-//   SelectTrigger,
-//   SelectValue,
-// } from "@/components/select";
-import Image from "next/image";
 import { useToast } from "@/hooks/use-toast";
-import { useState } from "react";
 import { LoaderIcon } from "lucide-react";
 import { Textarea } from "@/components/textarea";
 import { Group } from "@/types/car.interface";
 import { groupSchema, resolver } from "./groupSchema";
 import { postGroup, putGroup } from "@/actions";
 
-export default function CRUD_Form({ Group }: { Group?: Group }) {
+export default function CRUD_Form({ Group, onClose }: { Group?: Group, onClose:any}) {
   const { toast } = useToast();
-  const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<z.infer<typeof groupSchema>>({
     resolver: resolver,
@@ -45,29 +35,34 @@ export default function CRUD_Form({ Group }: { Group?: Group }) {
       name: Group ? Group.name : "",
       description: Group ? Group.description : "",
       insurances: Group ? Group.insurances : "",
-      rate: Group ? Group.rate : ""
+      rate: Group ? Group.rate : "",
     },
   });
 
   const onSubmit = async (values: z.infer<typeof groupSchema>) => {
-    setIsLoading(true);
     if (Group) {
       const editGroup = {
         id: Group.id,
         name: values.name,
         description: values.description,
         insurances: values.insurances,
-        rate: values.rate
+        rate: values.rate,
       };
 
       try {
         const res = await putGroup(editGroup);
-        if (res.ok) {
+        if (res.status === 200) {
           toast({
             variant: "default",
-            title: `Grupo editado con exito`,
+            title: res.message,
           });
-          setIsLoading(false);
+          onClose(false)
+        } else {
+          toast({
+            variant: "default",
+            title: res.message,
+            description: `Código: ${res.status}`,
+          });
         }
       } catch (error) {
         console.log(error);
@@ -75,24 +70,28 @@ export default function CRUD_Form({ Group }: { Group?: Group }) {
           variant: "default",
           title: `Hubo un error en la edición.`,
         });
-        setIsLoading(false);
       }
     } else {
       try {
         const res = await postGroup(values);
-        if (res.ok) {
+        if (res.status === 201) {
           toast({
             variant: "default",
-            title: `Grupo creado con exito`,
+            title: res.message,
           });
-          setIsLoading(false);
+          onClose(false);
+        } else {
+          toast({
+            variant: "default",
+            title: res.message,
+            description: `Código: ${res.status}`,
+          });
         }
       } catch (error) {
         toast({
           variant: "default",
           title: `Hubo un error en la creación.`,
         });
-        setIsLoading(false);
         console.log(error);
       }
     }
@@ -154,7 +153,8 @@ export default function CRUD_Form({ Group }: { Group?: Group }) {
                   </FormControl>
                   <FormMessage className="text-red-500 dark:text-red-300 font-light line-clamp-1 text-ellipsis" />
                 </FormItem>
-              )}/>
+              )}
+            />
             <FormField
               control={form.control}
               name="description"
@@ -185,7 +185,7 @@ export default function CRUD_Form({ Group }: { Group?: Group }) {
           disabled={form.formState.isSubmitting}
           className="min-w-24 w-fit px-6 py-2 bg-red-700 text-white hover:bg-red-800 duration-200"
         >
-          {isLoading ? (
+          {form.formState.isSubmitting ? (
             <LoaderIcon className="w-4 h-4 animate-spin" />
           ) : Group ? (
             "Editar"

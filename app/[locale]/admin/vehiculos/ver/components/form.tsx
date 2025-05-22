@@ -32,7 +32,6 @@ import {
 import Image from "next/image";
 import { PostCarAction, PutCarAction } from "@/actions/car";
 import { useToast } from "@/hooks/use-toast";
-import { useState } from "react";
 import { LoaderIcon } from "lucide-react";
 import { Textarea } from "@/components/textarea";
 import { UserRole } from "@/types";
