@@ -20,7 +20,7 @@ export default function CRUD_Group({
       <SheetTrigger>{children}</SheetTrigger>
       <CRUD_Form
         Group={Group}
-        onClose={setOpen}
+        onClose={() => setOpen(false)}
       />
     </Sheet>
   );
