@@ -22,7 +22,6 @@ import { MdOutlineControlPointDuplicate } from "react-icons/md";
 import { Input } from "@/components/input";
 import { toast } from "@/hooks/use-toast";
 import { PostCarAction, StatusCarAction } from "@/actions/car";
-import axios from "axios";
 import { LucideUnlock } from "lucide-react";
 import { LuLock } from "react-icons/lu";
 import { UserRole } from "@/types";
@@ -56,7 +55,7 @@ export default function CarsTableItem({
 
   const handlerLockCar = async (car: CarTipe) => {
     try {
-      const res = await StatusCarAction(car, role);
+      const res = await StatusCarAction(car);
       if (res.status === 200) {
         toast({
           variant: "default",
@@ -67,7 +66,8 @@ export default function CarsTableItem({
       } else {
         toast({
           variant: "default",
-          title: `Hubo un error en la modificación.`,
+          title: res.message,
+          description: `Código: ${res.status}`
         });
       }
     } catch (error) {
@@ -103,7 +103,7 @@ export default function CarsTableItem({
 
     try {
       const requests = formData.map(async (newCar) => {
-        return PostCarAction(newCar, role);
+        return PostCarAction(newCar);
       });
 
       const responses = await Promise.all(requests);
@@ -192,7 +192,6 @@ export default function CarsTableItem({
             role={role}
           />
           <DeleteComponent
-            role={role}
             children={
               <div className="w-full">
                 <FaTrash className="text-red-500" size={20} />
