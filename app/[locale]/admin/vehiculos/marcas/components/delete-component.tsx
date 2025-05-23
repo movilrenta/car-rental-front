@@ -25,11 +25,17 @@ export default function DeleteComponent({
   const { toast } = useToast();
   async function handleDelete() {
     try {
-      const resp = await deleteBrand(id)
-      if(resp.ok){
+      const resp = await deleteBrand(id);
+      if (resp.status === 200) {
         toast({
-          title: "Marca eliminada",
-          description: "La Marca ha sido eliminado correctamente",
+          variant: "default",
+          title: resp.message,
+        });
+      } else {
+        toast({
+          variant: "default",
+          title: resp.message,
+          description: `Código: ${resp.status}`
         });
       }
     } catch (error) {

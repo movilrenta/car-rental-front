@@ -26,7 +26,7 @@ import { Group } from "@/types/car.interface";
 import { groupSchema, resolver } from "./groupSchema";
 import { postGroup, putGroup } from "@/actions";
 
-export default function CRUD_Form({ Group, onClose }: { Group?: Group, onClose:any}) {
+export default function CRUD_Form({ Group, onClose }: { Group?: Group, onClose?:() => void;}) {
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof groupSchema>>({
@@ -56,7 +56,7 @@ export default function CRUD_Form({ Group, onClose }: { Group?: Group, onClose:a
             variant: "default",
             title: res.message,
           });
-          onClose(false)
+          onClose?.()
         } else {
           toast({
             variant: "default",
@@ -79,7 +79,7 @@ export default function CRUD_Form({ Group, onClose }: { Group?: Group, onClose:a
             variant: "default",
             title: res.message,
           });
-          onClose(false);
+          onClose?.();
         } else {
           toast({
             variant: "default",
