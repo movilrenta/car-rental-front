@@ -34,7 +34,6 @@ import { PostCarAction, PutCarAction } from "@/actions/car";
 import { useToast } from "@/hooks/use-toast";
 import { LoaderIcon } from "lucide-react";
 import { Textarea } from "@/components/textarea";
-import { UserRole } from "@/types";
 
 const autos_pic = [
   "/images2/peugeot208.webp",
@@ -79,18 +78,15 @@ export default function CRUD_Form({
   brands,
   branches,
   car,
-  role,
-  onClose
+  onClose,
 }: {
   groups: any;
   brands: any;
   branches: any;
   car?: VehicleType;
-  role: UserRole;
-  onClose: any;
+  onClose?: () => void;
 }) {
   const { toast } = useToast();
-  // const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<z.infer<typeof VehycleFormSchema>>({
     resolver: zodResolver(VehycleFormSchema),
@@ -112,7 +108,6 @@ export default function CRUD_Form({
   });
 
   const onSubmit = async (values: z.infer<typeof VehycleFormSchema>) => {
-    event?.preventDefault();
     if (car) {
       const editCar = {
         id: car.id,
@@ -132,14 +127,20 @@ export default function CRUD_Form({
       };
 
       try {
-        const res = await PutCarAction(editCar, role);
+        const res = await PutCarAction(editCar);
         //console.log(res);
         if (res.status === 200) {
           toast({
             variant: "default",
             title: res.message,
           });
-          onClose();
+          onClose?.();
+        }else{
+          toast({
+            variant: "default",
+            title: res.message,
+            description: `Código: ${res.status}`
+          })
         }
       } catch (error) {
         console.log(error);
@@ -155,14 +156,14 @@ export default function CRUD_Form({
       newCar.group_id = Number(newCar.group_id);
       console.log(newCar);
       try {
-        const res = await PostCarAction(newCar, role);
+        const res = await PostCarAction(newCar);
         // console.log(res);
         if (res.status === 201) {
           toast({
             variant: "default",
             title: res.message,
           });
-          onClose();
+          onClose?.();
           //window.location.reload();
         }else{
           toast({

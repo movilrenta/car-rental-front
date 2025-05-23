@@ -32,7 +32,6 @@ export default function CRUD_Vehycle({
           brands={brands}
           branches={branches}
           car={car}
-          role={role}
           onClose={() => setOpen(false)}
         />
       </Sheet>
