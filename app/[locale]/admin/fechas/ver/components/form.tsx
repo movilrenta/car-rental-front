@@ -29,8 +29,7 @@ import { UserRole } from "@/types";
 
 export default function CRUD_Fecha_Form({
   fecha,
-  onClose,
-  role
+  onClose
 }: {
   fecha?: {
     id: number;
@@ -39,8 +38,7 @@ export default function CRUD_Fecha_Form({
     start_date: string;
     end_date: string;
   };
-  onClose: any
-  role?: UserRole
+  onClose?: () => void
 }) {
   const { toast } = useToast();
   //const [isLoading, setIsLoading] = useState(false);
@@ -74,7 +72,7 @@ export default function CRUD_Fecha_Form({
       };
 
       try {
-        const res = await PutFechasAction(editFecha, role);
+        const res = await PutFechasAction(editFecha);
         if (res.status === 401) {
           toast({
             variant: "default",
@@ -88,7 +86,7 @@ export default function CRUD_Fecha_Form({
             variant: "default",
             title: res.message || 'Editada con éxito',
           });
-          onClose();
+          onClose?.();
           //setIsLoading(false);
           //window.location.reload();
         }
@@ -103,7 +101,7 @@ export default function CRUD_Fecha_Form({
       const newFecha: any = values;
       newFecha.multiplier = 1 + division;
       try {
-        const res = await PostFechasAction(newFecha, role);
+        const res = await PostFechasAction(newFecha);
         if (res.status === 401) {
           toast({
             variant: "default",
@@ -117,7 +115,7 @@ export default function CRUD_Fecha_Form({
             variant: "default",
             title: res.message,
           });
-          onClose();
+          onClose?.();
           //setIsLoading(false);
           //window.location.reload();
         }

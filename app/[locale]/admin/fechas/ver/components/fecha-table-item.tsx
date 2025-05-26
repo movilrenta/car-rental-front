@@ -8,7 +8,6 @@ import {
 import CRUD_Fechas from "./crud";
 import DeleteFecha from "./delete-fecha";
 import clsx from "clsx";
-import { UserRole } from "@/types";
 
 interface FechasTableItemProps {
   fecha: {
@@ -17,11 +16,11 @@ interface FechasTableItemProps {
     multiplier: string;
     start_date: string;
     end_date: string;
-  }
-  role: UserRole;
+  },
+  authorized: boolean
 }
 
-export default function FechasTableItem({ fecha, role } : FechasTableItemProps) {
+export default function FechasTableItem({ fecha, authorized } : FechasTableItemProps) {
   const percentaje = Math.round(
     (fecha &&
       (+fecha?.multiplier < 1
@@ -76,10 +75,9 @@ export default function FechasTableItem({ fecha, role } : FechasTableItemProps) 
         <div className="text-left">{fecha?.end_date}</div>
       </td>
 
-      <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+      {authorized && <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
         <div className="flex items-center justify-center gap-4">
           <CRUD_Fechas
-          role={role}
             children={
               <div className="w-full h-full bg-cover bg-center">
                 <FaEdit className="text-blue-500" size={20} />
@@ -96,7 +94,7 @@ export default function FechasTableItem({ fecha, role } : FechasTableItemProps) 
             id={fecha.id}
           />
         </div>
-      </td>
+      </td>}
     </tr>
   );
 }
