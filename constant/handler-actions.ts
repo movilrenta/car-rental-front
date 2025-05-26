@@ -61,9 +61,11 @@ export const RESPONSE = {
     message: 'No autorizado',
     code: 401
   },
+  ADDRESSES: generateCrudResponses('Dirección'),
+  BRAND: generateCrudResponses('Marca'),
+  BRANCHES: generateCrudResponses('Sucursal'),
   FECHAS: generateCrudResponses('Fecha'),
   GROUPS: generateCrudResponses('Grupo'),
-  BRAND: generateCrudResponses('Marca'),
   CARS: generateCrudResponses('Auto'),
   CARROUSEL: generateCrudResponses('Carrousel')
 };

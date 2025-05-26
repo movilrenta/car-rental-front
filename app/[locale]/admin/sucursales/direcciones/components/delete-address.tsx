@@ -18,15 +18,15 @@ export default function DeleteAddress({children, id} : {children: React.ReactNod
   const { toast } = useToast();
   async function handleDelete() {
     try {
-      console.log(id);
+      //console.log(id);
       const response = await DeleteAddressesAction(id)
-      console.log(response, "soy response")
+      //console.log(response, "soy response")
       if(response.status === 200) {
           toast({
           title: "Sucursal eliminada",
-          description: "La dirección ha sido eliminada correctamente",
+          description: response.message,
         })
-        return window.location.reload();
+        return
       }
       } catch (error) {
         console.log(error)

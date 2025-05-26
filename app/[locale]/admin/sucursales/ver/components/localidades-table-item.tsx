@@ -11,20 +11,19 @@ interface LocalidadesTableItemProps {
     address: string;
     distance_to_main_branch: number;
   }
-  Addresses: any
+  Addresses: any,
+  authorized: boolean
 }
 
 export default function LocalidadesTableItem({
   branch,
-  Addresses
+  Addresses,
+  authorized
 }:
 LocalidadesTableItemProps) {
 
   return (
     <tr className="hover:bg-black/5 dark:hover:bg-black/10 duration-200">
-      {/* <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-        <div className="text-left">{branch.id}</div>
-      </td> */}
       <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
         <div className="text-left">{branch?.name}</div>
       </td>
@@ -34,7 +33,7 @@ LocalidadesTableItemProps) {
       <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
         <div className="text-right pe-2">{branch?.distance_to_main_branch} Kms.</div>
       </td>
-      <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+      {authorized && <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
         <div className="flex items-center justify-center gap-4">
         <CRUD_Branches
           branch={branch}
@@ -43,7 +42,7 @@ LocalidadesTableItemProps) {
         />
         <DeleteBrunch children={<div className="w-full"><FaTrash className="text-red-500" size={20}/></div>} id={branch.id} />
         </div>
-      </td>
+      </td>}
     </tr>
   );
 }
