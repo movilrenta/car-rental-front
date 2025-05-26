@@ -36,7 +36,7 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import Link from "next/link";
 
-export default function CRUD_Carousel_Form({ item }: { item?: any }) {
+export default function CRUD_Carousel_Form({ item, onClose }: { item?: any, onClose?: () => void }) {
   const { toast } = useToast();
   //const [image, setImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(
@@ -91,14 +91,14 @@ export default function CRUD_Carousel_Form({ item }: { item?: any }) {
     try {
       if(!item) {
         const result = await uploadImage(formData);
-        if (result.success) {
+        if (result.status === 201) {
           toast({ 
             variant: "default",
             title: result.message
           });
           //setImagePreview(null); // Limpiar la imagen después de subirla
           form.reset();
-          document.getElementById("close-sheet")?.click();
+          onClose?.()
           return 
         } else {
           toast({ 
@@ -110,23 +110,22 @@ export default function CRUD_Carousel_Form({ item }: { item?: any }) {
       } else {
         formData.append("path", item.images[0].path);
         formData.append("id", item.id.toString());
-        //console.log(formData);
+
         const result = await UpdateImage(formData);
         
-        if (result.success) {
+        if (result.status === 400) {
           toast({ 
             variant: "default",
             title: result.message
           });
-          //setImagePreview(null); // Limpiar la imagen después de subirla
-          form.reset();
-          document.getElementById("close-sheet")?.click();
+
         } else {
           toast({ 
             variant: "default",
             title: result.message
           });
           //Toast.fire({ icon: "warning", title: result.message });
+          onClose?.()
           console.log(result.message);
         }
       }

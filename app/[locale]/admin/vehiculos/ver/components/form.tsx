@@ -154,7 +154,7 @@ export default function CRUD_Form({
       newCar.branch_id = Number(newCar.branch_id);
       newCar.brand_id = Number(newCar.brand_id);
       newCar.group_id = Number(newCar.group_id);
-      console.log(newCar);
+      //console.log(newCar);
       try {
         const res = await PostCarAction(newCar);
         // console.log(res);

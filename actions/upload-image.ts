@@ -2,6 +2,11 @@
 import axios from "axios";
 import { v2 as cloudinary } from "cloudinary";
 import { revalidatePath } from "next/cache";
+import { getUserInformation } from "./auth/getUser";
+import { ROLES } from "@/constant/roles";
+import { buildResponse } from "@/utils/build-response";
+import { RESPONSE } from "@/constant/handler-actions";
+import { ActionResponse } from "@/types";
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -15,13 +20,18 @@ type CloudinaryUploadResult = {
 };
 
 
-export async function uploadImage(formData: FormData) {
+export async function uploadImage(formData: FormData):  Promise<ActionResponse> {
+  const { role, token } = await getUserInformation()
+  if(!token || (role !== ROLES.admin && role !== ROLES.superadmin)) return buildResponse(RESPONSE.UNAUTHORIZED);
+
   const file = formData.get("image") as File;
-  if (!file) return { success: false, message: "No se ha seleccionado ninguna imagen" }
+  //if (!file) return { success: false, message: "No se ha seleccionado ninguna imagen" }
+  if (!file) return buildResponse(RESPONSE.CARROUSEL.POST.NO_IMAGE)
   //Subir imagen
   const imagenSubida = await UploadImageCloudinary(file)
   //Error en la subida
-  if(!imagenSubida.success) return {success: false, message: "Problemas para subir la imagen"}
+  //if(!imagenSubida.success) return {success: false, message: "Problemas para subir la imagen"}
+  if(!imagenSubida.success) return buildResponse(RESPONSE.CARROUSEL.POST.ERROR_UPLOAD)
 
   const dataForDB = {
     name: formData.get("name"),
@@ -40,7 +50,7 @@ export async function uploadImage(formData: FormData) {
 
   //Guardado en la base de datos
   try {
-    const {data} = await axios.post(`${process.env.NEXT_PUBLIC_URL_BACK}carousels`, dataForDB)
+    const {data} = await axios.post(`${process.env.NEXT_PUBLIC_URL_BACK}carousels`, dataForDB) // Agregar el token
 
     //En caso de que no haya sido exitoso, se borra la imagen de cloudinary
     // if( (data?.message?.affectedRows && data?.message?.affectedRows !== 1) || (data?.message?.rowsAffected && data?.message?.rowsAffected !== 1)) {
@@ -53,15 +63,20 @@ export async function uploadImage(formData: FormData) {
     //Para el caso de exito, se devuelve todo al front
     revalidatePath('/')
     revalidatePath('/admin/carousel/ver')
-    return { success: true, message: "Imagen subida correctamente", payload: data };
+    return buildResponse(RESPONSE.CARROUSEL.POST.SUCCESS, data);
+    //return { success: true, message: "Imagen subida correctamente", payload: data };
   }
   catch(error) {
     console.log(error);
-    return {success: false, message: "Error al subir la imagen"}
+    return buildResponse(RESPONSE.CARROUSEL.POST.ERROR, null, error)
+    //return {success: false, message: "Error al subir la imagen"}
   }
 }
 
-export async function UpdateImage(formData: FormData) {
+export async function UpdateImage(formData: FormData):  Promise<ActionResponse> {
+  const { role, token } = await getUserInformation()
+  if(!token || (role !== ROLES.admin && role !== ROLES.superadmin)) return buildResponse(RESPONSE.UNAUTHORIZED);
+
   const file = formData.get("image") as File;
   const id_carousel = formData.get("id");
   if (!file) { 
@@ -80,18 +95,21 @@ export async function UpdateImage(formData: FormData) {
     }
     //logica de pegada a la DB
     try {
-      const {data} = await axios.patch(`${process.env.NEXT_PUBLIC_URL_BACK}carousels/${id_carousel}`, dataForDB)
+      const {data} = await axios.patch(`${process.env.NEXT_PUBLIC_URL_BACK}carousels/${id_carousel}`, dataForDB) // TODO agregar token
       revalidatePath('/')
       revalidatePath('/admin/carousel/ver')
-      return {success: true, message: "Imagen actualizada correctamente", payload: data}
+      //return {success: true, message: "Imagen actualizada correctamente", payload: data}
+      return buildResponse(RESPONSE.CARROUSEL.PUT.SUCCESS, data)
     } catch (error) {
       console.log(error);
-      return {success: false, message: "Error al actualizar la imagen1"};
+      //return {success: false, message: "Error al actualizar la imagen1"};
+      return buildResponse(RESPONSE.CARROUSEL.PUT.ERROR, null, error)
     }
   }
 
   const imagenSubida = await UploadImageCloudinary(file)
-  if(!imagenSubida.success) return {success: false, message: "Problemas para subir la imagen"}
+  if(!imagenSubida.success) return buildResponse(RESPONSE.CARROUSEL.PUT.ERROR_UPLOAD)
+  // if(!imagenSubida.success) return {success: false, message: "Problemas para subir la imagen"}
   const dataForDB = {
     name: formData.get("name"),
     location: formData.get("location"),
@@ -111,23 +129,30 @@ export async function UpdateImage(formData: FormData) {
       const {data} = await axios.patch(`${process.env.NEXT_PUBLIC_URL_BACK}carousels/${id_carousel}`, dataForDB)
       revalidatePath('/')
       revalidatePath('/admin/carousel/ver')
-      return {success: true, message: "Imagen actualizada correctamente", payload: data}
+      return buildResponse(RESPONSE.CARROUSEL.PUT.SUCCESS, data);
+      //return {success: true, message: "Imagen actualizada correctamente", payload: data}
     } catch (error) {
       console.log(error);
-      return {success: false, message: "Error al actualizar la imagen2"};
+      return buildResponse(RESPONSE.CARROUSEL.POST.ERROR, null, error)
+      //return {success: false, message: "Error al actualizar la imagen2"};
     }
 }
 
 
 export async function deleteImageAction(id: number) {
+  const { role, token } = await getUserInformation()
+  if(!token || (role !== ROLES.admin && role !== ROLES.superadmin)) return buildResponse(RESPONSE.UNAUTHORIZED);
+
   try {
-    const {data} = await axios.delete(`${process.env.NEXT_PUBLIC_URL_BACK}carousels/${id}`)
+    const {data} = await axios.delete(`${process.env.NEXT_PUBLIC_URL_BACK}carousels/${id}`) // Enviar token
     revalidatePath('/')
     revalidatePath('/admin/carousel/ver')
+    //return buildResponse(RESPONSE.CARROUSEL.DELETE.SUCCESS, data)
     return {success: true, message: "Imagen eliminada correctamente", payload: data, status: 200}
   
   } catch (error){
     console.log(error);
+    //return buildResponse(RESPONSE.CARROUSEL.DELETE.ERROR, null, error)
     return {success: false, message: "Error al eliminar la imagen"};
   }
 }

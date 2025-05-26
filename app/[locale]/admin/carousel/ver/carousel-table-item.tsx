@@ -19,8 +19,10 @@ interface CarouselTableItemProps {
 
 export default function CarouselTableItem({
   item,
+  authorized
 }: {
   item: CarouselTableItemProps;
+  authorized: boolean
 }) {
   return (
     <tr className="hover:bg-black/5 dark:hover:bg-black/10 duration-200">
@@ -43,7 +45,7 @@ export default function CarouselTableItem({
         <div className="text-left"></div>
       </td> */}
 
-      <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+      { authorized && <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
         <div className="flex items-center justify-center gap-4">
           <CRUD_Carousel
             children={
@@ -63,7 +65,7 @@ export default function CarouselTableItem({
             path={item?.images[0]?.path}
           />
         </div>
-      </td>
+      </td>}
     </tr>
   );
 }
