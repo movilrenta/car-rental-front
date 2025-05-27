@@ -1,15 +1,15 @@
-import { LuPlus } from "react-icons/lu";
+import axios from "axios";
 import CRUD_Carousel from "./crud";
 import CarouselTableItem from "./carousel-table-item";
-import axios from "axios";
+import { LuPlus } from "react-icons/lu";
 import { getUserInformation } from "@/actions/auth/getUser";
-import { ROLES } from "@/constant/roles";
+import getAuthorized from "@/components/utils/get-authorized";
 
 export default async function CarouselsTable() {
 
   const {data: carousel_images} = await axios.get(`${process.env.NEXT_PUBLIC_URL_BACK}carousels`);
   const { role } = await getUserInformation()
-  const authorized: boolean = role === ROLES.admin || role === ROLES.superadmin
+  const authorized = getAuthorized(role, "carousel")
 
   return (
     <div className="bg-white dark:bg-gray-800 shadow-sm rounded-xl relative">

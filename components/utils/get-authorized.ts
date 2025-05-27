@@ -1,6 +1,6 @@
 import { UserRole } from "@/types";
 
-type Location = 'cars' | 'marcas' | 'grupos' | 'adicionales' | 'fechas' | 'sucursales' | 'direcciones' | 'carousel';
+type Location = 'cars' | 'marcas' | 'grupos' | 'adicionales' | 'fechas' | 'sucursales' | 'direcciones' | 'carousel' | 'log' | 'roles' | 'crearUsuarios';
 
 const ROL_AUTHORIZED: Record<Location, Record<UserRole, boolean>> = {
   cars: {
@@ -51,6 +51,24 @@ const ROL_AUTHORIZED: Record<Location, Record<UserRole, boolean>> = {
     auditor: true,
     vendedor: true,
   },
+  log: {
+    superadmin: true,
+    admin: false,
+    auditor: false,
+    vendedor: false,
+  },
+  roles: {
+    superadmin: true,
+    admin: false,
+    auditor: false,
+    vendedor: false,
+  },
+  crearUsuarios: {
+    superadmin: true,
+    admin: false,
+    auditor: false,
+    vendedor: false,
+  }
 };
 
 export default function getAuthorized(role: string | null, location: Location): boolean {

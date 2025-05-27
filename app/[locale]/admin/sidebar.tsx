@@ -10,13 +10,22 @@ import SidebarLink from '@/components/ui/sidebar-link'
 import Image from 'next/image'
 import Link from 'next/link'
 import { LuCar } from 'react-icons/lu'
-import { BookIcon, Calendar, CalendarDays, Map, Plus, Settings } from 'lucide-react'
+import { BookIcon, CalendarDays, Map, Plus, Settings } from 'lucide-react'
 import { BiCarousel } from 'react-icons/bi'
+import { PiUsersLight } from "react-icons/pi";
+import { TbLogs } from 'react-icons/tb'
+import { GrUserAdmin } from 'react-icons/gr'
 
 export default function Sidebar({
   variant = 'default',
+  authorized_roles,
+  authorized_create_user,
+  authorized_log
 }: {
-  variant?: 'default' | 'v2'
+  variant?: 'default' | 'v2',
+  authorized_roles: boolean,
+  authorized_create_user: boolean,
+  authorized_log: boolean
 }) {
   const sidebar = useRef<HTMLDivElement>(null)
   const { sidebarOpen, setSidebarOpen } = useAppProvider()
@@ -98,7 +107,34 @@ export default function Sidebar({
           value: "ver",
         }
     ]
-      }
+      },
+    {
+      value: "log",
+      icon: <TbLogs className='min-h-4 min-w-4 h-4 w-4 stroke-2'/>,
+      options: [
+        {
+          value: "ver",
+        }
+    ]
+    },
+    {
+      value: "roles",
+      icon: <PiUsersLight className='min-h-4 min-w-4 h-4 w-4 stroke-2'/>,
+      options: [
+        {
+          value: "ver",
+        }
+      ]
+    },
+    {
+      value: "crear-usuarios",
+      icon: <GrUserAdmin className='min-h-4 min-w-4 h-4 w-4 stroke-2'/>,
+      options: [
+        {
+          value: "ver",
+        }
+    ]
+    },
 ]
 
   // close on click outside
@@ -202,8 +238,12 @@ export default function Sidebar({
             </h3>
             <ul className="mt-3">
               
-            {DATA.map((item, index) => {
-  return ( 
+            {DATA.filter((item) => {
+              if (item.value === 'crear-usuarios') return authorized_create_user;
+              if (item.value === 'log') return authorized_log;
+              if (item.value === 'roles') return authorized_roles;
+              return true;
+              }).map((item, index) => 
     item.options 
     ? <SidebarLinkGroup key={index} open={segments.includes(item.value)}>
       {(handleClick, open) => {
@@ -282,14 +322,9 @@ export default function Sidebar({
           </div>
         </SidebarLink>      
       </li>
-    );
-    })}
+   
+    )}
 
-
-        
-              {/*  */}
-              
-             
             </ul>
           </div>
           {/* More group */}

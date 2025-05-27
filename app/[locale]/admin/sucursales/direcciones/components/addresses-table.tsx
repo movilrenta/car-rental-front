@@ -2,7 +2,7 @@ import { LuPlus } from "react-icons/lu";
 import AddressesTableItem from "./addresses-table-item";
 import CRUD_Addresses from "./crud";
 import { getUserInformation } from "@/actions/auth/getUser";
-import { ROLES } from "@/constant/roles";
+import getAuthorized from "@/components/utils/get-authorized";
 
 export const AddressesTable = async ({
   Addresses,
@@ -18,7 +18,8 @@ export const AddressesTable = async ({
   }[];
 }) => {
   const { role } = await getUserInformation()
-  const authorized = role === ROLES.admin || role === ROLES.superadmin
+  const authorized = getAuthorized(role, "direcciones")
+
   return (
     <div className="bg-white dark:bg-gray-800 shadow-sm rounded-xl relative">
       <header className="flex justify-between items-center px-5 py-4 h-20">
