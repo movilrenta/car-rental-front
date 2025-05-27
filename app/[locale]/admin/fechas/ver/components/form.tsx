@@ -58,7 +58,6 @@ export default function CRUD_Fecha_Form({
   });
 
   const onSubmit = async (values: z.infer<typeof FechaFormSchema>) => {
-    //setIsLoading(true);
     const division = values.multiplier / 100;
 
     if (fecha) {
@@ -76,8 +75,6 @@ export default function CRUD_Fecha_Form({
             variant: "default",
             title: res.message || "no autorizado 401",
           });
-          //setIsLoading(false);
-          //window.location.reload();
         }
         if (res.status === 200) {
           toast({
@@ -85,8 +82,6 @@ export default function CRUD_Fecha_Form({
             title: res.message || 'Editada con éxito',
           });
           onClose?.();
-          //setIsLoading(false);
-          //window.location.reload();
         }
       } catch (error) {
         console.log(error, "error");
@@ -105,8 +100,6 @@ export default function CRUD_Fecha_Form({
             variant: "default",
             title: res.message || "no autorizado 401",
           });
-          //setIsLoading(false);
-          //window.location.reload();
         }
         if (res.status === 201) {
           toast({
@@ -114,15 +107,12 @@ export default function CRUD_Fecha_Form({
             title: res.message,
           });
           onClose?.();
-          //setIsLoading(false);
-          //window.location.reload();
         }
       } catch (error) {
         toast({
           variant: "default",
           title: `Hubo un error en la creación.`,
         });
-        //setIsLoading(false);
         console.log(error, "4");
       }
     }

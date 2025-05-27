@@ -24,8 +24,6 @@ import { toast } from "@/hooks/use-toast";
 import { PostCarAction, StatusCarAction } from "@/actions/car";
 import { LucideUnlock } from "lucide-react";
 import { LuLock } from "react-icons/lu";
-import { UserRole } from "@/types";
-//import axios from "axios";
 
 interface CarTipe extends VehicleType {
   brand_name: string;
@@ -38,17 +36,18 @@ interface CarTableItemProps {
   Groups: Group[];
   Brands: Brand[];
   Branches: Branch[];
-  role: UserRole;
   //cars: any[];
+  authorized: boolean
+
 }
 
 export default function CarsTableItem({
   car,
   Groups,
   Brands,
-  role,
   //cars,
   Branches,
+  authorized
 }: CarTableItemProps) {
   const [copies, setCopies] = useState<number>(1);
   const [patentes, setPatentes] = useState<string>("");
@@ -107,16 +106,13 @@ export default function CarsTableItem({
       });
 
       const responses = await Promise.all(requests);
-
-      const allSuccessful = responses.every((res) => res.status === 200);
+      const allSuccessful = responses.every((res) => res.status === 201);
 
       if (allSuccessful) {
         toast({
           variant: "default",
           title: `Todos los autos fueron creados con éxito`,
         });
-
-        window.location.reload();
       } else {
         toast({
           variant: "default",
@@ -128,7 +124,6 @@ export default function CarsTableItem({
         variant: "default",
         title: `Hubo un error en la creación.`,
       });
-
       console.log(error);
     }
   };
@@ -177,7 +172,7 @@ export default function CarsTableItem({
           <FaGasPump className="text-gray-600" size={20} />
         </div>
       </td>
-      <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+      {authorized && <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
         <div className="flex items-center justify-center gap-4">
           <CRUD_Vehycle
             car={car}
@@ -189,7 +184,6 @@ export default function CarsTableItem({
             branches={Branches}
             brands={Brands}
             groups={Groups}
-            role={role}
           />
           <DeleteComponent
             children={
@@ -273,7 +267,7 @@ export default function CarsTableItem({
             </DialogContent>
           </Dialog>
         </div>
-      </td>
+      </td>}
     </tr>
   );
 }

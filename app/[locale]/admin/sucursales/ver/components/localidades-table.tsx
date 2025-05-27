@@ -3,8 +3,7 @@ import LocalidadesTableItem from "./localidades-table-item";
 import { LuPlus } from "react-icons/lu";
 import CRUD_Branches from "./crud";
 import { getUserInformation } from "@/actions/auth/getUser";
-import { ROLES } from "@/constant/roles";
-
+import getAuthorized from "@/components/utils/get-authorized";
 
 export const LocalidadesTable = async ({
   Branches,
@@ -23,7 +22,7 @@ export const LocalidadesTable = async ({
   }[];
 }) => {
   const { role } = await getUserInformation()
-  const authorized = role === ROLES.admin || role === ROLES.superadmin
+  const authorized = getAuthorized(role, "sucursales")
 
   const getBranches = Branches?.map((branch) => {
     const address = Addresses?.find((address) => address?.id === branch?.address_id);

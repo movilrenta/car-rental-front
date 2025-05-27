@@ -4,14 +4,16 @@ import { CarsTable } from "./components/cars-table";
 import { GetBranchesAction } from "@/actions/branchs";
 import { getUserInformation } from "@/actions/auth/getUser";
 import { UserRole } from "@/types";
+import getAuthorized from "@/components/utils/get-authorized";
 
 export default async function VehiculosPage() {
   const BACK = process.env.NEXT_PUBLIC_URL_BACK;
   const vehycle = await GetCarsAction();
   const branch = await GetBranchesAction();
-  const userInformation = await getUserInformation();
+  const { role } = await getUserInformation();
   const { data: groups } = await axios.get(`${BACK}groups`);
   const { data: brands } = await axios.get(`${BACK}brands`);
+  const authorized = getAuthorized(role, "cars");
 
   return (
     <div className="relative animate-fade-in p-6">
@@ -20,7 +22,7 @@ export default async function VehiculosPage() {
         Brands={brands}
         Groups={groups}
         Branches={branch}
-        role={userInformation?.role as UserRole}
+        authorized={authorized}
       />
     </div>
   );
