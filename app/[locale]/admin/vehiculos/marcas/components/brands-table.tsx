@@ -3,8 +3,7 @@ import { BrandsTableItem } from "./brands-table-item";
 import CRUD_Brand from "./crud";
 import { getUserInformation } from "@/actions/auth/getUser";
 import { LuPlus } from "react-icons/lu";
-import { ROLES } from "@/constant/roles";
-import { UserRole } from "@/types";
+import getAuthorized from "@/components/utils/get-authorized";
 
 interface BrandsTableProps {
   Brands: Brand[];
@@ -12,17 +11,18 @@ interface BrandsTableProps {
 
 export const BrandTable = async ({ Brands }: BrandsTableProps) => {
   const { role } = await getUserInformation();
+  const authorized = getAuthorized(role, "marcas");
   //const role = "vendedor"
   return (
     <div className="bg-white dark:bg-gray-800 shadow-sm rounded-xl relative">
-      <header className="flex justify-between items-center px-5 py-4">
+      <header className="flex justify-between items-center px-5 py-4 h-20">
         <h2 className="font-semibold text-gray-800 dark:text-gray-100">
           Todas las Marcas{" "}
           <span className="text-gray-400 dark:text-gray-500 font-medium">
             {Brands.length}
           </span>
         </h2>
-        {(role === ROLES.admin || role === ROLES.superadmin) && (
+        {authorized && (
           <CRUD_Brand
             children={
               <div className="border group duration-200 rounded-md w-fit px-2 bg-red-700 flex gap-2 text-white items-center justify-center">
@@ -49,15 +49,21 @@ export const BrandTable = async ({ Brands }: BrandsTableProps) => {
                 {/* <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                 <div className="font-semibold text-left">Agregada</div>
               </th> */}
-                <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                  <div className="font-semibold">Opciones</div>
-                </th>
+                {authorized && (
+                  <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                    <div className="font-semibold">Opciones</div>
+                  </th>
+                )}
               </tr>
             </thead>
             {/* Table body */}
             <tbody className="text-sm divide-y divide-gray-100 dark:divide-gray-700/60">
               {Brands.map((brand) => (
-                <BrandsTableItem key={brand.id} brand={brand} role={role as UserRole}/>
+                <BrandsTableItem
+                  key={brand.id}
+                  brand={brand}
+                 authorized={authorized}
+                />
               ))}
             </tbody>
           </table>

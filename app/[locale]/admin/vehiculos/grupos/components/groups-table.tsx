@@ -3,8 +3,7 @@ import { GroupsTableItem } from "./groups-table-item";
 import CRUD_Group from "./crud";
 import { LuPlus } from "react-icons/lu";
 import { getUserInformation } from "@/actions/auth/getUser";
-import { ROLES } from "@/constant/roles";
-import { UserRole } from "@/types";
+import getAuthorized from "@/components/utils/get-authorized";
 
 interface GroupsTableProps {
   Groups: Group[];
@@ -12,6 +11,7 @@ interface GroupsTableProps {
 
 export const GroupTable = async ({ Groups }: GroupsTableProps) => {
   const { role } = await getUserInformation();
+  const authorized = getAuthorized(role, "grupos");
   // const role = "vendedor";
   return (
     <div className="bg-white dark:bg-gray-800 shadow-sm rounded-xl relative">
@@ -22,7 +22,7 @@ export const GroupTable = async ({ Groups }: GroupsTableProps) => {
             {Groups.length}
           </span>
         </h2>
-        {(role === ROLES.admin || role === ROLES.superadmin) && (
+        {authorized && (
           <CRUD_Group
             children={
               <div className="border group duration-200 rounded-md w-fit px-2 bg-red-700 flex gap-2 text-white items-center justify-center">
@@ -52,9 +52,11 @@ export const GroupTable = async ({ Groups }: GroupsTableProps) => {
                 <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                   <div className="font-semibold text-left">Seguro</div>
                 </th>
-                <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                  <div className="font-semibold">Opciones</div>
-                </th>
+                {authorized && (
+                  <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                    <div className="font-semibold">Opciones</div>
+                  </th>
+                )}
               </tr>
             </thead>
             {/* Table body */}
@@ -63,7 +65,7 @@ export const GroupTable = async ({ Groups }: GroupsTableProps) => {
                 <GroupsTableItem
                   key={group.id}
                   group={group}
-                  role={role as UserRole}
+                  authorized={authorized}
                 />
               ))}
             </tbody>
