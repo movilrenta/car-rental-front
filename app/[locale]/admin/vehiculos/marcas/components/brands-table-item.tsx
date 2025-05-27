@@ -5,15 +5,13 @@ import CRUD_Brand from "./crud";
 import { FaEdit, FaTrash } from "react-icons/fa";
 //import { formatDate } from "@/components/utils/utils";
 import DeleteComponent from "./delete-component";
-import { UserRole } from "@/types";
-import { ROLES } from "@/constant/roles";
 
 export const BrandsTableItem = ({
   brand,
-  role,
+  authorized
 }: {
   brand: Brand;
-  role: UserRole;
+  authorized:boolean;
 }) => {
   return (
     <tr className="hover:bg-black/5 dark:hover:bg-black/10 duration-200">
@@ -40,7 +38,7 @@ export const BrandsTableItem = ({
       </td> */}
 
       <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-        {role === ROLES.admin || role === ROLES.superadmin ? (
+        {authorized && (
           <div className="flex items-center justify-center gap-4">
             <CRUD_Brand
               Brand={brand}
@@ -58,10 +56,6 @@ export const BrandsTableItem = ({
               }
               id={brand.id}
             />
-          </div>
-        ) : (
-          <div className="flex items-center justify-center gap-4">
-            <span>Sin opciones disponibles</span>
           </div>
         )}
       </td>

@@ -5,15 +5,13 @@ import { Group } from "@/types/car.interface";
 import CRUD_Group from "./crud";
 import DeleteComponent from "./delete-component";
 import { useFormatNumberNoDecimal } from "@/components/utils/useFormatterNumber";
-import { ROLES } from "@/constant/roles";
-import { UserRole } from "@/types";
 
 export const GroupsTableItem = ({
   group,
-  role,
+  authorized,
 }: {
   group: Group;
-  role: UserRole;
+  authorized: boolean;
 }) => {
   return (
     <tr className="hover:bg-black/5 dark:hover:bg-black/10 duration-200">
@@ -37,7 +35,7 @@ export const GroupsTableItem = ({
       </td>
 
       <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-        {role === ROLES.admin || role === ROLES.superadmin ? (
+        {authorized && (
           <div className="flex items-center justify-center gap-4">
             <CRUD_Group
               Group={group}
@@ -55,10 +53,6 @@ export const GroupsTableItem = ({
               }
               id={group.id}
             />
-          </div>
-        ) : (
-          <div className="flex items-center justify-center gap-4">
-            <span>Sin opciones disponibles</span>
           </div>
         )}
       </td>

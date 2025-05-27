@@ -3,7 +3,6 @@ import { GetCarsAction } from "@/actions/car";
 import { CarsTable } from "./components/cars-table";
 import { GetBranchesAction } from "@/actions/branchs";
 import { getUserInformation } from "@/actions/auth/getUser";
-import { UserRole } from "@/types";
 import getAuthorized from "@/components/utils/get-authorized";
 
 export default async function VehiculosPage() {
