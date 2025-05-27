@@ -6,7 +6,7 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Input } from '@/components/input';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/form'
-import AuthImage from '@/app/[locale]/(auth)/auth-image'
+//import AuthImage from '@/app/[locale]/(auth)/auth-image'
 import { login } from '@/actions/auth/login'
 import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
@@ -52,7 +52,8 @@ export const Login = () => {
       <div className="relative md:flex">
 
         {/* Content */}
-        <div className="md:w-1/2">
+        {/* <div className="md:w-1/2"> */}
+        <div className="w-full">
           <div className="min-h-[100dvh] h-full flex flex-col mt-12 after:flex-1">
             <div className="max-w-sm mx-auto w-full px-4 py-8">
               <h1 className="text-3xl text-gray-800 dark:text-gray-100 font-bold mb-6">Bienvenido</h1>
@@ -100,7 +101,7 @@ export const Login = () => {
           </div>
         </div>
 
-        <AuthImage />
+        {/* <AuthImage /> */}
       </div>
     </main>
   )

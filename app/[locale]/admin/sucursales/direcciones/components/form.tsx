@@ -21,29 +21,27 @@ import { AddressFormSchema } from "./schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Input } from "@/components/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/select";
+// import {
+//   Select,
+//   SelectContent,
+//   SelectItem,
+//   SelectTrigger,
+//   SelectValue,
+// } from "@/components/select";
 import { useToast } from "@/hooks/use-toast";
-import { useState } from "react";
 import { LoaderIcon } from "lucide-react";
-import { PostBranchesAction, PutBranchesAction } from "@/actions/branchs";
+//import { PostBranchesAction, PutBranchesAction } from "@/actions/branchs";
 import { PostAddressesAction, PutAddressesAction } from "@/actions/address";
-
-
 
 export default function CRUD_Address_Form({
   address,
+  onClose
 }: {
   address?: any;
+  onClose?: () => void;
 }) {
 
   const { toast } = useToast();
-  const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<z.infer<typeof AddressFormSchema>>({
     resolver: zodResolver(AddressFormSchema),
@@ -58,8 +56,8 @@ export default function CRUD_Address_Form({
   });
 
   const onSubmit = async (values: z.infer<typeof AddressFormSchema>) => {
-    event?.preventDefault();
-    setIsLoading(true);
+    //event?.preventDefault();
+    //setIsLoading(true);
     if (address) {
       const editAddress = {
         id: address.id,
@@ -73,14 +71,19 @@ export default function CRUD_Address_Form({
 
       try {
         const res = await PutAddressesAction(editAddress);
-        console.log(res, "1");
+        //console.log(res, "1");
         if (res.status === 200) {
           toast({
             variant: "default",
-            title: `Dirección editada con exito`,
+            title: res.message,
           });
-          setIsLoading(false);
-          window.location.reload();
+          //setIsLoading(false);
+          onClose?.()
+        } else {
+          toast({
+            variant: "default",
+            title: res.message,
+          });
         }
       } catch (error) {
         console.log(error, "error");
@@ -95,22 +98,23 @@ export default function CRUD_Address_Form({
 
       try {
         const res = await PostAddressesAction(newAddress);
-        console.log(res, "3");
-        if (res.status === 200) {
+        //console.log(res, "3");
+        if (res.status === 201) {
           toast({
             variant: "default",
-            title: `Dirección creada con exito`,
+            title: res.message,
           });
-          setIsLoading(false);
-          window.location.reload();
+          onClose?.()
+          //setIsLoading(false);
+          //window.location.reload();
         }
       } catch (error) {
         toast({
           variant: "default",
           title: `Hubo un error en la creación.`,
         });
-        setIsLoading(false);
-        console.log(error, "4");
+        //setIsLoading(false);
+        //console.log(error, "4");
       }
     }
   };
@@ -223,10 +227,10 @@ export default function CRUD_Address_Form({
         <Button
           onClick={form.handleSubmit(onSubmit)}
           variant="default"
-          disabled={isLoading}
+          disabled={form.formState.isSubmitting}
           className="min-w-24 w-fit px-6 py-2 bg-red-700 text-white hover:bg-red-800 duration-200"
         >
-          {isLoading ? (
+          {form.formState.isSubmitting ? (
             <LoaderIcon className="w-4 h-4 animate-spin" />
           ) : address ? (
             "Editar"

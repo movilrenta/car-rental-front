@@ -22,15 +22,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Input } from "@/components/input";
 import { useToast } from "@/hooks/use-toast";
-//import { useState } from "react";
 import { LoaderIcon } from "lucide-react";
 import { PostFechasAction, PutFechasAction } from "@/actions/fechas";
-import { UserRole } from "@/types";
 
 export default function CRUD_Fecha_Form({
   fecha,
-  onClose,
-  role
+  onClose
 }: {
   fecha?: {
     id: number;
@@ -39,8 +36,7 @@ export default function CRUD_Fecha_Form({
     start_date: string;
     end_date: string;
   };
-  onClose: any
-  role?: UserRole
+  onClose?: () => void
 }) {
   const { toast } = useToast();
   //const [isLoading, setIsLoading] = useState(false);
@@ -62,7 +58,6 @@ export default function CRUD_Fecha_Form({
   });
 
   const onSubmit = async (values: z.infer<typeof FechaFormSchema>) => {
-    //setIsLoading(true);
     const division = values.multiplier / 100;
 
     if (fecha) {
@@ -74,23 +69,19 @@ export default function CRUD_Fecha_Form({
       };
 
       try {
-        const res = await PutFechasAction(editFecha, role);
+        const res = await PutFechasAction(editFecha);
         if (res.status === 401) {
           toast({
             variant: "default",
             title: res.message || "no autorizado 401",
           });
-          //setIsLoading(false);
-          //window.location.reload();
         }
         if (res.status === 200) {
           toast({
             variant: "default",
             title: res.message || 'Editada con éxito',
           });
-          onClose();
-          //setIsLoading(false);
-          //window.location.reload();
+          onClose?.();
         }
       } catch (error) {
         console.log(error, "error");
@@ -103,30 +94,25 @@ export default function CRUD_Fecha_Form({
       const newFecha: any = values;
       newFecha.multiplier = 1 + division;
       try {
-        const res = await PostFechasAction(newFecha, role);
+        const res = await PostFechasAction(newFecha);
         if (res.status === 401) {
           toast({
             variant: "default",
             title: res.message || "no autorizado 401",
           });
-          //setIsLoading(false);
-          //window.location.reload();
         }
         if (res.status === 201) {
           toast({
             variant: "default",
             title: res.message,
           });
-          onClose();
-          //setIsLoading(false);
-          //window.location.reload();
+          onClose?.();
         }
       } catch (error) {
         toast({
           variant: "default",
           title: `Hubo un error en la creación.`,
         });
-        //setIsLoading(false);
         console.log(error, "4");
       }
     }

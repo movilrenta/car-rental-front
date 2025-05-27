@@ -16,6 +16,14 @@ export const generateCrudResponses = (entity: string) => ({
     ERROR: {
       message: `Error al crear ${entity}`,
       code: STATUS.BAD_REQUEST
+    },
+    NO_IMAGE: {
+      message:`Se debe incluir una imagen`,
+      code: STATUS.BAD_REQUEST
+    },
+    ERROR_UPLOAD: {
+      message: 'Error al subir imagen',
+      code: STATUS.BAD_REQUEST
     }
   },
   PUT: {
@@ -25,6 +33,14 @@ export const generateCrudResponses = (entity: string) => ({
     },
     ERROR: {
       message: `Error al actualizar ${entity}`,
+      code: STATUS.BAD_REQUEST
+    },
+    NO_IMAGE: {
+      message:`Se debe incluir una imagen`,
+      code: STATUS.BAD_REQUEST
+    },
+    ERROR_UPLOAD: {
+      message: 'Error al subir imagen',
       code: STATUS.BAD_REQUEST
     }
   },
@@ -45,9 +61,11 @@ export const RESPONSE = {
     message: 'No autorizado',
     code: 401
   },
+  ADDRESSES: generateCrudResponses('Dirección'),
+  BRAND: generateCrudResponses('Marca'),
+  BRANCHES: generateCrudResponses('Sucursal'),
   FECHAS: generateCrudResponses('Fecha'),
   GROUPS: generateCrudResponses('Grupo'),
-  BRAND: generateCrudResponses('Marca'),
   CARS: generateCrudResponses('Auto'),
   CARROUSEL: generateCrudResponses('Carrousel')
 };

@@ -28,7 +28,7 @@ export const login = async (values: z.infer<typeof loginSchema>) => {
       };
     }
 
-    const data = { role: "admin", user: "Test MR" };
+    const data = { role: "admin", user: "Movil Renta" };
     const token = await new SignJWT(data)
       .setProtectedHeader({ alg: "HS256" })
       .setExpirationTime("3h")
