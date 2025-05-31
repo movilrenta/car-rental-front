@@ -8,7 +8,7 @@ import {
   SheetDescription,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
+  //SheetTrigger,
 } from "@/components/sheet";
 import { UserForm } from "@/components/users/user-form";
 import { useToast } from "@/hooks/use-toast";
@@ -35,15 +35,14 @@ export const SheetFormUser = ({ user, open, onOpenChange }: SheetProps) => {
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetTrigger asChild>
-      </SheetTrigger>
+      {/* <SheetTrigger asChild>
+      </SheetTrigger> */}
       <SheetContent>
         <SheetHeader className="mb-5">
           <SheetTitle>
-            {user ? "Editar usuario" : "Crear un nuevo usuario"}
+            {user ? `Editando usuario ${user.name}` : "Crear un nuevo usuario"}
           </SheetTitle>
           <SheetDescription>
-            Aquí podra crear/editar un usuario.
           </SheetDescription>
         </SheetHeader>
 

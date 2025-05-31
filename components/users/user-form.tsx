@@ -31,7 +31,6 @@ interface UserFromProps {
   onSubmit: (values: UserFormValues) => Promise<void>;
   isEditing?: boolean;
 }
-
 export const UserForm = ({
   initialValues,
   onSubmit,
@@ -46,7 +45,6 @@ export const UserForm = ({
       roles: "vendedor",
     },
   });
-
 
   React.useEffect(() => {
     if (initialValues) {
