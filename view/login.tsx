@@ -11,6 +11,7 @@ import { login } from '@/actions/auth/login'
 import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
 import { useAuthstore } from '@/stores/auth-store/login.store'
+import { InputTogglePassword } from '@/components/ui/input-toggle-password'
 
 
 export const Login = () => {
@@ -81,7 +82,8 @@ export const Login = () => {
                     <FormItem>
                     <FormLabel className="block text-sm font-medium mb-1 text-gray-800 dark:text-gray-100">Contraseña</FormLabel>
                     <FormControl>
-                      <Input type='password' placeholder="usuario123" className="form-input w-full" maxLength={15} {...field} />
+                      {/* <Input type='password' placeholder="usuario123" className="form-input w-full" maxLength={15} {...field} /> */}
+                      <InputTogglePassword field={field} placeholder='usuario123' className='form-input w-full' maxLength={15}/>
                     </FormControl>
                     <FormMessage />
                   </FormItem>

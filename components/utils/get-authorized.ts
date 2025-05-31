@@ -53,22 +53,22 @@ const ROL_AUTHORIZED: Record<Location, Record<UserRole, boolean>> = {
   },
   log: {
     superadmin: true,
-    admin: false,
+    admin: true,
     auditor: false,
     vendedor: false,
   },
   roles: {
     superadmin: true,
-    admin: false,
+    admin: true,
     auditor: false,
     vendedor: false,
   },
   crearUsuarios: {
     superadmin: true,
-    admin: false,
+    admin: true,
     auditor: false,
     vendedor: false,
-  }
+  },
 };
 
 export default function getAuthorized(role: string | null, location: Location): boolean {
