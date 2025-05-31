@@ -15,8 +15,8 @@ const { role } = await getUserInformation()
   
   //pegada al back de usuarios
   return (
-    <div className="my-5 px-2 w-full flex flex-col items-center gap-y-8 text-gray-800 dark:text-white">
-      <div className="md:min-w-[500px] lg:min-w-[800px]">
+    <div className="my-5 px-4 md:px-2 w-full flex flex-col items-center gap-y-8 text-gray-800 dark:text-white">
+      <div className="w-full md:min-w-[500px] lg:w-[800px]">
         <TableUsers users={mockUsers}/>
       </div>
     </div>

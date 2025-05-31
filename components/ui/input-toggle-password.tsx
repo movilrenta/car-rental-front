@@ -19,7 +19,7 @@ export const InputTogglePassword = <T extends FieldValues>({field, placeholder, 
   return (
     <div className="w-full relative">
       <Input type={!show ? "password" : "text"} placeholder={placeholder} className={`pr-10 ${className}`} maxLength={maxLength} {...field}/>
-      <button type="button" className="absolute top-2 right-2 text-gray-700 dark:text-white" onClick={() => setShow((show) => !show)}>
+      <button type="button" className="absolute top-2 right-2 text-gray-700 dark:text-white" onClick={() => setShow(!show)}>
         {!show ? (<IoEyeOutline/>) : (<IoEyeOffOutline/>)}
       </button>
     </div>

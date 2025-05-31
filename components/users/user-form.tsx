@@ -83,7 +83,7 @@ export const UserForm = ({
                 <Input
                   type="email"
                   placeholder="joselopez@movilrenta.com"
-                  readOnly={isEditing}
+                  readOnly={!!initialValues}
                   {...field}
                 />
               </FormControl>
@@ -95,7 +95,7 @@ export const UserForm = ({
           control={form.control}
           name="password"
           render={({ field }) => (
-            <FormItem className="col-span-1">
+            <FormItem className={`col-span-1 ${isEditing ? "hidden" : ""}`}>
               <FormLabel>Contraseña</FormLabel>
               <FormControl>
                 <InputTogglePassword field={field}/>

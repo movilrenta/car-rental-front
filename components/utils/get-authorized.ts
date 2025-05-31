@@ -53,7 +53,7 @@ const ROL_AUTHORIZED: Record<Location, Record<UserRole, boolean>> = {
   },
   log: {
     superadmin: true,
-    admin: false,
+    admin: true,
     auditor: false,
     vendedor: false,
   },

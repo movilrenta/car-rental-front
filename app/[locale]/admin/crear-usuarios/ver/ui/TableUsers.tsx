@@ -60,10 +60,10 @@ export const TableUsers = ({ users }: TableProps) => {
     return 0;
   });
   return (
-    <div className="space-y-7 mt-8">
-      <div className="flex justify-between items-center">
+    <div className="space-y-7 mt-6 md:mt-8">
+      <div className="flex flex-col gap-6 md:gap-0 md:flex-row md:justify-between md:items-center">
         <h1 className="text-3xl font-semibold">Usuarios</h1>
-        <Button type="button" onClick={handleCreate} variant="outline" className="bg-red-700">Crear Usuario</Button>
+        <Button type="button" onClick={handleCreate} variant="outline" className="bg-red-700 w-[150px]">Crear Usuario</Button>
       </div>
     <Table className="w-full">
       <TableCaption>Lista de todos los usuarios.</TableCaption>

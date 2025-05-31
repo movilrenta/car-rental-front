@@ -10,7 +10,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/sheet";
-import { Button } from "@/components/ui/button";
 import { UserForm } from "@/components/users/user-form";
 import { useToast } from "@/hooks/use-toast";
 import { User } from "@/types";
@@ -26,6 +25,7 @@ export const SheetFormUser = ({ user, open, onOpenChange }: SheetProps) => {
   const { toast } = useToast();
 
   const userTransformValues = (user: User): UserFormValues => ({
+    id:user.id ?? "",
     name: user.name,
     email: user.email,
     isBloqued: user.isBlocked,
@@ -52,12 +52,12 @@ export const SheetFormUser = ({ user, open, onOpenChange }: SheetProps) => {
           isEditing={!!user}
           onSubmit={async (values) => {
             const resp = await createUpdateUser(values);
-            console.log(resp);
-            if (resp.status === 201) {
+            if (resp.status === 201 || resp.status === 200) {
               toast({
                 variant: "default",
                 title: resp.message,
-              });
+              })
+              onOpenChange?.(false)
             } else {
               toast({
                 variant: "destructive",

@@ -25,16 +25,19 @@ export const createUpdateUser = async (
       parsedResults.error.issues[0].message
     );
   }
+
+  const { id } = parsedResults.data
   try {
     //TODO: esta parte puede servir para editar usuario y reutilizar la misma action
-    if (parsedResults.data.id) {
+    if (id) {
       console.log(parsedResults.data, "Usuario editado");
       // revalidatePath('/admin/crear-usuarios/ver')
       return buildResponse(RESPONSE.USER.PUT.SUCCESS, parsedResults.data);
+    }else{
+      console.log(parsedResults.data);
+      // revalidatePath('/admin/crear-usuarios/ver')
+      return buildResponse(RESPONSE.USER.POST.SUCCESS, parsedResults.data);
     }
-    console.log(parsedResults.data);
-    // revalidatePath('/admin/crear-usuarios/ver')
-    return buildResponse(RESPONSE.USER.POST.SUCCESS, parsedResults.data);
   } catch (error) {
     if (error instanceof AxiosError) {
       return buildResponse({
