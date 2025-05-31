@@ -67,7 +67,8 @@ export const RESPONSE = {
   FECHAS: generateCrudResponses('Fecha'),
   GROUPS: generateCrudResponses('Grupo'),
   CARS: generateCrudResponses('Auto'),
-  CARROUSEL: generateCrudResponses('Carrousel')
+  CARROUSEL: generateCrudResponses('Carrousel'),
+  USER: generateCrudResponses('Usuario')
 };
 
 //return Response.json(RESPONSE.FECHAS.POST.SUCCESS);

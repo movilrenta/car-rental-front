@@ -2,7 +2,7 @@
 import axios, { AxiosError } from "axios";
 import { unstable_noStore as noStore, revalidatePath } from "next/cache";
 
-import { ActionResponse, UserRole } from "@/types";
+import { ActionResponse } from "@/types";
 import { buildResponse } from "@/utils/build-response";
 import { getUserInformation } from "./auth/getUser";
 import { RESPONSE } from "@/constant/handler-actions";

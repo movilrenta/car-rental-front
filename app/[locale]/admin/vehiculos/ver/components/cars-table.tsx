@@ -11,7 +11,6 @@ import React, { useEffect, useState } from "react";
 import { FaChevronUp } from "react-icons/fa";
 import { FaChevronDown } from "react-icons/fa";
 import Image from "next/image";
-import { UserRole } from "@/types";
 
 export const CarsTable = ({
   Cars,
