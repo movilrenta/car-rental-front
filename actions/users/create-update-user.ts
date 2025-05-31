@@ -27,7 +27,7 @@ export const createUpdateUser = async (
   }
   try {
     //TODO: esta parte puede servir para editar usuario y reutilizar la misma action
-    if (parsedResults.data.email) {
+    if (parsedResults.data.id) {
       console.log(parsedResults.data, "Usuario editado");
       // revalidatePath('/admin/crear-usuarios/ver')
       return buildResponse(RESPONSE.USER.PUT.SUCCESS, parsedResults.data);
