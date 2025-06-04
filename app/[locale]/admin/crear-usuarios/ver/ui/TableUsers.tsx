@@ -14,8 +14,8 @@ import { User,
   // UserRole 
 } from "@/types";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
-import { SheetFormUser } from "./SheetFormUser";
-import { Button } from "@/components/ui/button";
+// import { SheetFormUser } from "./SheetFormUser";
+// import { Button } from "@/components/ui/button";
 
 interface TableProps {
   users: User[];
@@ -27,18 +27,18 @@ type SortDirection = "asc" | "desc";
 export const TableUsers = ({ users }: TableProps) => {
   const [sortKey, setSortKey] = React.useState<Sortkey>("name");
   const [sortDirection, setSortDirection] = React.useState<SortDirection>("asc");
-  const [openSheet, setOpenSheet] = React.useState<boolean>(false);
-  const [userEdit, setUserEdit] = React.useState<User | undefined>(undefined);
+  // const [openSheet, setOpenSheet] = React.useState<boolean>(false);
+  // const [userEdit, setUserEdit] = React.useState<User | undefined>(undefined);
 
-  const handleCreate = () => {
-    setUserEdit(undefined);
-    setOpenSheet(true);
-  }
+  // const handleCreate = () => {
+  //   setUserEdit(undefined);
+  //   setOpenSheet(true);
+  // }
 
-  const handleEdit = (user:User) => {
-    setUserEdit(user)
-    setOpenSheet(true);
-  }
+  // const handleEdit = (user:User) => {
+  //   setUserEdit(user)
+  //   setOpenSheet(true);
+  // }
   // const [roleFilter, setRoleFilter] = React.useState<UserRole | "">("");
 
   const toggleSort = (key:Sortkey) => {
@@ -63,7 +63,7 @@ export const TableUsers = ({ users }: TableProps) => {
     <div className="space-y-7 mt-6 md:mt-8">
       <div className="flex flex-col gap-6 md:gap-0 md:flex-row md:justify-between md:items-center">
         <h1 className="text-3xl font-semibold">Usuarios</h1>
-        <Button type="button" onClick={handleCreate} variant="outline" className="bg-red-700 w-[150px] text-white">Crear Usuario</Button>
+        {/* <Button type="button" onClick={handleCreate} variant="outline" className="bg-red-700 w-[150px] text-white">Crear Usuario</Button> */}
       </div>
     <Table className="w-full">
       <TableCaption>Lista de todos los usuarios.</TableCaption>
@@ -78,7 +78,8 @@ export const TableUsers = ({ users }: TableProps) => {
       </TableHeader>
       <TableBody>
         {sortedUsers.map((user) => (
-          <TableRow  key={user.id} className="cursor-pointer h-12 hover:bg-gray-200 dark:hover:bg-gray-800 duration-200" onClick={() => handleEdit(user)}>
+          // <TableRow  key={user.id} className="cursor-pointer h-12 hover:bg-gray-200 dark:hover:bg-gray-800 duration-200" onClick={() => handleEdit(user)}>
+          <TableRow  key={user.id} className="cursor-pointer h-12 hover:bg-gray-200 dark:hover:bg-gray-800 duration-200">
             <TableCell className="font-medium">{user.name}</TableCell>
             <TableCell>{user.email}</TableCell>
             <TableCell>{user.role}</TableCell>
@@ -92,7 +93,7 @@ export const TableUsers = ({ users }: TableProps) => {
         ))}
       </TableBody>
     </Table>
-    <SheetFormUser user={userEdit} open={openSheet} onOpenChange={setOpenSheet}/>
+    {/* <SheetFormUser user={userEdit} open={openSheet} onOpenChange={setOpenSheet}/> */}
     </div>
   );
 };

@@ -12,8 +12,8 @@ import Link from "next/link";
 import { LuCar } from "react-icons/lu";
 import { BookIcon, CalendarDays, Map, Plus, Settings } from "lucide-react";
 import { BiCarousel } from "react-icons/bi";
-import { PiUsersLight } from "react-icons/pi";
-import { TbLogs } from "react-icons/tb";
+// import { PiUsersLight } from "react-icons/pi";
+// import { TbLogs } from "react-icons/tb";
 import { GrUserAdmin } from "react-icons/gr";
 
 export default function Sidebar({
@@ -111,24 +111,24 @@ export default function Sidebar({
         },
       ],
     },
-    {
-      value: "log",
-      icon: <TbLogs className="min-h-4 min-w-4 h-4 w-4 stroke-2" />,
-      options: [
-        {
-          value: "ver",
-        },
-      ],
-    },
-    {
-      value: "roles",
-      icon: <PiUsersLight className="min-h-4 min-w-4 h-4 w-4 stroke-2" />,
-      options: [
-        {
-          value: "ver",
-        },
-      ],
-    },
+    // {
+    //   value: "log",
+    //   icon: <TbLogs className="min-h-4 min-w-4 h-4 w-4 stroke-2" />,
+    //   options: [
+    //     {
+    //       value: "ver",
+    //     },
+    //   ],
+    // },
+    // {
+    //   value: "roles",
+    //   icon: <PiUsersLight className="min-h-4 min-w-4 h-4 w-4 stroke-2" />,
+    //   options: [
+    //     {
+    //       value: "ver",
+    //     },
+    //   ],
+    // },
     {
       value: "crear-usuarios",
       icon: <GrUserAdmin className="min-h-4 min-w-4 h-4 w-4 stroke-2" />,

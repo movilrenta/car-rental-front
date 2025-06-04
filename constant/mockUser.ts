@@ -1,28 +1,36 @@
 import { User } from "@/types";
 
-export const mockUsers: User[] = [
+export const USERS: User[] = [
   {
-    id: "1",
-    name: "Juan Pérez",
-    email: "juan@example.com",
-    role: "admin",
-    password: "Movilrenta123",
+    name: "Diego de la Vega",
+    email: "diego@movilrenta.com.ar",
     isBlocked: false,
-  },
-  {
-    id: "2",
-    name: "Ana Torres",
-    email: "ana@example.com",
+    password: "Movilrenta1",
+    id: "vendedorN6",
     role: "vendedor",
-    password: "Movilrenta123",
-    isBlocked: true,
   },
   {
-    id: "3",
-    name: "Pedro Guitierrez",
-    email: "perdro@example.com",
-    role: "auditor",
-    password: "Movilrenta123",
+    name: "Leandro Ismael",
+    email: "leandro@movilrenta.com.ar",
     isBlocked: false,
+    password: "Movilrenta1",
+    id: "vendedorN8",
+    role: "vendedor",
+  },
+  {
+    name: "Guillermo Trefontane",
+    email: "guillermo@movilrenta.com.ar",
+    isBlocked: false,
+    password: "Movilrenta1",
+    id: "vendedorN2",
+    role: "vendedor",
+  },
+  {
+    name: "Jose",
+    email: "jose@movilrenta.com",
+    isBlocked: false,
+    password: "Movilrenta1",
+    id: "superadmin",
+    role: "superadmin",
   },
 ];
