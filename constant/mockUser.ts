@@ -27,7 +27,7 @@ export const USERS: User[] = [
   },
   {
     name: "Jose",
-    email: "jose@movilrenta.com",
+    email: "joseluis@movilrenta.com",
     isBlocked: false,
     password: "Hn2vWc4j",
     id: "superadmin",
