@@ -1,5 +1,5 @@
 import emailjs, { EmailJSResponseStatus } from '@emailjs/browser';
-import { getTranslations } from 'next-intl/server';
+// import { getTranslations } from 'next-intl/server';
 import { z } from "zod";
 
 const SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
@@ -13,7 +13,7 @@ const formSchema = z.object({
 })
 
 export const sendEmail = async (values:z.infer<typeof formSchema>) => {
-  const t = await getTranslations("PaymentsPage.sendEmail")
+  // const t = await getTranslations("PaymentsPage.sendEmail")
     try {
       await emailjs.send(
         `${SERVICE_ID}`,
@@ -23,24 +23,23 @@ export const sendEmail = async (values:z.infer<typeof formSchema>) => {
           publicKey: `${PUBLIC_KEY}`,
         },
       );
-      return {
-        ok:true,
-        message:t("success.message"),
-        description: t("success.description")
+       return {
+        success:true,
+        status: 200
       }
     } catch (err) {
       if (err instanceof EmailJSResponseStatus) {
         console.log('EMAILJS FAILED...', err);
-        return {
-          ok:false,
-          message: t("error.message")
+         return {
+          success:false,
+          status: err.status
         }
       }
     
       console.log('ERROR', err);
-      return {
-        ok:false,
-        message:t("error.message")
+       return {
+        success:false,
+        status: 500
       }
     }
 }
