@@ -108,7 +108,7 @@
       "title": "vehículo",
       "selectOrder": "Ordenar por",
       "selectMinor": "Precio mínimo",
-      "selectMajor": "Precio máximo", 
+      "selectMajor": "Precio máximo",
       "errorDates": "Verifique las fechas de reserva",
       "dontFind": "No encontraste lo que buscabas?",
       "dontFindDescription": "Tranquilo!, contactanos para que podamos ayudarte en tu próxima reserva.",
@@ -199,11 +199,12 @@
     },
     "sendEmail": {
       "success": {
-        "message": "Reserva confirmada con éxito",
+        "title": "Reserva confirmada con éxito",
         "description": "Se ha enviado un email con su código de reserva. Por favor revise su bandeja de entrada"
       },
       "error": {
-        "message": "Hubo un problema al enviar el mensaje!"
+        "title": "Hubo un problema al enviar el mensaje",
+        "description": "Consulte el estado de reserva por nuestros canales de contacto."
       }
     }
   },
@@ -513,6 +514,20 @@
         "description": {
           "min": "El detalle es demasiado corto",
           "max": "El detalle es demasiado extenso"
+        }
+      },
+      "emailResponse": {
+        "success": {
+          "title": "Mensaje enviado correctamente",
+          "description": "Pronto un asesor se pondrá en contacto."
+        },
+        "error": {
+          "title": "Hubo un problema al enviar el mensaje!",
+          "description": "Por favor reintente nuevamente"
+        },
+        "fatal": {
+          "title": "Hubo un problema al enviar el mensaje!",
+          "description": "Por favor contactese a traves de los otros medios."
         }
       },
       "buttons": {
