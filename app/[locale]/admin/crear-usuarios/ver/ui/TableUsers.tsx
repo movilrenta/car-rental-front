@@ -59,6 +59,10 @@ export const TableUsers = ({ users }: TableProps) => {
 
     return 0;
   });
+
+  //TODO: Por si agregamos mas condiciones para mostrar o no usuarios
+  const visibleUsers = sortedUsers.filter((user) => user.role !== "superadmin")
+
   return (
     <div className="space-y-7 mt-6 md:mt-8">
       <div className="flex flex-col gap-6 md:gap-0 md:flex-row md:justify-between md:items-center">
@@ -77,7 +81,7 @@ export const TableUsers = ({ users }: TableProps) => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {sortedUsers.map((user) => (
+        {visibleUsers.map((user) => (
           // <TableRow  key={user.id} className="cursor-pointer h-12 hover:bg-gray-200 dark:hover:bg-gray-800 duration-200" onClick={() => handleEdit(user)}>
           <TableRow  key={user.id} className="cursor-pointer h-12 hover:bg-gray-200 dark:hover:bg-gray-800 duration-200">
             <TableCell className="font-medium">{user.name}</TableCell>
