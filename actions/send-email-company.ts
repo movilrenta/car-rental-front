@@ -1,6 +1,6 @@
 import { CompanyFormValues } from '@/types';
 import emailjs, { EmailJSResponseStatus } from '@emailjs/browser';
-import { z } from "zod";
+// import { z } from "zod";
 
 const SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
 const TEMPLATE_ID_COMPANY = process.env.NEXT_PUBLIC_TEMPLATE_ID_COMPANY;
