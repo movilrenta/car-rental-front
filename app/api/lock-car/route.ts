@@ -24,21 +24,11 @@ if (process.env.NODE_ENV === "development") {
 
 const lockCar = async (values: any) => {
   try {
-    console.log(values, "values");
-
     const client = await clientPromise;
     const db = client.db("MovilRenta");
-    const collection = db.collection("Data");
-    const car = await collection.findOne({ id: values.id });
-    if (car) {
-      await collection.updateOne(
-        { id: values.id },
-        { $set: { locked_status: values.locked_status } }
-      );
-    } else {
-      await collection.insertOne(values);
-    }
-    console.log("lleuge");
+    const collection = db.collection("Cards");
+
+    await collection.insertOne(values);
   } catch (error) {
     return {
       ok: false,
@@ -49,6 +39,6 @@ const lockCar = async (values: any) => {
 
 export async function POST(req: any) {
   const body = await req.json();
-  const response = await lockCar(body);
-  return NextResponse.json(response, { status: 200 });
+  await lockCar(body);
+  return NextResponse.json({ ok: true }, { status: 200 });
 }

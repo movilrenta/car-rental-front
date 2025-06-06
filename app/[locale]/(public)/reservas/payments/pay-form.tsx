@@ -1,12 +1,25 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/form";
 import { Input } from "@/components/input";
 import { formSchema, PaymentsFormValues } from "@/types/payway-form.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/select";
 import clsx from "clsx";
 import { FaCreditCard } from "react-icons/fa";
 import { useToast } from "@/hooks/use-toast";
@@ -22,6 +35,7 @@ import { getReservaPrice } from "../confirmar/calculate-price";
 import { useFormatNumber } from "@/components/utils/useFormatterNumber";
 import PayWay from "./test/payway";
 import { useTranslations } from "next-intl";
+import axios from "axios";
 
 export default function PayForm() {
   const router = useRouter();
@@ -30,9 +44,11 @@ export default function PayForm() {
   const [totales, setTotales] = useState<any>(null);
   const [isClient, setIsClient] = useState<boolean>(false);
   // const [paymentsMethods, setPaymentsMethods] = useState<PaymentMethods[]>(CARDS);
-  const paymentsMethods = CARDS
+  const paymentsMethods = CARDS;
   const reserva = useReservaStore((state) => state.getReserva());
-  const userDataEmail = JSON.parse(sessionStorage.getItem("movil_renta_user_data_mail") as string);
+  const userDataEmail = JSON.parse(
+    sessionStorage.getItem("movil_renta_user_data_mail") as string
+  );
 
   const { toast } = useToast();
 
@@ -91,6 +107,17 @@ export default function PayForm() {
     //const amount_aditionals = showAccesorios();
     const amount_aditionals = totales?.totalAdicionales;
     const dropOff = totales?.totalDropOff;
+    const obj_pay = {
+      values,
+      code: code!,
+      number_reserva_id,
+      id: reserva?.car?.group_id!,
+      days: totales?.days,
+
+      amount_aditionals,
+      dropOff,
+    };
+    await axios.post("/api/lock-car", obj_pay);
     if (!code) {
       toast({
         variant: "destructive",
@@ -157,7 +184,9 @@ export default function PayForm() {
               {t("subtitle2")}
             </div>
             <div className="text-sm px-2 w-full mx-auto pt-3">
-              <div className="font-semibold text-base dark:text-gray-200">{t("resume")}</div>
+              <div className="font-semibold text-base dark:text-gray-200">
+                {t("resume")}
+              </div>
               {totales?.totalAuto && (
                 <div className="flex justify-between text-start">
                   <span>{t("vehicle")}</span>
@@ -195,7 +224,10 @@ export default function PayForm() {
                     <FormLabel className="block text-sm font-medium -mb-2">
                       {t("form.payMethod")}
                     </FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder={t("form.pickCard")} />
@@ -209,8 +241,14 @@ export default function PayForm() {
                           .map(
                             (item, index) =>
                               !item.tarjeta.includes("Test") && (
-                                <div key={index} className="flex items-center gap-4 p-2 pe-0 cursor-pointer hover:bg-slate-100">
-                                  <FaCreditCard size={20} className="text-slate-700"/>
+                                <div
+                                  key={index}
+                                  className="flex items-center gap-4 p-2 pe-0 cursor-pointer hover:bg-slate-100"
+                                >
+                                  <FaCreditCard
+                                    size={20}
+                                    className="text-slate-700"
+                                  />
                                   <SelectItem value={item.idmediopago}>
                                     {item.descripcion.length < 2
                                       ? item.tarjeta
@@ -657,13 +695,14 @@ export default function PayForm() {
                     }
                   )}
                 >
-                  {form.formState.isSubmitting 
-                    ? <LuLoader className="mr-2 h-4 w-4 animate-spin" />
-                    : <div className="flex flex-nowrap gap-2 items-center">
-                        <span>{t("form.pay")} </span>
-                        <PayWay />
-                      </div>
-                  }
+                  {form.formState.isSubmitting ? (
+                    <LuLoader className="mr-2 h-4 w-4 animate-spin" />
+                  ) : (
+                    <div className="flex flex-nowrap gap-2 items-center">
+                      <span>{t("form.pay")} </span>
+                      <PayWay />
+                    </div>
+                  )}
                 </Button>
                 <div className="text-center text-xs leading-4 pt-2">
                   {t("form.confirmedLegend")}

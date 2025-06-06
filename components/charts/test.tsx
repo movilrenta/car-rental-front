@@ -40,8 +40,18 @@ import {
   SelectValue,
 } from "@/components/select";
 import { BranchesType } from "@/types/branches";
+import { format, parseISO } from "date-fns";
+import { es } from "date-fns/locale";
 
-const Chart = ({ data, dataApproved, branches }: {data: any, dataApproved: any, branches: BranchesType[]}) => {
+const Chart = ({
+  data,
+  dataApproved,
+  branches,
+}: {
+  data: any;
+  dataApproved: any;
+  branches: BranchesType[];
+}) => {
   const [selectedYear, setSelectedYear] = React.useState(
     new Date().getFullYear().toString()
   );
@@ -56,64 +66,118 @@ const Chart = ({ data, dataApproved, branches }: {data: any, dataApproved: any, 
     return Array.from(new Set(years)).sort();
   };
 
-  const generateChartData = (reservations: any, year: string) => {
-    // Filter reservations by selected year first
-    //const filterdReservationByApproved = reservations.filter((res: any) => res.status === "approved")
-    const filteredReservations = reservations.filter((res: any) => {
+  // const generateChartData = (reservations: any, year: string) => {
+  //   // Filter reservations by selected year first
+  //   //const filterdReservationByApproved = reservations.filter((res: any) => res.status === "approved")
+  //   const filteredReservations = reservations.filter((res: any) => {
+  //     const resYear = new Date(res.start_date).getFullYear().toString();
+  //     return resYear === year;
+  //   });
+
+  //   // Group by month
+  //   const groupedByMonth = filteredReservations.reduce(
+  //     (acc: any, curr: any) => {
+  //       const month = getMonthName(curr.start_date);
+  //       acc[month] = acc[month] || { online: 0, presential: 0 };
+
+  //       if (curr.origin === null) {
+  //         acc[month].online++;
+  //       } else if (curr.origin === "offline_agent") {
+  //         acc[month].presential++;
+  //       }
+  //       return acc;
+  //     },
+  //     {}
+  //   );
+
+  //   // Define month order (in Spanish)
+  //   const monthOrder = [
+  //     "enero",
+  //     "febrero",
+  //     "marzo",
+  //     "abril",
+  //     "mayo",
+  //     "junio",
+  //     "julio",
+  //     "agosto",
+  //     "septiembre",
+  //     "octubre",
+  //     "noviembre",
+  //     "diciembre",
+  //   ];
+
+  //   // Convert to array and sort by month order
+  //   return Object.entries(groupedByMonth)
+  //     .map(([month, data]: any) => ({
+  //       month,
+  //       online: data.online,
+  //       presential: data.presential,
+  //     }))
+  //     .sort((a, b) => {
+  //       // Convert month names to lowercase for consistent comparison
+  //       const monthA = a.month.toLowerCase();
+  //       const monthB = b.month.toLowerCase();
+  //       return monthOrder.indexOf(monthA) - monthOrder.indexOf(monthB);
+  //     });
+  // };
+
+  //console.log(data);
+  const generateDetailedChartData = (reservations: any[], year: string) => {
+    const filteredReservations = reservations.filter((res) => {
       const resYear = new Date(res.start_date).getFullYear().toString();
       return resYear === year;
     });
 
-    // Group by month
-    const groupedByMonth = filteredReservations.reduce(
-      (acc: any, curr: any) => {
-        const month = getMonthName(curr.start_date);
-        acc[month] = acc[month] || { online: 0, presential: 0 };
+    const groupedByMonth: Record<string, any[]> = {};
 
-        if (curr.origin === null) {
-          acc[month].online++;
-        } else if (curr.origin === "offline_agent") {
-          acc[month].presential++;
-        }
-        return acc;
-      },
-      {}
+    filteredReservations.forEach((res) => {
+      const month = getMonthName(res.start_date).toLowerCase();
+      const origin = res.origin === "offline_agent" ? "Presencial" : "Online";
+      const status = res.status;
+      const amount = Number(res.payment?.amount ?? 0); // ✅ forzar a número
+
+      if (!groupedByMonth[month]) {
+        groupedByMonth[month] = [];
+      }
+
+      groupedByMonth[month].push({
+        origin,
+        status,
+        amount,
+      });
+    });
+
+    const detailedData = Object.entries(groupedByMonth).flatMap(
+      ([month, entries]) => {
+        const summary: Record<string, any> = {};
+
+        entries.forEach(({ origin, status, amount }) => {
+          const key = `${origin}-${status}`;
+
+          if (!summary[key]) {
+            summary[key] = {
+              categoria: "Tipo de venta",
+              subcategoria: origin,
+              estado_reserva: capitalize(status),
+              mes: capitalize(month),
+              cantidad: 0,
+              monto: 0,
+            };
+          }
+
+          summary[key].cantidad += 1;
+          summary[key].monto += amount; // ✅ ahora sí suma correctamente
+        });
+
+        return Object.values(summary);
+      }
     );
 
-    // Define month order (in Spanish)
-    const monthOrder = [
-      "enero",
-      "febrero",
-      "marzo",
-      "abril",
-      "mayo",
-      "junio",
-      "julio",
-      "agosto",
-      "septiembre",
-      "octubre",
-      "noviembre",
-      "diciembre",
-    ];
-
-    // Convert to array and sort by month order
-    return Object.entries(groupedByMonth)
-      .map(([month, data]: any) => ({
-        month,
-        online: data.online,
-        presential: data.presential,
-      }))
-      .sort((a, b) => {
-        // Convert month names to lowercase for consistent comparison
-        const monthA = a.month.toLowerCase();
-        const monthB = b.month.toLowerCase();
-        return monthOrder.indexOf(monthA) - monthOrder.indexOf(monthB);
-      });
+    return detailedData;
   };
 
-  //console.log(data);
+  const test = generateDetailedChartData(dataApproved, selectedYear);
 
-  const test = generateChartData(dataApproved, selectedYear);
   //console.log(test, "TEST");
   const availableYears = getAvailableYears(dataApproved);
 
@@ -142,11 +206,11 @@ const Chart = ({ data, dataApproved, branches }: {data: any, dataApproved: any, 
 
     // Find current and previous months in chartData
     const currentMonthData = chartData.find(
-      (data) => data.month.toLowerCase() === currentMonthName
+      (data) => data.month?.toLowerCase() === currentMonthName
     ) || { online: 0, presential: 0 }; // Default to 0 if not found
 
     const previousMonthData = chartData.find(
-      (data) => data.month.toLowerCase() === previousMonthName
+      (data) => data.month?.toLowerCase() === previousMonthName
     ) || { online: 0, presential: 0 }; // Default to 0 if not found
 
     // Calculate total sales for each month
@@ -189,7 +253,9 @@ const Chart = ({ data, dataApproved, branches }: {data: any, dataApproved: any, 
     return acc;
   }, {});
   const branchData = Object.keys(reservationsByBranch).map((key) => ({
-    branch: `Sucursal ${branches.filter((branch: BranchesType) => branch.id === +key)[0].name}`,
+    branch: `Sucursal ${
+      branches.filter((branch: BranchesType) => branch.id === +key)[0].name
+    }`,
     reservations: reservationsByBranch[key],
   }));
 
@@ -202,10 +268,148 @@ const Chart = ({ data, dataApproved, branches }: {data: any, dataApproved: any, 
   const avgDays =
     avgReservationTime.reduce((sum: any, val: any) => sum + val, 0) /
       avgReservationTime.length || 0;
+  // Filtrás solo reservas pendientes
+  const pendingReservations = data.filter(
+    (res: any) => res.status === "pending"
+  );
+
+  // Agrupás por mes
+  const pendingByMonth = pendingReservations.reduce((acc: any, res: any) => {
+    const dateString = res.start_date; // o res.created_at, según prefieras
+    if (!dateString) return acc;
+
+    const month = format(parseISO(dateString), "MMMM", { locale: es });
+    acc[month] = (acc[month] || 0) + 1;
+    return acc;
+  }, {});
+
+  // Convertís a array para el gráfico
+  const pendingData = Object.entries(pendingByMonth).map(([month, value]) => ({
+    month,
+    value,
+  }));
+
+  const orderedMonths = [
+    "enero",
+    "febrero",
+    "marzo",
+    "abril",
+    "mayo",
+    "junio",
+    "julio",
+    "agosto",
+    "septiembre",
+    "octubre",
+    "noviembre",
+    "diciembre",
+  ];
+
+  const orderedPendingData = orderedMonths.map((month) => {
+    const found = pendingData.find((item) => item.month === month);
+    return found || { month, value: 0 }; // Si no hay datos, pone valor 0
+  });
+
+  // const unifiedData = [
+  //   // Tipo de venta (online/presential por mes)
+  //   ...test
+  //     .map((item) => [
+  //       {
+  //         categoria: "Tipo de venta",
+  //         subcategoria: "Online",
+  //         mes: capitalize(item.month),
+  //         cantidad: item.online,
+  //       },
+  //       {
+  //         categoria: "Tipo de venta",
+  //         subcategoria: "Presential",
+  //         mes: capitalize(item.month),
+  //         cantidad: item.presential,
+  //       },
+  //     ])
+  //     .flat(),
+
+  //   // Estados de reserva
+  //   ...statusData.map((item) => ({
+  //     categoria: "Estado de reserva",
+  //     subcategoria: capitalize(item.name),
+  //     mes: "",
+  //     cantidad: item.value,
+  //   })),
+
+  //   // Reservas por mes
+  //   ...orderedPendingData.map((item) => ({
+  //     categoria: "Reservas por mes",
+  //     subcategoria: "Total",
+  //     mes: capitalize(item.month),
+  //     cantidad: item.value,
+  //   })),
+
+  //   // Reservas por sucursal
+  //   ...branchData.map((item) => ({
+  //     categoria: "Sucursal",
+  //     subcategoria: item.branch,
+  //     mes: "",
+  //     cantidad: item.reservations,
+  //   })),
+  // ];
+
+  // Función para capitalizar meses
+  const unifiedData = [
+    // Tipo de venta con estado y monto
+    ...generateDetailedChartData(dataApproved, selectedYear),
+
+    // Estados de reserva (sin cambios)
+    ...statusData.map((item) => ({
+      categoria: "Estado de reserva",
+      subcategoria: capitalize(item.name),
+      mes: "",
+      cantidad: item.value,
+      total: 0,
+    })),
+
+    // Reservas por mes (sin cambios)
+    ...orderedPendingData.map((item) => ({
+      categoria: "Reservas por mes",
+      subcategoria: "Total",
+      mes: capitalize(item.month),
+      cantidad: item.value,
+      total: 0,
+    })),
+
+    // Reservas por sucursal (sin cambios)
+    ...branchData.map((item) => ({
+      categoria: "Sucursal",
+      subcategoria: item.branch,
+      mes: "",
+      cantidad: item.reservations,
+      total: 0,
+    })),
+  ];
+
+  function capitalize(str: any) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+  console.log(test);
 
   return (
     <div className="grid grid-cols-12 m-5 gap-5">
       {/* Tiempo promedio de reserva */}
+      <div className="col-span-4">
+        <CSVLink
+          className="bg-blue-500 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-600 transition"
+          data={unifiedData}
+          headers={[
+            { label: "Categoría", key: "categoria" },
+            { label: "Subcategoría", key: "subcategoria" },
+            { label: "Mes", key: "mes" },
+            { label: "Cantidad", key: "cantidad" },
+            { label: "Total", key: "monto" }, // NUEVA COLUMNA
+          ]}
+          filename="informe_unificado.csv"
+        >
+          Descargar Informe unificado
+        </CSVLink>
+      </div>
       <Card className="col-span-12 md:col-span-6 xl:col-span-4">
         <CardHeader>
           <CardTitle>Tiempo Promedio de Reserva</CardTitle>
@@ -216,14 +420,14 @@ const Chart = ({ data, dataApproved, branches }: {data: any, dataApproved: any, 
       </Card>
       <Card className="col-span-12 md:col-span-6 xl:col-span-4">
         <CardHeader className="flex flex-row justify-between items-center">
-          <CardTitle>Tipos de ventas</CardTitle>
+          <CardTitle>Pagos aprobados por mes</CardTitle>
           <CardDescription>
             <Select
               onValueChange={(e: any) => setSelectedYear(e)}
               value={selectedYear.toString()}
             >
               <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Selecciona un ano" />
+                <SelectValue placeholder="Selecciona un año" />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
@@ -238,59 +442,123 @@ const Chart = ({ data, dataApproved, branches }: {data: any, dataApproved: any, 
           </CardDescription>
           <CSVLink
             data={test}
-            filename="tipos-de-ventas.csv"
+            filename="pagos-aprobados-por-mes.csv"
             className="bg-blue-500 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-600 transition"
           >
             Descargar
           </CSVLink>
         </CardHeader>
-        <CardContent>
-          <ChartContainer config={chartConfig}>
-            <BarChart accessibilityLayer data={test}>
-              <CartesianGrid vertical={false} />
-              <XAxis
-                dataKey="month"
-                tickLine={false}
-                tickMargin={10}
-                axisLine={false}
-                tickFormatter={(value) => value.slice(0, 3)}
-              />
-              <ChartTooltip
-                cursor={false}
-                content={
-                  <ChartTooltipContent
-                    indicator="dashed"
-                    className="bg-slate-100"
-                  />
-                }
-              />
-              <Bar
-                dataKey="online"
-                fill="oklch(0.707 0.165 254.624)"
-                radius={4}
-              />
-              <Bar
-                dataKey="presential"
-                fill="oklch(0.882 0.059 254.128)"
-                radius={4}
-              />
-            </BarChart>
-          </ChartContainer>
+
+        <CardContent className="space-y-6">
+          {/* Gráfico de pagos presenciales */}
+          <div>
+            <h3 className="text-sm font-semibold mb-2">Pagos Presenciales</h3>
+            <ChartContainer config={chartConfig}>
+              <LineChart
+                data={test.filter(
+                  (item: any) => item.subcategoria === "Presencial"
+                )}
+              >
+                <CartesianGrid vertical={false} />
+                <XAxis
+                  dataKey="mes"
+                  tickLine={false}
+                  tickMargin={10}
+                  axisLine={false}
+                  tickFormatter={(value) => value.slice(0, 3)}
+                />
+                <YAxis />
+                <ChartTooltip
+                  cursor={false}
+                  content={
+                    <ChartTooltipContent
+                      indicator="line"
+                      className="bg-slate-100"
+                    />
+                  }
+                />
+                <Line
+                  type="monotone"
+                  dataKey="cantidad"
+                  stroke="oklch(0.707 0.165 254.624)"
+                  strokeWidth={2}
+                  dot={{ r: 4 }}
+                />
+              </LineChart>
+            </ChartContainer>
+          </div>
         </CardContent>
-        <CardFooter className="flex-col items-start gap-2 text-sm">
-          <div className="flex gap-2 font-medium leading-none">
-            {trend.isUp ? "Subiendo un" : "Bajando un"} {trend.percentage}% en{" "}
-            {trend.currentMonth}
-            {trend.isUp ? (
-              <TrendingUp className="h-4 w-4 text-green-500" />
-            ) : (
-              <TrendingDown className="h-4 w-4 text-red-500" />
-            )}
+      </Card>
+      <Card className="col-span-12 md:col-span-6 xl:col-span-4">
+        <CardHeader className="flex flex-row justify-between items-center">
+          <CardTitle>Pagos aprobados por mes</CardTitle>
+          <CardDescription>
+            <Select
+              onValueChange={(e: any) => setSelectedYear(e)}
+              value={selectedYear.toString()}
+            >
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="Selecciona un año" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  {availableYears.map((year: any) => (
+                    <SelectItem key={year} value={year.toString()}>
+                      {year}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </CardDescription>
+          <CSVLink
+            data={test}
+            filename="pagos-aprobados-por-mes.csv"
+            className="bg-blue-500 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-600 transition"
+          >
+            Descargar
+          </CSVLink>
+        </CardHeader>
+
+        <CardContent className="space-y-6">
+          {/* Gráfico de pagos online */}
+          <div>
+            <h3 className="text-sm font-semibold mb-2">Pagos Online</h3>
+            <ChartContainer config={chartConfig}>
+              <LineChart
+                data={test.filter(
+                  (item: any) => item.subcategoria !== "Presencial"
+                )}
+              >
+                <CartesianGrid vertical={false} />
+                <XAxis
+                  dataKey="mes"
+                  tickLine={false}
+                  tickMargin={10}
+                  axisLine={false}
+                  tickFormatter={(value) => value.slice(0, 3)}
+                />
+                <YAxis />
+                <ChartTooltip
+                  cursor={false}
+                  content={
+                    <ChartTooltipContent
+                      indicator="line"
+                      className="bg-slate-100"
+                    />
+                  }
+                />
+                <Line
+                  type="monotone"
+                  dataKey="cantidad"
+                  stroke="oklch(0.707 0.165 254.624)"
+                  strokeWidth={2}
+                  dot={{ r: 4 }}
+                />
+              </LineChart>
+            </ChartContainer>
           </div>
-          <div className="leading-none text-muted-foreground">
-            Ventas del año {selectedYear}
-          </div>
-        </CardFooter>
+        </CardContent>
       </Card>
       <Card className="col-span-12 md:col-span-6 xl:col-span-4 flex flex-col h-full">
         <CardHeader className="flex flex-row items-center justify-between">
@@ -304,7 +572,11 @@ const Chart = ({ data, dataApproved, branches }: {data: any, dataApproved: any, 
           </CSVLink>
         </CardHeader>
         <CardContent className="grid grid-cols-4 gap-6 h-full">
-          <PieChart width={206} height={206} className="col-span-2 m-auto min-w-0 max-w-full">
+          <PieChart
+            width={206}
+            height={206}
+            className="col-span-2 m-auto min-w-0 max-w-full"
+          >
             <Pie
               data={statusData}
               dataKey="value"
@@ -330,7 +602,10 @@ const Chart = ({ data, dataApproved, branches }: {data: any, dataApproved: any, 
           {/* Columna de datos a la derecha */}
           <div className="col-span-2 flex flex-col justify-center gap-2">
             {statusData.map((entry) => (
-              <div key={entry.name} className="flex items-center gap-2 text-sm sm:text-base">
+              <div
+                key={entry.name}
+                className="flex items-center gap-2 text-sm sm:text-base"
+              >
                 <div
                   className="w-3 min-w-3 h-3 min-h-3 rounded-full"
                   style={{ backgroundColor: entry.color }}
@@ -349,6 +624,48 @@ const Chart = ({ data, dataApproved, branches }: {data: any, dataApproved: any, 
         </CardContent>
       </Card>
 
+      <Card className="col-span-12 md:col-span-6 xl:col-span-4">
+        <CardHeader className="flex flex-row items-center justify-between">
+          <CardTitle>Reservas pendientes</CardTitle>
+          <CSVLink
+            data={statusData}
+            filename="reservas-sucursal.csv"
+            className="bg-blue-500 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-600 transition"
+          >
+            Descargar
+          </CSVLink>
+        </CardHeader>
+        <CardContent className="h-full">
+          <h3 className="text-sm font-semibold mb-4">
+            Reservas pendientes por mes
+          </h3>
+          <ChartContainer config={chartConfig}>
+            <LineChart data={orderedPendingData}>
+              <CartesianGrid vertical={false} />
+              <XAxis
+                dataKey="month"
+                tickLine={false}
+                tickMargin={10}
+                axisLine={false}
+                tickFormatter={(value) => value.slice(0, 3)} // muestra solo los primeros 3 caracteres del mes
+              />
+              <YAxis />
+              <Tooltip
+                formatter={(value) => [`${value}`, "PENDIENTES"]}
+                labelFormatter={(label) => `Mes: ${label}`}
+                contentStyle={{ backgroundColor: "#f8fafc" }}
+              />
+              <Line
+                type="monotone"
+                dataKey="value"
+                stroke="#fbbf24"
+                strokeWidth={2}
+                dot={{ r: 4 }}
+              />
+            </LineChart>
+          </ChartContainer>
+        </CardContent>
+      </Card>
       <Card className="col-span-12 md:col-span-6 xl:col-span-4">
         <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle>Reservas por Sucursal</CardTitle>
