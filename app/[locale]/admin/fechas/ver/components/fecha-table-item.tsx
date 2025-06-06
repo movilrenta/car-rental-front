@@ -16,10 +16,11 @@ interface FechasTableItemProps {
     multiplier: string;
     start_date: string;
     end_date: string;
-  };
+  },
+  authorized: boolean
 }
 
-export default function FechasTableItem({ fecha }: FechasTableItemProps) {
+export default function FechasTableItem({ fecha, authorized } : FechasTableItemProps) {
   const percentaje = Math.round(
     (fecha &&
       (+fecha?.multiplier < 1
@@ -74,7 +75,7 @@ export default function FechasTableItem({ fecha }: FechasTableItemProps) {
         <div className="text-left">{fecha?.end_date}</div>
       </td>
 
-      <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+      {authorized && <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
         <div className="flex items-center justify-center gap-4">
           <CRUD_Fechas
             children={
@@ -93,7 +94,7 @@ export default function FechasTableItem({ fecha }: FechasTableItemProps) {
             id={fecha.id}
           />
         </div>
-      </td>
+      </td>}
     </tr>
   );
 }

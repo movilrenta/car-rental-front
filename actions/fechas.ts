@@ -1,17 +1,13 @@
 'use server';
 
 import axios from "axios";
+import { RESPONSE } from "@/constant/handler-actions";
+import type { ActionResponse } from "@/types";
+import { buildResponse } from "@/utils/build-response";
 import { revalidatePath } from "next/cache";
+import { getUserInformation } from "./auth/getUser";
+import getAuthorized from "@/components/utils/get-authorized";
 
-
-// const axiosInstance = axios.create({
-//   baseURL: "http://maxbernasconi.com/", // Cambia a tu URL base
-//   withCredentials: true, // Importante para incluir las cookies en las solicitudes
-// });
-
-// const setupCsrf = async () => {
-//   await axiosInstance.get("/sanctum/csrf-cookie");
-// };
 
 const URL = process.env.NEXT_PUBLIC_URL_MOVILRENTA
 
@@ -26,43 +22,52 @@ export async function GetFechasAction() {
   }
 }
 
-export async function PostFechasAction(fecha: any) {
+export async function PostFechasAction(fecha: any): Promise<ActionResponse> {
+  const { role, token } = await getUserInformation()
+  const authorized = getAuthorized(role, "fechas")
+  if (!authorized) return buildResponse(RESPONSE.UNAUTHORIZED);
+
+
   try {
-    //await setupCsrf();
     const res = await axios.post(`${URL}api/date-based-price-multipliers`, fecha)
     revalidatePath("/admin/fechas/ver")
-    return {data: res.data, status: res.status}
+    return buildResponse(RESPONSE.FECHAS.POST.SUCCESS, res.data);
   }
   catch (error) {
     console.log(error);
-    return {message: "error", error: error, status: 400}
+    return buildResponse(RESPONSE.FECHAS.POST.ERROR, null, error);
   }
 }
 
 
-export async function PutFechasAction(fecha: any) {
+export async function PutFechasAction(fecha: any): Promise<ActionResponse> {
+  const { role, token } = await getUserInformation()
+  const authorized = getAuthorized(role, "fechas")
+  if (!authorized) return buildResponse(RESPONSE.UNAUTHORIZED);
+
   try {
-    //await setupCsrf();
     const res = await axios.put(`${URL}api/date-based-price-multipliers/${fecha.id}`, fecha)
     revalidatePath("/admin/fechas/ver")
-    console.log(res);
-    return res.data
+    return buildResponse(RESPONSE.FECHAS.PUT.SUCCESS, res.data);
   }
   catch (error) {
     console.log(error);
-    return {message: "error", error: error, status: 400}
+    return buildResponse(RESPONSE.FECHAS.PUT.ERROR, null, error);
   }
 }
 
-export async function DeleteFechasAction(id: number) {
+export async function DeleteFechasAction(id: number): Promise<ActionResponse> {
+  const { role, token } = await getUserInformation()
+  const authorized = getAuthorized(role, "fechas")
+  if (!authorized) return buildResponse(RESPONSE.UNAUTHORIZED);
+
   try {
     const res = await axios.delete(`${URL}api/date-based-price-multipliers/${id}`)
     revalidatePath("/admin/fechas/ver")
-    console.log(res);
-    return res.data
+    return buildResponse(RESPONSE.FECHAS.DELETE.SUCCESS, res.data);
   }
   catch (error) {
     console.log(error);
-    return {message: "error", error: error, status: 400}
+    return buildResponse(RESPONSE.FECHAS.DELETE.ERROR, null, error);
   }
 }

@@ -1,17 +1,16 @@
-import {
-  Sheet,
-  SheetTrigger,
-} from "@/components/sheet";
-import { VehicleType } from "@/constant/cars";
+"use client";
 import React from "react";
+import { Sheet, SheetTrigger } from "@/components/sheet";
+import { VehicleType } from "@/constant/cars";
 import CRUD_Form from "./form";
+
 
 export default function CRUD_Vehycle({
   children,
   car,
   groups,
   brands,
-  branches,
+  branches
 }: {
   children: React.ReactNode;
   car?: VehicleType;
@@ -19,16 +18,17 @@ export default function CRUD_Vehycle({
   brands: any;
   branches: any;
 }) {
-
+  const [open, setOpen] = React.useState<boolean>(false)
   return (
-    <Sheet>
-      <SheetTrigger>{children}</SheetTrigger>
-      <CRUD_Form
-        groups={groups}
-        brands={brands}
-        branches={branches}
-        car={car}
-      />
-    </Sheet>
+      <Sheet open={open} onOpenChange={setOpen}>
+        <SheetTrigger>{children}</SheetTrigger>
+        <CRUD_Form
+          groups={groups}
+          brands={brands}
+          branches={branches}
+          car={car}
+          onClose={() => setOpen(false)}
+        />
+      </Sheet>
   );
 }

@@ -19,13 +19,12 @@ export default function DeleteBrunch({children, id} : {children: React.ReactNode
   async function handleDelete() {
     try {
       const response = await DeleteBranchesAction(id)
-      console.log(response)
       if(response.status === 200) {
           toast({
           title: "Sucursal eliminada",
-          description: "La sucursal ha sido eliminada correctamente",
+          description: response.message,
         })
-        return window.location.reload();
+        return
       }
       } catch (error) {
         console.log(error)

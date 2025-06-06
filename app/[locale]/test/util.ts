@@ -86,3 +86,15 @@ export function convertirGrupo(n: number): string {
 
   return texto;
 }
+
+export const blobToBase64 = (blob: Blob): Promise<string> =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const result = reader.result?.toString() || '';
+      const base64 = result.split(',')[1]; // Remueve el encabezado "data:application/pdf;base64,"
+      resolve(base64);
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(blob);
+  });

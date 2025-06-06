@@ -11,8 +11,12 @@ import DropdownProfile from '@/components/dropdown-profile'
 
 export default function Header({
   variant = 'default',
+  user,
+  role
 }: {
-  variant?: 'default' | 'v2' | 'v3'
+  variant?: 'default' | 'v2' | 'v3',
+  user?: string | null,
+  role?: string | null
 }) {
 
   const { sidebarOpen, setSidebarOpen } = useAppProvider()
@@ -69,7 +73,7 @@ export default function Header({
             <ThemeToggle />
             {/*  Divider */}
             <hr className="w-px h-6 bg-gray-200 dark:bg-gray-700/60 border-none" />
-            <DropdownProfile align="right" />
+            <DropdownProfile align="right" user={user} role={role}/>
 
           </div>
 

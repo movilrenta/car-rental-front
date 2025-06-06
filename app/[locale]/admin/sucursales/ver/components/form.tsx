@@ -29,22 +29,20 @@ import {
   SelectValue,
 } from "@/components/select";
 import { useToast } from "@/hooks/use-toast";
-import { useState } from "react";
 import { LoaderIcon } from "lucide-react";
 import { PostBranchesAction, PutBranchesAction } from "@/actions/branchs";
 
-
-
 export default function CRUD_Branch_Form({
   branch,
-  address
+  address,
+  onClose
 }: {
   branch?: any;
   address: any;
+  onClose?: () => void;
 }) {
 
   const { toast } = useToast();
-  const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<z.infer<typeof BranchFormSchema>>({
     resolver: zodResolver(BranchFormSchema),
@@ -57,8 +55,7 @@ export default function CRUD_Branch_Form({
 //mostrar errores del form
 
   const onSubmit = async (values: z.infer<typeof BranchFormSchema>) => {
-    //event?.preventDefault();
-    setIsLoading(true);
+
     if (branch) {
       const editBranch = {
         id: branch.id,
@@ -69,14 +66,14 @@ export default function CRUD_Branch_Form({
 
       try {
         const res = await PutBranchesAction(editBranch);
-        console.log(res, "1");
+
         if (res.status === 200) {
           toast({
             variant: "default",
             title: `Sucursal editada con exito`,
           });
-          setIsLoading(false);
-          //window.location.reload();
+
+          onClose?.()
         }
       } catch (error) {
         console.log(error, "error");
@@ -90,24 +87,21 @@ export default function CRUD_Branch_Form({
       newBranch.address_id = Number(newBranch.address_id);
       newBranch.distance_to_main_branch = Number(newBranch.distance_to_main_branch);
       
-
       try {
         const res = await PostBranchesAction(newBranch);
-        console.log(res, "3");
-        if (res.status === 200) {
+        if (res.status === 201) {
           toast({
             variant: "default",
             title: `Sucursal creada con exito`,
           });
-          setIsLoading(false);
-          //window.location.reload();
+
+          onClose?.()
         }
       } catch (error) {
         toast({
           variant: "default",
           title: `Hubo un error en la creación.`,
         });
-        setIsLoading(false);
         console.log(error, "4");
       }
     }
@@ -151,7 +145,7 @@ export default function CRUD_Branch_Form({
                 <FormItem className="col-span-12 flex flex-col justify-end">
                   <FormLabel>Dirección</FormLabel>
                   <Select
-                    onValueChange={field.onChange}
+                    onValueChange={(value) => field.onChange(Number(value))}
                     defaultValue={field.value?.toString()}
                   >
                     <FormControl>
@@ -202,10 +196,10 @@ export default function CRUD_Branch_Form({
         <Button
           onClick={form.handleSubmit(onSubmit)}
           variant="default"
-          disabled={isLoading}
+          disabled={form.formState.isSubmitting}
           className="min-w-24 w-fit px-6 py-2 bg-red-700 text-white hover:bg-red-800 duration-200"
         >
-          {isLoading ? (
+          {form.formState.isSubmitting ? (
             <LoaderIcon className="w-4 h-4 animate-spin" />
           ) : branch ? (
             "Editar"

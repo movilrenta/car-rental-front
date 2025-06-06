@@ -6,11 +6,12 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Input } from '@/components/input';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/form'
-import AuthImage from '@/app/[locale]/(auth)/auth-image'
+//import AuthImage from '@/app/[locale]/(auth)/auth-image'
 import { login } from '@/actions/auth/login'
 import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
 import { useAuthstore } from '@/stores/auth-store/login.store'
+import { InputTogglePassword } from '@/components/ui/input-toggle-password'
 
 
 export const Login = () => {
@@ -35,7 +36,7 @@ export const Login = () => {
         })
         isLogin()
         form.reset()
-        router.push("/home")
+        router.push("/admin")
       }else{
         toast({
           variant:"default",
@@ -52,7 +53,8 @@ export const Login = () => {
       <div className="relative md:flex">
 
         {/* Content */}
-        <div className="md:w-1/2">
+        {/* <div className="md:w-1/2"> */}
+        <div className="w-full">
           <div className="min-h-[100dvh] h-full flex flex-col mt-12 after:flex-1">
             <div className="max-w-sm mx-auto w-full px-4 py-8">
               <h1 className="text-3xl text-gray-800 dark:text-gray-100 font-bold mb-6">Bienvenido</h1>
@@ -67,7 +69,7 @@ export const Login = () => {
                     <FormItem>
                     <FormLabel className="block text-sm font-medium mb-1 text-gray-800 dark:text-gray-100">Usuario</FormLabel>
                     <FormControl>
-                      <Input placeholder="usuario@usuario" className="form-input w-full" maxLength={36} {...field} />
+                      <Input placeholder="usuario@usuario" className="form-input w-full" maxLength={35} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -80,7 +82,8 @@ export const Login = () => {
                     <FormItem>
                     <FormLabel className="block text-sm font-medium mb-1 text-gray-800 dark:text-gray-100">Contraseña</FormLabel>
                     <FormControl>
-                      <Input type='password' placeholder="usuario123" className="form-input w-full" maxLength={15} {...field} />
+                      {/* <Input type='password' placeholder="usuario123" className="form-input w-full" maxLength={15} {...field} /> */}
+                      <InputTogglePassword field={field} placeholder='usuario123' className='form-input w-full' maxLength={15}/>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -100,7 +103,7 @@ export const Login = () => {
           </div>
         </div>
 
-        <AuthImage />
+        {/* <AuthImage /> */}
       </div>
     </main>
   )

@@ -17,11 +17,13 @@ export const CarsTable = ({
   Brands,
   Groups,
   Branches,
+  authorized
 }: {
   Cars: VehicleType[];
   Brands: Brand[];
   Groups: Group[];
   Branches: Branches[];
+  authorized: boolean;
 }) => {
   const [newCars, setNewCars] = useState<any[]>([]);
   const [expandedGroups, setExpandedGroups] = useState<Record<string, boolean>>(
@@ -69,14 +71,14 @@ export const CarsTable = ({
 
   return (
     <div className="bg-white dark:bg-gray-800 shadow-sm rounded-xl relative">
-      <header className="flex justify-between items-center px-5 py-4">
+      <header className="flex justify-between items-center px-5 py-4 h-20">
         <h2 className="flex gap-2 items-center justify-center font-semibold text-gray-800 dark:text-gray-100">
           Todos los vehículos{" "}
           <span className="text-gray-400 dark:text-gray-500 font-medium">
             {Cars?.length}
           </span>
         </h2>
-        <CRUD_Vehycle
+        {authorized && <CRUD_Vehycle
           children={
             <div className="border group duration-200 rounded-md w-fit px-2 bg-red-700 flex gap-2 text-white items-center justify-center">
               <LuPlus className="text-3xl p-2 w-11 h-11" />
@@ -86,7 +88,7 @@ export const CarsTable = ({
           groups={Groups}
           brands={Brands}
           branches={Branches}
-        />
+        />}
       </header>
       <div>
         {/* Table */}
@@ -122,9 +124,9 @@ export const CarsTable = ({
                 <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                   <div className="font-semibold text-left">Combustible</div>
                 </th>
-                <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                {authorized && <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                   <div className="font-semibold">Opciones</div>
-                </th>
+                </th>}
               </tr>
             </thead>
             {/* Table body */}
@@ -190,6 +192,7 @@ export const CarsTable = ({
                           Brands={Brands}
                           Branches={Branches}
                           Groups={Groups}
+                          authorized={authorized}
                           //cars={Cars}
                         />
                       ))}

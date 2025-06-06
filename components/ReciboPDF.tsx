@@ -66,15 +66,25 @@ const styles = StyleSheet.create({
 });
 
 export const ReciboPDF = ({
-  numero = 215,
-  fecha = "05/05/2025",
-  cliente = "Pedro Gimenez",
-  direccion = "Cerro Colorado 2956 - Bella Vista",
-  montoTexto = "SIN VALOR",
-  formaPago = "Efectivo",
-  detalles = "Prueba",
-  nroVenta = "ACF127YRT",
-  importeImputado = "210000",
+  numero,
+  fecha,// "05/05/2025",
+  cliente,// = "Pedro Gimenez",
+  direccion,// = "Cerro Colorado 2956 - Bella Vista",
+  montoTexto,// = "SIN VALOR",
+  formaPago,// = "Efectivo",
+  detalles,// = "Prueba",
+  nroVenta,// = "ACF127YRT",
+  importeImputado,// = 210000,
+}: {
+  numero: number;
+  cliente: string;
+  direccion: string;
+  fecha: string;
+  montoTexto: string;
+  formaPago: string;
+  detalles: string;
+  nroVenta: string;
+  importeImputado: number;
 }) => (
   <Document>
     <Page size="A4" style={styles.page}>
@@ -85,11 +95,11 @@ export const ReciboPDF = ({
       />
       <View style={styles.header}>
         <View style={styles.leftBox}>
-          <Text style={styles.bold}>MOVIL RENTA S.A.</Text>
-          <Text>CUIT: 30-95555555-8</Text>
+          <Text style={styles.bold}>BRUNET S.A.</Text>
+          <Text>CUIT: 30-64273332-6</Text>
           <Text>Alquiler de vehículos</Text>
           <Text>San Lorenzo 370 - San Miguel de Tucumán</Text>
-          <Text>Teléfonos: 0800 777 7368 // 4668-8733</Text>
+          <Text>Teléfonos: 0800 777 7368 // 381 587 3049</Text>
           <Text>Email: informes@movilrenta.com.ar</Text>
         </View>
         <View style={styles.rightBox}>
@@ -133,7 +143,7 @@ export const ReciboPDF = ({
         </View>
         <View style={styles.tableRow}>
           <Text style={styles.cell}>{nroVenta}</Text>
-          <Text style={styles.cell}>{importeImputado}</Text>
+          <Text style={styles.cell}>$ {importeImputado}</Text>
         </View>
       </View>
     </Page>

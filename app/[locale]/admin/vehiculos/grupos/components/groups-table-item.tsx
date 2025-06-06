@@ -6,7 +6,13 @@ import CRUD_Group from "./crud";
 import DeleteComponent from "./delete-component";
 import { useFormatNumberNoDecimal } from "@/components/utils/useFormatterNumber";
 
-export const GroupsTableItem = ({ group }: { group: Group }) => {
+export const GroupsTableItem = ({
+  group,
+  authorized,
+}: {
+  group: Group;
+  authorized: boolean;
+}) => {
   return (
     <tr className="hover:bg-black/5 dark:hover:bg-black/10 duration-200">
       {/* <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -18,24 +24,37 @@ export const GroupsTableItem = ({ group }: { group: Group }) => {
         </div>
       </td>
       <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-        <div className="text-left">{useFormatNumberNoDecimal(+(group?.rate))}</div>
+        <div className="text-left">
+          {useFormatNumberNoDecimal(+group?.rate)}
+        </div>
       </td>
       <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-        <div className="text-left">{useFormatNumberNoDecimal(+(group?.insurances))}</div>
+        <div className="text-left">
+          {useFormatNumberNoDecimal(+group?.insurances)}
+        </div>
       </td>
 
       <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-        <div className="flex items-center justify-center gap-4">
-          <CRUD_Group
-            Group={group}
-            children={
-              <div className="w-full h-full bg-cover bg-center">
-                <FaEdit className="text-blue-500" size={20} />
-              </div>
-            }
-          />
-          <DeleteComponent children={<div className="w-full"><FaTrash className="text-red-500" size={20}/></div>} id={group.id} />
-        </div>
+        {authorized && (
+          <div className="flex items-center justify-center gap-4">
+            <CRUD_Group
+              Group={group}
+              children={
+                <div className="w-full h-full bg-cover bg-center">
+                  <FaEdit className="text-blue-500" size={20} />
+                </div>
+              }
+            />
+            <DeleteComponent
+              children={
+                <div className="w-full">
+                  <FaTrash className="text-red-500" size={20} />
+                </div>
+              }
+              id={group.id}
+            />
+          </div>
+        )}
       </td>
     </tr>
   );

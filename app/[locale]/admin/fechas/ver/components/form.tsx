@@ -22,12 +22,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Input } from "@/components/input";
 import { useToast } from "@/hooks/use-toast";
-import { useState } from "react";
 import { LoaderIcon } from "lucide-react";
 import { PostFechasAction, PutFechasAction } from "@/actions/fechas";
 
 export default function CRUD_Fecha_Form({
   fecha,
+  onClose
 }: {
   fecha?: {
     id: number;
@@ -36,9 +36,10 @@ export default function CRUD_Fecha_Form({
     start_date: string;
     end_date: string;
   };
+  onClose?: () => void
 }) {
   const { toast } = useToast();
-  const [isLoading, setIsLoading] = useState(false);
+  //const [isLoading, setIsLoading] = useState(false);
 
   const percentaje =
     fecha &&
@@ -57,7 +58,6 @@ export default function CRUD_Fecha_Form({
   });
 
   const onSubmit = async (values: z.infer<typeof FechaFormSchema>) => {
-    setIsLoading(true);
     const division = values.multiplier / 100;
 
     if (fecha) {
@@ -70,14 +70,18 @@ export default function CRUD_Fecha_Form({
 
       try {
         const res = await PutFechasAction(editFecha);
-
+        if (res.status === 401) {
+          toast({
+            variant: "default",
+            title: res.message || "no autorizado 401",
+          });
+        }
         if (res.status === 200) {
           toast({
             variant: "default",
-            title: `Fecha editada con exito`,
+            title: res.message || 'Editada con éxito',
           });
-          setIsLoading(false);
-          //window.location.reload();
+          onClose?.();
         }
       } catch (error) {
         console.log(error, "error");
@@ -91,21 +95,24 @@ export default function CRUD_Fecha_Form({
       newFecha.multiplier = 1 + division;
       try {
         const res = await PostFechasAction(newFecha);
-
-        if (res.status === 200) {
+        if (res.status === 401) {
           toast({
             variant: "default",
-            title: `Fecha creada con exito`,
+            title: res.message || "no autorizado 401",
           });
-          setIsLoading(false);
-          //window.location.reload();
+        }
+        if (res.status === 201) {
+          toast({
+            variant: "default",
+            title: res.message,
+          });
+          onClose?.();
         }
       } catch (error) {
         toast({
           variant: "default",
           title: `Hubo un error en la creación.`,
         });
-        setIsLoading(false);
         console.log(error, "4");
       }
     }
@@ -207,10 +214,11 @@ export default function CRUD_Fecha_Form({
         <Button
           onClick={form.handleSubmit(onSubmit)}
           variant="default"
-          disabled={isLoading}
+          disabled={form.formState.isSubmitting}
+          // disabled={isLoading}
           className="min-w-24 w-fit px-6 py-2 bg-red-700 text-white hover:bg-red-800 duration-200"
         >
-          {isLoading ? (
+          {form.formState.isSubmitting ? (
             <LoaderIcon className="w-4 h-4 animate-spin" />
           ) : fecha ? (
             "Editar"

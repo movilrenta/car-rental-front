@@ -28,7 +28,6 @@ import {
 } from "@/components/select";
 import Image from "next/image";
 import { useToast } from "@/hooks/use-toast";
-import { useState } from "react";
 import { LoaderIcon } from "lucide-react";
 import { Textarea } from "@/components/textarea";
 import { brandSchema, resolver } from "./schema";
@@ -48,9 +47,8 @@ const autos_pic = [
   "/images2/Citroen.webp",
 ];
 //mejorando
-export default function CRUD_Form({ Brand }: { Brand?: Brand }) {
+export default function CRUD_Form({ Brand, onSuccess }: { Brand?: Brand, onSuccess?:() => void }) {
   const { toast } = useToast();
-  const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<z.infer<typeof brandSchema>>({
     resolver: resolver,
@@ -62,7 +60,6 @@ export default function CRUD_Form({ Brand }: { Brand?: Brand }) {
   });
 
   const onSubmit = async (values: z.infer<typeof brandSchema>) => {
-    setIsLoading(true);
     if (Brand) {
       const editBrand = {
         id: Brand.id,
@@ -72,12 +69,18 @@ export default function CRUD_Form({ Brand }: { Brand?: Brand }) {
       };
       try {
         const res = await putBrand(editBrand);
-        if (res.ok) {
+        if (res.status === 200) {
           toast({
             variant: "default",
-            title: `Marca editada con exito`,
+            title: res.message,
           });
-          setIsLoading(false);
+          onSuccess?.();
+        }else{
+          toast({
+            variant:"default",
+            title: res.message,
+            description:`Código: ${res.status}`
+          })
         }
       } catch (error) {
         console.log(error);
@@ -85,25 +88,29 @@ export default function CRUD_Form({ Brand }: { Brand?: Brand }) {
           variant: "default",
           title: `Hubo un error en la edición.`,
         });
-        setIsLoading(false);
       }
     } else {
       try {
         const res = await postBrand(values);
-        if (res.ok) {
-          toast({
+        if (res.status === 201) {
+         toast({
             variant: "default",
-            title: `Marca creada con exito`,
+            title: res.message,
           });
-          setIsLoading(false);
+          onSuccess?.();
+        }else{
+           toast({
+            variant: "default",
+            title: res.message,
+            description: `Código: ${res.status}`
+          });
         }
       } catch (error) {
+        console.log(error);
         toast({
           variant: "default",
           title: `Hubo un error en la creación.`,
         });
-        setIsLoading(false);
-        console.log(error);
       }
     }
   };
@@ -210,7 +217,7 @@ export default function CRUD_Form({ Brand }: { Brand?: Brand }) {
           disabled={form.formState.isSubmitting}
           className="min-w-24 w-fit px-6 py-2 bg-red-700 text-white hover:bg-red-800 duration-200"
         >
-          {isLoading ? (
+          {form.formState.isSubmitting ? (
             <LoaderIcon className="w-4 h-4 animate-spin" />
           ) : Brand ? (
             "Editar"

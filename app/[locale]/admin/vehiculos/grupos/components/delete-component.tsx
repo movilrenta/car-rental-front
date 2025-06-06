@@ -24,11 +24,17 @@ export default function DeleteComponent({
   const { toast } = useToast();
   async function handleDelete() {
     try {
-      const resp = await deleteGroup(id)
-      if(resp.ok){
+      const resp = await deleteGroup(id);
+      if (resp.status === 200) {
         toast({
-          title: "Grupo eliminado",
-          description: "El grupo ha sido eliminado correctamente",
+          variant: "default",
+          title: resp.message,
+        });
+      } else {
+        toast({
+          variant: "default",
+          title: resp.message,
+          description: `Código: ${resp.status}`,
         });
       }
     } catch (error) {

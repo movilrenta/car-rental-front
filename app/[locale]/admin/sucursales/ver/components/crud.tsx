@@ -1,3 +1,4 @@
+'use client'
 import React from "react";
 import {
   Sheet,
@@ -15,12 +16,14 @@ export default function CRUD_Branches({
   branch?: any;
 }) {
 
+  const [open, setOpen] = React.useState(false)
   return (
-    <Sheet>
-      <SheetTrigger>{children}</SheetTrigger>
+    <Sheet open={open} onOpenChange={setOpen}>
+      <SheetTrigger onClick={() => setOpen(true)}>{children}</SheetTrigger>
       <CRUD_Branch_Form
         address={address}
         branch={branch}
+        onClose={() => setOpen(false)}
       />
     </Sheet>
   );

@@ -2,6 +2,7 @@ import { LocalidadesTable } from "./components/localidades-table";
 import { GetBranchesAction } from "@/actions/branchs";
 import { GetAddressesAction } from "@/actions/address";
 
+export const dynamic = "force-dynamic";
 
 export default async function BranchesPage() {
   const branches = await GetBranchesAction()

@@ -100,7 +100,7 @@ export const ReservaAddNew = ({ cars, branches }: Props) => {
     };
     try {
       const resp = await addReservationAction(newValues);
-      if (resp.ok) {
+      if (resp.status === 200) {
         toast({
           variant: "default",
           title: resp.message,

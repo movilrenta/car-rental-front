@@ -6,7 +6,13 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 //import { formatDate } from "@/components/utils/utils";
 import DeleteComponent from "./delete-component";
 
-export const BrandsTableItem = ({ brand }: { brand: Brand }) => {
+export const BrandsTableItem = ({
+  brand,
+  authorized
+}: {
+  brand: Brand;
+  authorized:boolean;
+}) => {
   return (
     <tr className="hover:bg-black/5 dark:hover:bg-black/10 duration-200">
       {/* <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -32,17 +38,26 @@ export const BrandsTableItem = ({ brand }: { brand: Brand }) => {
       </td> */}
 
       <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-        <div className="flex items-center justify-center gap-4">
-          <CRUD_Brand
-            Brand={brand}
-            children={
-              <div className="w-full h-full bg-cover bg-center">
-                <FaEdit className="text-blue-500" size={20} />
-              </div>
-            }
-          />
-          <DeleteComponent children={<div className="w-full"><FaTrash className="text-red-500" size={20}/></div>} id={brand.id} />
-        </div>
+        {authorized && (
+          <div className="flex items-center justify-center gap-4">
+            <CRUD_Brand
+              Brand={brand}
+              children={
+                <div className="w-full h-full bg-cover bg-center">
+                  <FaEdit className="text-blue-500" size={20} />
+                </div>
+              }
+            />
+            <DeleteComponent
+              children={
+                <div className="w-full">
+                  <FaTrash className="text-red-500" size={20} />
+                </div>
+              }
+              id={brand.id}
+            />
+          </div>
+        )}
       </td>
     </tr>
   );

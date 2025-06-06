@@ -1,3 +1,4 @@
+"use client";
 import { Sheet, SheetTrigger } from "@/components/sheet";
 import React from "react";
 import CRUD_Form from "./form";
@@ -10,10 +11,12 @@ export default function CRUD_Brand({
   children: React.ReactNode;
   Brand?: Brand;
 }) {
+  const [toggle, setToggle] = React.useState<boolean>(false)
   return (
-    <Sheet>
+    <Sheet open={toggle} onOpenChange={setToggle}>
       <SheetTrigger>{children}</SheetTrigger>
       <CRUD_Form
+        onSuccess={() =>setToggle(false)}
         Brand={Brand}
       />
     </Sheet>
