@@ -12,8 +12,8 @@ const ROL_AUTHORIZED: Record<Location, Record<UserRole, boolean>> = {
   marcas: {
     superadmin: true,
     admin: true,
-    auditor: false,
-    vendedor: false,
+    auditor: true,
+    vendedor: true,
   },
   grupos: {
     superadmin: true,
@@ -24,48 +24,48 @@ const ROL_AUTHORIZED: Record<Location, Record<UserRole, boolean>> = {
   adicionales: {
     superadmin: true,
     admin: true,
-    auditor: true,
-    vendedor: true,
+    auditor: false,
+    vendedor: false,
   },
   fechas: {
     superadmin: true,
     admin: true,
     auditor: true,
-    vendedor: true,
+    vendedor: false,
   },
   direcciones: {
     superadmin: true,
     admin: true,
-    auditor: false,
+    auditor: true,
     vendedor: false,
   },
   sucursales: {
     superadmin: true,
-    admin: false,
+    admin: true,
     auditor: true,
     vendedor: false,
   },
   carousel: {
     superadmin: true,
     admin: true,
-    auditor: true,
-    vendedor: true,
+    auditor: false,
+    vendedor: false,
   },
   log: {
-    superadmin: true,
-    admin: true,
+    superadmin: false, //TODO PASAR A TRUE
+    admin: false,//TODO PASAR A TRUE
     auditor: false,
     vendedor: false,
   },
   roles: {
-    superadmin: true,
-    admin: true,
+    superadmin: false,//TODO PASAR A TRUE
+    admin: false,//TODO PASAR A TRUE
     auditor: false,
     vendedor: false,
   },
   crearUsuarios: {
-    superadmin: true,
-    admin: true,
+    superadmin: true,//TODO PASAR A TRUE
+    admin: false,
     auditor: false,
     vendedor: false,
   },

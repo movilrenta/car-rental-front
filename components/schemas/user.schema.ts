@@ -19,7 +19,7 @@ export const userSchema = z.object({
       (val) => /[0-9]/.test(val),
       "La contraseña debe tener al menos un número"
     ),
-  roles: z.enum(["vendedor", "auditor", "admin" ], {required_error: "El rol es obligatorio"}),
+  roles: z.enum(["vendedor", "auditor", "admin", "superadmin" ], {required_error: "El rol es obligatorio"}),
   isBloqued: z.boolean().default(false)
 });
 
