@@ -53,11 +53,13 @@ export default function CarsTableItem({
 
   const handlerLockCar = async (car: CarTipe) => {
     try {
-      const res = await StatusCarAction(car)
+      const res = await StatusCarAction(car);
       if (res.status === 200) {
         toast({
           variant: "default",
-          title: `El auto ${car.name} fue ${res.data ? "bloqueado" : "desbloqueado"} con éxito`,
+          title: `El auto ${car.name} fue ${
+            res.data ? "bloqueado" : "desbloqueado"
+          } con éxito`,
         });
       } else {
         toast({
@@ -74,7 +76,7 @@ export default function CarsTableItem({
       console.log(error);
     }
   };
-  
+
   const handlerCopyCar = async () => {
     const patentes_array = patentes.split(",");
     const formData = Array.from({ length: copies }, (_, index) => {
@@ -152,8 +154,25 @@ export default function CarsTableItem({
         </div>
       </td>
       <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-        <div className="text-center border bottom-1 bg-black rounded-md text-white font-bold p-1 ">
-          {car.plate || "-"}
+        <div className="w-[150px] h-[60px] rounded-md border-[3px] border-black bg-white text-black flex flex-col">
+          {/* Franja azul superior */}
+          <div className="bg-blue-800 text-white text-xs font-semibold flex justify-between items-center px-2 py-1 rounded-t-sm">
+            <span className="text-[1px]">MERCOSUR</span>
+            <span className="text-[8px]">REPUBLICA ARGENTINA</span>
+            <div className="w-3 h-2 flex flex-col rounded-sm overflow-hidden">
+              {/* Franja superior celeste */}
+              <div className="bg-sky-400 flex-1"></div>
+              {/* Franja central blanca con sol */}
+              <div className="bg-white flex-1 flex items-center justify-center">
+                <div className="size-1 bg-yellow-400 rounded-full"></div>
+              </div>
+              {/* Franja inferior celeste */}
+              <div className="bg-sky-400 flex-1"></div>
+            </div>
+          </div>
+          <div className="flex-1 flex items-center justify-center font-extrabold text-2xl tracking-widest font-mono">
+            {car.plate || "-"}
+          </div>
         </div>
       </td>
 
@@ -208,7 +227,8 @@ export default function CarsTableItem({
             <DialogContent className="sm:max-w-[425px] bg-white">
               <DialogHeader>
                 <DialogTitle>
-                  Vas a {!car.is_active ? "desbloquear" : "bloquear"} el vehiculo
+                  Vas a {!car.is_active ? "desbloquear" : "bloquear"} el
+                  vehiculo
                 </DialogTitle>
                 <DialogDescription>
                   {!car.is_active
