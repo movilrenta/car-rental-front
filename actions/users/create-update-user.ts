@@ -3,19 +3,18 @@
 import { UserFormValues, userSchema } from "@/components/schemas";
 import { ActionResponse } from "@/types";
 import { getUserInformation } from "../auth/getUser";
-import { ROLES } from "@/constant/roles";
 import { buildResponse } from "@/utils/build-response";
 import { RESPONSE } from "@/constant/handler-actions";
 import { AxiosError } from "axios";
+import getAuthorized from "@/components/utils/get-authorized";
 // import { revalidatePath } from "next/cache";
 
 export const createUpdateUser = async (
   values: UserFormValues
 ): Promise<ActionResponse> => {
   const { role } = await getUserInformation();
-  if (role !== ROLES.superadmin && role !== ROLES.admin) {
-    return buildResponse(RESPONSE.UNAUTHORIZED);
-  }
+  const authorized = getAuthorized(role, "crearUsuarios")
+  if (!authorized) return buildResponse(RESPONSE.UNAUTHORIZED);
 
   const parsedResults = userSchema.safeParse(values);
   if (!parsedResults.success) {

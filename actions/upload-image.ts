@@ -3,10 +3,10 @@ import axios from "axios";
 import { v2 as cloudinary } from "cloudinary";
 import { revalidatePath } from "next/cache";
 import { getUserInformation } from "./auth/getUser";
-import { ROLES } from "@/constant/roles";
 import { buildResponse } from "@/utils/build-response";
 import { RESPONSE } from "@/constant/handler-actions";
 import { ActionResponse } from "@/types";
+import getAuthorized from "@/components/utils/get-authorized";
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -22,7 +22,8 @@ type CloudinaryUploadResult = {
 
 export async function uploadImage(formData: FormData):  Promise<ActionResponse> {
   const { role, token } = await getUserInformation()
-  if(!token || (role !== ROLES.admin && role !== ROLES.superadmin)) return buildResponse(RESPONSE.UNAUTHORIZED);
+  const authorized = getAuthorized(role, "carousel")
+  if (!authorized) return buildResponse(RESPONSE.UNAUTHORIZED);
 
   const file = formData.get("image") as File;
   //if (!file) return { success: false, message: "No se ha seleccionado ninguna imagen" }
@@ -75,7 +76,8 @@ export async function uploadImage(formData: FormData):  Promise<ActionResponse> 
 
 export async function UpdateImage(formData: FormData):  Promise<ActionResponse> {
   const { role, token } = await getUserInformation()
-  if(!token || (role !== ROLES.admin && role !== ROLES.superadmin)) return buildResponse(RESPONSE.UNAUTHORIZED);
+  const authorized = getAuthorized(role, "carousel")
+  if (!authorized) return buildResponse(RESPONSE.UNAUTHORIZED);
 
   const file = formData.get("image") as File;
   const id_carousel = formData.get("id");
@@ -141,7 +143,8 @@ export async function UpdateImage(formData: FormData):  Promise<ActionResponse> 
 
 export async function deleteImageAction(id: number) {
   const { role, token } = await getUserInformation()
-  if(!token || (role !== ROLES.admin && role !== ROLES.superadmin)) return buildResponse(RESPONSE.UNAUTHORIZED);
+  const authorized = getAuthorized(role, "carousel")
+  if (!authorized) return buildResponse(RESPONSE.UNAUTHORIZED);
 
   try {
     const {data} = await axios.delete(`${process.env.NEXT_PUBLIC_URL_BACK}carousels/${id}`) // Enviar token

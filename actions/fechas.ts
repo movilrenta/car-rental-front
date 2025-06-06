@@ -2,11 +2,11 @@
 
 import axios from "axios";
 import { RESPONSE } from "@/constant/handler-actions";
-import { ROLES } from "@/constant/roles";
 import type { ActionResponse } from "@/types";
 import { buildResponse } from "@/utils/build-response";
 import { revalidatePath } from "next/cache";
 import { getUserInformation } from "./auth/getUser";
+import getAuthorized from "@/components/utils/get-authorized";
 
 
 const URL = process.env.NEXT_PUBLIC_URL_MOVILRENTA
@@ -24,8 +24,9 @@ export async function GetFechasAction() {
 
 export async function PostFechasAction(fecha: any): Promise<ActionResponse> {
   const { role, token } = await getUserInformation()
-  if (role !== ROLES.superadmin && role !== ROLES.admin) 
-    return buildResponse(RESPONSE.UNAUTHORIZED);
+  const authorized = getAuthorized(role, "fechas")
+  if (!authorized) return buildResponse(RESPONSE.UNAUTHORIZED);
+
 
   try {
     const res = await axios.post(`${URL}api/date-based-price-multipliers`, fecha)
@@ -41,7 +42,9 @@ export async function PostFechasAction(fecha: any): Promise<ActionResponse> {
 
 export async function PutFechasAction(fecha: any): Promise<ActionResponse> {
   const { role, token } = await getUserInformation()
-  if (role !== ROLES.superadmin && role !== ROLES.admin) return buildResponse(RESPONSE.UNAUTHORIZED);
+  const authorized = getAuthorized(role, "fechas")
+  if (!authorized) return buildResponse(RESPONSE.UNAUTHORIZED);
+
   try {
     const res = await axios.put(`${URL}api/date-based-price-multipliers/${fecha.id}`, fecha)
     revalidatePath("/admin/fechas/ver")
@@ -55,7 +58,9 @@ export async function PutFechasAction(fecha: any): Promise<ActionResponse> {
 
 export async function DeleteFechasAction(id: number): Promise<ActionResponse> {
   const { role, token } = await getUserInformation()
-  if (role !== ROLES.superadmin && role !== ROLES.admin) return buildResponse(RESPONSE.UNAUTHORIZED);
+  const authorized = getAuthorized(role, "fechas")
+  if (!authorized) return buildResponse(RESPONSE.UNAUTHORIZED);
+
   try {
     const res = await axios.delete(`${URL}api/date-based-price-multipliers/${id}`)
     revalidatePath("/admin/fechas/ver")

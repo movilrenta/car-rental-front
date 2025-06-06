@@ -1,21 +1,11 @@
 "use server";
 import axios, { AxiosError } from "axios";
 import { unstable_noStore as noStore, revalidatePath } from "next/cache";
-
 import { ActionResponse } from "@/types";
 import { buildResponse } from "@/utils/build-response";
 import { getUserInformation } from "./auth/getUser";
 import { RESPONSE } from "@/constant/handler-actions";
-import { ROLES } from "@/constant/roles";
-
-// const axiosInstance = axios.create({
-//   baseURL: "http://maxbernasconi.com/", // Cambia a tu URL base
-//   withCredentials: true, // Importante para incluir las cookies en las solicitudes
-// });
-
-// const setupCsrf = async () => {
-//   await axiosInstance.get("/sanctum/csrf-cookie");
-// };
+import getAuthorized from "@/components/utils/get-authorized";
 
 const URL = process.env.NEXT_PUBLIC_URL_MOVILRENTA;
 
@@ -33,9 +23,9 @@ export async function GetCarsAction() {
 
 export async function PostCarAction(car: any): Promise<ActionResponse> {
   const { role } = await getUserInformation();
-  if (role !== ROLES.admin && role !== ROLES.superadmin) {
-    return buildResponse(RESPONSE.UNAUTHORIZED);
-  }
+  const authorized = getAuthorized(role, "cars")
+  if (!authorized) return buildResponse(RESPONSE.UNAUTHORIZED);
+  
   try {
     const res = await axios.post(`${URL}/api/cars`, car);
     revalidatePath("/admin/vehiculos/ver");
@@ -54,9 +44,9 @@ export async function PostCarAction(car: any): Promise<ActionResponse> {
 
 export async function PutCarAction(car: any): Promise<ActionResponse> {
   const { role } = await getUserInformation();
-  if (role !== ROLES.admin && role !== ROLES.superadmin) {
-    return buildResponse(RESPONSE.UNAUTHORIZED);
-  }
+  const authorized = getAuthorized(role, "cars")
+  if (!authorized) return buildResponse(RESPONSE.UNAUTHORIZED);
+
   try {
     const res = await axios.put(`${URL}/api/cars/${car.id}`, car);
     revalidatePath("/admin/vehiculos/ver");
@@ -74,9 +64,9 @@ export async function PutCarAction(car: any): Promise<ActionResponse> {
 
 export async function StatusCarAction(car: any): Promise<ActionResponse> {
   const { role } = await getUserInformation();
-  if (role !== ROLES.admin && role !== ROLES.superadmin) {
-    return buildResponse(RESPONSE.UNAUTHORIZED);
-  }
+  const authorized = getAuthorized(role, "cars")
+  if (!authorized) return buildResponse(RESPONSE.UNAUTHORIZED);
+
   car.is_active = !car.is_active;
   try {
     const res = await axios.patch(`${URL}/api/cars/${car.id}`, {
@@ -98,9 +88,9 @@ export async function StatusCarAction(car: any): Promise<ActionResponse> {
 
 export async function DeleteCarAction(id: number): Promise<ActionResponse> {
   const { role } = await getUserInformation();
-  if (role !== ROLES.admin && role !== ROLES.superadmin) {
-    return buildResponse(RESPONSE.UNAUTHORIZED);
-  }
+  const authorized = getAuthorized(role, "cars")
+  if (!authorized) return buildResponse(RESPONSE.UNAUTHORIZED);
+
   try {
     const res = await axios.delete(`${URL}/api/cars/${id}`);
     revalidatePath("/admin/vehiculos/ver");

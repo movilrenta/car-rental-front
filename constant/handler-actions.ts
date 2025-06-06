@@ -64,10 +64,11 @@ export const RESPONSE = {
   ADDRESSES: generateCrudResponses('Dirección'),
   BRAND: generateCrudResponses('Marca'),
   BRANCHES: generateCrudResponses('Sucursal'),
+  CARROUSEL: generateCrudResponses('Carrousel'),
+  CARS: generateCrudResponses('Auto'),
   FECHAS: generateCrudResponses('Fecha'),
   GROUPS: generateCrudResponses('Grupo'),
-  CARS: generateCrudResponses('Auto'),
-  CARROUSEL: generateCrudResponses('Carrousel'),
+  RESERVATION: generateCrudResponses('Reserva'),
   USER: generateCrudResponses('Usuario')
 };
 

@@ -4,9 +4,9 @@ import axios from "axios";
 import { ActionResponse } from "@/types";
 import { revalidatePath } from "next/cache";
 import { getUserInformation } from "./auth/getUser";
-import { ROLES } from "@/constant/roles";
 import { buildResponse } from "@/utils/build-response";
 import { RESPONSE } from "@/constant/handler-actions";
+import getAuthorized from "@/components/utils/get-authorized";
 
 const URL = process.env.NEXT_PUBLIC_URL_MOVILRENTA
 
@@ -23,7 +23,8 @@ export async function GetBranchesAction() {
 
 export async function PostBranchesAction(branch: any): Promise<ActionResponse> {
   const { role, token } = await getUserInformation()
-  if(!token || (role !== ROLES.admin && role !== ROLES.superadmin)) return buildResponse(RESPONSE.UNAUTHORIZED)
+  const authorized = getAuthorized(role, "sucursales")
+  if (!authorized) return buildResponse(RESPONSE.UNAUTHORIZED);
 
   try {
     const { data } = await axios.post(`${URL}/api/branches`, branch)
@@ -39,7 +40,8 @@ export async function PostBranchesAction(branch: any): Promise<ActionResponse> {
 
 export async function PutBranchesAction(branch: any): Promise<ActionResponse> {
   const { role, token } = await getUserInformation()
-  if(!token || (role !== ROLES.admin && role !== ROLES.superadmin)) return buildResponse(RESPONSE.UNAUTHORIZED)
+  const authorized = getAuthorized(role, "sucursales")
+  if (!authorized) return buildResponse(RESPONSE.UNAUTHORIZED);
 
   try {
     const { data } = await axios.put(`${URL}/api/branches/${branch.id}`, branch)
@@ -54,7 +56,8 @@ export async function PutBranchesAction(branch: any): Promise<ActionResponse> {
 
 export async function DeleteBranchesAction(id: number): Promise<ActionResponse> {
   const { role, token } = await getUserInformation()
-  if(!token || (role !== ROLES.admin && role !== ROLES.superadmin)) return buildResponse(RESPONSE.UNAUTHORIZED)
+  const authorized = getAuthorized(role, "sucursales")
+  if (!authorized) return buildResponse(RESPONSE.UNAUTHORIZED);
 
   try {
     const { data } = await axios.delete(`${URL}/api/branches/${id}`)

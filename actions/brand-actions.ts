@@ -7,15 +7,14 @@ import { buildResponse } from "@/utils/build-response";
 import { getUserInformation } from "./auth/getUser";
 import { RESPONSE } from "@/constant/handler-actions";
 import { revalidatePath } from "next/cache";
-import { ROLES } from "@/constant/roles";
+import getAuthorized from "@/components/utils/get-authorized";
 
 const URL = process.env.NEXT_PUBLIC_URL_MOVILRENTA
 
 export const putBrand =  async (values:BrandForm):Promise<ActionResponse> => {
   const { role } = await getUserInformation();
-  if (role !== ROLES.admin && role !== ROLES.superadmin) {
-    return buildResponse(RESPONSE.UNAUTHORIZED);
-  }
+  const authorized = getAuthorized(role, "marcas")
+  if (!authorized) return buildResponse(RESPONSE.UNAUTHORIZED);
   try {
     const res = await axios.put(`${URL}api/brands/${values.id}`, values);
     revalidatePath("/admin/vehiculos/marcas")
@@ -23,20 +22,19 @@ export const putBrand =  async (values:BrandForm):Promise<ActionResponse> => {
   } catch (error) {
     console.log(error)
     if(error instanceof AxiosError){
-       return buildResponse({
+      return buildResponse({
         message: error.response?.data.error.message,
         code: error.status || 500,
       });
     }
-     return buildResponse(RESPONSE.BRAND.PUT.ERROR, null, error);
+    return buildResponse(RESPONSE.BRAND.PUT.ERROR, null, error);
   }
 }
 
 export const postBrand = async (values:BrandForm):Promise<ActionResponse> => {
   const { role } = await getUserInformation();
-  if (role !== ROLES.admin && role !== ROLES.superadmin) {
-    return buildResponse(RESPONSE.UNAUTHORIZED);
-  }
+  const authorized = getAuthorized(role, "marcas")
+  if (!authorized) return buildResponse(RESPONSE.UNAUTHORIZED);
   try {
     const res = await axios.post(`${URL}api/brands`, values);
     revalidatePath("/admin/vehiculos/marcas")
@@ -54,10 +52,9 @@ export const postBrand = async (values:BrandForm):Promise<ActionResponse> => {
 }
 
 export const deleteBrand = async (id:number):Promise<ActionResponse> => {
-   const { role } = await getUserInformation();
-  if (role !== ROLES.admin && role !== ROLES.superadmin) {
-    return buildResponse(RESPONSE.UNAUTHORIZED);
-  }
+  const { role } = await getUserInformation();
+  const authorized = getAuthorized(role, "marcas")
+  if (!authorized) return buildResponse(RESPONSE.UNAUTHORIZED);
   try {
     await axios.delete(`${URL}api/brands/${id}`);
     revalidatePath("/admin/vehiculos/marcas")
@@ -69,7 +66,6 @@ export const deleteBrand = async (id:number):Promise<ActionResponse> => {
         code: error.status || 500,
       });
     }
-       return buildResponse(RESPONSE.BRAND.DELETE.ERROR, null, error);
-
+    return buildResponse(RESPONSE.BRAND.DELETE.ERROR, null, error);
   }
 }

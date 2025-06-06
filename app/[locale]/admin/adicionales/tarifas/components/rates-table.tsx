@@ -1,5 +1,5 @@
-import { LuPlus } from "react-icons/lu";
-import CRUD_Rates from "./crud";
+// import { LuPlus } from "react-icons/lu";
+// import CRUD_Rates from "./crud";
 import RatesTableItem from "./rates-table-item";
 
 export const RatesTable = ({

@@ -41,4 +41,12 @@ export const USERS: User[] = [
     id: "admin",
     role: "admin",
   },
+  {
+    name: "Desarrollo",
+    email: "chluisdev@gmail.com",
+    isBlocked: false,
+    password: "smartTesting1",
+    id: "admin",
+    role: "admin",
+  },
 ];

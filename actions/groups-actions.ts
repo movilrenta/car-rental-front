@@ -5,17 +5,17 @@ import axios, { AxiosError } from "axios";
 import { revalidatePath } from "next/cache";
 import { getUserInformation } from "./auth/getUser";
 import { ActionResponse } from "@/types";
-import { ROLES } from "@/constant/roles";
 import { buildResponse } from "@/utils/build-response";
 import { RESPONSE } from "@/constant/handler-actions";
+import getAuthorized from "@/components/utils/get-authorized";
 
 const URL = process.env.NEXT_PUBLIC_URL_MOVILRENTA;
 
 export const putGroup = async (values: GroupForm): Promise<ActionResponse> => {
   const { role } = await getUserInformation();
-  if (role !== ROLES.admin && role !== ROLES.superadmin) {
-    return buildResponse(RESPONSE.UNAUTHORIZED);
-  }
+  const authorized = getAuthorized(role, "grupos")
+  if (!authorized) return buildResponse(RESPONSE.UNAUTHORIZED);
+
   try {
     const res = await axios.put(`${URL}api/groups/${values.id}`, values);
     revalidatePath("/admin/vehiculos/grupos");
@@ -34,9 +34,9 @@ export const putGroup = async (values: GroupForm): Promise<ActionResponse> => {
 
 export const postGroup = async (values: GroupForm): Promise<ActionResponse> => {
   const { role } = await getUserInformation();
-  if (role !== ROLES.admin && role !== ROLES.superadmin) {
-    return buildResponse(RESPONSE.UNAUTHORIZED);
-  }
+  const authorized = getAuthorized(role, "grupos")
+  if (!authorized) return buildResponse(RESPONSE.UNAUTHORIZED);
+
   try {
     const res = await axios.post(`${URL}/api/groups`, values);
 
@@ -56,9 +56,9 @@ export const postGroup = async (values: GroupForm): Promise<ActionResponse> => {
 
 export const deleteGroup = async (id: number): Promise<ActionResponse> => {
   const { role } = await getUserInformation();
-  if (role !== ROLES.admin && role !== ROLES.superadmin) {
-    return buildResponse(RESPONSE.UNAUTHORIZED);
-  }
+  const authorized = getAuthorized(role, "grupos")
+  if (!authorized) return buildResponse(RESPONSE.UNAUTHORIZED);
+
   try {
     await axios.delete(`${URL}/api/groups/${id}`);
     revalidatePath("/admin/vehiculos/grupos");

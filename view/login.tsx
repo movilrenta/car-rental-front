@@ -36,7 +36,7 @@ export const Login = () => {
         })
         isLogin()
         form.reset()
-        router.push("/home")
+        router.push("/admin")
       }else{
         toast({
           variant:"default",
