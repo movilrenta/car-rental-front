@@ -15,6 +15,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/form";
+import { Switch } from "@/components/ui/switch";
 import { Input } from "../input";
 import { UserFormValues, userSchema } from "../schemas";
 import {
@@ -42,6 +43,7 @@ export const UserForm = ({
       name: "",
       email: "",
       password: "",
+      isBloqued: false,
       roles: "vendedor",
     },
   });
@@ -54,10 +56,7 @@ export const UserForm = ({
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-4"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormField
           control={form.control}
           name="name"
@@ -96,7 +95,7 @@ export const UserForm = ({
             <FormItem className={`col-span-1 ${isEditing ? "hidden" : ""}`}>
               <FormLabel>Contraseña</FormLabel>
               <FormControl>
-                <InputTogglePassword field={field}/>
+                <InputTogglePassword field={field} />
               </FormControl>
               <FormDescription className="text-xs">
                 La contraseña debe tener al menos 8 caracteres
@@ -124,6 +123,28 @@ export const UserForm = ({
                 </SelectContent>
               </Select>
               <FormMessage className="text-red-600" />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="isBloqued"
+          render={({ field }) => (
+            <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4 shadow-sm">
+              <div className="space-y-0.5">
+                <FormLabel>{field.value? "Desbloquear usuario" : "Bloquear usuario"}</FormLabel>
+                {/* <FormDescription>
+                  Activá para bloquear el acceso del usuario.
+                </FormDescription> */}
+              </div>
+              <FormControl>
+                <Switch
+                className="data-[state=checked]:bg-red-600/60 border border-gray-400"
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+              </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />

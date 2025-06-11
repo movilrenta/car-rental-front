@@ -23,3 +23,5 @@ export const loginSchema = z.object({
       "La contraseña debe tener al menos un número"
     ),
 });
+
+export type LoginFormValues = z.infer<typeof loginSchema>;

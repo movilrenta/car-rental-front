@@ -11,11 +11,12 @@ import {
   TableRow,
 } from "@/components/table";
 import { User, 
-  // UserRole 
+  UserRole 
 } from "@/types";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
-// import { SheetFormUser } from "./SheetFormUser";
-// import { Button } from "@/components/ui/button";
+import { SheetFormUser } from "./SheetFormUser";
+import { Button } from "@/components/ui/button";
+import { ResetPassword } from "./ResetPassword";
 
 interface TableProps {
   users: User[];
@@ -27,18 +28,18 @@ type SortDirection = "asc" | "desc";
 export const TableUsers = ({ users }: TableProps) => {
   const [sortKey, setSortKey] = React.useState<Sortkey>("name");
   const [sortDirection, setSortDirection] = React.useState<SortDirection>("asc");
-  // const [openSheet, setOpenSheet] = React.useState<boolean>(false);
-  // const [userEdit, setUserEdit] = React.useState<User | undefined>(undefined);
+  const [openSheet, setOpenSheet] = React.useState<boolean>(false);
+  const [userEdit, setUserEdit] = React.useState<User | undefined>(undefined);
 
-  // const handleCreate = () => {
-  //   setUserEdit(undefined);
-  //   setOpenSheet(true);
-  // }
+  const handleCreate = () => {
+    setUserEdit(undefined);
+    setOpenSheet(true);
+  }
 
-  // const handleEdit = (user:User) => {
-  //   setUserEdit(user)
-  //   setOpenSheet(true);
-  // }
+  const handleEdit = (user:User) => {
+    setUserEdit(user)
+    setOpenSheet(true);
+  }
   // const [roleFilter, setRoleFilter] = React.useState<UserRole | "">("");
 
   const toggleSort = (key:Sortkey) => {
@@ -67,7 +68,7 @@ export const TableUsers = ({ users }: TableProps) => {
     <div className="space-y-7 mt-6 md:mt-8">
       <div className="flex flex-col gap-6 md:gap-0 md:flex-row md:justify-between md:items-center">
         <h1 className="text-3xl font-semibold">Usuarios</h1>
-        {/* <Button type="button" onClick={handleCreate} variant="outline" className="bg-red-700 w-[150px] text-white">Crear Usuario</Button> */}
+        <Button type="button" onClick={handleCreate} variant="outline" className="bg-red-700 w-[150px] text-white">Crear Usuario</Button>
       </div>
     <Table className="w-full">
       <TableCaption>Lista de todos los usuarios.</TableCaption>
@@ -77,13 +78,13 @@ export const TableUsers = ({ users }: TableProps) => {
           <TableHead className="cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-800 transition-all" onClick={() => toggleSort("email")}><span className="flex items-center gap-x-2">Correo {sortKey === "email" && (sortDirection === "asc" ? <IoMdArrowDropup/> : <IoMdArrowDropdown/>)}</span></TableHead>
           <TableHead className="cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-800 transition-all" onClick={() => toggleSort("role")}><span className="flex items-center gapx-2">Rol {sortKey === "role" && (sortDirection === "asc" ? <IoMdArrowDropup/> : <IoMdArrowDropdown/>)}</span></TableHead>
           <TableHead className="cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-800 transition-all">Estado</TableHead>
-          {/* <TableHead className="cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-800 transition-all text-right">Opciones</TableHead> */}
+          <TableHead className="cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-800 transition-all text-right">Opciones</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        {visibleUsers.map((user) => (
-          // <TableRow  key={user.id} className="cursor-pointer h-12 hover:bg-gray-200 dark:hover:bg-gray-800 duration-200" onClick={() => handleEdit(user)}>
-          <TableRow  key={user.id} className="cursor-pointer h-12 hover:bg-gray-200 dark:hover:bg-gray-800 duration-200">
+        {visibleUsers.map((user, index) => (
+          <TableRow  key={index} className="cursor-pointer h-12 hover:bg-gray-200 dark:hover:bg-gray-800 duration-200" onClick={() => handleEdit(user)}>
+          {/* <TableRow  key={user.id} className="cursor-pointer h-12 hover:bg-gray-200 dark:hover:bg-gray-800 duration-200"> */}
             <TableCell className="font-medium">{user.name}</TableCell>
             <TableCell>{user.email}</TableCell>
             <TableCell>{user.role}</TableCell>
@@ -92,12 +93,17 @@ export const TableUsers = ({ users }: TableProps) => {
                 user.isBlocked ? (<span className="text-red-500 font-semibold">Bloqueado</span>) : (<span className="text-green-500 font-semibold">Activo</span>)
               }
             </TableCell>
-            {/* <TableCell className="text-right"><Button type="button" onClick={() => handleEdit(user)}>Editar</Button></TableCell> */}
+            <TableCell className="text-right">
+              {/* <Button type="button" className="border p-1 pointer-events-auto" onClick={(e) => {
+              e.stopPropagation()
+              console.log('click')}}>Reset Password</Button> */}
+              <ResetPassword/>
+              </TableCell>
           </TableRow>
         ))}
       </TableBody>
     </Table>
-    {/* <SheetFormUser user={userEdit} open={openSheet} onOpenChange={setOpenSheet}/> */}
+    <SheetFormUser user={userEdit} open={openSheet} onOpenChange={setOpenSheet}/>
     </div>
   );
 };
