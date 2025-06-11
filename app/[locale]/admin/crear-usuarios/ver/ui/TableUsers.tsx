@@ -62,7 +62,7 @@ export const TableUsers = ({ users }: TableProps) => {
   });
 
   //TODO: Por si agregamos mas condiciones para mostrar o no usuarios
-  const visibleUsers = sortedUsers.filter((user) => user.role !== "superadmin22") //<-- TODO CORREGIR ESTO
+  const visibleUsers = sortedUsers.filter((user) => user.role !== "superadmin") //<-- TODO CORREGIR ESTO
 
   return (
     <div className="space-y-7 mt-6 md:mt-8">
@@ -90,7 +90,7 @@ export const TableUsers = ({ users }: TableProps) => {
             <TableCell>{user.role}</TableCell>
             <TableCell>
               {
-                user.isBlocked ? (<span className="text-red-500 font-semibold">Bloqueado</span>) : (<span className="text-green-500 font-semibold">Activo</span>)
+                user.isBloqued ? (<span className="text-red-500 font-semibold">Bloqueado</span>) : (<span className="text-green-500 font-semibold">Activo</span>)
               }
             </TableCell>
             <TableCell className="text-right pointer-events-none" onClick={(e) => e.stopPropagation()}>

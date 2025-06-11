@@ -74,7 +74,7 @@ export const UserForm = ({
           control={form.control}
           name="email"
           render={({ field }) => (
-            <FormItem className="col-span-1">
+            <FormItem className={`col-span-1 ${isEditing ? "hidden" : ""}`}>
               <FormLabel>Correo Electrónico</FormLabel>
               <FormControl>
                 <Input

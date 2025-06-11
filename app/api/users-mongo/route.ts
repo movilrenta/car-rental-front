@@ -35,17 +35,43 @@ export async function GET() {
     );
   }
 }
-export async function PATCH(user: any) {
+
+export async function POST(user: any) {
   const userBody = await user.json();
-  console.log(userBody);
+
   try {
     const client = await clientPromise;
     const db = client.db("MovilRenta");
     const collection = db.collection("Users");
-    const { _id, id, name, email, password, roles, isBloqued} = userBody;
+    const { name, email, password, roles} = userBody;
+    const isExistingUser = await collection.findOne({email});
+    if (isExistingUser) {
+      return NextResponse.json({ message: "El email ya está registrado", status: 409 })
+    }
+
+
+    const createdUser = await collection.insertOne({name, email, password, role: roles, isBloqued: false})
+    return NextResponse.json(createdUser);
+  } catch (e) {
+    console.log(e)
+    return NextResponse.json(
+      { error: 'Failed to fetch data' ,
+      status: 500 },
+    );
+  }
+}
+
+export async function PATCH(user: any) {
+  const userBody = await user.json();
+
+  try {
+    const client = await clientPromise;
+    const db = client.db("MovilRenta");
+    const collection = db.collection("Users");
+    const { _id, roles, isBloqued} = userBody;
     const updatedUser = await collection.findOneAndUpdate(
       {_id: new ObjectId(_id)},
-      {$set: {name, email, password, role: roles, isBloqued}}
+      {$set: {role: roles, isBloqued: isBloqued}}
     )
 
     console.log(updatedUser);

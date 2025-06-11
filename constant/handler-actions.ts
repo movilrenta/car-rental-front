@@ -4,6 +4,7 @@ export const STATUS = {
   BAD_REQUEST: 400,
   UNAUTHORIZED: 401,
   NOT_FOUND: 404,
+  CONFLICT: 409,
   INTERNAL_ERROR: 500
 };
 
@@ -12,6 +13,10 @@ export const generateCrudResponses = (entity: string) => ({
     SUCCESS: {
       message: `${entity} creado/a correctamente`,
       code: STATUS.CREATED
+    },
+    CONFLICT:{
+      message: `${entity} ya existe`,
+      code: STATUS.CONFLICT
     },
     ERROR: {
       message: `Error al crear ${entity}`,

@@ -31,7 +31,7 @@ export const SheetFormUser = ({ user, open, onOpenChange }: SheetProps) => {
     id: user.id ?? "",
     name: user.name,
     email: user.email,
-    isBloqued: user.isBlocked,
+    isBloqued: user.isBloqued,
     roles: user.role,
     password: user.password,
   });
@@ -45,7 +45,7 @@ export const SheetFormUser = ({ user, open, onOpenChange }: SheetProps) => {
           <SheetTitle>
             {user ? `Editando usuario ${user.name}` : "Crear un nuevo usuario"}
           </SheetTitle>
-          <SheetDescription></SheetDescription>
+          <SheetDescription>{user?.email}</SheetDescription>
         </SheetHeader>
 
         <UserForm
@@ -55,6 +55,7 @@ export const SheetFormUser = ({ user, open, onOpenChange }: SheetProps) => {
             // const resp = await createUpdateUser(values);
             if (!user) {
               const resp = await createUser(values);
+              console.log(resp, "ESTOY CREANDO");
               if (resp.status === 201) {
                 toast({
                   variant: "default",
@@ -69,8 +70,8 @@ export const SheetFormUser = ({ user, open, onOpenChange }: SheetProps) => {
                 });
               }
             } else {
-
-              const resp = await updateUser(userTransformValues(user!));
+             
+              const resp = await updateUser(values);
               if (resp.status === 201) {
                 toast({
                   variant: "default",
