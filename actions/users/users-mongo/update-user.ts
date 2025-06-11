@@ -6,6 +6,7 @@ import getAuthorized from "@/components/utils/get-authorized";
 import { RESPONSE } from "@/constant/handler-actions";
 import clientPromise from "@/lib/mongodb";
 import { buildResponse } from "@/utils/build-response";
+import axios from "axios";
 import { ObjectId } from "mongodb";
 import { revalidatePath } from "next/cache";
 
@@ -22,23 +23,20 @@ export const updateUser = async (values:UserFormValues) => {
       parsedResults.error.issues[0].message
     );
   }
-
-  const { id, name, email, password, roles, isBloqued} = parsedResults.data;
-  const client = await clientPromise;
   try {
-    const db = client.db(process.env.MONGO_URL);
-    const updatedUser = await db.collection("Users").updateOne(
-      {_id:new ObjectId(id)},
-      {$set: {name, email, password, role: roles, isBloqued}}
-    )
-
-    if(!updatedUser){
-      return buildResponse(RESPONSE.USER.PUT.ERROR,null)
-    }
+    const res = await axios.patch("http://localhost:3000/api/users-mongo", values)
+    //console.log(res.data);
     revalidatePath('/es/admin/crear-usuarios/ver')
     return buildResponse(RESPONSE.USER.PUT.SUCCESS)
   } catch (error) {
-    console.log("Error al actualizar usuario",error)
+    console.log("Error al realizar la peticion",error)
     return buildResponse({message:"Error interno", code: 500})
   }
 }
+
+  
+
+    // if(!updatedUser){
+    //   return buildResponse(RESPONSE.USER.PUT.ERROR,null)
+    // }
+    // 

@@ -46,7 +46,7 @@ export const USERS: User[] = [
     email: "chluisdev@gmail.com",
     isBlocked: false,
     password: "smartTesting1",
-    id: "admin",
-    role: "admin",
+    id: "superadmin",
+    role: "superadmin",
   },
 ];

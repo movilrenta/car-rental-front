@@ -1,33 +1,12 @@
 "use server"
-
 import { buildResponse } from "@/utils/build-response";
-import { MongoClient, ObjectId } from "mongodb";
-
-// const uri =
-//   "mongodb+srv://juanignaciomunozok:Morrison241408@cluster0.h573vbi.mongodb.net/";
-
-// let client: MongoClient;
-// let clientPromise: Promise<MongoClient>;
-
-// if (process.env.NODE_ENV === "development") {
-//   if (!(global as any)._mongoClientPromise) {
-//     client = new MongoClient(uri!);
-//     (global as any)._mongoClientPromise = client.connect();
-//   }
-//   clientPromise = (global as any)._mongoClientPromise;
-// } else {
-//   // In production mode, it's best to not use a global variable.
-//   client = new MongoClient(uri!);
-//   clientPromise = client.connect();
-// }
+import axios from "axios";
 
 export const getUsers = async () => {
-  // console.log("userget")
-  // const client = await clientPromise;
-  // const db = client.db('MovilRenta');
   try {
-    // const users = await db.collection("Users").find({}).toArray()
-    // return users.map(u => ({...u, id: u._id.toString()}))
+    const res = await axios.get("http://localhost:3000/api/users-mongo")
+    //console.log(res.data);
+    return res.data
   } catch (error) {
     console.log("Error al realizar la peticion",error)
     return {message:"Error interno", code: 500}

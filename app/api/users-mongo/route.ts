@@ -1,4 +1,4 @@
-import { MongoClient } from 'mongodb';
+import { MongoClient, ObjectId } from 'mongodb';
 import { NextResponse } from 'next/server';
 
 const uri =
@@ -24,9 +24,9 @@ export async function GET() {
    const client = await clientPromise;
     const db = client.db("MovilRenta");
     const collection = db.collection("Users");
-    const items = await collection.find({}).toArray();
-    console.log(items)
-    return NextResponse.json(items);
+    const users = await collection.find({}).toArray();
+    const usersToShow = users.filter((user) => user?.role !== "supseradmin");
+    return NextResponse.json(usersToShow);
   } catch (e) {
     console.log(e)
     return NextResponse.json(
@@ -35,3 +35,29 @@ export async function GET() {
     );
   }
 }
+export async function PATCH(user: any) {
+  const userBody = await user.json();
+  console.log(userBody);
+  try {
+    const client = await clientPromise;
+    const db = client.db("MovilRenta");
+    const collection = db.collection("Users");
+    const { _id, id, name, email, password, roles, isBloqued} = userBody;
+    const updatedUser = await collection.findOneAndUpdate(
+      {_id: new ObjectId(_id)},
+      {$set: {name, email, password, role: roles, isBloqued}}
+    )
+
+    console.log(updatedUser);
+    //const users = await collection.find({}).toArray();
+    //const usersToShow = users.filter((user) => user?.role !== "superadmin");
+    return NextResponse.json(updatedUser);
+  } catch (e) {
+    console.log(e)
+    return NextResponse.json(
+      { error: 'Failed to fetch data' ,
+      status: 500 },
+    );
+  }
+}
+

@@ -26,6 +26,8 @@ export const SheetFormUser = ({ user, open, onOpenChange }: SheetProps) => {
   const { toast } = useToast();
 
   const userTransformValues = (user: User): UserFormValues => ({
+    //TODO Agarrar valores del form
+    _id: user._id ?? "",
     id: user.id ?? "",
     name: user.name,
     email: user.email,
@@ -67,6 +69,7 @@ export const SheetFormUser = ({ user, open, onOpenChange }: SheetProps) => {
                 });
               }
             } else {
+
               const resp = await updateUser(userTransformValues(user!));
               if (resp.status === 201) {
                 toast({

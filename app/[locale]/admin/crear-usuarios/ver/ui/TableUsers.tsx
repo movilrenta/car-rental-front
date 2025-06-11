@@ -62,7 +62,7 @@ export const TableUsers = ({ users }: TableProps) => {
   });
 
   //TODO: Por si agregamos mas condiciones para mostrar o no usuarios
-  const visibleUsers = sortedUsers.filter((user) => user.role !== "superadmin")
+  const visibleUsers = sortedUsers.filter((user) => user.role !== "superadmin22") //<-- TODO CORREGIR ESTO
 
   return (
     <div className="space-y-7 mt-6 md:mt-8">
@@ -78,7 +78,7 @@ export const TableUsers = ({ users }: TableProps) => {
           <TableHead className="cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-800 transition-all" onClick={() => toggleSort("email")}><span className="flex items-center gap-x-2">Correo {sortKey === "email" && (sortDirection === "asc" ? <IoMdArrowDropup/> : <IoMdArrowDropdown/>)}</span></TableHead>
           <TableHead className="cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-800 transition-all" onClick={() => toggleSort("role")}><span className="flex items-center gapx-2">Rol {sortKey === "role" && (sortDirection === "asc" ? <IoMdArrowDropup/> : <IoMdArrowDropdown/>)}</span></TableHead>
           <TableHead className="cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-800 transition-all">Estado</TableHead>
-          <TableHead className="cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-800 transition-all text-right">Opciones</TableHead>
+          <TableHead className="cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-800 transition-all text-right">Reset Contraseña</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -93,11 +93,11 @@ export const TableUsers = ({ users }: TableProps) => {
                 user.isBlocked ? (<span className="text-red-500 font-semibold">Bloqueado</span>) : (<span className="text-green-500 font-semibold">Activo</span>)
               }
             </TableCell>
-            <TableCell className="text-right">
+            <TableCell className="text-right pointer-events-none" onClick={(e) => e.stopPropagation()}>
               {/* <Button type="button" className="border p-1 pointer-events-auto" onClick={(e) => {
               e.stopPropagation()
               console.log('click')}}>Reset Password</Button> */}
-              <ResetPassword/>
+              <ResetPassword user={user}/>
               </TableCell>
           </TableRow>
         ))}
