@@ -47,7 +47,7 @@ export const changePasswordAction = async (values: any) => {
   }
   try {
     values._id = _id
-    const { data } = await axios.patch(`${URL}api/change-password`, values)
+    const { data } = await axios.patch(`/api/change-password`, values)
     if(data.success) {
       return buildResponse(RESPONSE.USER.PUT.SUCCESS)
     }
