@@ -2,6 +2,8 @@
 
 import { TrendingDown, TrendingUp } from "lucide-react";
 import { CSVLink } from "react-csv";
+import ExcelJS from "exceljs";
+import { saveAs } from "file-saver";
 import {
   PieChart,
   Pie,
@@ -389,26 +391,102 @@ const Chart = ({
   function capitalize(str: any) {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
-  console.log(test);
+
+  const categoriaColors: Record<string, string> = {
+    "Tipo de venta": "FFCCE5FF", // celeste
+    "Estado de reserva": "FFD9D9D9", // gris claro
+    "Reservas por mes": "FFFFE5B4", // amarillo claro
+    Sucursal: "FFE6CCFF", // lila claro
+  };
+
+  const exportToExcel = async () => {
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet("Informe");
+
+    // Definir columnas
+    worksheet.columns = [
+      { header: "Categoría", key: "categoria" },
+      { header: "Subcategoría", key: "subcategoria" },
+      { header: "Mes", key: "mes" },
+      { header: "Cantidad", key: "cantidad" },
+      { header: "Total", key: "monto" },
+    ];
+
+    // Agregar los datos
+    unifiedData.forEach((item) => {
+      worksheet.addRow(item);
+    });
+
+    // Estilo encabezado
+    const headerRow = worksheet.getRow(1);
+    headerRow.eachCell((cell) => {
+      cell.font = { bold: true, color: { argb: "FFFFFFFF" } };
+      cell.fill = {
+        type: "pattern",
+        pattern: "solid",
+        fgColor: { argb: "FFA85500" }, // naranja
+      };
+      cell.alignment = { vertical: "middle", horizontal: "center" };
+    });
+
+    // Agregar autofiltro (Excel usa A1:E1 para encabezados con filtro)
+    worksheet.autoFilter = {
+      from: { row: 1, column: 1 },
+      to: { row: 1, column: 5 },
+    };
+
+    // Estilos por fila
+    worksheet.eachRow((row, rowNumber) => {
+      if (rowNumber === 1) return;
+
+      const categoria = row.getCell("categoria").value as string;
+      const montoCell = row.getCell("monto");
+
+      // Color de fondo por categoría
+      const categoriaColor = categoriaColors[categoria] || "FFFFFFFF"; // blanco por defecto
+      row.eachCell((cell) => {
+        cell.fill = {
+          type: "pattern",
+          pattern: "solid",
+          fgColor: { argb: categoriaColor },
+        };
+      });
+
+      // Formato moneda + color
+      montoCell.numFmt = '"$"#,##0.00';
+      const value = typeof montoCell.value === "number" ? montoCell.value : 0;
+
+      montoCell.font = {
+        color: {
+          argb: value === 0 ? "FFFF0000" : "FF00AA00", // rojo si es 0, verde si no
+        },
+      };
+    });
+
+    // Ajuste de ancho
+    worksheet.columns.forEach((col) => {
+      col.width = 20;
+    });
+
+    // Exportar archivo
+    const buffer = await workbook.xlsx.writeBuffer();
+    const blob = new Blob([buffer], {
+      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    });
+
+    saveAs(blob, "informe_unificado.xlsx");
+  };
 
   return (
     <div className="grid grid-cols-12 m-5 gap-5">
       {/* Tiempo promedio de reserva */}
       <div className="col-span-4">
-        <CSVLink
+        <button
           className="bg-blue-500 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-600 transition"
-          data={unifiedData}
-          headers={[
-            { label: "Categoría", key: "categoria" },
-            { label: "Subcategoría", key: "subcategoria" },
-            { label: "Mes", key: "mes" },
-            { label: "Cantidad", key: "cantidad" },
-            { label: "Total", key: "monto" }, // NUEVA COLUMNA
-          ]}
-          filename="informe_unificado.csv"
+          onClick={exportToExcel}
         >
           Descargar Informe unificado
-        </CSVLink>
+        </button>
       </div>
       <Card className="col-span-12 md:col-span-6 xl:col-span-4">
         <CardHeader>
