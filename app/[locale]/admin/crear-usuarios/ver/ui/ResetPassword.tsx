@@ -19,21 +19,18 @@ export const ResetPassword = ({user}: {user: User}) => {
   const { toast } = useToast();
   const [open, setOpen] = React.useState<boolean>(false)
   const handleReset = async (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    
-    // const resp = await resetPassword(id);
-    // if (resp.status === 200) {
-    //   toast({
-    //     variant: "default",
-    //     title: resp.message,
-    //   });
-    //   setOpen(false)
-    // } else {
-    //   toast({
-    //     variant: "destructive",
-    //     title: resp.message,
-    //     description: `Código: ${resp.status}`,
-    //   });
-    // }
+    const { _id, email} = user
+    const resp = await resetPassword({_id, password:email})
+    if(resp.status === 200){
+      toast({
+        title: `${resp.message}`
+      })
+      setOpen(false)
+    }else{
+      toast({
+        title:`${resp.message}`
+      })
+    }
   };
   return (
     <Dialog open={open} onOpenChange={setOpen}>

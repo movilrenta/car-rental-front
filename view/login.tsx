@@ -83,7 +83,7 @@ export const Login = () => {
                     <FormLabel className="block text-sm font-medium mb-1 text-gray-800 dark:text-gray-100">Contraseña</FormLabel>
                     <FormControl>
                       {/* <Input type='password' placeholder="usuario123" className="form-input w-full" maxLength={15} {...field} /> */}
-                      <InputTogglePassword field={field} placeholder='usuario123' className='form-input w-full' maxLength={15}/>
+                      <InputTogglePassword field={field} placeholder='usuario123' className='form-input w-full' maxLength={35}/>
                     </FormControl>
                     <FormMessage />
                   </FormItem>

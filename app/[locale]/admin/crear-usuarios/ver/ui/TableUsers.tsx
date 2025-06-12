@@ -26,6 +26,7 @@ type Sortkey = "name" | "email" | "role";
 type SortDirection = "asc" | "desc";
 
 export const TableUsers = ({ users }: TableProps) => {
+  console.log(users, "desde table")
   const [sortKey, setSortKey] = React.useState<Sortkey>("name");
   const [sortDirection, setSortDirection] = React.useState<SortDirection>("asc");
   const [openSheet, setOpenSheet] = React.useState<boolean>(false);
@@ -51,9 +52,9 @@ export const TableUsers = ({ users }: TableProps) => {
     }
   }
 
-  const sortedUsers = users.sort((a,b) => {
-    const valueA = a[sortKey].toLowerCase();
-    const valueB = b[sortKey].toLowerCase();
+  const sortedUsers = users?.sort((a,b) => {
+    const valueA = String(a[sortKey]).toLowerCase();
+    const valueB = String(b[sortKey]).toLowerCase();
 
     if (valueA < valueB) return sortDirection === "asc" ? -1 : 1;
     if (valueA > valueB) return sortDirection === "asc" ? 1 : -1;
@@ -62,7 +63,7 @@ export const TableUsers = ({ users }: TableProps) => {
   });
 
   //TODO: Por si agregamos mas condiciones para mostrar o no usuarios
-  const visibleUsers = sortedUsers.filter((user) => user.role !== "superadmin") //<-- TODO CORREGIR ESTO
+  const visibleUsers = sortedUsers?.filter((user) => user.role !== "superadmin") //<-- TODO CORREGIR ESTO
 
   return (
     <div className="space-y-7 mt-6 md:mt-8">
@@ -82,7 +83,7 @@ export const TableUsers = ({ users }: TableProps) => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {visibleUsers.map((user, index) => (
+        {visibleUsers?.map((user, index) => (
           <TableRow  key={index} className="cursor-pointer h-12 hover:bg-gray-200 dark:hover:bg-gray-800 duration-200" onClick={() => handleEdit(user)}>
           {/* <TableRow  key={user.id} className="cursor-pointer h-12 hover:bg-gray-200 dark:hover:bg-gray-800 duration-200"> */}
             <TableCell className="font-medium">{user.name}</TableCell>
