@@ -1,35 +1,21 @@
 "use server";
 
-import clientPromise from "@/lib/mongodb";
 import { LoginFormValues, loginSchema } from "@/types/login.schema";
+import axios, { AxiosError } from "axios";
 import { SignJWT } from "jose";
 import { cookies } from "next/headers";
 
 export const loginUser = async (values: LoginFormValues) => {
   const secretKey = new TextEncoder().encode(process.env.JWT_SECRET_KEY);
-
   const parsedResults = loginSchema.safeParse(values);
   if (!parsedResults.success)
     return { success: false, message: parsedResults.error.issues[0].message };
   const { user, password } = parsedResults.data;
-  const client = await clientPromise;
-  const db = client.db(process.env.MONGO_URL);
   try {
-    const userdb = await db.collection("Users").findOne({
-      email: user,
-    });
-    if (!user)
-      return {
-        success: false,
-        message: "El usuario y/o contraseña no coinciden",
-      };
-    if (password !== userdb?.password)
-      return {
-        success: false,
-        message: "El usuario y/o contraseña no coinciden",
-      };
-    const data = { role: userdb.role, user: userdb.name };
-    const token = await new SignJWT(data)
+    const {data} = await axios.post("http://localhost:3000/api/login", {user,password})
+    if(!data.success) return {success:false, message:data.message}
+    const info = { role: data.user.role, user: data.user.name };
+    const token = await new SignJWT(info)
       .setProtectedHeader({ alg: "HS256" })
       .setExpirationTime("3h")
       .sign(secretKey);
@@ -40,12 +26,17 @@ export const loginUser = async (values: LoginFormValues) => {
       sameSite: "strict",
       path: "/",
     });
-
     return {
-      success: true,
-      message: "Sesión iniciada con exito",
+      success: data.success,
+      message: data.message,
     };
   } catch (error) {
+    if(error instanceof AxiosError){
+      return {
+        success:false,
+        message: error.message
+      }
+    }
     console.log(error);
     return {
       success: false,

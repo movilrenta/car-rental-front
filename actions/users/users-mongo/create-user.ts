@@ -1,8 +1,7 @@
 "use server"
 
-import clientPromise from "@/lib/mongodb";
 import { getUserInformation } from "@/actions/auth/getUser";
-import { UserFormValues, userSchema } from "@/components/schemas"
+import { UserFormValues } from "@/components/schemas"
 import getAuthorized from "@/components/utils/get-authorized";
 import { RESPONSE } from "@/constant/handler-actions";
 import { buildResponse } from "@/utils/build-response";
