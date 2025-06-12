@@ -4,17 +4,16 @@ import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { LoaderIcon } from "lucide-react";
-
 import { Button } from "../ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/form";
+import { Switch } from "@/components/ui/switch";
 import { Input } from "../input";
 import { UserFormValues, userSchema } from "../schemas";
 import {
@@ -28,7 +27,7 @@ import { InputTogglePassword } from "../ui/input-toggle-password";
 
 interface UserFromProps {
   initialValues?: UserFormValues;
-  onSubmit: (values: UserFormValues) => Promise<void>;
+  onSubmit?: (values: UserFormValues) => Promise<void>;
   isEditing?: boolean;
 }
 export const UserForm = ({
@@ -42,22 +41,14 @@ export const UserForm = ({
       name: "",
       email: "",
       password: "",
+      isBloqued: false,
       roles: "vendedor",
     },
   });
 
-  React.useEffect(() => {
-    if (initialValues) {
-      form.reset(initialValues);
-    }
-  }, [initialValues]);
-
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-4"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit!)} className="space-y-4">
         <FormField
           control={form.control}
           name="name"
@@ -75,7 +66,7 @@ export const UserForm = ({
           control={form.control}
           name="email"
           render={({ field }) => (
-            <FormItem className="col-span-1">
+            <FormItem className={`col-span-1 ${isEditing ? "hidden" : ""}`}>
               <FormLabel>Correo Electrónico</FormLabel>
               <FormControl>
                 <Input
@@ -96,11 +87,11 @@ export const UserForm = ({
             <FormItem className={`col-span-1 ${isEditing ? "hidden" : ""}`}>
               <FormLabel>Contraseña</FormLabel>
               <FormControl>
-                <InputTogglePassword field={field}/>
+                <InputTogglePassword field={field} />
               </FormControl>
-              <FormDescription className="text-xs">
+              {/* <FormDescription className="text-xs">
                 La contraseña debe tener al menos 8 caracteres
-              </FormDescription>
+              </FormDescription> */}
               <FormMessage className="text-red-600" />
             </FormItem>
           )}
@@ -127,8 +118,30 @@ export const UserForm = ({
             </FormItem>
           )}
         />
+        <FormField
+          control={form.control}
+          name="isBloqued"
+          render={({ field }) => (
+            <FormItem className={`${!isEditing ? "hidden" : "flex"} flex-row items-center justify-between rounded-lg border p-4 shadow-sm`}>
+              <div className="space-y-0.5">
+                <FormLabel>Bloquear Usuario</FormLabel>
+                {/* <FormDescription>
+                  Activá para bloquear el acceso del usuario.
+                </FormDescription> */}
+              </div>
+              <FormControl>
+                <Switch
+                className="data-[state=checked]:bg-red-600/60 border border-gray-400"
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <Button
-          onClick={form.handleSubmit(onSubmit)}
+          onClick={form.handleSubmit(onSubmit!)}
           variant="default"
           disabled={form.formState.isSubmitting}
           className="min-w-24 w-fit px-6 py-2 bg-red-700 text-white hover:bg-red-800 duration-200"

@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 export const userSchema = z.object({
+  _id:z.string().optional(),
   id:z.string().optional(),
   name: z.string().min(3, "El nombre debe tener al menos 3 caracteres").trim(),
   email: z.string().email("El correo electrónico no es válido").trim(),
@@ -14,8 +15,8 @@ export const userSchema = z.object({
     )
     .refine(
       (val) => /[a-z]/.test(val),
-      "La contraseña debe tener al menos una letra minúscula"
-    ).refine(
+      "La contraseña debe tener al menos una letra minúscula")
+    .refine(
       (val) => /[0-9]/.test(val),
       "La contraseña debe tener al menos un número"
     ),

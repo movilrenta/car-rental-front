@@ -8,18 +8,8 @@ export const loginSchema = z.object({
     .string()
     .min(8, {
       message:
-        "La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número",
+        "La contraseña debe tener al menos 8 caracteres",
     })
-    .refine(
-      (val) => /[A-Z]/.test(val),
-      "La contraseña debe tener al menos una letra mayúscula"
-    )
-    .refine(
-      (val) => /[a-z]/.test(val),
-      "La contraseña debe tener al menos una letra minúscula"
-    )
-    .refine(
-      (val) => /[0-9]/.test(val),
-      "La contraseña debe tener al menos un número"
-    ),
 });
+
+export type LoginFormValues = z.infer<typeof loginSchema>;

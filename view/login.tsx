@@ -7,11 +7,11 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Input } from '@/components/input';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/form'
 //import AuthImage from '@/app/[locale]/(auth)/auth-image'
-import { login } from '@/actions/auth/login'
 import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
 import { useAuthstore } from '@/stores/auth-store/login.store'
 import { InputTogglePassword } from '@/components/ui/input-toggle-password'
+import { loginUser } from '@/actions/users/users-mongo/login-user'
 
 
 export const Login = () => {
@@ -28,15 +28,15 @@ export const Login = () => {
 
   async function onSubmit(values: z.infer<typeof loginSchema>) {
     try {
-      const resp = await login(values)
-      if(resp.ok){
+      const resp = await loginUser(values)
+      if(resp.success){
         toast({
           variant: "default",
           title:`${resp.message}`
         })
         isLogin()
         form.reset()
-        router.push("/admin")
+        router.push('/admin')
       }else{
         toast({
           variant:"default",
@@ -83,7 +83,7 @@ export const Login = () => {
                     <FormLabel className="block text-sm font-medium mb-1 text-gray-800 dark:text-gray-100">Contraseña</FormLabel>
                     <FormControl>
                       {/* <Input type='password' placeholder="usuario123" className="form-input w-full" maxLength={15} {...field} /> */}
-                      <InputTogglePassword field={field} placeholder='usuario123' className='form-input w-full' maxLength={15}/>
+                      <InputTogglePassword field={field} placeholder='usuario123' className='form-input w-full' maxLength={35}/>
                     </FormControl>
                     <FormMessage />
                   </FormItem>

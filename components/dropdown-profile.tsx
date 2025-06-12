@@ -7,6 +7,7 @@ import { Button } from './ui/button'
 import { logout } from '@/actions'
 import { useToast } from '@/hooks/use-toast'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 export default function DropdownProfile({ align, user, role }: {
   align?: 'left' | 'right',
@@ -54,17 +55,16 @@ export default function DropdownProfile({ align, user, role }: {
           <div className="text-xs text-gray-500 dark:text-gray-400 italic capitalize">{role}</div>
         </div>
         <MenuItems as="ul" className="focus:outline-none">
-          {/* <MenuItem as="li">
-            {({ active }) => (
-              <Link className={`font-medium text-sm flex items-center py-1 px-3 ${active ? 'text-violet-600 dark:text-violet-400' : 'text-violet-500'}`} href="#0">
-                Settings
-              </Link>
-            )}
-          </MenuItem> */}
+          <MenuItem as="li">
+            <Link className={`font-medium text-sm flex items-center pt-2 pb-3 px-3 border-b border-b-gray-200 dark:border-gray-700/60 hover:text-black dark:hover:text-white`} href="/admin/change-password">
+              Cambiar contraseña
+            </Link>
+          </MenuItem>
+
           <MenuItem as="li">
             <Button 
             onClick={handleLogOut}
-            className={`w-full text-start font-medium text-sm flex items-start py-1 px-3 text-violet-600 dark:text-violet-400 border-none shadow-none`}>
+            className={`w-full border-t text-start font-medium text-sm flex items-start pt-3 pb-1 px-3 text-violet-600 dark:text-violet-400 hover:text-violet-900 dark:hover:text-violet-200 border-none shadow-none`}>
               Desconectarse
             </Button>
           </MenuItem>
