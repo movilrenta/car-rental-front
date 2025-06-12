@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { createUpdateUser } from "@/actions";
 import {
   Sheet,
   SheetContent,
@@ -38,8 +37,6 @@ export const SheetFormUser = ({ user, open, onOpenChange }: SheetProps) => {
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      {/* <SheetTrigger asChild>
-      </SheetTrigger> */}
       <SheetContent>
         <SheetHeader className="mb-5">
           <SheetTitle>
@@ -70,9 +67,8 @@ export const SheetFormUser = ({ user, open, onOpenChange }: SheetProps) => {
                 });
               }
             } else {
-             
               const resp = await updateUser(values);
-              if (resp.status === 201) {
+              if (resp.status === 200) {
                 toast({
                   variant: "default",
                   title: resp.message,

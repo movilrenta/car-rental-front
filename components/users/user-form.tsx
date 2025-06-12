@@ -4,12 +4,10 @@ import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { LoaderIcon } from "lucide-react";
-
 import { Button } from "../ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -29,7 +27,7 @@ import { InputTogglePassword } from "../ui/input-toggle-password";
 
 interface UserFromProps {
   initialValues?: UserFormValues;
-  onSubmit: (values: UserFormValues) => Promise<void>;
+  onSubmit?: (values: UserFormValues) => Promise<void>;
   isEditing?: boolean;
 }
 export const UserForm = ({
@@ -48,15 +46,9 @@ export const UserForm = ({
     },
   });
 
-  React.useEffect(() => {
-    if (initialValues) {
-      form.reset(initialValues);
-    }
-  }, [initialValues]);
-
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      <form onSubmit={form.handleSubmit(onSubmit!)} className="space-y-4">
         <FormField
           control={form.control}
           name="name"
@@ -97,9 +89,9 @@ export const UserForm = ({
               <FormControl>
                 <InputTogglePassword field={field} />
               </FormControl>
-              <FormDescription className="text-xs">
+              {/* <FormDescription className="text-xs">
                 La contraseña debe tener al menos 8 caracteres
-              </FormDescription>
+              </FormDescription> */}
               <FormMessage className="text-red-600" />
             </FormItem>
           )}
@@ -130,9 +122,9 @@ export const UserForm = ({
           control={form.control}
           name="isBloqued"
           render={({ field }) => (
-            <FormItem className={`${!isEditing ? "hidden" : ""} flex flex-row items-center justify-between rounded-lg border p-4 shadow-sm`}>
+            <FormItem className={`${!isEditing ? "hidden" : "flex"} flex-row items-center justify-between rounded-lg border p-4 shadow-sm`}>
               <div className="space-y-0.5">
-                <FormLabel>{field.value? "Desbloquear usuario" : "Bloquear usuario"}</FormLabel>
+                <FormLabel>Bloquear Usuario</FormLabel>
                 {/* <FormDescription>
                   Activá para bloquear el acceso del usuario.
                 </FormDescription> */}
@@ -149,7 +141,7 @@ export const UserForm = ({
           )}
         />
         <Button
-          onClick={form.handleSubmit(onSubmit)}
+          onClick={form.handleSubmit(onSubmit!)}
           variant="default"
           disabled={form.formState.isSubmitting}
           className="min-w-24 w-fit px-6 py-2 bg-red-700 text-white hover:bg-red-800 duration-200"

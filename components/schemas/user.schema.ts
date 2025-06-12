@@ -12,14 +12,14 @@ export const userSchema = z.object({
     .refine(
       (val) => /[A-Z]/.test(val),
       "La contraseña debe tener al menos una letra mayúscula"
+    )
+    .refine(
+      (val) => /[a-z]/.test(val),
+      "La contraseña debe tener al menos una letra minúscula")
+    .refine(
+      (val) => /[0-9]/.test(val),
+      "La contraseña debe tener al menos un número"
     ),
-    // .refine(
-    //   (val) => /[a-z]/.test(val),
-    //   "La contraseña debe tener al menos una letra minúscula"),
-    // ).refine(
-    //   (val) => /[0-9]/.test(val),
-    //   "La contraseña debe tener al menos un número"
-    // ),
   roles: z.enum(["vendedor", "auditor", "admin", "superadmin" ], {required_error: "El rol es obligatorio"}),
   isBloqued: z.boolean().default(false)
 });

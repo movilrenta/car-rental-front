@@ -9,8 +9,8 @@ export async function GET() {
     const db = client.db("MovilRenta");
     const collection = db.collection("Users");
     const users = await collection.find({}).toArray();
-    const usersToShow = users.filter((user) => user?.role !== "supseradmin");
-    return NextResponse.json(usersToShow);
+    //const usersToShow = users.filter((user) => user?.role !== "supseradmin");
+    return NextResponse.json(users);
   } catch (e) {
     console.log(e)
     return NextResponse.json(
@@ -51,7 +51,7 @@ export async function PATCH(user: any) {
     const client = await clientPromise;
     const db = client.db("MovilRenta");
     const collection = db.collection("Users");
-    const { _id, id, name, email, password, roles, isBloqued} = userBody;
+    const { _id, name, email, password, roles, isBloqued} = userBody;
     const updatedUser = await collection.findOneAndUpdate(
       {_id: new ObjectId(_id)},
       {$set: {name, email, password, role: roles, isBloqued}}
