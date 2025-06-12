@@ -10,9 +10,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/table";
-import { User, 
-  UserRole 
-} from "@/types";
+import { User } from "@/types";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 import { SheetFormUser } from "./SheetFormUser";
 import { Button } from "@/components/ui/button";
@@ -26,7 +24,6 @@ type Sortkey = "name" | "email" | "role";
 type SortDirection = "asc" | "desc";
 
 export const TableUsers = ({ users }: TableProps) => {
-  console.log(users, "desde table")
   const [sortKey, setSortKey] = React.useState<Sortkey>("name");
   const [sortDirection, setSortDirection] = React.useState<SortDirection>("asc");
   const [openSheet, setOpenSheet] = React.useState<boolean>(false);
@@ -63,7 +60,7 @@ export const TableUsers = ({ users }: TableProps) => {
   });
 
   //TODO: Por si agregamos mas condiciones para mostrar o no usuarios
-  const visibleUsers = sortedUsers?.filter((user) => user.role !== "superadmin") //<-- TODO CORREGIR ESTO
+  const visibleUsers = sortedUsers?.filter((user) => user.role !== "superadmin");
 
   return (
     <div className="space-y-7 mt-6 md:mt-8">
@@ -95,9 +92,6 @@ export const TableUsers = ({ users }: TableProps) => {
               }
             </TableCell>
             <TableCell className="text-right pointer-events-none" onClick={(e) => e.stopPropagation()}>
-              {/* <Button type="button" className="border p-1 pointer-events-auto" onClick={(e) => {
-              e.stopPropagation()
-              console.log('click')}}>Reset Password</Button> */}
               <ResetPassword user={user}/>
               </TableCell>
           </TableRow>

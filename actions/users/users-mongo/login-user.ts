@@ -5,6 +5,8 @@ import axios, { AxiosError } from "axios";
 import { SignJWT } from "jose";
 import { cookies } from "next/headers";
 
+const URL = process.env.NEXT_PUBLIC_URL_MOVILRENTA;
+
 export const loginUser = async (values: LoginFormValues) => {
   const secretKey = new TextEncoder().encode(process.env.JWT_SECRET_KEY);
   const parsedResults = loginSchema.safeParse(values);
@@ -12,9 +14,9 @@ export const loginUser = async (values: LoginFormValues) => {
     return { success: false, message: parsedResults.error.issues[0].message };
   const { user, password } = parsedResults.data;
   try {
-    const {data} = await axios.post("http://localhost:3000/api/login", {user,password})
+    const {data} = await axios.post(`${URL}api/login`, {user,password})
     if(!data.success) return {success:false, message:data.message}
-    const info = { role: data.user.role, user: data.user.name };
+    const info = { role: data.user.role, user: data.user.name, _id:data.user._id};
     const token = await new SignJWT(info)
       .setProtectedHeader({ alg: "HS256" })
       .setExpirationTime("3h")

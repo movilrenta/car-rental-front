@@ -74,47 +74,6 @@ export const RESPONSE = {
   FECHAS: generateCrudResponses('Fecha'),
   GROUPS: generateCrudResponses('Grupo'),
   RESERVATION: generateCrudResponses('Reserva'),
-  USER: generateCrudResponses('Usuario')
+  USER: generateCrudResponses('Usuario'),
+  PASSWORD: generateCrudResponses('Contraseña')
 };
-
-//return Response.json(RESPONSE.FECHAS.POST.SUCCESS);
-
-
-// export const RESPONSE = {
-//   UNAUTHORIZED: {
-//     mesage: 'No autorizado',
-//     code: STATUS.UNAUTHORIZED
-//   },
-//   FECHAS: {
-//     POST: {
-//       SUCCESS: {
-//         mesage: "Fecha creada",
-//         code: 201
-//       },
-//       ERROR: {
-//         mesage: "Error al crear fecha",
-//         code: 400
-//       },
-//     },
-//     PUT: {
-//       SUCCESS: {
-//         mesage: "Fecha actualizada",
-//         code: 200
-//       },
-//       ERROR: {
-//         mesage: "Error al actualizar fecha",
-//         code: 400
-//       }
-//     },
-//     DELETE: {
-//       SUCCESS: {
-//         mesage: "Fecha eliminada",
-//         code: 200
-//       },
-//       ERROR: {
-//         mesage: "Error al eliminar fecha",
-//         code: 400
-//       }
-//     },
-//   }
-// }

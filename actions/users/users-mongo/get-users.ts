@@ -1,10 +1,12 @@
 "use server"
-import { buildResponse } from "@/utils/build-response";
+
 import axios from "axios";
+
+const URL = process.env.NEXT_PUBLIC_URL_MOVILRENTA;
 
 export const getUsers = async () => {
   try {
-    const res = await axios.get("http://localhost:3000/api/users-mongo")
+    const res = await axios.get(`${URL}api/users-mongo`)
     //console.log(res.data);
     return res.data
   } catch (error) {

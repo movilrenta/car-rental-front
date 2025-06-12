@@ -130,7 +130,7 @@ export const UserForm = ({
           control={form.control}
           name="isBloqued"
           render={({ field }) => (
-            <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4 shadow-sm">
+            <FormItem className={`${!isEditing ? "hidden" : ""} flex flex-row items-center justify-between rounded-lg border p-4 shadow-sm`}>
               <div className="space-y-0.5">
                 <FormLabel>{field.value? "Desbloquear usuario" : "Bloquear usuario"}</FormLabel>
                 {/* <FormDescription>

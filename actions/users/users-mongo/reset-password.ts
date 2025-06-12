@@ -6,17 +6,19 @@ import { RESPONSE } from "@/constant/handler-actions";
 import { buildResponse } from "@/utils/build-response";
 import axios from "axios";
 
+const URL = process.env.NEXT_PUBLIC_URL_MOVILRENTA;
+
 export const resetPassword = async (values: {
   _id: string;
   password: string;
 }) => {
-  console.log(values, "desde resetAction")
+  
   const { role } = await getUserInformation();
   const authorized = getAuthorized(role, "crearUsuarios");
   if (!authorized) return buildResponse(RESPONSE.UNAUTHORIZED);
   try {
     const { data } = await axios.patch(
-      "http://localhost:3000/api/reestart-password/",
+      `${URL}api/reestart-password/`,
       values
     );
     if (!data.success) {
