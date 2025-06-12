@@ -65,7 +65,7 @@ const ROL_AUTHORIZED: Record<Location, Record<UserRole, boolean>> = {
   },
   crearUsuarios: {
     superadmin: true,//TODO PASAR A TRUE
-    admin: false,
+    admin: true,
     auditor: false,
     vendedor: false,
   },
