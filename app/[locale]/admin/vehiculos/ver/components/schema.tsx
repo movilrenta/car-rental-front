@@ -12,7 +12,7 @@ export const VehycleFormSchema = z.object({
   fuel_type: z.string().min(1, "Tipo de combustible requerido").trim(),
   vehicle_type: z.string().min(1, "Tipo de vehículo requerido").trim(),
   branch_id: z.string().trim(),
-  image: z.string().trim().optional(),
+  image: z.string().trim(),
   description: z.string().trim().optional(),
   plate: z.string().trim().optional()
 });
